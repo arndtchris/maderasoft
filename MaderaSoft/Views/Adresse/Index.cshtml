@@ -1,0 +1,12 @@
+﻿@using MaderaSoft.Models
+@model IEnumerable<MaderaSoft.Models.AdresseModel>
+    @{
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+
+@foreach (AdresseModel adresse in Model)
+{
+    <p>@adresse.numRue @adresse.nomRue </p>
+    <p>@adresse.codePostal @adresse.ville</p>
+    <p>@adresse.pays</p>
+}
