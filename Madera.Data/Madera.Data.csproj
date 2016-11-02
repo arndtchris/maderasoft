@@ -123,10 +123,12 @@
     <Compile Include="Infrastructure\IDbFactory.cs" />
     <Compile Include="Infrastructure\IRepository.cs" />
     <Compile Include="Infrastructure\IUnitOfWork.cs" />
+    <Compile Include="Infrastructure\RepositoryBase.cs" />
     <Compile Include="Infrastructure\UnitOfWork.cs" />
     <Compile Include="MaderaEntities.cs" />
     <Compile Include="MaderaSeeder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\AdresseRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Madera.Models\Madera.Model.csproj">

@@ -106,12 +106,21 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="scripts\ai.0.22.19-build00125.js" />
-    <Content Include="scripts\ai.0.22.19-build00125.min.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdresseService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Madera.Data\Madera.Data.csproj">
+      <Project>{1f10b54c-7632-4e75-a06c-b10348b82a48}</Project>
+      <Name>Madera.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Madera.Models\Madera.Model.csproj">
+      <Project>{f0f92c4c-ab34-48de-a251-feb0188b5498}</Project>
+      <Name>Madera.Model</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
