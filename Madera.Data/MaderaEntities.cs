@@ -10,7 +10,7 @@ namespace Madera.Data
 {
     public class MaderaEntities : DbContext
     {
-        public MaderaEntities() : base("Madera") { }
+        public MaderaEntities() : base("MaderaEntities") { }
 
         public DbSet<Adresse> Adresses { get; set; }
 
