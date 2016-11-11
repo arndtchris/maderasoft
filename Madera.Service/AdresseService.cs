@@ -44,6 +44,11 @@ namespace Madera.Service
         {
             adresseRepository.Update(adresse);
         }
+
+        public void saveAdresse()
+        {
+            unitOfWork.Commit();
+        }
     }
 
     //Définition des méthodes qui seront accessibles depuis la couche de présentation
@@ -55,5 +60,6 @@ namespace Madera.Service
         Adresse GetAdresse(int id);
         void CreateAdresse(Adresse adresse);
         void UpdateAdresse(Adresse adresse);
+        void saveAdresse();
     }
 }
