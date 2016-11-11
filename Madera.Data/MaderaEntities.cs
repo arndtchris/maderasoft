@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Web;
 using Madera.Data.Configuration;
@@ -16,7 +17,31 @@ namespace Madera.Data
 
         public virtual void Commit()
         {
-            base.SaveChanges();
+            this.SaveChanges();
+        }
+
+        public override int SaveChanges()
+        {
+            try
+            {
+                return base.SaveChanges();
+            }
+            catch (DbEntityValidationException ex)
+            {
+                // On récupère l'ensemble des erreurs
+                var errorMessages = ex.EntityValidationErrors
+                        .SelectMany(x => x.ValidationErrors)
+                        .Select(x => x.ErrorMessage);
+
+                // On concatène la liste d'erreur en un seul String où les différentes erreurs sont séparées par un ;
+                var fullErrorMessage = string.Join("; ", errorMessages);
+
+                // On concatène le message d'erreur initial avec le détail
+                var exceptionMessage = string.Concat(ex.Message, " Erreurs de validation : ", fullErrorMessage);
+
+                // On lève l'exception
+                throw new DbEntityValidationException(exceptionMessage, ex.EntityValidationErrors);
+            }
         }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
