@@ -1,10 +1,37 @@
 ﻿@using MaderaSoft.Models
-@model IEnumerable<MaderaSoft.Models.AdresseModel>
+@model AdresseViewModel
     @{
         Layout = "~/Views/Shared/_Layout.cshtml";
     }
 
-@foreach (AdresseModel adresse in Model)
+@using (Html.BeginForm("Edit", "Adresse", FormMethod.Post,
+                                                    new { enctype = "multipart/form-data", @class = "form-inline" }))
+{@Html.HiddenFor(m => m.nouvelleAdresse.AdresseID)
+    <div class="form-group">
+        <label class="sr-only" for="numRue">Numéro de rue</label>
+        <input type="text" class="form-control" name="numRue" placeholder="numéro de la rue">
+    </div>
+                        <div class="form-group">
+                            <label class="sr-only" for="nomRue">Nom de la rue</label>
+                            <input type="text" class="form-control" name="nomRue" placeholder="nom de la rue">
+                        </div>
+                        <div class="form-group">
+                            <label class="sr-only" for="codePostal">Code postal</label>
+                            <input type="text" class="form-control" name="codePostal" placeholder="code postal">
+                        </div>
+                        <div class="form-group">
+                            <label class="sr-only" for="ville">Ville</label>
+                            <input type="text" class="form-control" name="ville" placeholder="ville">
+                        </div>
+                        <div class="form-group">
+                            <label class="sr-only" for="pays">Pays</label>
+                            <input type="text" class="form-control" name="pays" placeholder="pays">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Enregistrer</button>
+}
+
+
+@foreach (AdresseDTO adresse in Model.lesAdresses)
 {
     <p>@adresse.numRue @adresse.nomRue </p>
     <p>@adresse.codePostal @adresse.ville</p>
