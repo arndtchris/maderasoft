@@ -10,6 +10,12 @@ namespace MaderaSoft.Mapping
 {
     public class DomainToViewModelMappingProfile : Profile
     {
+        /*
+         * Permet d'établir les correspondances entre les Plain Object (représentant direct d'une table en bdd) 
+         * et les DTOs de la couche métier
+         * 
+         */ 
+
         public override string ProfileName
         {
             get { return "DomainToViewModelMappings"; }
@@ -17,7 +23,7 @@ namespace MaderaSoft.Mapping
 
         protected override void Configure()
         {
-            CreateMap<Adresse, AdresseModel>();
+            CreateMap<Adresse, AdresseDTO>();
         }
     }
 }
