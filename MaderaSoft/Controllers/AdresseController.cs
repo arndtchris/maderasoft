@@ -36,7 +36,16 @@ namespace MaderaSoft.Controllers
             /*
              * Pour transporter un minimum d'informationon récupère directement un model allégé (DTO) au lieu d'un Plain Object 
              */ 
-            modelOut.lesAdresses = Mapper.Map<List<Adresse>, List<AdresseDTO>>(adresseService.GetAdresses().ToList());
+            List<AdresseDTO> lesAdresses = Mapper.Map<List<Adresse>, List<AdresseDTO>>(adresseService.GetAdresses().ToList());
+
+            //On initialise le première ligne du tableau qui permettra d'en construire l'entête
+            modelOut.tableauAdresses.lesLignes.Add(new List<string> { "Rue", "Ville", "Code postal", "Pays",""});
+
+            //On rempli ensuite les autres lignes avec les données correspondantes
+            foreach (AdresseDTO adresseDTO in lesAdresses)
+            {
+                modelOut.tableauAdresses.lesLignes.Add(new List<string> {String.Format(adresseDTO.numRue + " " + adresseDTO.nomRue), adresseDTO.ville, adresseDTO.codePostal,adresseDTO.pays,adresseDTO.AdresseID.ToString()});
+            }
 
             return View(modelOut);
         }
