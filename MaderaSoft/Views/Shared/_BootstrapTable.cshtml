@@ -1,0 +1,25 @@
+﻿
+@using MaderaSoft.Models
+@model MaderaSoft.Models.Bootstrap.BootstrapTableModel
+    
+<table class="table table-hover">
+    <thead>
+    <tr>
+        @for (int i = 0; i < Model.lesLignes[0].Count; i++)
+        {
+            @Html.Raw(String.Format("<th>" + Model.lesLignes[0][i] + "</th>"));
+        }
+    </tr>
+    </thead>
+    <tbody>
+        @for (int j = 1; j < Model.lesLignes.Count; j++)
+        {
+            @Html.Raw("<tr>");
+            for (int k = 0; k < Model.lesLignes[j].Count; k++)
+            {
+                @Html.Raw(String.Format("<td class=\"table-text\">" + Model.lesLignes[j][k]));
+            }
+            @Html.Raw("</tr>");
+        }
+    </tbody>
+</table>
