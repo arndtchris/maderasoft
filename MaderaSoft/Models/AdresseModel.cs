@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using MaderaSoft.Models.Bootstrap;
 
 namespace MaderaSoft.Models
 {
@@ -22,13 +23,15 @@ namespace MaderaSoft.Models
 
     public class AdresseViewModel
     {
-        public List<AdresseDTO> lesAdresses { get; set; }
+
+        public BootstrapTableModel tableauAdresses { get; set; }
+
         public AdresseDTO nouvelleAdresse { get; set; }
 
         public AdresseViewModel()
         {
-            lesAdresses = new List<AdresseDTO>();
             nouvelleAdresse = new AdresseDTO();
+            tableauAdresses = new BootstrapTableModel();
         }
     }
 }
