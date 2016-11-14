@@ -7,6 +7,7 @@ using AutoMapper;
 using Madera.Model;
 using Madera.Service;
 using MaderaSoft.Models;
+using MaderaSoft.Models.Bootstrap;
 
 namespace MaderaSoft.Controllers
 {
@@ -16,7 +17,7 @@ namespace MaderaSoft.Controllers
          * Toute la logique métier doit être centralisée dans la couche Service
          * Un controller doit se contenter d'appeler les différentes fonctions dont il a besoin depuis la couche service
          * Dans certains cas, des traitements peuvent être réalisée selon a complexité de l'affichage à réaliser
-         * Ex : si un Model combine plusieurs objets métiers.
+         * Ex : si un Model combine plusieurs objets de types différents.
          */
 
 
@@ -32,6 +33,7 @@ namespace MaderaSoft.Controllers
         public ActionResult Index()
         {
             AdresseViewModel modelOut = new AdresseViewModel();
+            modelOut.tableauAdresses.typeObjet = "Adresse";
 
             /*
              * Pour transporter un minimum d'informationon récupère directement un model allégé (DTO) au lieu d'un Plain Object 
@@ -48,6 +50,24 @@ namespace MaderaSoft.Controllers
             }
 
             return View(modelOut);
+        }
+
+        //GET : renvoit un formulaire permettant de mofifier l'adresse correspondante à l'ID reçu
+        [HttpGet]
+        public ActionResult EditModal(int? id)
+        {
+            BootstrapModalModel modelOut = new BootstrapModalModel();
+
+            if(id.HasValue)//Si on id est transmis on reprend les valeurs de l'adresse correspondante
+                modelOut.objet = Mapper.Map<Adresse, AdresseDTO>(adresseService.GetAdresse(id.Value));
+            else//Sinon on instanci une nouvelle adresse
+                modelOut.objet =new AdresseDTO();
+
+            modelOut.formulaireUrl = "~/Views/Adresse/Edit.cshtml";
+            modelOut.titreModal = "Edition d'une adresse";
+
+            return PartialView("~/Views/Shared/_BootstrapModal.cshtml",modelOut);
+
         }
 
         //POST : créé ou met à jour une adresse
@@ -79,6 +99,26 @@ namespace MaderaSoft.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpGet]
+        public ActionResult DeleteModal(int id)
+        {
+            BootstrapModalModel modelOut = new BootstrapModalModel();
+            modelOut.typeObjet = "Adresse";
+            modelOut.formulaireUrl = "~/Views/Shared/_BootstrapDeleteModal.cshtml";
+            modelOut.titreModal = "Suppression d'un adresse";
+            modelOut.objet = new BootstrapDeleteModalModel { idToDelete = id, message = "Etes vous sûr de vouloir supprimer cette adresse ?"};
+
+            return PartialView("~/Views/Shared/_BootstrapModal.cshtml", modelOut);
+        }
+
+        [HttpPost]
+        public ActionResult Delete(int idToDelete)
+        {
+            adresseService.deleteAdresse(idToDelete);
+            adresseService.saveAdresse();
+
+            return RedirectToAction("Index");
+        }
 
     }
 }
