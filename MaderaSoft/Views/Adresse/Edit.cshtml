@@ -1,0 +1,25 @@
+﻿@model MaderaSoft.Models.AdresseDTO
+
+@using (Html.BeginForm("Edit", "Adresse", FormMethod.Post,
+                                                                new { enctype = "multipart/form-data", @class = "form-inline" }))
+{@Html.HiddenFor(m => m.AdresseID)
+    <div class="form-group">
+        @Html.TextBoxFor(m => Model.numRue, new { placeholder = "Numéro" })
+    </div>
+    <div class="form-group">
+        @Html.TextBoxFor(m => Model.nomRue, new { placeholder = "Nom" })
+    </div>
+    <div class="form-group">
+        @Html.TextBoxFor(m => Model.codePostal, new { placeholder = "Code postal" })
+    </div>
+    <div class="form-group">
+        @Html.TextBoxFor(m => Model.ville, new { placeholder = "Ville" })
+    </div>
+    <div class="form-group">
+        @Html.TextBoxFor(m => Model.pays, new { placeholder = "Pays" })
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+        <button type="submit" class="btn btn-success fa fa-check">Valider</button>
+    </div>
+}
