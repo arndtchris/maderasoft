@@ -1,0 +1,14 @@
+﻿@model MaderaSoft.Models.Bootstrap.BootstrapDeleteModalModel
+
+@using (Html.BeginForm("Delete", Model.typeObjet , FormMethod.Post,
+                                                                            new { enctype = "multipart/form-data", @class = "form-inline" }))
+{@Html.HiddenFor(m => m.idToDelete)
+
+    <p>@Model.message</p>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+        <button type="submit" class="btn btn-success fa fa-check">Valider</button>
+    </div>
+
+}
