@@ -33,7 +33,7 @@
         if (Model.avecActionCrud)
         {
             @Html.Raw("<td class=\"table-text\">");
-            @Html.Raw(String.Format("<a class=\"editModal btn btn-warning fa fa-pencil\" href=" + @Url.Action("EditModal", Model.typeObjet, new { id = Model.lesLignes[j][nbColonne] }) + "> Modifier</a>"));
+            @Html.Raw(String.Format("<a class=\"editModal btn btn-warning fa fa-pencil\" href=" + @Url.Action("EditModal", Model.typeObjet, new { id = Model.lesLignes[j][nbColonne] }) + "> Modifier</a> "));
             @Html.Raw(String.Format("<a class=\"editModal btn btn-danger fa fa-trash\" href=" + @Url.Action("DeleteModal", Model.typeObjet, new {id= Model.lesLignes[j][nbColonne] }) + "> Supprimer</a>"));        
             @Html.Raw("</td>");
         }
