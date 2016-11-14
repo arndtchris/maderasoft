@@ -49,6 +49,11 @@ namespace Madera.Service
         {
             unitOfWork.Commit();
         }
+
+        public void deleteAdresse(int id)
+        {
+            adresseRepository.Delete(this.GetAdresse(id));
+        }
     }
 
     //Définition des méthodes qui seront accessibles depuis la couche de présentation
@@ -61,5 +66,6 @@ namespace Madera.Service
         void CreateAdresse(Adresse adresse);
         void UpdateAdresse(Adresse adresse);
         void saveAdresse();
+        void deleteAdresse(int id);
     }
 }
