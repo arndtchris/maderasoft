@@ -5,6 +5,7 @@ using System.Web;
 using Madera.Data.Infrastructure;
 using Madera.Data.Repositories;
 using Madera.Model;
+using Vereyon.Web;
 
 namespace Madera.Service
 {
@@ -37,12 +38,32 @@ namespace Madera.Service
 
         public void CreateAdresse(Adresse adresse)
         {
-            adresseRepository.Insert(adresse);
+
+            try
+            {
+                FlashMessage.Confirmation("Adresse ajoutée avec succes");
+                adresseRepository.Insert(adresse);
+            }
+            catch (Exception e)
+            {
+                FlashMessage.Danger("Erreur lors de la sauvegarde");
+            }
+            
         }
 
         public void UpdateAdresse(Adresse adresse)
         {
-            adresseRepository.Update(adresse);
+            try
+            {
+                FlashMessage.Confirmation("Adresse mise à jour avec succes");
+                adresseRepository.Update(adresse);
+            }
+            catch (Exception)
+            {
+
+                FlashMessage.Danger("Erreur lors de la mise à jour");
+            }
+            
         }
 
         public void saveAdresse()
@@ -52,7 +73,17 @@ namespace Madera.Service
 
         public void deleteAdresse(int id)
         {
-            adresseRepository.Delete(this.GetAdresse(id));
+            try
+            {
+                FlashMessage.Confirmation("Suppression de l'adresse");
+                adresseRepository.Delete(this.GetAdresse(id));
+            }
+            catch (Exception)
+            {
+                FlashMessage.Danger("Erreur lors de la suppression de l'adresse");
+                throw;
+            }
+            
         }
     }
 
