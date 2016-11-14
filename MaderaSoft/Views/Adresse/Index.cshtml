@@ -5,30 +5,6 @@
         Layout = "~/Views/Shared/_Layout.cshtml";
     }
 
-@using (Html.BeginForm("Edit", "Adresse", FormMethod.Post,
-                                                    new { enctype = "multipart/form-data", @class = "form-inline" }))
-{@Html.HiddenFor(m => m.nouvelleAdresse.AdresseID)
-    <div class="form-group">
-        <label class="sr-only" for="numRue">Numéro de rue</label>
-        <input type="text" class="form-control" name="numRue" placeholder="numéro de la rue">
-    </div>
-                        <div class="form-group">
-                            <label class="sr-only" for="nomRue">Nom de la rue</label>
-                            <input type="text" class="form-control" name="nomRue" placeholder="nom de la rue">
-                        </div>
-                        <div class="form-group">
-                            <label class="sr-only" for="codePostal">Code postal</label>
-                            <input type="text" class="form-control" name="codePostal" placeholder="code postal">
-                        </div>
-                        <div class="form-group">
-                            <label class="sr-only" for="ville">Ville</label>
-                            <input type="text" class="form-control" name="ville" placeholder="ville">
-                        </div>
-                        <div class="form-group">
-                            <label class="sr-only" for="pays">Pays</label>
-                            <input type="text" class="form-control" name="pays" placeholder="pays">
-                        </div>
-                        <button type="submit" class="btn btn-primary">Enregistrer</button>
-}
+<a class="editModal btn btn-success fa fa-plus" href= @Url.Action("EditModal", "Adresse")> Ajouter une nouvelle adresse</a>
 
-@{ Html.RenderPartial("~/Views/Shared/_BootstrapTable.cshtml",Model.tableauAdresses);}
+@{ Html.RenderPartial("~/Views/Shared/_BootstrapTable.cshtml", Model.tableauAdresses);}
