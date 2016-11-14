@@ -12,14 +12,36 @@
     </tr>
     </thead>
     <tbody>
-        @for (int j = 1; j < Model.lesLignes.Count; j++)
+
+    @{
+        int nbColonne = Model.lesLignes[0].Count;
+
+        if (Model.avecActionCrud)
         {
-            @Html.Raw("<tr>");
-            for (int k = 0; k < Model.lesLignes[j].Count; k++)
-            {
-                @Html.Raw(String.Format("<td class=\"table-text\">" + Model.lesLignes[j][k]));
-            }
-            @Html.Raw("</tr>");
+            nbColonne -= 1;
         }
+
+    }
+    @for (int j = 1; j < Model.lesLignes.Count; j++)
+    {
+        @Html.Raw("<tr>");
+        for (int k = 0; k < nbColonne; k++)
+        {
+            @Html.Raw(String.Format("<td class=\"table-text\">" + Model.lesLignes[j][k]) + "</td>");
+        }
+
+        if (Model.avecActionCrud)
+        {
+            @Html.Raw("<td class=\"table-text\">");
+            @Html.Raw(String.Format("<a class=\"editModal btn btn-warning fa fa-pencil\" href=" + @Url.Action("EditModal", Model.typeObjet, new { id = Model.lesLignes[j][nbColonne] }) + "> Modifier</a>"));
+            @Html.Raw(String.Format("<a class=\"editModal btn btn-danger fa fa-trash\" href=" + @Url.Action("DeleteModal", Model.typeObjet, new {id= Model.lesLignes[j][nbColonne] }) + "> Supprimer</a>"));        
+            @Html.Raw("</td>");
+        }
+
+        @Html.Raw("</tr>");
+
+    }
+
+   
     </tbody>
 </table>
