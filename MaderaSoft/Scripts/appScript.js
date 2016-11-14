@@ -20,4 +20,6 @@
         $("#editModal .modal-content").html("");
     });
 
+    $(".alert").fadeOut(6000);
+
 });
