@@ -91,11 +91,11 @@ namespace MaderaSoft.Controllers
             //et la table Adresse, c'est ce qui est réalisé ici
             var adresseATraiter = Mapper.Map<AdresseDTO, Adresse>(modelIn);
 
-            if (adresseATraiter.AdresseID != 0)//si notre objet contient déjà un ID, il s'agit d'une mise à jour
+            if (adresseATraiter.AdresseID != 0) //si notre objet contient déjà un ID, il s'agit d'une mise à jour
             {
                 adresseService.UpdateAdresse(adresseATraiter);
             }
-            else//Si notre objet n'a pas d'ID, cela veut dire que nous devons créer une nouvelle adresse
+            else //Si notre objet n'a pas d'ID, cela veut dire que nous devons créer une nouvelle adresse
             {
                 //Une fois la correspondance effectuée, nous demandons au service adéquat de créer une nouvelle entrée
                 adresseService.CreateAdresse(adresseATraiter);
@@ -117,7 +117,7 @@ namespace MaderaSoft.Controllers
             BootstrapModalModel modelOut = new BootstrapModalModel();
             modelOut.typeObjet = "Adresse";
             modelOut.formulaireUrl = "~/Views/Shared/_BootstrapDeleteModal.cshtml";
-            modelOut.titreModal = "Suppression d'un adresse";
+            modelOut.titreModal = "Suppression d'une adresse";
             modelOut.objet = new BootstrapDeleteModalModel { idToDelete = id, message = "Etes vous sûr de vouloir supprimer cette adresse ?"};
 
             return PartialView("~/Views/Shared/_BootstrapModal.cshtml", modelOut);
