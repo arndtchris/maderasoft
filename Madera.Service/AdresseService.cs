@@ -14,28 +14,48 @@ namespace Madera.Service
         private readonly IAdresseRepository adresseRepository;
         private readonly IUnitOfWork unitOfWork;
 
+
         public AdresseService(IAdresseRepository adresseRepository, IUnitOfWork unitOfWork)
         {
             this.adresseRepository = adresseRepository;
             this.unitOfWork = unitOfWork;
         }
 
+        /// <summary>
+        /// Retourne toutes les adresses contenu en base de données
+        /// </summary>
+        /// <returns>IEnumerable<Adresse></returns>
         public IEnumerable<Adresse> GetAdresses()
         {
             return adresseRepository.GetAll();
         }
 
+        /// <summary>
+        /// Retourne une liste d'adresses correspondant au pays renseigné
+        /// </summary>
+        /// <param name="country"></param>
+        /// <returns>IEnumerable<Adresse></returns>
         public IEnumerable<Adresse> GetAdressesByCountry(string country)
         {
-            return adresseRepository.GetAll().Where(c => c.pays == country);
+            return adresseRepository.GetAll().Where(c => String.Equals(c.pays.ToUpper(), country.ToUpper()));
         }
 
+
+        /// <summary>
+        /// Retourne l'adresse correspondante à l'id renseignée
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>Adresse</returns>
         public Adresse GetAdresse(int id)
         {
             var adresse = adresseRepository.GetById(id);
             return adresse;
         }
 
+        /// <summary>
+        /// Insert une nouvelle adresse en base de données
+        /// </summary>
+        /// <param name="adresse"></param>
         public void CreateAdresse(Adresse adresse)
         {
 
@@ -51,6 +71,10 @@ namespace Madera.Service
             
         }
 
+        /// <summary>
+        /// Met à jour une adresse en base de données
+        /// </summary>
+        /// <param name="adresse"></param>
         public void UpdateAdresse(Adresse adresse)
         {
             try
@@ -71,6 +95,10 @@ namespace Madera.Service
             unitOfWork.Commit();
         }
 
+        /// <summary>
+        /// Supprime l'adresse correspondante à l'id renseigné
+        /// </summary>
+        /// <param name="id"></param>
         public void deleteAdresse(int id)
         {
             try
