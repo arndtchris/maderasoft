@@ -7,6 +7,7 @@
         })
         .done(function (data) {
             $("#editModal .modal-content").append(data);
+            $.validator.unobtrusive.parse("form");
             $("#editModal").modal("show");
         })
         .fail(function (data) {
@@ -21,5 +22,7 @@
     });
 
     $(".alert").fadeOut(6000);
+
+    $.validator.unobtrusive.parse("form");
 
 });
