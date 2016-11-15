@@ -74,6 +74,18 @@ namespace MaderaSoft.Controllers
         [HttpPost]
         public ActionResult Edit(AdresseDTO modelIn)
         {
+            //On vérifie la validité du model récupéré
+            //Si le modèle n'est pas valide, on renvoit la vue avec les données reçus
+            if (!ModelState.IsValid)
+            {
+                BootstrapModalModel modelOut = new BootstrapModalModel();
+                modelOut.objet = modelIn;
+                modelOut.formulaireUrl = "~/Views/Adresse/Edit.cshtml";
+                modelOut.titreModal = "Edition d'une adresse";
+
+                return PartialView("~/Views/Shared/_BootstrapModal.cshtml", modelOut);
+            }
+
             //Ici AdresseModel est un DTO (Data Transfert Object) qui contient les données saisies dans le formulaire
             //Pour pouvoir sauvegarder ces données, il faut établir une correspondance entre les attributs d'AdresseModel 
             //et la table Adresse, c'est ce qui est réalisé ici
