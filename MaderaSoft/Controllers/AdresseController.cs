@@ -8,6 +8,7 @@ using Madera.Model;
 using Madera.Service;
 using MaderaSoft.Models;
 using MaderaSoft.Models.Bootstrap;
+using Vereyon.Web;
 
 namespace MaderaSoft.Controllers
 {
@@ -93,19 +94,40 @@ namespace MaderaSoft.Controllers
 
             if (adresseATraiter.AdresseID != 0) //si notre objet contient déjà un ID, il s'agit d'une mise à jour
             {
-                adresseService.UpdateAdresse(adresseATraiter);
+                try
+                {
+                    FlashMessage.Confirmation("Adresse mise à jour avec succes");
+                    adresseService.UpdateAdresse(adresseATraiter);
+
+                    //Après avoir défini toutes les nouvelles entrées à réaliser en bdd, 
+                    //on demande au Pattern UnitOfWork de réaliser les transactions nécessaire pour assurer la persistence des données
+                    //En effet la méthode saveAdresse() appelle unitOfWork.Commit();
+                    adresseService.saveAdresse();
+                }
+                catch (Exception)
+                {
+
+                    FlashMessage.Danger("Erreur lors de la mise à jour");
+                }
             }
             else //Si notre objet n'a pas d'ID, cela veut dire que nous devons créer une nouvelle adresse
             {
                 //Une fois la correspondance effectuée, nous demandons au service adéquat de créer une nouvelle entrée
-                adresseService.CreateAdresse(adresseATraiter);
+                try
+                {
+                    FlashMessage.Confirmation("Adresse ajoutée avec succes");
+                    adresseService.CreateAdresse(adresseATraiter);
+
+                    //Après avoir défini toutes les nouvelles entrées à réaliser en bdd, 
+                    //on demande au Pattern UnitOfWork de réaliser les transactions nécessaire pour assurer la persistence des données
+                    //En effet la méthode saveAdresse() appelle unitOfWork.Commit();
+                    adresseService.saveAdresse();
+                }
+                catch (Exception e)
+                {
+                    FlashMessage.Danger("Erreur lors de la sauvegarde");
+                }
             }
-
-
-            //Après avoir défini toutes les nouvelles entrées à réaliser en bdd, 
-            //on demande au Pattern UnitOfWork de réaliser les transactions nécessaire pour assurer la persistence des données
-            //En effet la méthode saveAdresse() appelle unitOfWork.Commit();
-            adresseService.saveAdresse();
 
             //On met en place une redirection pour afficher de nouveau l'ensemble des adresses
             return RedirectToAction("Index");
@@ -126,8 +148,17 @@ namespace MaderaSoft.Controllers
         [HttpPost]
         public ActionResult Delete(int idToDelete)
         {
-            adresseService.deleteAdresse(idToDelete);
-            adresseService.saveAdresse();
+            try
+            {
+                FlashMessage.Confirmation("Suppression de l'adresse");
+                adresseService.deleteAdresse(idToDelete);
+                adresseService.saveAdresse();
+            }
+            catch (Exception)
+            {
+                FlashMessage.Danger("Erreur lors de la suppression de l'adresse");
+                throw;
+            }
 
             return RedirectToAction("Index");
         }
