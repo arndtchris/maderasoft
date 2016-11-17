@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Madera.Model", "Madera.Mode
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Madera.Service", "Madera.Service\Madera.Service.csproj", "{375AD3E9-49A6-454C-8007-FDDE6BE5722E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MaderaSoft.Tests", "MaderaSoft.Tests\MaderaSoft.Tests.csproj", "{B8411D56-85E6-46AC-961A-74A8435E91E0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{375AD3E9-49A6-454C-8007-FDDE6BE5722E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{375AD3E9-49A6-454C-8007-FDDE6BE5722E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{375AD3E9-49A6-454C-8007-FDDE6BE5722E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B8411D56-85E6-46AC-961A-74A8435E91E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B8411D56-85E6-46AC-961A-74A8435E91E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B8411D56-85E6-46AC-961A-74A8435E91E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B8411D56-85E6-46AC-961A-74A8435E91E0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

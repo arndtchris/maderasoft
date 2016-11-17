@@ -119,7 +119,6 @@
   <ItemGroup>
     <Compile Include="Configuration\AdresseConfiguration.cs" />
     <Compile Include="Configuration\AffectationServiceConfiguration.cs" />
-    <Compile Include="Configuration\ClientConfiguration.cs" />
     <Compile Include="Infrastructure\DbFactory.cs" />
     <Compile Include="Infrastructure\Disposable.cs" />
     <Compile Include="Infrastructure\IDbFactory.cs" />
@@ -131,6 +130,7 @@
     <Compile Include="MaderaSeeder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\AdresseRepository.cs" />
+    <Compile Include="Repositories\AffectationServiceRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Madera.Models\Madera.Model.csproj">

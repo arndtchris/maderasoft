@@ -14,6 +14,7 @@ namespace Madera.Data
         public MaderaEntities() : base("MaderaEntities") { }
 
         public DbSet<Adresse> Adresses { get; set; }
+        public DbSet<AffectationService> AffectationsServices { get; set; }
 
         public virtual void Commit()
         {
@@ -47,6 +48,7 @@ namespace Madera.Data
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Configurations.Add(new AdresseConfiguration());
+            modelBuilder.Configurations.Add(new AffectationServiceConfiguration());
         }
     }
 }
