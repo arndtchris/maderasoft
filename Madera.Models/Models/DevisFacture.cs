@@ -7,7 +7,7 @@ namespace Madera.Model
 {
     public class DevisFacture
     {
-        public int DevisFactureID { get; set; }
+        public int id { get; set; }
         public Boolean isSigned { get; set; }
         public Boolean isDeleted { get; set; }
         public virtual Projet projet { get; set; }
