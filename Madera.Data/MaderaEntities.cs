@@ -54,6 +54,7 @@ namespace Madera.Data
             modelBuilder.Configurations.Add(new DevisFactureConfiguration());
             modelBuilder.Configurations.Add(new DroitConfiguration());
             modelBuilder.Configurations.Add(new EmployeConfiguration());
+            modelBuilder.Configurations.Add(new EtabConfiguration());
         }
     }
 }
