@@ -50,6 +50,7 @@ namespace Madera.Data
             modelBuilder.Configurations.Add(new AdresseConfiguration());
             modelBuilder.Configurations.Add(new AffectationServiceConfiguration());
             modelBuilder.Configurations.Add(new ComposentConfiguration());
+            modelBuilder.Configurations.Add(new CompositionConfiguration());
         }
     }
 }
