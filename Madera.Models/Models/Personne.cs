@@ -10,9 +10,15 @@ namespace Madera.Model
         public int PersonneID { get; set; }
         public string nom { get; set; }
         public string prenom { get; set; }
-        public Boolean isMoral { get; set; }
+        public string email { get; set; }
+        public string tel1 { get; set; }
+        public string tel2 { get; set; }
+        public Boolean isFournisseur { get; set; }
+        public Boolean isClient { get; set; }
         public Boolean isDeleted { get; set; }
         public virtual Adresse adresse { get; set; }
+        public virtual Utilisateur utilisateur { get; set; }
+        public virtual Employe employe { get; set; }
 
         public Personne()
         {
