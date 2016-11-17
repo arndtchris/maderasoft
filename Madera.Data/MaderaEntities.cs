@@ -52,6 +52,7 @@ namespace Madera.Data
             modelBuilder.Configurations.Add(new ComposentConfiguration());
             modelBuilder.Configurations.Add(new CompositionConfiguration());
             modelBuilder.Configurations.Add(new DevisFactureConfiguration());
+            modelBuilder.Configurations.Add(new DroitConfiguration());
         }
     }
 }

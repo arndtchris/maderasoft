@@ -7,7 +7,7 @@ namespace Madera.Model
 {
     public class Droit
     {
-        public int DroitID { get; set; }
+        public int id { get; set; }
         public Boolean create { get; set; }
         public Boolean update { get; set; }
         public Boolean read { get; set; }
