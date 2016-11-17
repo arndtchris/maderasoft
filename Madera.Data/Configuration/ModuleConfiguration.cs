@@ -11,7 +11,7 @@ namespace Madera.Data.Configuration
     {
         public ModuleConfiguration()
         {
-            ToTable("Moule");
+            ToTable("Module");
             HasKey<int>(a => a.id);
             Property(a => a.libe).HasColumnType("varchar").HasMaxLength(150);
             Property(a => a.coupePrincipe).HasColumnType("varchar");

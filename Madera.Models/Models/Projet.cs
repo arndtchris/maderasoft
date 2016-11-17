@@ -14,7 +14,7 @@ namespace Madera.Model
         public bool isDeleted { get; set; }
         public bool isPaid { get; set; }
 
-        public virtual Client client { get; set; }
+        public virtual Personne client { get; set; }
         public virtual Adresse adresse { get; set; }
         public virtual Employe referent { get; set; }
 
