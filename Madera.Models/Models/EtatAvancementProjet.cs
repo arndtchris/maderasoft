@@ -7,7 +7,7 @@ namespace Madera.Model
 {
     public class EtatAvancementProjet
     {
-        public int EtatAvancementProjetID { get; set; }
+        public int id { get; set; }
         public string libe { get; set; }
         public double pourcentageADebloquer { get; set; }
 

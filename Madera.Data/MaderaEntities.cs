@@ -55,6 +55,7 @@ namespace Madera.Data
             modelBuilder.Configurations.Add(new DroitConfiguration());
             modelBuilder.Configurations.Add(new EmployeConfiguration());
             modelBuilder.Configurations.Add(new EtabConfiguration());
+            modelBuilder.Configurations.Add(new EtatAvancementProjetConfiguration());
         }
     }
 }
