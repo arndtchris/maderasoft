@@ -58,6 +58,7 @@ namespace Madera.Data
             modelBuilder.Configurations.Add(new EtatAvancementProjetConfiguration());
             modelBuilder.Configurations.Add(new GammeConfiguration());
             modelBuilder.Configurations.Add(new HistoriqueProjetConfiguration());
+            modelBuilder.Configurations.Add(new ModuleConfiguration());
         }
     }
 }
