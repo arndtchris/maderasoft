@@ -111,7 +111,6 @@
   <ItemGroup>
     <Compile Include="Models\Adresse.cs" />
     <Compile Include="Models\AffectationService.cs" />
-    <Compile Include="Models\Client.cs" />
     <Compile Include="Models\Composent.cs" />
     <Compile Include="Models\Composition.cs" />
     <Compile Include="Models\DevisFacture.cs" />
@@ -119,7 +118,6 @@
     <Compile Include="Models\Employe.cs" />
     <Compile Include="Models\Etab.cs" />
     <Compile Include="Models\EtatAvancementProjet.cs" />
-    <Compile Include="Models\Fournisseur.cs" />
     <Compile Include="Models\Gamme.cs" />
     <Compile Include="Models\HistoriqueProjet.cs" />
     <Compile Include="Models\Module.cs" />
@@ -130,6 +128,7 @@
     <Compile Include="Models\TEmploye.cs" />
     <Compile Include="Models\TEtab.cs" />
     <Compile Include="Models\TModule.cs" />
+    <Compile Include="Models\Utilisateur.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <PropertyGroup>
