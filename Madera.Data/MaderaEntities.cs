@@ -59,6 +59,7 @@ namespace Madera.Data
             modelBuilder.Configurations.Add(new GammeConfiguration());
             modelBuilder.Configurations.Add(new HistoriqueProjetConfiguration());
             modelBuilder.Configurations.Add(new ModuleConfiguration());
+            modelBuilder.Configurations.Add(new PersonneConfiguration());
         }
     }
 }
