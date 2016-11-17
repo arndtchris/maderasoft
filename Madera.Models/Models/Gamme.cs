@@ -7,7 +7,7 @@ namespace Madera.Model
 {
     public class Gamme
     {
-        public int GammeID { get; set; }
+        public int id { get; set; }
         public string libe { get; set; }
         public double pourcentageGamme { get; set; }
 
