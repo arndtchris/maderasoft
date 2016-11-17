@@ -7,9 +7,10 @@ namespace Madera.Model
 {
     public class HistoriqueProjet
     {
-        public int HistoriqueProjetID { get; set; }
+        public int id { get; set; }
         public virtual Projet projet { get; set; }
         public virtual EtatAvancementProjet avancementProjet { get; set; }
+        public DateTime date { get; set; }
 
         public HistoriqueProjet()
         {
