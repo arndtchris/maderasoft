@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace Madera.Models.Models
+namespace Madera.Model
 {
     /*
      * Cette table permet de tracer toutes les actions réalisées au sein de l'application

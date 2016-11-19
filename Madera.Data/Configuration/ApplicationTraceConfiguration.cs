@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Data.Entity.ModelConfiguration;
 using System.Linq;
 using System.Web;
-using Madera.Models.Models;
+using Madera.Model;
 
 namespace Madera.Data.Configuration
 {
