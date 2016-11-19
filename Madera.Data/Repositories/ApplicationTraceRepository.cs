@@ -11,6 +11,12 @@ namespace Madera.Data.Repositories
     {
         public ApplicationTraceRepository(IDbFactory dbFactory)
             : base(dbFactory) { }
+
+        public override void Insert(ApplicationTrace entity)
+        {
+            entity.date = DateTime.Now;
+            base.Insert(entity);
+        }
     }
 
     public interface IApplicationTraceRepository : IRepository<ApplicationTrace>
