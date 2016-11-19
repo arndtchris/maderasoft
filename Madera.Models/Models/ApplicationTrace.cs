@@ -28,5 +28,10 @@ namespace Madera.Models.Models
         public DateTime date { get; set; }
         public string action { get; set; }
         public string description { get; set; }
+
+        public ApplicationTrace()
+        {
+
+        }
     }
 }

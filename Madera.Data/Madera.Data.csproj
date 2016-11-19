@@ -119,6 +119,7 @@
   <ItemGroup>
     <Compile Include="Configuration\AdresseConfiguration.cs" />
     <Compile Include="Configuration\AffectationServiceConfiguration.cs" />
+    <Compile Include="Configuration\ApplicationTraceConfiguration.cs" />
     <Compile Include="Configuration\ComposentConfiguration.cs" />
     <Compile Include="Configuration\CompositionConfiguration.cs" />
     <Compile Include="Configuration\DevisFactureConfiguration.cs" />
@@ -146,6 +147,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\AdresseRepository.cs" />
     <Compile Include="Repositories\AffectationServiceRepository.cs" />
+    <Compile Include="Repositories\ApplicationTraceRepository.cs" />
     <Compile Include="Repositories\ComposentRepository.cs" />
     <Compile Include="Repositories\CompositionRepository.cs" />
     <Compile Include="Repositories\DevisFactureRepository.cs" />
