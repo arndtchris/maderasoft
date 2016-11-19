@@ -7,7 +7,7 @@ namespace Madera.Model
 {
     public class Projet
     {
-        public int ProjetID { get; set; }
+        public int id { get; set; }
         public string libe { get; set; }
         public float prixHT { get; set; }
         public float prixTotalTTC { get; set; }
