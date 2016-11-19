@@ -61,6 +61,7 @@ namespace Madera.Data
             modelBuilder.Configurations.Add(new ModuleConfiguration());
             modelBuilder.Configurations.Add(new PersonneConfiguration());
             modelBuilder.Configurations.Add(new ProjetConfiguration());
+            modelBuilder.Configurations.Add(new ServiceConfiguration());
         }
     }
 }

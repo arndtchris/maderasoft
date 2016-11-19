@@ -7,7 +7,7 @@ namespace Madera.Model
 {
     public class Service
     {
-        public int ServiceID { get; set; }
+        public int id { get; set; }
         public string libe { get; set; }
 
         public Service()
