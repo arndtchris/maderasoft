@@ -11,12 +11,14 @@ namespace Madera.Service
     public class AdresseService : IAdresseService
     {
         private readonly IAdresseRepository adresseRepository;
+        private readonly IApplicationTraceService _applicationTraceService;
         private readonly IUnitOfWork unitOfWork;
 
 
-        public AdresseService(IAdresseRepository adresseRepository, IUnitOfWork unitOfWork)
+        public AdresseService(IAdresseRepository adresseRepository, IUnitOfWork unitOfWork, IApplicationTraceService applicationTraceService)
         {
             this.adresseRepository = adresseRepository;
+            this._applicationTraceService = applicationTraceService;
             this.unitOfWork = unitOfWork;
         }
 
@@ -56,6 +58,14 @@ namespace Madera.Service
         /// <param name="adresse"></param>
         public void CreateAdresse(Adresse adresse)
         {
+
+            _applicationTraceService.create(new ApplicationTrace{
+                utilisateur = "",
+                action = Parametres.Action.Creation.ToString(),
+                description = "Création d'une nouvelle adresse",
+                date = DateTime.Now
+            });
+
              adresseRepository.Insert(adresse);            
         }
 
@@ -65,7 +75,15 @@ namespace Madera.Service
         /// <param name="adresse"></param>
         public void UpdateAdresse(Adresse adresse)
         {
-                adresseRepository.Update(adresse);      
+            _applicationTraceService.create(new ApplicationTrace
+            {
+                utilisateur = "",
+                action = Parametres.Action.Modification.ToString(),
+                description = String.Format("Mise à jour de l'adresse adrs_id = {0}",adresse.AdresseID),
+                date = DateTime.Now
+            });
+
+            adresseRepository.Update(adresse);      
         }
 
         public void saveAdresse()
@@ -78,7 +96,14 @@ namespace Madera.Service
         /// </summary>
         /// <param name="id"></param>
         public void deleteAdresse(int id)
-        {         
+        {
+            _applicationTraceService.create(new ApplicationTrace
+            {
+                utilisateur = "",
+                action = Parametres.Action.Suppression.ToString(),
+                description = String.Format("Supression de l'adresse adrs_id = {0}", id),
+                date = DateTime.Now
+            });
             adresseRepository.Delete(x => x.AdresseID == id);            
         }
     }
