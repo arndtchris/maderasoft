@@ -64,6 +64,7 @@ namespace Madera.Data
             modelBuilder.Configurations.Add(new ServiceConfiguration());
             modelBuilder.Configurations.Add(new TaxeConfiguration());
             modelBuilder.Configurations.Add(new TEmployeConfiguration());
+            modelBuilder.Configurations.Add(new TModuleConfiguration());
         }
     }
 }

@@ -7,8 +7,7 @@ namespace Madera.Model
 {
     public class TModule
     {
-        public int TModuleID { get; set; }
-        public int nbCase { get; set; }
+        public int id { get; set; }
         public string libe { get; set; }
 
         public TModule()
