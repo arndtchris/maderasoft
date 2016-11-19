@@ -58,12 +58,9 @@ namespace Madera.Service
         /// <param name="adresse"></param>
         public void CreateAdresse(Adresse adresse)
         {
-
             _applicationTraceService.create(new ApplicationTrace{
-                utilisateur = "",
                 action = Parametres.Action.Creation.ToString(),
                 description = "Création d'une nouvelle adresse",
-                date = DateTime.Now
             });
 
              adresseRepository.Insert(adresse);            
@@ -77,10 +74,8 @@ namespace Madera.Service
         {
             _applicationTraceService.create(new ApplicationTrace
             {
-                utilisateur = "",
                 action = Parametres.Action.Modification.ToString(),
                 description = String.Format("Mise à jour de l'adresse adrs_id = {0}",adresse.AdresseID),
-                date = DateTime.Now
             });
 
             adresseRepository.Update(adresse);      
@@ -97,12 +92,12 @@ namespace Madera.Service
         /// <param name="id"></param>
         public void deleteAdresse(int id)
         {
+            //ToDo : réaliser une suppression complète ou logique en fonction des droits de l'utilisateur en session
             _applicationTraceService.create(new ApplicationTrace
             {
                 utilisateur = "",
                 action = Parametres.Action.Suppression.ToString(),
                 description = String.Format("Supression de l'adresse adrs_id = {0}", id),
-                date = DateTime.Now
             });
             adresseRepository.Delete(x => x.AdresseID == id);            
         }
