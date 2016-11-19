@@ -26,6 +26,8 @@ namespace Madera.Service
 
         public void create(ApplicationTrace trace)
         {
+            //ToDo : renseigner l'utilisateur en session -> Nom + Prénom + id
+            trace.utilisateur = "";
             applicationTraceRepository.Insert(trace);
         }
 
