@@ -78,8 +78,8 @@ namespace Madera.Service
         /// </summary>
         /// <param name="id"></param>
         public void deleteAdresse(int id)
-        {
-            adresseRepository.Delete(this.GetAdresse(id));            
+        {         
+            adresseRepository.Delete(x => x.AdresseID == id);            
         }
     }
 
