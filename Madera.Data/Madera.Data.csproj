@@ -129,6 +129,9 @@
     <Compile Include="Configuration\GammeConfiguration.cs" />
     <Compile Include="Configuration\HistoriqueProjetConfiguration.cs" />
     <Compile Include="Configuration\ModuleConfiguration.cs" />
+    <Compile Include="Configuration\ProjetConfiguration.cs" />
+    <Compile Include="Configuration\ServiceConfiguration.cs" />
+    <Compile Include="Configuration\TaxeConfiguration.cs" />
     <Compile Include="Infrastructure\DbFactory.cs" />
     <Compile Include="Infrastructure\Disposable.cs" />
     <Compile Include="Infrastructure\IDbFactory.cs" />
@@ -153,6 +156,9 @@
     <Compile Include="Repositories\ModuleRepository.cs" />
     <Compile Include="Configuration\PersonneConfiguration.cs" />
     <Compile Include="Repositories\PersonneRepository.cs" />
+    <Compile Include="Repositories\ProjetRepository.cs" />
+    <Compile Include="Repositories\ServiceRepository.cs" />
+    <Compile Include="Repositories\TaxeRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Madera.Models\Madera.Model.csproj">

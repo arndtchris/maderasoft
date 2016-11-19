@@ -7,7 +7,7 @@ namespace Madera.Model
 {
     public class Taxe
     {
-        public int TaxeID { get; set; }
+        public int id { get; set; }
         public double pourcentage { get; set; }
         public string libe { get; set; }
         public Boolean isReduction { get; set; }
