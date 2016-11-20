@@ -216,6 +216,7 @@
     <Compile Include="Controllers\AdresseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\TracabiliteController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -225,6 +226,7 @@
     <Compile Include="Mapping\ViewModelToDomainMappingProfile.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AdresseModel.cs" />
+    <Compile Include="Models\ApplicationTraceModel.cs" />
     <Compile Include="Models\Bootstrap\BootstrapDeleteModalModel.cs" />
     <Compile Include="Models\Bootstrap\BootstrapModalModel.cs" />
     <Compile Include="Models\Bootstrap\BootstrapTableModel.cs" />
@@ -302,6 +304,7 @@
     <Content Include="Views\Shared\_BootstrapModal.cshtml" />
     <Content Include="Views\Shared\_BootstrapDeleteModal.cshtml" />
     <Content Include="Views\Shared\_AdminLayout.cshtml" />
+    <Content Include="Views\Tracabilite\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
