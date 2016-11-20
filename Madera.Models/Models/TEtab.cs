@@ -7,7 +7,7 @@ namespace Madera.Model
 {
     public class TEtab
     {
-        public int TEtabID { get; set; }
+        public int id { get; set; }
         public string libe { get; set; }
 
         public TEtab()

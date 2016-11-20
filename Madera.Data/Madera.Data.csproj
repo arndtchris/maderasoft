@@ -134,6 +134,7 @@
     <Compile Include="Configuration\ServiceConfiguration.cs" />
     <Compile Include="Configuration\TaxeConfiguration.cs" />
     <Compile Include="Configuration\TEmployeConfiguration.cs" />
+    <Compile Include="Configuration\TEtabConfiguration.cs" />
     <Compile Include="Configuration\TModuleConfiguration.cs" />
     <Compile Include="Infrastructure\DbFactory.cs" />
     <Compile Include="Infrastructure\Disposable.cs" />
@@ -164,6 +165,7 @@
     <Compile Include="Repositories\ServiceRepository.cs" />
     <Compile Include="Repositories\TaxeRepository.cs" />
     <Compile Include="Repositories\TEmployeRepository.cs" />
+    <Compile Include="Repositories\TEtabRepository.cs" />
     <Compile Include="Repositories\TModuleRepository.cs" />
   </ItemGroup>
   <ItemGroup>

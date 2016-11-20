@@ -63,7 +63,8 @@ namespace Madera.Data
             modelBuilder.Configurations.Add(new ProjetConfiguration());
             modelBuilder.Configurations.Add(new ServiceConfiguration());
             modelBuilder.Configurations.Add(new TaxeConfiguration());
-            //modelBuilder.Configurations.Add(new TEmployeConfiguration()); Petit soucis de mapping avec TEmploye ...ToDO : checker ça
+            //modelBuilder.Configurations.Add(new TEmployeConfiguration()); //Petit soucis de mapping avec TEmploye ...ToDO : checker ça
+            modelBuilder.Configurations.Add(new TEtabConfiguration());
             modelBuilder.Configurations.Add(new TModuleConfiguration());
             modelBuilder.Configurations.Add(new ApplicationTraceConfiguration());
         }
