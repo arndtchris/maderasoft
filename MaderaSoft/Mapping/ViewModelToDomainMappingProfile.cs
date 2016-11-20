@@ -30,6 +30,12 @@ namespace MaderaSoft.Mapping
                .ForMember(g => g.numRue, map => map.MapFrom(vm => vm.numRue))
                .ForMember(g => g.pays, map => map.MapFrom(vm => vm.pays))
                .ForMember(g => g.ville, map => map.MapFrom(vm => vm.ville));
+
+            CreateMap<ApplicationTraceDTO, ApplicationTrace>()
+               .ForMember(g => g.utilisateur, map => map.MapFrom(vm => vm.utilisateur))
+               .ForMember(g => g.date, map => map.MapFrom(vm => vm.date))
+               .ForMember(g => g.description, map => map.MapFrom(vm => vm.description))
+               .ForMember(g => g.action, map => map.MapFrom(vm => vm.action));
         }
     }
 }
