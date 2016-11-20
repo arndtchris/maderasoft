@@ -31,6 +31,11 @@ namespace Madera.Service
             applicationTraceRepository.Insert(trace);
         }
 
+        public IEnumerable<ApplicationTrace> getAll()
+        {
+            return applicationTraceRepository.GetAll().OrderByDescending(x => x.date);
+        }
+
         public void save()
         {
             unitOfWork.Commit();
@@ -42,5 +47,8 @@ namespace Madera.Service
     {
         void save();
         void create(ApplicationTrace trace);
+        IEnumerable<ApplicationTrace> getAll();
+
+
     }
 }
