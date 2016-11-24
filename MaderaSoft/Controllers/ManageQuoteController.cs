@@ -30,7 +30,7 @@ namespace MaderaSoft.Controllers
             this.manageQuoteService = manageQuoteService;
         }
 
-        // GET: Adresse
+        // GET: DevisFacture
         [HttpGet]
         public ActionResult Index()
         {
@@ -60,9 +60,9 @@ namespace MaderaSoft.Controllers
         {
             BootstrapModalModel modelOut = new BootstrapModalModel();
 
-            if (id.HasValue)//Si on id est transmis on reprend les valeurs de l'adresse correspondante
+            if (id.HasValue)//Si on id est transmis on reprend les valeurs du devis correspondant
                 Mapper.Map<DevisFacture, DevisFactureDTO>(manageQuoteService.GetUnDevis(id.Value));
-            else//Sinon on instanci une nouvelle adresse
+            else//Sinon on instancie un nouveau devis
                 modelOut.objet = new DevisFactureDTO();
 
             modelOut.formulaireUrl = "~/Views/ManageQuote/Edit.cshtml";
@@ -72,7 +72,7 @@ namespace MaderaSoft.Controllers
 
         }
 
-        //POST : créé ou met à jour une adresse
+        //POST : créé ou met à jour un devis
         [HttpPost]
         public ActionResult Edit(DevisFactureDTO modelIn)
         {
@@ -88,9 +88,9 @@ namespace MaderaSoft.Controllers
                 return PartialView("~/Views/Shared/_BootstrapModal.cshtml", modelOut);
             }
 
-            //Ici AdresseModel est un DTO (Data Transfert Object) qui contient les données saisies dans le formulaire
-            //Pour pouvoir sauvegarder ces données, il faut établir une correspondance entre les attributs d'AdresseModel 
-            //et la table Adresse, c'est ce qui est réalisé ici
+            //Ici DevisFactureModel est un DTO (Data Transfert Object) qui contient les données saisies dans le formulaire
+            //Pour pouvoir sauvegarder ces données, il faut établir une correspondance entre les attributs de DevisFactureModel 
+            //et la table DevisFacture, c'est ce qui est réalisé ici
             var devisATraiter = Mapper.Map<DevisFactureDTO, DevisFacture>(modelIn);
 
             if (devisATraiter.id != 0) //si notre objet contient déjà un ID, il s'agit d'une mise à jour
@@ -102,7 +102,7 @@ namespace MaderaSoft.Controllers
 
                     //Après avoir défini toutes les nouvelles entrées à réaliser en bdd, 
                     //on demande au Pattern UnitOfWork de réaliser les transactions nécessaire pour assurer la persistence des données
-                    //En effet la méthode saveAdresse() appelle unitOfWork.Commit();
+                    //En effet la méthode saveDevis() appelle unitOfWork.Commit();
                     manageQuoteService.saveDevis();
                 }
                 catch (Exception)
@@ -113,7 +113,7 @@ namespace MaderaSoft.Controllers
             }
             
 
-            //On met en place une redirection pour afficher de nouveau l'ensemble des adresses
+            //On met en place une redirection pour afficher de nouveau l'ensemble des devis
             return RedirectToAction("Index");
         }
 

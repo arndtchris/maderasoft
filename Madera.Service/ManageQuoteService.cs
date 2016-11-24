@@ -23,18 +23,18 @@ namespace Madera.Service
         }
 
         /// <summary>
-        /// Retourne toutes les adresses contenu en base de données
+        /// Retourne tous les devis contenus en base de données
         /// </summary>
-        /// <returns>IEnumerable<Adresse></returns>
+        /// <returns>IEnumerable<DevisFacture></returns>
         public IEnumerable<DevisFacture> GetLesDevis()
         {
             return devisRepository.GetAll();
         }
         /// <summary>
-        /// Retourne l'adresse correspondante à l'id renseignée
+        /// Retourne le devis correspondant à l'id renseignée
         /// </summary>
         /// <param name="id"></param>
-        /// <returns>Adresse</returns>
+        /// <returns>DevisFacture</returns>
         public DevisFacture GetUnDevis(int id)
         {
             return devisRepository.GetById(id);
@@ -42,15 +42,15 @@ namespace Madera.Service
 
 
         /// <summary>
-        /// Met à jour une adresse en base de données
+        /// Met à jour un devis en base de données
         /// </summary>
-        /// <param name="adresse"></param>
+        /// <param name="devis"></param>
         public void UpdateDevis(DevisFacture devis)
         {
             _applicationTraceService.create(new ApplicationTrace
             {
                 action = Parametres.Action.Modification.ToString(),
-                description = String.Format("Mise à jour de l'adresse adrs_id = {0}", devis.id),
+                description = String.Format("Mise à jour du devis devis_id = {0}", devis.id),
             });
 
             devisRepository.Update(devis);
@@ -62,7 +62,7 @@ namespace Madera.Service
         }
 
         /// <summary>
-        /// Supprime l'adresse correspondante à l'id renseigné
+        /// Supprime le devis correspondant à l'id renseigné
         /// </summary>
         /// <param name="id"></param>
         public void deleteDevis(int id)
@@ -72,14 +72,13 @@ namespace Madera.Service
             {
                 utilisateur = "",
                 action = Parametres.Action.Suppression.ToString(),
-                description = String.Format("Supression de l'adresse adrs_id = {0}", id),
+                description = String.Format("Supression de le devis devis_id = {0}", id),
             });
             devisRepository.Delete(x => x.id == id);
         }
     }
 
     //Définition des méthodes qui seront accessibles depuis la couche de présentation
-    //A ce niveau on peut définir des méthodes AjouteAdresseEtDonneListe() qui va combiner plusieurs méthodes basiques du pattern Repository
     public interface IManageQuoteService
     {
         IEnumerable<DevisFacture> GetLesDevis();
