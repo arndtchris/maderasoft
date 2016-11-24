@@ -5,6 +5,7 @@ using System.Web;
 using AutoMapper;
 using Madera.Model;
 using MaderaSoft.Models;
+using static MaderaSoft.Models.ManageQuoteViewModel;
 
 namespace MaderaSoft.Mapping
 {
@@ -30,6 +31,13 @@ namespace MaderaSoft.Mapping
                .ForMember(g => g.numRue, map => map.MapFrom(vm => vm.numRue))
                .ForMember(g => g.pays, map => map.MapFrom(vm => vm.pays))
                .ForMember(g => g.ville, map => map.MapFrom(vm => vm.ville));
+
+            CreateMap<DevisFactureDTO, DevisFacture>()
+                .ForMember(g => g.id, map => map.MapFrom(vm => vm.id))
+                .ForMember(g => g.isSigned, map => map.MapFrom(vm => vm.isSigned))
+                .ForMember(g => g.isDeleted, map => map.MapFrom(vm => vm.isDeleted))
+                .ForMember(g => g.projet, map => map.MapFrom(vm => vm.projet))
+                .ForMember(g => g.referent, map => map.MapFrom(vm => vm.employe));
 
             CreateMap<ApplicationTraceDTO, ApplicationTrace>()
                .ForMember(g => g.utilisateur, map => map.MapFrom(vm => vm.utilisateur))
