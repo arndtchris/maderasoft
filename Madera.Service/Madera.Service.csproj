@@ -139,6 +139,7 @@
   <ItemGroup>
     <Compile Include="AdresseService.cs" />
     <Compile Include="ApplicationTraceService.cs" />
+    <Compile Include="ManageQuoteService.cs" />
     <Compile Include="Parametres.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
