@@ -14,6 +14,7 @@ namespace Madera.Model
         public DateTime dConnexion { get; set; }
         public bool isActive { get; set; }
         public bool isFirstConnexion { get; set; }
+        public bool isDeleted { get; set; }
 
         public Utilisateur()
         {

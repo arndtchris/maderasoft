@@ -19,6 +19,7 @@ namespace Madera.Data.Configuration
             Property<DateTime>(a => a.dCreation);
             Property<bool>(a => a.isActive);
             Property<bool>(a => a.isFirstConnexion);
+            Property<bool>(a => a.isDeleted);
         }
     }
 }
