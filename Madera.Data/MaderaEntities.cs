@@ -49,6 +49,7 @@ namespace Madera.Data
         {
             modelBuilder.Configurations.Add(new AdresseConfiguration());
             modelBuilder.Configurations.Add(new AffectationServiceConfiguration());
+            modelBuilder.Configurations.Add(new ApplicationTraceConfiguration());
             modelBuilder.Configurations.Add(new ComposentConfiguration());
             modelBuilder.Configurations.Add(new CompositionConfiguration());
             modelBuilder.Configurations.Add(new DevisFactureConfiguration());
@@ -66,7 +67,7 @@ namespace Madera.Data
             modelBuilder.Configurations.Add(new TEmployeConfiguration());
             modelBuilder.Configurations.Add(new TEtabConfiguration());
             modelBuilder.Configurations.Add(new TModuleConfiguration());
-            modelBuilder.Configurations.Add(new ApplicationTraceConfiguration());
+            modelBuilder.Configurations.Add(new UtilisateurConfiguration());
         }
     }
 }

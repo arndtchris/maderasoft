@@ -136,6 +136,7 @@
     <Compile Include="Configuration\TEmployeConfiguration.cs" />
     <Compile Include="Configuration\TEtabConfiguration.cs" />
     <Compile Include="Configuration\TModuleConfiguration.cs" />
+    <Compile Include="Configuration\UtilisateurConfiguration.cs" />
     <Compile Include="Infrastructure\DbFactory.cs" />
     <Compile Include="Infrastructure\Disposable.cs" />
     <Compile Include="Infrastructure\IDbFactory.cs" />
@@ -167,6 +168,7 @@
     <Compile Include="Repositories\TEmployeRepository.cs" />
     <Compile Include="Repositories\TEtabRepository.cs" />
     <Compile Include="Repositories\TModuleRepository.cs" />
+    <Compile Include="Repositories\UtilisateurRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Madera.Models\Madera.Model.csproj">
