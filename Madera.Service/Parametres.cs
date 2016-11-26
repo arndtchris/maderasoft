@@ -21,7 +21,9 @@ namespace Madera.Service
         {
             Creation,
             Modification,
-            Suppression
+            Suppression,
+            DissmissModal,
+            Submit
         }
     }
 }
