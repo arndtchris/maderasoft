@@ -1,7 +1,7 @@
-﻿@model MaderaSoft.Models.AdresseDTO
+﻿@using Madera.Service
+@model MaderaSoft.Models.AdresseDTO
 
-@using (Html.BeginForm("Edit", "Adresse", FormMethod.Post,
-                                                                new { enctype = "multipart/form-data", @class = "form-inline" }))
+@using (Html.BeginForm("Edit", "Adresse", FormMethod.Post,new { enctype = "multipart/form-data", @class = "form-inline" }))
 {@Html.HiddenFor(m => m.AdresseID)
 
     <div class="row">
@@ -48,7 +48,7 @@
     </div>
 
     <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
-        <button type="submit" class="btn btn-success fa fa-check submit">Valider</button>
+        @Html.actionButton(" Annuler", Parametres.TypeBouton.DissmissModal)
+        @Html.actionButton(" Valider", Parametres.TypeBouton.Submit)
     </div>
 }

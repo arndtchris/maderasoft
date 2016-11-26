@@ -34,8 +34,8 @@
         if (Model.avecActionCrud)
         {
             @Html.Raw("<td class=\"table-text\">");
-            @Html.addButton(" Modifier", Url.Action("EditModal", Model.typeObjet, new { id = Model.lesLignes[j][nbColonne] }).ToString(), "editModal", Parametres.TypeBouton.Modification)
-            @Html.addButton(" Supprimer", Url.Action("DeleteModal", Model.typeObjet, new { id = Model.lesLignes[j][nbColonne] }).ToString(), "editModal", Parametres.TypeBouton.Suppression)      
+            @Html.actionButton(" Modifier", Parametres.TypeBouton.Modification, Url.Action("EditModal",Model.typeObjet, new { id = Model.lesLignes[j][nbColonne] }).ToString(), "editModal")
+            @Html.actionButton(" Supprimer", Parametres.TypeBouton.Suppression, Url.Action("DeleteModal",Model.typeObjet, new { id = Model.lesLignes[j][nbColonne] }).ToString(), "editModal")      
             @Html.Raw("</td>");
         }
 

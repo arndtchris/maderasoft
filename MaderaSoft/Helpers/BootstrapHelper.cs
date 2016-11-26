@@ -19,24 +19,30 @@ namespace System.Web.Mvc
 
 
         //ToDo : voir pourquoi le helper pour la génération de bouton ne fonctionne pas...
-        public static MvcHtmlString addButton(this HtmlHelper helper, string libe, string href, string cssClass, Parametres.TypeBouton type)
+        public static MvcHtmlString actionButton(this HtmlHelper helper, string libe, Parametres.TypeBouton type, string href = "", string cssClass = "")
         {
             string css = "";
             switch(type)
             {
                 case Parametres.TypeBouton.Creation:
-                    css = cssClass + " btn btn-success fa fa-plus\"";
+                    css = cssClass + " btn btn-success fa fa-plus\" type=\"button\"";
+                    break;
+                case Parametres.TypeBouton.Submit:
+                    css = cssClass + " btn btn-success fa fa-check\" type=\"submit\"";
                     break;
                 case Parametres.TypeBouton.Modification:
-                    css = cssClass + " btn btn-warning fa fa-pencil\"";
+                    css = cssClass + " btn btn-warning fa fa-pencil\" type=\"button\"";
                     break;
                 case Parametres.TypeBouton.Suppression:
-                    css = cssClass + " btn btn-danger fa fa-trash\"";
+                    css = cssClass + " btn btn-danger fa fa-trash\" type=\"button\"";
+                    break;
+                case Parametres.TypeBouton.DissmissModal:
+                    css = cssClass + " btn btn-default\" data-dismiss=\"modal\" type=\"button\"";
                     break;
                 default:
                     break;
             }
-            return new MvcHtmlString("<a class=\"" + css + " href=\"" + href + "\" > " + libe + "</a>");
+            return new MvcHtmlString("<button class=\"" + css + " href=\"" + href + "\" > " + libe + "</button>");
         }
     }
 }
