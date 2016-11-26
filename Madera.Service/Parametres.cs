@@ -16,5 +16,12 @@ namespace Madera.Service
             SuppressionLogique,
             Suppression
         }
+
+        public enum TypeBouton
+        {
+            Creation,
+            Modification,
+            Suppression
+        }
     }
 }
