@@ -225,6 +225,7 @@
     <Compile Include="Mapping\AutoMapperConfiguration.cs" />
     <Compile Include="Mapping\DomainToViewModelMappingProfile.cs" />
     <Compile Include="Mapping\ViewModelToDomainMappingProfile.cs" />
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AdresseModel.cs" />
     <Compile Include="Models\ApplicationTraceModel.cs" />
