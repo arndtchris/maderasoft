@@ -1,5 +1,6 @@
 ﻿
 @using MaderaSoft.Models
+@using Madera.Service
 @model MaderaSoft.Models.Bootstrap.BootstrapTableModel
     
 <table class="table table-hover">
@@ -33,8 +34,8 @@
         if (Model.avecActionCrud)
         {
             @Html.Raw("<td class=\"table-text\">");
-            @Html.Raw(String.Format("<a class=\"editModal btn btn-warning fa fa-pencil\" href=" + @Url.Action("EditModal", Model.typeObjet, new { id = Model.lesLignes[j][nbColonne] }) + "> Modifier</a> "));
-            @Html.Raw(String.Format("<a class=\"editModal btn btn-danger fa fa-trash\" href=" + @Url.Action("DeleteModal", Model.typeObjet, new {id= Model.lesLignes[j][nbColonne] }) + "> Supprimer</a>"));        
+            @Html.addButton(" Modifier", Url.Action("EditModal", Model.typeObjet, new { id = Model.lesLignes[j][nbColonne] }).ToString(), "editModal", Parametres.TypeBouton.Modification)
+            @Html.addButton(" Supprimer", Url.Action("DeleteModal", Model.typeObjet, new { id = Model.lesLignes[j][nbColonne] }).ToString(), "editModal", Parametres.TypeBouton.Suppression)      
             @Html.Raw("</td>");
         }
 
