@@ -305,10 +305,10 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Adresse\Index.cshtml" />
-    <Content Include="Views\Shared\_BootstrapTable.cshtml" />
+    <Content Include="Views\Shared\_BootstrapTablePartial.cshtml" />
     <Content Include="Views\Adresse\Edit.cshtml" />
-    <Content Include="Views\Shared\_BootstrapModal.cshtml" />
-    <Content Include="Views\Shared\_BootstrapDeleteModal.cshtml" />
+    <Content Include="Views\Shared\_BootstrapModalPartial.cshtml" />
+    <Content Include="Views\Shared\_BootstrapDeleteModalPartial.cshtml" />
     <Content Include="Views\Shared\_AdminLayout.cshtml" />
     <Content Include="Views\Tracabilite\Index.cshtml" />
     <Content Include="Views\ManageQuote\Index.cshtml" />

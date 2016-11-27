@@ -67,7 +67,7 @@ namespace MaderaSoft.Controllers
             modelOut.formulaireUrl = "~/Views/ManageQuote/Edit.cshtml";
             modelOut.titreModal = "Edition d'un devis";
 
-            return PartialView("~/Views/Shared/_BootstrapModal.cshtml", modelOut);
+            return PartialView("~/Views/Shared/_BootstrapModalPartial.cshtml", modelOut);
 
         }
 
@@ -84,7 +84,7 @@ namespace MaderaSoft.Controllers
                 modelOut.formulaireUrl = "~/Views/ManageQuote/Edit.cshtml";
                 modelOut.titreModal = "Edition d'un devis";
 
-                return PartialView("~/Views/Shared/_BootstrapModal.cshtml", modelOut);
+                return PartialView("~/Views/Shared/_BootstrapModalPartial.cshtml", modelOut);
             }
 
             //Ici DevisFactureModel est un DTO (Data Transfert Object) qui contient les données saisies dans le formulaire
@@ -121,11 +121,11 @@ namespace MaderaSoft.Controllers
         {
             BootstrapModalViewModel modelOut = new BootstrapModalViewModel();
             modelOut.typeObjet = "Devis";
-            modelOut.formulaireUrl = "~/Views/Shared/_BootstrapDeleteModal.cshtml";
+            modelOut.formulaireUrl = "~/Views/Shared/_BootstrapDeleteModalPartial.cshtml";
             modelOut.titreModal = "Suppression d'un devis";
             modelOut.objet = new BootstrapDeleteModalViewModel { idToDelete = id, message = "Etes vous sûr de vouloir supprimer ce devis ?" };
 
-            return PartialView("~/Views/Shared/_BootstrapModal.cshtml", modelOut);
+            return PartialView("~/Views/Shared/_BootstrapModalPartial.cshtml", modelOut);
         }
 
         [HttpPost]

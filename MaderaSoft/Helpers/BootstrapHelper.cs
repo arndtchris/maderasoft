@@ -14,7 +14,7 @@ namespace System.Web.Mvc
     {
         public static void bootstrapTable(this HtmlHelper helper, BootstrapTableViewModel modelIn)
         {
-            helper.RenderPartial("~/Views/Shared/_BootstrapTable.cshtml", modelIn);
+            helper.RenderPartial("~/Views/Shared/_BootstrapTablePartial.cshtml", modelIn);
         }
 
         public static MvcHtmlString actionButton(this HtmlHelper helper, string libe, Parametres.TypeBouton type, string href = "", string cssClass = "")
