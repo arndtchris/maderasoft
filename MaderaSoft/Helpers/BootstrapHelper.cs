@@ -6,19 +6,17 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
 using Madera.Service;
-using MaderaSoft.Models.Bootstrap;
+using MaderaSoft.Models.ViewModel;
 
 namespace System.Web.Mvc
 {
     public static class BootstrapHelper
     {
-        public static void bootstrapTable(this HtmlHelper helper, BootstrapTableModel modelIn)
+        public static void bootstrapTable(this HtmlHelper helper, BootstrapTableViewModel modelIn)
         {
             helper.RenderPartial("~/Views/Shared/_BootstrapTable.cshtml", modelIn);
         }
 
-
-        //ToDo : voir pourquoi le helper pour la génération de bouton ne fonctionne pas...
         public static MvcHtmlString actionButton(this HtmlHelper helper, string libe, Parametres.TypeBouton type, string href = "", string cssClass = "")
         {
             string css = "";

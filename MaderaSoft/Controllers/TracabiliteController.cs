@@ -7,7 +7,8 @@ using AutoMapper;
 using Madera.Model;
 using Madera.Service;
 using MaderaSoft.Models;
-using MaderaSoft.Models.Bootstrap;
+using MaderaSoft.Models.ViewModel;
+using MaderaSoft.Models.DTO;
 
 namespace MaderaSoft.Controllers
 {
@@ -23,7 +24,7 @@ namespace MaderaSoft.Controllers
         // GET: Tracabilite
         public ActionResult Index()
         {
-            BootstrapTableModel modelOut = new BootstrapTableModel();
+            BootstrapTableViewModel modelOut = new BootstrapTableViewModel();
             List<ApplicationTraceDTO> lesTraces = Mapper.Map<List<ApplicationTrace>, List<ApplicationTraceDTO>>(appTraceService.getAll().ToList());
 
             modelOut.avecActionCrud = false;

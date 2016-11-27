@@ -1,5 +1,6 @@
-﻿@using Madera.Service
-@model MaderaSoft.Models.Bootstrap.BootstrapDeleteModalModel
+﻿@using MaderaSoft.Models.ViewModel
+@using Madera.Service
+@model MaderaSoft.Models.ViewModel.BootstrapDeleteModalViewModel
 
 @using (Html.BeginForm("Delete", Model.typeObjet , FormMethod.Post,new { enctype = "multipart/form-data", @class = "form-inline" }))
 {@Html.HiddenFor(m => m.idToDelete)

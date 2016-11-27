@@ -4,8 +4,8 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
-using MaderaSoft.Models.Bootstrap;
 using Madera.Model;
+using MaderaSoft.Models.ViewModel;
 
 namespace MaderaSoft.Models
 {
@@ -24,18 +24,18 @@ namespace MaderaSoft.Models
             [DisplayName("Numéro du projet")]
             public virtual Employe employe { get; set; }
 
-    public DevisFactureDTO()
+            public DevisFactureDTO()
             {
 
             }
         }
 
-        public BootstrapTableModel tableauQuote { get; set; }
+        public BootstrapTableViewModel tableauQuote { get; set; }
 
 
         public ManageQuoteViewModel()
         {
-            tableauQuote = new BootstrapTableModel();
+            tableauQuote = new BootstrapTableViewModel();
         }
     }
 }

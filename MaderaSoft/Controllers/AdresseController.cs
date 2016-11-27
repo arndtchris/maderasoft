@@ -7,7 +7,8 @@ using AutoMapper;
 using Madera.Model;
 using Madera.Service;
 using MaderaSoft.Models;
-using MaderaSoft.Models.Bootstrap;
+using MaderaSoft.Models.ViewModel;
+using MaderaSoft.Models.DTO;
 using Vereyon.Web;
 
 namespace MaderaSoft.Controllers
@@ -33,7 +34,7 @@ namespace MaderaSoft.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            AdresseViewModel modelOut = new AdresseViewModel();
+            AdresseIndexViewModel modelOut = new AdresseIndexViewModel();
             modelOut.tableauAdresses.typeObjet = "Adresse";
 
             /*
@@ -57,12 +58,12 @@ namespace MaderaSoft.Controllers
         [HttpGet]
         public ActionResult EditModal(int? id)
         {
-            BootstrapModalModel modelOut = new BootstrapModalModel();
+            BootstrapModalViewModel modelOut = new BootstrapModalViewModel();
 
             if(id.HasValue)//Si on id est transmis on reprend les valeurs de l'adresse correspondante
                 modelOut.objet = Mapper.Map<Adresse, AdresseDTO>(adresseService.GetAdresse(id.Value));
             else//Sinon on instanci une nouvelle adresse
-                modelOut.objet =new AdresseDTO();
+                modelOut.objet = new AdresseDTO();
 
             modelOut.formulaireUrl = "~/Views/Adresse/Edit.cshtml";
             modelOut.titreModal = "Edition d'une adresse";
@@ -79,7 +80,7 @@ namespace MaderaSoft.Controllers
             //Si le modèle n'est pas valide, on renvoit la vue avec les données reçus
             if (!ModelState.IsValid)
             {
-                BootstrapModalModel modelOut = new BootstrapModalModel();
+                BootstrapModalViewModel modelOut = new BootstrapModalViewModel();
                 modelOut.objet = modelIn;
                 modelOut.formulaireUrl = "~/Views/Adresse/Edit.cshtml";
                 modelOut.titreModal = "Edition d'une adresse";
@@ -136,11 +137,11 @@ namespace MaderaSoft.Controllers
         [HttpGet]
         public ActionResult DeleteModal(int id)
         {
-            BootstrapModalModel modelOut = new BootstrapModalModel();
+            BootstrapModalViewModel modelOut = new BootstrapModalViewModel();
             modelOut.typeObjet = "Adresse";
             modelOut.formulaireUrl = "~/Views/Shared/_BootstrapDeleteModal.cshtml";
             modelOut.titreModal = "Suppression d'une adresse";
-            modelOut.objet = new BootstrapDeleteModalModel { idToDelete = id, message = "Etes vous sûr de vouloir supprimer cette adresse ?"};
+            modelOut.objet = new BootstrapDeleteModalViewModel { idToDelete = id, message = "Etes vous sûr de vouloir supprimer cette adresse ?"};
 
             return PartialView("~/Views/Shared/_BootstrapModal.cshtml", modelOut);
         }

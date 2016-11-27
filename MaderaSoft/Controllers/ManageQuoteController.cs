@@ -2,14 +2,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using MaderaSoft.Models;
-using MaderaSoft.Models.Bootstrap;
 using AutoMapper;
 using static MaderaSoft.Models.ManageQuoteViewModel;
 using Madera.Model;
 using Vereyon.Web;
+using MaderaSoft.Models.ViewModel;
 
 namespace MaderaSoft.Controllers
 {
@@ -58,7 +57,7 @@ namespace MaderaSoft.Controllers
         [HttpGet]
         public ActionResult EditModal(int? id)
         {
-            BootstrapModalModel modelOut = new BootstrapModalModel();
+            BootstrapModalViewModel modelOut = new BootstrapModalViewModel();
 
             if (id.HasValue)//Si on id est transmis on reprend les valeurs du devis correspondant
                 Mapper.Map<DevisFacture, DevisFactureDTO>(manageQuoteService.GetUnDevis(id.Value));
@@ -80,7 +79,7 @@ namespace MaderaSoft.Controllers
             //Si le modèle n'est pas valide, on renvoit la vue avec les données reçus
             if (!ModelState.IsValid)
             {
-                BootstrapModalModel modelOut = new BootstrapModalModel();
+                BootstrapModalViewModel modelOut = new BootstrapModalViewModel();
                 modelOut.objet = modelIn;
                 modelOut.formulaireUrl = "~/Views/ManageQuote/Edit.cshtml";
                 modelOut.titreModal = "Edition d'un devis";
@@ -120,11 +119,11 @@ namespace MaderaSoft.Controllers
         [HttpGet]
         public ActionResult DeleteModal(int id)
         {
-            BootstrapModalModel modelOut = new BootstrapModalModel();
+            BootstrapModalViewModel modelOut = new BootstrapModalViewModel();
             modelOut.typeObjet = "Devis";
             modelOut.formulaireUrl = "~/Views/Shared/_BootstrapDeleteModal.cshtml";
             modelOut.titreModal = "Suppression d'un devis";
-            modelOut.objet = new BootstrapDeleteModalModel { idToDelete = id, message = "Etes vous sûr de vouloir supprimer ce devis ?" };
+            modelOut.objet = new BootstrapDeleteModalViewModel { idToDelete = id, message = "Etes vous sûr de vouloir supprimer ce devis ?" };
 
             return PartialView("~/Views/Shared/_BootstrapModal.cshtml", modelOut);
         }

@@ -5,6 +5,7 @@ using System.Web;
 using AutoMapper;
 using Madera.Model;
 using MaderaSoft.Models;
+using MaderaSoft.Models.DTO;
 
 namespace MaderaSoft.Mapping
 {

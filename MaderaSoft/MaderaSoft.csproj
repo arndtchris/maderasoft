@@ -231,14 +231,13 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\AdresseModel.cs" />
-    <Compile Include="Models\ApplicationTraceModel.cs" />
-    <Compile Include="Models\Bootstrap\BootstrapDeleteModalModel.cs" />
-    <Compile Include="Models\Bootstrap\BootstrapModalModel.cs" />
-    <Compile Include="Models\Bootstrap\BootstrapTableModel.cs" />
+    <Compile Include="Models\DTO\ApplicationTraceDTOs.cs" />
+    <Compile Include="Models\ViewModel\AdresseViewModels.cs" />
+    <Compile Include="Models\DTO\AdresseDTOs.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageQuoteModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\ViewModel\BootstrapViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>

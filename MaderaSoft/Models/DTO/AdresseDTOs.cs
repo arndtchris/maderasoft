@@ -4,12 +4,12 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
-using MaderaSoft.Models.Bootstrap;
 
-namespace MaderaSoft.Models
+namespace MaderaSoft.Models.DTO
 {
     public class AdresseDTO
     {
+
         public int AdresseID { get; set; }
         [DisplayName("Numéro du logement")]
         [Required(ErrorMessage = "Le numéro du logement est obligatoire.")]
@@ -30,21 +30,7 @@ namespace MaderaSoft.Models
 
         public AdresseDTO()
         {
-            
-        }
-    }
 
-    public class AdresseViewModel
-    {
-
-        public BootstrapTableModel tableauAdresses { get; set; }
-
-        public AdresseDTO nouvelleAdresse { get; set; }
-
-        public AdresseViewModel()
-        {
-            nouvelleAdresse = new AdresseDTO();
-            tableauAdresses = new BootstrapTableModel();
         }
     }
 }

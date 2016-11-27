@@ -1,9 +1,9 @@
 ﻿@using Madera.Service
-@model MaderaSoft.Models.AdresseDTO
+@model MaderaSoft.Models.DTO.AdresseDTO
 
-@using (Html.BeginForm("Edit", "Adresse", FormMethod.Post,new { enctype = "multipart/form-data", @class = "form-inline" }))
-{@Html.HiddenFor(m => m.AdresseID)
-
+@using (Html.BeginForm("Edit", "Adresse", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-inline" }))
+{
+    @Html.HiddenFor(m => m.AdresseID)
     <div class="row">
         <div class="col-md-6">
             <div class="form-group">
