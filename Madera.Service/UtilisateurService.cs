@@ -15,6 +15,12 @@ namespace Madera.Service
         private readonly IApplicationTraceService _applicationTraceService;
         private readonly IUnitOfWork _unitOfWork;
 
+        public UtilisateurService(IUtilisateurRepository utilisateurRepository, IUnitOfWork unitOfWork, IApplicationTraceService applicationTraceService)
+        {
+            this._utilisateurRepository = utilisateurRepository;
+            this._applicationTraceService = applicationTraceService;
+            this._unitOfWork = unitOfWork;
+        }
 
         public void CreateUtilisateur(Utilisateur utilisateur)
         {

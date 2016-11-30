@@ -14,6 +14,14 @@ namespace Madera.Service
         private readonly IApplicationTraceService _applicationTraceService;
         private readonly IUnitOfWork _unitOfWork;
 
+
+        public TEmployeService(ITEmployeRepository _temployeRepository, IUnitOfWork _unitOfWork, IApplicationTraceService _applicationTraceService)
+        {
+            this._temployeRepository = _temployeRepository;
+            this._applicationTraceService = _applicationTraceService;
+            this._unitOfWork = _unitOfWork;
+        }
+
         public void CreateTEmploye(TEmploye TEmploye)
         {
             _applicationTraceService.create(new ApplicationTrace

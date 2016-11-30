@@ -14,6 +14,14 @@ namespace Madera.Service
         private readonly IApplicationTraceService _applicationTraceService;
         private readonly IUnitOfWork _unitOfWork;
 
+
+        public ServiceService(IServiceRepository serviceRepository, IUnitOfWork unitOfWork, IApplicationTraceService applicationTraceService)
+        {
+            this._serviceRepository = serviceRepository;
+            this._applicationTraceService = applicationTraceService;
+            this._unitOfWork = unitOfWork;
+        }
+
         public void CreateService(Model.Service service)
         {
             _applicationTraceService.create(new ApplicationTrace
