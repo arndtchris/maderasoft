@@ -141,7 +141,7 @@
     <Compile Include="AffectationServiceService.cs" />
     <Compile Include="ApplicationTraceService.cs" />
     <Compile Include="DroitService.cs" />
-    <Compile Include="ManageQuoteService.cs" />
+    <Compile Include="DevisFactureService.cs" />
     <Compile Include="Parametres.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServiceService.cs" />

@@ -214,9 +214,9 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdresseController.cs" />
+    <Compile Include="Controllers\DevisFactureController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Controllers\ManageQuoteController.cs" />
     <Compile Include="Controllers\TracabiliteController.cs" />
     <Compile Include="Controllers\EmployeController.cs" />
     <Compile Include="Global.asax.cs">
@@ -233,13 +233,14 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DTO\ApplicationTraceDTOs.cs" />
+    <Compile Include="Models\DTO\DevisFactureDTOs.cs" />
     <Compile Include="Models\DTO\UtilisateurDTOs.cs" />
     <Compile Include="Models\ViewModel\AdresseViewModels.cs" />
     <Compile Include="Models\DTO\AdresseDTOs.cs" />
     <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\ManageQuoteModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\ViewModel\BootstrapViewModels.cs" />
+    <Compile Include="Models\ViewModel\DevisFactureViewModels.cs" />
     <Compile Include="Models\ViewModel\UtilisateurViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -314,11 +315,11 @@
     <Content Include="Views\Shared\_BootstrapDeleteModalPartial.cshtml" />
     <Content Include="Views\Shared\_AdminLayout.cshtml" />
     <Content Include="Views\Tracabilite\Index.cshtml" />
-    <Content Include="Views\ManageQuote\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\Img\" />
+    <Folder Include="Views\DevisFacture\" />
     <Folder Include="Views\Employe\" />
   </ItemGroup>
   <ItemGroup>
