@@ -1,0 +1,14 @@
+﻿@using System.Web.Mvc.Html
+@using MaderaSoft.Models.ViewModel
+@using Madera.Service
+@model DevisFactureIndexViewModel
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+@{
+
+    Html.bootstrapTable(Model.tableauDevisFactures);
+
+}
