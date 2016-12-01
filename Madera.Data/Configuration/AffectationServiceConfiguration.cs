@@ -12,7 +12,7 @@ namespace Madera.Data.Configuration
         public AffectationServiceConfiguration()
         {
             ToTable("AffectationService");
-            HasKey<int>(a => a.AffectationServiceID);
+            HasKey<int>(a => a.id);
             Property<bool>(a => a.isPrincipal);
 
         }
