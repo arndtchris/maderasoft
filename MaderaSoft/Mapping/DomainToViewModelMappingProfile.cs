@@ -25,6 +25,7 @@ namespace MaderaSoft.Mapping
         protected override void Configure()
         {
             CreateMap<Adresse, AdresseDTO>();
+            CreateMap<DevisFacture, DevisFactureDTO>();
             CreateMap<ApplicationTrace, ApplicationTraceDTO>();
             CreateMap<Utilisateur, UtilisateurDTO>();
         }
