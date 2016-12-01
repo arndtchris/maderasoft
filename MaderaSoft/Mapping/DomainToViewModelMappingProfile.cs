@@ -26,6 +26,7 @@ namespace MaderaSoft.Mapping
         {
             CreateMap<Adresse, AdresseDTO>();
             CreateMap<ApplicationTrace, ApplicationTraceDTO>();
+            CreateMap<Utilisateur, UtilisateurDTO>();
         }
     }
 }

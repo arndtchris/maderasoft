@@ -45,6 +45,14 @@ namespace MaderaSoft.Mapping
                .ForMember(g => g.date, map => map.MapFrom(vm => vm.date))
                .ForMember(g => g.description, map => map.MapFrom(vm => vm.description))
                .ForMember(g => g.action, map => map.MapFrom(vm => vm.action));
+
+            CreateMap<UtilisateurDTO, Utilisateur>()
+               .ForMember(g => g.dConnexion, map => map.MapFrom(vm => vm.dConnexion))
+               .ForMember(g => g.dCreation, map => map.MapFrom(vm => vm.dCreation))
+               .ForMember(g => g.isActive, map => map.MapFrom(vm => vm.isActive))
+               .ForMember(g => g.isDeleted, map => map.MapFrom(vm => vm.isDeleted))
+               .ForMember(g => g.login, map => map.MapFrom(vm => vm.login))
+               .ForMember(g => g.password, map => map.MapFrom(vm => vm.password));
         }
     }
 }
