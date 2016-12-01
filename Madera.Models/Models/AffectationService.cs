@@ -7,7 +7,7 @@ namespace Madera.Model
 {
     public class AffectationService
     {
-        public int AffectationServiceID { get; set; }
+        public int id { get; set; }
 
         public virtual Employe employe { get; set; }
         public virtual Service service { get; set; }
