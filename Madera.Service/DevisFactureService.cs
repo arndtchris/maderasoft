@@ -8,14 +8,14 @@ using System.Web;
 
 namespace Madera.Service
 {
-    public class ManageQuoteService : IManageQuoteService
+    public class DevisFactureService : IDevisFactureService
     {
         private readonly IDevisFactureRepository devisRepository;
         private readonly IApplicationTraceService _applicationTraceService;
         private readonly IUnitOfWork unitOfWork;
 
 
-        public ManageQuoteService(IDevisFactureRepository devisRepository, IUnitOfWork unitOfWork, IApplicationTraceService applicationTraceService)
+        public DevisFactureService(IDevisFactureRepository devisRepository, IUnitOfWork unitOfWork, IApplicationTraceService applicationTraceService)
         {
             this.devisRepository = devisRepository;
             this._applicationTraceService = applicationTraceService;
@@ -79,7 +79,7 @@ namespace Madera.Service
     }
 
     //Définition des méthodes qui seront accessibles depuis la couche de présentation
-    public interface IManageQuoteService
+    public interface IDevisFactureService
     {
         IEnumerable<DevisFacture> GetLesDevis();
         DevisFacture GetUnDevis(int id);
