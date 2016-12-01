@@ -138,6 +138,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AdresseService.cs" />
+    <Compile Include="AffectationServiceService.cs" />
     <Compile Include="ApplicationTraceService.cs" />
     <Compile Include="DroitService.cs" />
     <Compile Include="ManageQuoteService.cs" />
