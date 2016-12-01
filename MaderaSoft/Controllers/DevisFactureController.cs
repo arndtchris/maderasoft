@@ -5,14 +5,15 @@ using System.Linq;
 using System.Web.Mvc;
 using MaderaSoft.Models;
 using AutoMapper;
-using static MaderaSoft.Models.ManageQuoteViewModel;
 using Madera.Model;
 using Vereyon.Web;
 using MaderaSoft.Models.ViewModel;
+using MaderaSoft.Mapping;
+using MaderaSoft.Models.DTO;
 
 namespace MaderaSoft.Controllers
 {
-    public class ManageQuoteController : Controller
+    public class DevisFactureController : Controller
     {
         /*
          * Toute la logique métier doit être centralisée dans la couche Service
@@ -22,32 +23,32 @@ namespace MaderaSoft.Controllers
          */
 
 
-        private readonly IManageQuoteService manageQuoteService;
+        private readonly IDevisFactureService devisfactureService;
 
-        public ManageQuoteController(IManageQuoteService manageQuoteService)
+        public DevisFactureController(IDevisFactureService devisfactureService)
         {
-            this.manageQuoteService = manageQuoteService;
+            this.devisfactureService = devisfactureService;
         }
 
         // GET: DevisFacture
         [HttpGet]
         public ActionResult Index()
         {
-            ManageQuoteViewModel modelOut = new ManageQuoteViewModel();
-            modelOut.tableauQuote.typeObjet = "Devis";
-
+            DevisFactureIndexViewModel modelOut = new DevisFactureIndexViewModel();
+            modelOut.tableauDevisFactures.typeObjet = "DevisFacture";
+            
             /*
              * Pour transporter un minimum d'informationon récupère directement un model allégé (DTO) au lieu d'un Plain Object 
              */
-            List<DevisFactureDTO> lesDevis = Mapper.Map<List<DevisFacture>, List<DevisFactureDTO>>(manageQuoteService.GetLesDevis().ToList());
+            List<DevisFactureDTO> lesDevis = Mapper.Map<List<DevisFacture>, List<DevisFactureDTO>>(devisfactureService.GetLesDevis().ToList());
 
             //On initialise le première ligne du tableau qui permettra d'en construire l'entête
-            modelOut.tableauQuote.lesLignes.Add(new List<string> { "Numéro devis", "Devis signé", "Devis supprimé", "Numéro projet", "Référent" });
+            modelOut.tableauDevisFactures.lesLignes.Add(new List<string> { "Numéro devis", "Devis signé", "Devis supprimé", "Numéro projet", "Référent", ""});
 
             //On rempli ensuite les autres lignes avec les données correspondantes
             foreach (DevisFactureDTO devisFactureDTO in lesDevis)
             {
-                modelOut.tableauQuote.lesLignes.Add(new List<string> { String.Format(devisFactureDTO.id.ToString(), devisFactureDTO.isSigned.ToString(), devisFactureDTO.isDeleted.ToString(), devisFactureDTO.projet.ToString(), devisFactureDTO.employe.ToString() )});
+                modelOut.tableauDevisFactures.lesLignes.Add(new List<string> { String.Format(devisFactureDTO.id.ToString(), devisFactureDTO.isSigned.ToString(), devisFactureDTO.isDeleted.ToString(), devisFactureDTO.projet.id.ToString(), devisFactureDTO.employe.id.ToString(), devisFactureDTO.id.ToString() )});
             }
 
             return View(modelOut);
@@ -60,7 +61,7 @@ namespace MaderaSoft.Controllers
             BootstrapModalViewModel modelOut = new BootstrapModalViewModel();
 
             if (id.HasValue)//Si on id est transmis on reprend les valeurs du devis correspondant
-                Mapper.Map<DevisFacture, DevisFactureDTO>(manageQuoteService.GetUnDevis(id.Value));
+                Mapper.Map<DevisFacture, DevisFactureDTO>(devisfactureService.GetUnDevis(id.Value));
             else//Sinon on instancie un nouveau devis
                 modelOut.objet = new DevisFactureDTO();
 
@@ -97,12 +98,12 @@ namespace MaderaSoft.Controllers
                 try
                 {
                     FlashMessage.Confirmation("Devis mis à jour avec succès");
-                    manageQuoteService.UpdateDevis(devisATraiter);
+                    devisfactureService.UpdateDevis(devisATraiter);
 
                     //Après avoir défini toutes les nouvelles entrées à réaliser en bdd, 
                     //on demande au Pattern UnitOfWork de réaliser les transactions nécessaire pour assurer la persistence des données
                     //En effet la méthode saveDevis() appelle unitOfWork.Commit();
-                    manageQuoteService.saveDevis();
+                    devisfactureService.saveDevis();
                 }
                 catch (Exception)
                 {
@@ -134,8 +135,8 @@ namespace MaderaSoft.Controllers
             try
             {
                 FlashMessage.Confirmation("Suppression du devis");
-                manageQuoteService.deleteDevis(idToDelete);
-                manageQuoteService.saveDevis();
+                devisfactureService.deleteDevis(idToDelete);
+                devisfactureService.saveDevis();
             }
             catch (Exception)
             {
