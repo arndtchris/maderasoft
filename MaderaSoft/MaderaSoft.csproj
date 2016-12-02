@@ -212,13 +212,14 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Areas\RessourcesHumaines\Controllers\EmployeController.cs" />
+    <Compile Include="Areas\RessourcesHumaines\RessourcesHumainesAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdresseController.cs" />
     <Compile Include="Controllers\DevisFactureController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\TracabiliteController.cs" />
-    <Compile Include="Controllers\EmployeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -261,6 +262,7 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Areas\RessourcesHumaines\Views\web.config" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\grayscale.min.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -318,6 +320,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\RessourcesHumaines\Models\" />
+    <Folder Include="Areas\RessourcesHumaines\Views\Employe\" />
+    <Folder Include="Areas\RessourcesHumaines\Views\Shared\" />
     <Folder Include="Content\Img\" />
     <Folder Include="Views\DevisFacture\" />
     <Folder Include="Views\Employe\" />
