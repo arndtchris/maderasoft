@@ -116,7 +116,7 @@ namespace MaderaSoft.Controllers
                 //Une fois la correspondance effectuée, nous demandons au service adéquat de créer une nouvelle entrée
                 try
                 {
-                    FlashMessage.Confirmation("Adresse ajoutée avec succes");
+                    FlashMessage.Confirmation("Adresse ajoutée avec succès");
                     adresseService.CreateAdresse(adresseATraiter);
 
                     //Après avoir défini toutes les nouvelles entrées à réaliser en bdd, 
