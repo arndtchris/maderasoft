@@ -1,0 +1,16 @@
+﻿@using MaderaSoft.Areas.RessourcesHumaines.Models.ViewModels;
+@using Madera.Service;
+@model EmployeIndexViewModel
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>Gestion des employés</h1>
+
+
+
+@Html.actionButton("Ajouter un nouvel employé", Parametres.TypeBouton.Creation, Url.Action("EditModal", "Employe", new { area = "RessourcesHumaines"}).ToString(), "editModal")
+
+@{
+    Html.bootstrapTable(Model.tableauEmployes);
+}

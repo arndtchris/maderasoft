@@ -213,6 +213,8 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Areas\RessourcesHumaines\Controllers\EmployeController.cs" />
+    <Compile Include="Areas\RessourcesHumaines\Models\DTOs\EmployeDTOs.cs" />
+    <Compile Include="Areas\RessourcesHumaines\Models\ViewModels\EmployeViewModels.cs" />
     <Compile Include="Areas\RessourcesHumaines\RessourcesHumainesAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdresseController.cs" />
@@ -235,6 +237,7 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DTO\ApplicationTraceDTOs.cs" />
     <Compile Include="Models\DTO\DevisFactureDTOs.cs" />
+    <Compile Include="Models\DTO\PersonneDTOs.cs" />
     <Compile Include="Models\DTO\UtilisateurDTOs.cs" />
     <Compile Include="Models\ViewModel\AdresseViewModels.cs" />
     <Compile Include="Models\DTO\AdresseDTOs.cs" />
@@ -263,6 +266,10 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Areas\RessourcesHumaines\Views\web.config" />
+    <Content Include="Areas\RessourcesHumaines\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\RessourcesHumaines\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\RessourcesHumaines\Views\Employe\Index.cshtml" />
+    <Content Include="Areas\RessourcesHumaines\Views\Employe\_EditEmployePartial.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\grayscale.min.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -320,9 +327,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\RessourcesHumaines\Models\" />
-    <Folder Include="Areas\RessourcesHumaines\Views\Employe\" />
-    <Folder Include="Areas\RessourcesHumaines\Views\Shared\" />
     <Folder Include="Content\Img\" />
     <Folder Include="Views\DevisFacture\" />
     <Folder Include="Views\Employe\" />

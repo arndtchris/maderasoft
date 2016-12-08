@@ -1,0 +1,81 @@
+﻿@using Madera.Service;
+@using MaderaSoft.Areas.RessourcesHumaines.Models.ViewModels;
+
+@model EditEmployeViewModel
+
+
+@using (Html.BeginForm("Edit", "Employe", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-inline", area = "RessourcesHumaines" }))
+{
+    <fieldset>
+        <legend>Informations générales</legend>
+        <div class="row">
+            <div class="col-md-2">
+                @Html.LabelFor(m => m.personne.civ)
+                @Html.DropDownListFor(m => m.personne.civ, Model.personne.lesCivilites)
+                <i>@Html.ValidationMessageFor(m => m.personne.civ)</i>
+            </div>
+            <div class="col-md-5">
+                @Html.LabelFor(m => m.personne.nom)
+                @Html.TextBoxFor(m => m.personne.nom)
+                <i>@Html.ValidationMessageFor(m => m.personne.nom)</i>
+            </div>
+            <div class="col-md-5">
+                @Html.LabelFor(m => m.personne.prenom)
+                @Html.TextBoxFor(m => m.personne.prenom)
+                <i>@Html.ValidationMessageFor(m => m.personne.prenom)</i>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                @Html.LabelFor(m => m.personne.email)
+                @Html.TextBoxFor(m => m.personne.email)
+                <i>@Html.ValidationMessageFor(m => m.personne.email)</i>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                @Html.LabelFor(m => m.personne.tel1)
+                @Html.TextBoxFor(m => m.personne.tel1)
+                <i>@Html.ValidationMessageFor(m => m.personne.tel1)</i>
+            </div>
+            <div class="col-md-6">
+                @Html.LabelFor(m => m.personne.tel2)
+                @Html.TextBoxFor(m => m.personne.tel2)
+                <i>@Html.ValidationMessageFor(m => m.personne.tel2)</i>
+            </div>
+        </div>
+    </fieldset>
+    <fieldset>
+        <legend>Adresse</legend>
+        <div class="row">
+            <div class="col-md-2">
+                @Html.LabelFor(m => m.personne.adresse.numRue)
+                @Html.TextBoxFor(m => m.personne.adresse.numRue)
+            </div>
+            <div class="col-md-10">
+                @Html.LabelFor(m => m.personne.adresse.nomRue)
+                @Html.TextBoxFor(m => m.personne.adresse.nomRue)
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                @Html.LabelFor(m => m.personne.adresse.codePostal)
+                @Html.TextBoxFor(m => m.personne.adresse.codePostal)
+            </div>
+            <div class="col-md-8">
+                @Html.LabelFor(m => m.personne.adresse.ville)
+                @Html.TextBoxFor(m => m.personne.adresse.ville)
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                @Html.LabelFor(m => m.personne.adresse.pays)
+                @Html.TextBoxFor(m => m.personne.adresse.pays)
+            </div>
+        </div>
+    </fieldset>
+    <div class="modal-footer">
+        @Html.actionButton(" Annuler", Parametres.TypeBouton.DissmissModal)
+        @Html.actionButton(" Valider", Parametres.TypeBouton.Submit)
+    </div>
+}
