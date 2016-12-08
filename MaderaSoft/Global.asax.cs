@@ -17,7 +17,7 @@ namespace MaderaSoft
         protected void Application_Start()
         {
             //Initialisation de la bdd
-            System.Data.Entity.Database.SetInitializer(new MigrateDatabaseToLatestVersion<MaderaEntities,Configuration>());
+            //System.Data.Entity.Database.SetInitializer(new MigrateDatabaseToLatestVersion<MaderaEntities,Configuration>());
             System.Data.Entity.Database.SetInitializer(new MaderaSeeder());
 
             AreaRegistration.RegisterAllAreas();
