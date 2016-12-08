@@ -19,7 +19,7 @@ namespace MaderaSoft.Models.DTO
         public string nomRue { get; set; }
         [DisplayName("Code postal")]
         [Required(ErrorMessage = "Le code postal est obligatoire.")]
-        [RegularExpression("^(F-)?((2[A|B])|[0-9]{2})[0-9]{3}$", ErrorMessage = "Le format du code postal n'est pas valide")]
+        [RegularExpression("^(F-)?((2[A|B])|[0-9]{2})[0-9]{3}$", ErrorMessage = "Le format du code postal n'est pas valide.")]
         public string codePostal { get; set; }
         [DisplayName("Ville")]
         [Required(ErrorMessage = "La ville est obligatoire.")]

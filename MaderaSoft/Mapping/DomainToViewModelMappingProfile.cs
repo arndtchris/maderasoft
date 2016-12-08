@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using AutoMapper;
 using Madera.Model;
+using MaderaSoft.Areas.RessourcesHumaines.Models.DTOs;
 using MaderaSoft.Models;
 using MaderaSoft.Models.DTO;
 
@@ -28,6 +29,8 @@ namespace MaderaSoft.Mapping
             CreateMap<DevisFacture, DevisFactureDTO>();
             CreateMap<ApplicationTrace, ApplicationTraceDTO>();
             CreateMap<Utilisateur, UtilisateurDTO>();
+            CreateMap<Employe, EmployeDTO>();
+            CreateMap<Personne, PersonneDTO>();
         }
     }
 }

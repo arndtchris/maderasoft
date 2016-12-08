@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using AutoMapper;
 using Madera.Model;
+using MaderaSoft.Areas.RessourcesHumaines.Models.DTOs;
 using MaderaSoft.Models;
 using MaderaSoft.Models.DTO;
 
@@ -52,6 +53,22 @@ namespace MaderaSoft.Mapping
                .ForMember(g => g.isDeleted, map => map.MapFrom(vm => vm.isDeleted))
                .ForMember(g => g.login, map => map.MapFrom(vm => vm.login))
                .ForMember(g => g.password, map => map.MapFrom(vm => vm.password));
+
+            CreateMap<PersonneDTO, Personne>()
+               .ForMember(g => g.civ, map => map.MapFrom(vm => vm.civ))
+               .ForMember(g => g.nom, map => map.MapFrom(vm => vm.prenom))
+               .ForMember(g => g.prenom, map => map.MapFrom(vm => vm.prenom))
+               .ForMember(g => g.email, map => map.MapFrom(vm => vm.email))
+               .ForMember(g => g.tel1, map => map.MapFrom(vm => vm.tel1))
+               .ForMember(g => g.tel2, map => map.MapFrom(vm => vm.tel2))
+               .ForMember(g => g.adresse, map => map.MapFrom(vm => vm.adresse));
+
+
+            CreateMap<EmployeDTO, Employe>()
+               .ForMember(g => g.isDeleted, map => map.MapFrom(vm => vm.isDeleted))
+               .ForMember(g => g.typeEmploye, map => map.MapFrom(vm => vm.typeEmploye))
+               .ForMember(g => g.affectationServices, map => map.MapFrom(vm => vm.affectationServices))
+               .ForMember(g => g.personne, map => map.MapFrom(vm => vm.personne));
         }
     }
 }
