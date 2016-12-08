@@ -36,7 +36,7 @@ namespace Madera.Service
             _applicationTraceService.create(new ApplicationTrace
             {
                 action = Parametres.Action.Creation.ToString(),
-                description = String.Format("Création d'un nouvel employé"),
+                description = String.Format("Création d'un nouvel employé {0} {1}", employe.personne.nom, employe.personne.prenom),
             });
 
             _employeRepository.Insert(employe);
@@ -47,7 +47,7 @@ namespace Madera.Service
             _applicationTraceService.create(new ApplicationTrace
             {
                 action = Parametres.Action.Creation.ToString(),
-                description = String.Format("Mise à jour de l'employé {0} {1}", employe.nom, employe.prenom),
+                description = String.Format("Mise à jour de l'employé {0} {1}", employe.personne.nom, employe.personne.prenom),
             });
 
             _employeRepository.Update(employe);
