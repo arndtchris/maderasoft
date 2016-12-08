@@ -19,7 +19,6 @@ namespace Madera.Model
         public Boolean isDeleted { get; set; }
         public virtual Adresse adresse { get; set; }
         public virtual Utilisateur utilisateur { get; set; }
-        public virtual Employe employe { get; set; }
 
         public Personne()
         {
