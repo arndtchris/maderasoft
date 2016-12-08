@@ -12,6 +12,11 @@ namespace Madera.Data.Repositories
         public PersonneRepository(IDbFactory dbFactory)
             : base(dbFactory) { }
 
+        public IEnumerable<Personne> GetEmployes()
+        {
+            return this.DbContext.Personnes.Where(c => !c.isClient && !c.isFournisseur);
+        }
+
         public override void Insert(Personne entity)
         {
             entity.isDeleted = false;
@@ -21,6 +26,6 @@ namespace Madera.Data.Repositories
 
     public interface IPersonneRepository : IRepository<Personne>
     {
-
+        IEnumerable<Personne> GetEmployes();
     }
 }
