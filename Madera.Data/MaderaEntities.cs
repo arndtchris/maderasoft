@@ -18,7 +18,7 @@ namespace Madera.Data
         public DbSet<Service> Services { get; set; }
         public DbSet<Utilisateur> Utilisateurs { get; set; }
         public DbSet<Droit> Droits { get; set; }
-        public DbSet<Employe> Employes { get; set; }
+        public DbSet<Personne> Personnes { get; set; }
         public DbSet<TEmploye> TEmployes { get; set; }
 
         public virtual void Commit()

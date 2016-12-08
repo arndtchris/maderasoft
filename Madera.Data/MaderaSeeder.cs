@@ -14,7 +14,7 @@ namespace Madera.Data
             SeedAdresses().ForEach(c => context.Adresses.Add(c));
             SeedServices().ForEach(c => context.Services.Add(c));
             SeedDroits().ForEach(c => context.Droits.Add(c));
-            SeedEmployes().ForEach(c => context.Employes.Add(c));
+            SeedPersonnes().ForEach(c => context.Personnes.Add(c));
             SeedTEmployes().ForEach(c => context.TEmployes.Add(c));
 
             context.Commit();
@@ -60,11 +60,11 @@ namespace Madera.Data
             };
         }
 
-        private static List<Employe> SeedEmployes()
+        private static List<Personne> SeedPersonnes()
         {
-            return new List<Employe>
+            return new List<Personne>
             {
-                new Employe
+                new Personne
                 {
                     isDeleted = false,
                     isClient = false,
@@ -72,7 +72,7 @@ namespace Madera.Data
                     nom = "Arndt",
                     prenom = "Chris"
                 },
-                new Employe
+                new Personne
                 {
                     isDeleted = false,
                     isClient = false,
@@ -80,7 +80,7 @@ namespace Madera.Data
                     nom = "Berthemin",
                     prenom = "Thomas"
                 },
-                new Employe
+                new Personne
                 {
                     isDeleted = false,
                     isClient = false,
