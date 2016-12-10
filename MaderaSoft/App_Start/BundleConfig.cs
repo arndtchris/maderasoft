@@ -24,17 +24,21 @@ namespace MaderaSoft
                       "~/Scripts/respond.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
+                      "~/Content/bootstrap.css"));
 
             bundles.Add(new StyleBundle("~/Content/layoutcss").Include(
-                      "~/Content/grayscale.min.css"));
+                      "~/Content/grayscale.min.css",
+                      "~/Content/site.css"));
 
             bundles.Add(new ScriptBundle("~/bundles/layoutjs").Include(
                       "~/Scripts/grayscale.min.js"));
 
+            bundles.Add(new StyleBundle("~/Content/admincss").Include(
+                      "~/Content/Admin/AdminLTE.css",
+                      "~/Content/Admin/skin-blue.min.css"));
             bundles.Add(new ScriptBundle("~/bundles/adminlayoutjs").Include(
-                      "~/Scripts/appScript.js"));
+                      "~/Scripts/Admin/appScript.js",
+                      "~/Scripts/Admin/adminLte.min.js"));
         }
     }
 }
