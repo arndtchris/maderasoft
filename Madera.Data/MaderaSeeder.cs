@@ -40,6 +40,112 @@ namespace Madera.Data
                 }
             };
         }
+        private static List<Utilisateur> SeedUtilisateurs()
+        {
+            return new List<Utilisateur>
+            {
+                new Utilisateur {
+                    id = 1,
+                    login = "mickaelcimbaluria",
+                    password = "123456",
+                    dCreation = DateTime.Now,
+                    dConnexion = DateTime.Now,
+                    isActive = true,
+                    isFirstConnexion = false,
+                    isDeleted = false
+                },
+                new Utilisateur {
+                    id = 2,
+                    login = "thomasberthemin",
+                    password = "123456",
+                    dCreation = DateTime.Now,
+                    dConnexion = DateTime.Now,
+                    isActive = true,
+                    isFirstConnexion = false,
+                    isDeleted = false,
+                },
+                new Utilisateur {
+                    id = 3,
+                    login = "chrisarndt",
+                    password = "123456",
+                    dCreation = DateTime.Now,
+                    dConnexion = DateTime.Now,
+                    isActive = true,
+                    isFirstConnexion = false,
+                    isDeleted = false,
+                },
+            };
+
+        }
+
+        private static List<Personne> SeedPersonnes()
+        {
+            return new List<Personne>
+            {
+                new Personne {
+                    id = 1,
+                    civ =  "Monsieur",
+                    nom = "Cimbaluria",
+                    prenom = "Mickaël",
+                    email = "mickael.cimbaluria@madera.fr",
+                    tel1 = "0383123456",
+                    tel2 = "",
+                    isFournisseur = false,
+                    isClient = false,
+                    isDeleted = false               
+                },
+                new Personne {
+                    id = 1,
+                    civ =  "Monsieur",
+                    nom = "Berthemin",
+                    prenom = "Thomas",
+                    email = "thomas.berthemin@madera.fr",
+                    tel1 = "0383123456",
+                    tel2 = "",
+                    isFournisseur = false,
+                    isClient = false,
+                    isDeleted = false
+                },new Personne {
+                    id = 1,
+                    civ =  "Monsieur",
+                    nom = "Cimbaluria",
+                    prenom = "Mickaël",
+                    email = "chris.arndt@madera.fr",
+                    tel1 = "0383123456",
+                    tel2 = "",
+                    isFournisseur = false,
+                    isClient = false,
+                    isDeleted = false
+                }
+            };
+
+        }
+
+
+        private static List<DevisFacture> SeedDevisFacture()
+        {
+            return new List<DevisFacture>
+            {
+                new DevisFacture
+                {
+                    id = 1,
+                    isSigned = true,
+                    isDeleted = false,
+                },
+                new DevisFacture
+                {
+                    id = 2,
+                    isSigned = true,
+                    isDeleted = false,
+                },
+                new DevisFacture
+                {
+                    id = 3,
+                    isSigned = false,
+                    isDeleted = false,
+                }
+            };
+        }
 
         private static List<Service> SeedServices()
         {
