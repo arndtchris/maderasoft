@@ -23,9 +23,9 @@ namespace MaderaSoft.Models.DTO
         [DisplayName("Email")]
         //[RegularExpression("^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$", ErrorMessage = "Cette adresse email n'est as valide")]
         public string email { get; set; }
-        [DisplayName("Téléphone portable")]
+        [DisplayName("Tel. portable")]
         public string tel1 { get; set; }
-        [DisplayName("Téléphone fixe")]
+        [DisplayName("Tel. fixe")]
         public string tel2 { get; set; }
         public AdresseDTO adresse { get; set; }
         public List<SelectListItem> lesCivilites { get; set; }
@@ -34,7 +34,7 @@ namespace MaderaSoft.Models.DTO
         {
             adresse = new AdresseDTO();
             lesCivilites = new List<SelectListItem> {
-                new SelectListItem {Value = "0",Text = "--- Sélectionnez ---" },
+                new SelectListItem {Value = "",Text = "--- Sélectionnez ---" },
                 new SelectListItem {Value = "1",Text = "Madame" },
                 new SelectListItem {Value = "2",Text = "Monsieur" }
             };
