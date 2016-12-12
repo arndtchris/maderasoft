@@ -236,9 +236,13 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\DTO\AffectationServiceDTOs.cs" />
     <Compile Include="Models\DTO\ApplicationTraceDTOs.cs" />
     <Compile Include="Models\DTO\DevisFactureDTOs.cs" />
+    <Compile Include="Models\DTO\DroitDTOs.cs" />
     <Compile Include="Models\DTO\PersonneDTOs.cs" />
+    <Compile Include="Models\DTO\ServiceDTOs.cs" />
+    <Compile Include="Models\DTO\TEmployeDTOs.cs" />
     <Compile Include="Models\DTO\UtilisateurDTOs.cs" />
     <Compile Include="Models\ViewModel\AdresseViewModels.cs" />
     <Compile Include="Models\DTO\AdresseDTOs.cs" />
@@ -278,6 +282,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Areas\RessourcesHumaines\Views\Employe\Detail.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\grayscale.min.js" />
     <None Include="Scripts\jquery-2.2.3.intellisense.js" />

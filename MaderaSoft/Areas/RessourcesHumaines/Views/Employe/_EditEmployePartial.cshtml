@@ -1,4 +1,5 @@
 ﻿@using Madera.Service;
+@using MaderaSoft.Models.DTO;
 @using MaderaSoft.Areas.RessourcesHumaines.Models.ViewModels;
 
 @model EditEmployeViewModel
@@ -7,12 +8,13 @@
 @using (Html.BeginForm("Edit", "Employe", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-inline", area = "RessourcesHumaines" }))
 {
     <div class="modal-body">
+        @Html.HiddenFor(m => m.personne.id)
         <fieldset>
             <legend>Informations générales</legend>
             <div class="form-group-lg">
                 <div class="col-md-4">
                     @Html.LabelFor(m => m.personne.civ)
-                    @Html.DropDownListFor(m => m.personne.civ, Model.personne.lesCivilites)
+                    @Html.DropDownListFor(m => m.personne.civ, Model.lesCivilites)
                     <p class="bg-warning">@Html.ValidationMessageFor(m => m.personne.civ)</p>
                 </div>
                 <div class="col-md-4">
@@ -73,6 +75,32 @@
                     @Html.LabelFor(m => m.personne.adresse.pays)
                     @Html.TextBoxFor(m => m.personne.adresse.pays)
                     <p class="bg-warning">@Html.ValidationMessageFor(m => m.personne.adresse.pays)</p>
+                </div>
+            </div>
+        </fieldset>
+        <fieldset>
+            <legend>Informations prefessionnelles</legend>
+            <div class="form-group-lg">
+                <div class="col-md-12">
+                    @Html.LabelFor(m => m.personne.employe.typeEmploye)
+                    @Html.DropDownListFor(m => m.personne.employe.typeEmploye, Model.lesTypesEmployes)
+                    <p class="bg-warning">@Html.ValidationMessageFor(m => m.personne.employe.typeEmploye)</p>
+                </div>
+            </div>
+            <div class="form-group-lg">
+                <div class="col-md-4">
+                    @Html.LabelFor(m => m.personne.employe.nouvelleAffectation.service)
+                    @Html.DropDownListFor(m => m.personne.employe.nouvelleAffectation.service.id, Model.lesServices)
+                    <p class="bg-warning">@Html.ValidationMessageFor(m => m.personne.employe.nouvelleAffectation.service)</p>
+                </div>
+                <div class="col-md-4">
+                    @Html.LabelFor(m => m.personne.employe.nouvelleAffectation.groupe)
+                    @Html.DropDownListFor(m => m.personne.employe.nouvelleAffectation.groupe.id, Model.lesDroits)
+                    <p class="bg-warning">@Html.ValidationMessageFor(m => m.personne.employe.nouvelleAffectation.groupe)</p>
+                </div>
+                <div class="col-md-4">
+                    @Html.LabelFor(m => m.personne.employe.nouvelleAffectation.isPrincipal)
+                    @Html.CheckBoxFor(m => m.personne.employe.nouvelleAffectation.isPrincipal)
                 </div>
             </div>
         </fieldset>
