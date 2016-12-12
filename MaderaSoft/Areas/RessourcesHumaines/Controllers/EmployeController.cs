@@ -43,6 +43,7 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
             BootstrapButtonViewModel button = new BootstrapButtonViewModel();
             modelOut.tableauEmployes.typeObjet = "Employe";
             modelOut.tableauEmployes.avecActionCrud = true;
+            modelOut.tableauEmployes.messageSiVide = "Aucun employé n'a été saisi dans l'application.";
 
             List<PersonneDTO> lesEmployes = Mapper.Map<List<Personne>, List<PersonneDTO>>(_personneService.GetEmployes().ToList());
 
@@ -140,17 +141,18 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
             AffectationService nouvelleAffectation = new AffectationService();
             Personne perso = new Personne();
 
+            //On prépare la nouvelle affectation
+            nouvelleAffectation.isPrincipal = personne.employe.isAffecttionPrincipal;
+            nouvelleAffectation.service = _serviceService.GetService(personne.employe.serviceIdPourAffectation);
+            nouvelleAffectation.groupe = _droitService.GetDroit(personne.employe.groupeIdPourAffectation);
+
+
+
             if (personne.employe.id != 0)
             {
                 try
                 {
-                    //On prépare la nouvelle affectation
-                    nouvelleAffectation.isPrincipal = personne.employe.isAffecttionPrincipal;
-                    nouvelleAffectation.service = _serviceService.GetService(personne.employe.serviceIdPourAffectation);
-                    nouvelleAffectation.groupe = _droitService.GetDroit(personne.employe.groupeIdPourAffectation);
-
                     perso = _personneService.GetPersonne(personne.id);
-
                     perso.employe.affectationServices.Add(nouvelleAffectation);
 
                     //On prépare le type d'employé
@@ -170,6 +172,9 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
                 try
                 {
                     perso = Mapper.Map<PersonneEmployeDTO, Personne>(personne);
+                    perso.employe.affectationServices.Add(nouvelleAffectation);
+                    //On prépare le type d'employé
+                    perso.employe.typeEmploye = _temployeService.GetTEmploye(personne.employe.typeEmployeId);
                     _personneService.CreatePersonne(perso);
                     FlashMessage.Confirmation("Employé créé avec succès");
                 }
