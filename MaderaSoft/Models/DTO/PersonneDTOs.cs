@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using MaderaSoft.Areas.RessourcesHumaines.Models.DTOs;
 
 namespace MaderaSoft.Models.DTO
 {
@@ -28,17 +29,37 @@ namespace MaderaSoft.Models.DTO
         [DisplayName("Tel. fixe")]
         public string tel2 { get; set; }
         public AdresseDTO adresse { get; set; }
-        public List<SelectListItem> lesCivilites { get; set; }
-
+        
+        public string getCiv()
+        {
+            if(this.civ != null)
+            {
+                if(this.civ == "1")
+                {
+                    return "Madame";
+                }else
+                {
+                    return "Monsieur";
+                }
+            }
+            else
+            {
+                return " ";
+            }
+        }
         public PersonneDTO()
         {
             adresse = new AdresseDTO();
-            lesCivilites = new List<SelectListItem> {
-                new SelectListItem {Value = "",Text = "--- Sélectionnez ---" },
-                new SelectListItem {Value = "1",Text = "Madame" },
-                new SelectListItem {Value = "2",Text = "Monsieur" }
-            };
+        }
+    }
 
+    public class PersonneEmployeDTO : PersonneDTO
+    {
+        public EmployeDTO employe { get; set; }
+
+        public PersonneEmployeDTO()
+        {
+            employe = new EmployeDTO();
         }
     }
 }

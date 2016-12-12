@@ -43,13 +43,13 @@ namespace MaderaSoft.Controllers
             List<DevisFactureDTO> lesDevis = Mapper.Map<List<DevisFacture>, List<DevisFactureDTO>>(devisfactureService.GetLesDevis().ToList());
 
             //On initialise le première ligne du tableau qui permettra d'en construire l'entête
-            modelOut.tableauDevisFactures.lesLignes.Add(new List<string> { "Numéro devis", "Devis signé", "Devis supprimé", "Numéro projet", "Référent", ""});
+            /*modelOut.tableauDevisFactures.lesLignes.Add(new List<string> { "Numéro devis", "Devis signé", "Devis supprimé", "Numéro projet", "Référent", ""});
 
             //On rempli ensuite les autres lignes avec les données correspondantes
             foreach (DevisFactureDTO devisFactureDTO in lesDevis)
             {
                 modelOut.tableauDevisFactures.lesLignes.Add(new List<string> { String.Format(devisFactureDTO.id.ToString(), devisFactureDTO.isSigned.ToString(), devisFactureDTO.isDeleted.ToString(), devisFactureDTO.projet.id.ToString(), devisFactureDTO.employe.id.ToString(), devisFactureDTO.id.ToString() )});
-            }
+            }*/
 
             return View(modelOut);
         }

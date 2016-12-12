@@ -28,13 +28,13 @@ namespace MaderaSoft.Controllers
             List<ApplicationTraceDTO> lesTraces = Mapper.Map<List<ApplicationTrace>, List<ApplicationTraceDTO>>(appTraceService.getAll().ToList());
 
             modelOut.avecActionCrud = false;
-            modelOut.lesLignes.Add(new List<string> { "Utilisateur", "Date", "Action", "Description"});
+            /*modelOut.lesLignes.Add(new List<string> { "Utilisateur", "Date", "Action", "Description"});
             
 
             foreach (ApplicationTraceDTO appTraceDTO in lesTraces)
             {
                 modelOut.lesLignes.Add(new List<string> { appTraceDTO.utilisateur, appTraceDTO.date.ToString(), appTraceDTO.action, appTraceDTO.description});
-            }
+            }*/
 
 
             return View(modelOut);
