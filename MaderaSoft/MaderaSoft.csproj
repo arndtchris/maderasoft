@@ -213,6 +213,7 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Areas\GestionStocks\Controllers\StocksController.cs" />
     <Compile Include="Areas\GestionStocks\GestionStocksAreaRegistration.cs" />
     <Compile Include="Areas\RessourcesHumaines\Controllers\EmployeController.cs" />
     <Compile Include="Areas\RessourcesHumaines\Models\DTOs\EmployeDTOs.cs" />
@@ -351,10 +352,10 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\GestionStocks\Controllers\" />
     <Folder Include="Areas\GestionStocks\Models\" />
     <Folder Include="Areas\GestionStocks\Views\Shared\" />
     <Folder Include="Areas\Simulateur\Models\" />
+    <Folder Include="Areas\GestionStocks\Views\Stocks\" />
     <Folder Include="Content\Img\" />
     <Folder Include="Views\Employe\" />
   </ItemGroup>
