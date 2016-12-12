@@ -13,7 +13,7 @@ namespace Madera.Data.Configuration
         {
             ToTable("Employe");
             HasKey<int>(a => a.id);
-            HasRequired<TEmploye>(x => x.typeEmploye);
+            HasOptional<TEmploye>(x => x.typeEmploye);
             Property<bool>(a => a.isDeleted);
         }
     }
