@@ -123,7 +123,7 @@ namespace MaderaSoft.Migrations
                 .PrimaryKey(t => t.id);
             
             CreateTable(
-                "dbo.Composent",
+                "dbo.Composant",
                 c => new
                     {
                         id = c.Int(nullable: false, identity: true),
@@ -155,11 +155,11 @@ namespace MaderaSoft.Migrations
                     {
                         id = c.Int(nullable: false, identity: true),
                         qte = c.Int(nullable: false),
-                        composent_id = c.Int(),
+                        composant_id = c.Int(),
                     })
                 .PrimaryKey(t => t.id)
-                .ForeignKey("dbo.Composent", t => t.composent_id)
-                .Index(t => t.composent_id);
+                .ForeignKey("dbo.Composant", t => t.composant_id)
+                .Index(t => t.composant_id);
             
             CreateTable(
                 "dbo.DevisFacture",
@@ -313,9 +313,9 @@ namespace MaderaSoft.Migrations
             DropForeignKey("dbo.Personne", "employe_id", "dbo.Employe");
             DropForeignKey("dbo.Personne", "adresse_AdresseID", "dbo.Adresse");
             DropForeignKey("dbo.Projet", "adresse_AdresseID", "dbo.Adresse");
-            DropForeignKey("dbo.Composition", "composent_id", "dbo.Composent");
-            DropForeignKey("dbo.Composent", "gamme_id", "dbo.Gamme");
-            DropForeignKey("dbo.Composent", "fournisseur_id", "dbo.Utilisateur");
+            DropForeignKey("dbo.Composition", "composant_id", "dbo.Composant");
+            DropForeignKey("dbo.Composant", "gamme_id", "dbo.Gamme");
+            DropForeignKey("dbo.Composant", "fournisseur_id", "dbo.Utilisateur");
             DropForeignKey("dbo.AffectationService", "service_id", "dbo.Service");
             DropForeignKey("dbo.AffectationService", "groupe_id", "dbo.Droit");
             DropForeignKey("dbo.AffectationService", "employe_id", "dbo.Employe");
@@ -331,9 +331,9 @@ namespace MaderaSoft.Migrations
             DropIndex("dbo.Projet", new[] { "adresse_AdresseID" });
             DropIndex("dbo.DevisFacture", new[] { "referent_id" });
             DropIndex("dbo.DevisFacture", new[] { "projet_id" });
-            DropIndex("dbo.Composition", new[] { "composent_id" });
-            DropIndex("dbo.Composent", new[] { "gamme_id" });
-            DropIndex("dbo.Composent", new[] { "fournisseur_id" });
+            DropIndex("dbo.Composition", new[] { "composant_id" });
+            DropIndex("dbo.Composant", new[] { "gamme_id" });
+            DropIndex("dbo.Composant", new[] { "fournisseur_id" });
             DropIndex("dbo.Personne", new[] { "utilisateur_id" });
             DropIndex("dbo.Personne", new[] { "employe_id" });
             DropIndex("dbo.Personne", new[] { "adresse_AdresseID" });
@@ -352,7 +352,7 @@ namespace MaderaSoft.Migrations
             DropTable("dbo.DevisFacture");
             DropTable("dbo.Composition");
             DropTable("dbo.Gamme");
-            DropTable("dbo.Composent");
+            DropTable("dbo.Composant");
             DropTable("dbo.ApplicationTrace");
             DropTable("dbo.Service");
             DropTable("dbo.Droit");
