@@ -13,6 +13,9 @@ namespace Madera.Data.Configuration
         {
             ToTable("AffectationService");
             HasKey<int>(a => a.id);
+            HasRequired<Employe>(x => x.employe).WithMany(x => x.affectationServices);
+            HasRequired<Service>(x => x.service);
+            HasRequired<Droit>(x => x.groupe);
             Property<bool>(a => a.isPrincipal);
 
         }
