@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Madera.Service;
 
 namespace MaderaSoft.Models.ViewModel
 {
@@ -42,16 +43,26 @@ namespace MaderaSoft.Models.ViewModel
 
     public class BootstrapTableViewModel
     {
-        public List<List<string>> lesLignes { get; set; }
+        public List<List<object>> lesLignes { get; set; }
         public bool avecActionCrud { get; set; }
         public string typeObjet { get; set; }
+        public string messageSiVide { get; set; }
 
         public BootstrapTableViewModel()
         {
-            lesLignes = new List<List<string>>();
+            lesLignes = new List<List<object>>();
+            messageSiVide = "";
 
             //ToDo : gérer ce boolean en fonction des droits de l'utilisateur connecté
             avecActionCrud = true;
         }
+    }
+
+    public class BootstrapButtonViewModel
+    {
+        public string href { get; set; }
+        public Parametres.TypeBouton typeDeBouton { get; set; }
+        public string libe { get; set; }
+        public string cssClass { get; set; }
     }
 }

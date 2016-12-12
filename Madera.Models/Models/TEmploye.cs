@@ -7,9 +7,8 @@ namespace Madera.Model
 {
     public class TEmploye
     {
-        public int id { get; set; }
+        public int TEmployeId { get; set; }
         public string libe { get; set; }
-
         public TEmploye()
         {
 

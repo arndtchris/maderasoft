@@ -49,43 +49,6 @@ namespace Madera.Data
                 }
             };
         }
-        private static List<Utilisateur> SeedUtilisateurs()
-        {
-            return new List<Utilisateur>
-            {
-                new Utilisateur {
-                    id = 1,
-                    login = "mickaelcimbaluria",
-                    password = "123456",
-                    dCreation = DateTime.Now,
-                    dConnexion = DateTime.Now,
-                    isActive = true,
-                    isFirstConnexion = false,
-                    isDeleted = false
-                },
-                new Utilisateur {
-                    id = 2,
-                    login = "thomasberthemin",
-                    password = "123456",
-                    dCreation = DateTime.Now,
-                    dConnexion = DateTime.Now,
-                    isActive = true,
-                    isFirstConnexion = false,
-                    isDeleted = false,
-                },
-                new Utilisateur {
-                    id = 3,
-                    login = "chrisarndt",
-                    password = "123456",
-                    dCreation = DateTime.Now,
-                    dConnexion = DateTime.Now,
-                    isActive = true,
-                    isFirstConnexion = false,
-                    isDeleted = false,
-                },
-            };
-
-        }
 
         private static List<Gamme> SeedGammes()
         {

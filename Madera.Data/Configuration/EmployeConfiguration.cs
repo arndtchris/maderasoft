@@ -13,9 +13,8 @@ namespace Madera.Data.Configuration
         {
             ToTable("Employe");
             HasKey<int>(a => a.id);
+            HasOptional<TEmploye>(x => x.typeEmploye);
             Property<bool>(a => a.isDeleted);
         }
-
-        
     }
 }

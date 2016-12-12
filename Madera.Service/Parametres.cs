@@ -23,7 +23,8 @@ namespace Madera.Service
             Modification,
             Suppression,
             DissmissModal,
-            Submit
+            Submit,
+            Detail
         }
     }
 }
