@@ -29,15 +29,16 @@ namespace MaderaSoft.Models.DTO
         [DisplayName("Tel. fixe")]
         public string tel2 { get; set; }
         public AdresseDTO adresse { get; set; }
-        
+
         public string getCiv()
         {
-            if(this.civ != null)
+            if (this.civ != null)
             {
-                if(this.civ == "1")
+                if (this.civ == "1")
                 {
                     return "Madame";
-                }else
+                }
+                else
                 {
                     return "Monsieur";
                 }
@@ -51,7 +52,7 @@ namespace MaderaSoft.Models.DTO
         {
             adresse = new AdresseDTO();
         }
-                new SelectListItem {Value = "0",Text = "--- Sélectionnez ---" },
+    }
 
     public class PersonneEmployeDTO : PersonneDTO
     {
