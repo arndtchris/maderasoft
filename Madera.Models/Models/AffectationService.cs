@@ -9,7 +9,9 @@ namespace Madera.Model
     {
         public int id { get; set; }
 
+        //public int employeId { get; set; }
         public virtual Employe employe { get; set; }
+
         public virtual Service service { get; set; }
         public virtual Droit groupe { get; set; }
         public Boolean isPrincipal { get; set; }

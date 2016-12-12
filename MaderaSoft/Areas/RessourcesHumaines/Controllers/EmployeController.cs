@@ -100,7 +100,7 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
                 ).ToList();
 
 
-            editEmploye.lesAffectationsEmploye.lesLignes.Add(new List<object> { "Service", "Droit", "Acctivité principale"});
+            editEmploye.lesAffectationsEmploye.lesLignes.Add(new List<object> { "Service", "Droit", "Activité principale"});
 
             if (editEmploye.personne.employe != null)
             {
@@ -108,7 +108,7 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
                 {
                     foreach (AffectationServiceDTO affectation in editEmploye.personne.employe.affectationServices)
                     {
-                        editEmploye.lesAffectationsEmploye.lesLignes.Add(new List<object> { affectation.service.libe, affectation.groupe.libe, affectation.isPrincipal});
+                        editEmploye.lesAffectationsEmploye.lesLignes.Add(new List<object> { affectation.service.libe, affectation.groupe.libe, affectation.affectationPrincipaleOuiNon()});
                     }
                 }
 
@@ -121,7 +121,7 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
                     x => new SelectListItem()
                     {
                         Text = x.libe,
-                        Value = x.id.ToString()
+                        Value = x.TEmployeId.ToString()
                     }
                 ).ToList();
 
@@ -135,24 +135,29 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
         }
 
         [HttpPost]
-        public ActionResult Edit(EditEmployeViewModel modelIn)
+        public ActionResult Edit(PersonneEmployeDTO personne)
         {
-            var affectation = Mapper.Map<AffectationServiceDTO, AffectationService>(modelIn.personne.employe.nouvelleAffectation);
-            _affectationService.CreateAffectationService(affectation);
+            AffectationService nouvelleAffectation = new AffectationService();
+            Personne perso = new Personne();
 
-            modelIn.personne.employe.affectationServices.Add(modelIn.personne.employe.nouvelleAffectation);
-            var personne = Mapper.Map<PersonneEmployeDTO, Personne>(modelIn.personne);
-
-            /*if (!ModelState.IsValid)
-            {
-                return RedirectToAction("Index");
-            }*/
-
-            if(personne.id != 0)
+            if (personne.employe.id != 0)
             {
                 try
                 {
-                    _personneService.UpdatePersonne(personne);
+                    //On prépare la nouvelle affectation
+                    nouvelleAffectation.isPrincipal = personne.employe.isAffecttionPrincipal;
+                    nouvelleAffectation.service = _serviceService.GetService(personne.employe.serviceIdPourAffectation);
+                    nouvelleAffectation.groupe = _droitService.GetDroit(personne.employe.groupeIdPourAffectation);
+
+                    perso = _personneService.GetPersonne(personne.id);
+
+                    perso.employe.affectationServices.Add(nouvelleAffectation);
+
+                    //On prépare le type d'employé
+                    perso.employe.typeEmploye = _temployeService.GetTEmploye(personne.employe.typeEmployeId);
+
+                    _personneService.UpdatePersonne(perso);
+
                     FlashMessage.Confirmation("Employé mis à jour avec succès");
                 }
                 catch (Exception e)
@@ -164,7 +169,8 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
             {
                 try
                 {
-                    _personneService.CreatePersonne(personne);
+                    perso = Mapper.Map<PersonneEmployeDTO, Personne>(personne);
+                    _personneService.CreatePersonne(perso);
                     FlashMessage.Confirmation("Employé créé avec succès");
                 }
                 catch (Exception e)
@@ -271,7 +277,7 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
                 x => new SelectListItem()
                 {
                     Text = x.libe,
-                    Value = x.id.ToString()
+                    Value = x.TEmployeId.ToString()
                 }
                 ).ToList();
 
@@ -319,10 +325,35 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
             return RedirectToAction("Index");
         }
 
-        /*[HttpPost]
-        public ActionResult EditDetailAffectation(DetailEmployeViewModel modelIn)
+        private void insertOrUpdateAffectation (List<AffectationService> affectations)
         {
+            foreach(AffectationService affectation in affectations)
+            {
+                if (affectation.id != 0)//update
+                {
+                    _affectationService.UpdateAffectationService(affectation);
+                }
+                else//create
+                {
+                    _affectationService.CreateAffectationService(affectation);
+                }
+            }
 
-        }*/
+            _affectationService.saveAffectationService();
+        }
+
+        private void insertOrUpdateEmploye(Employe employe)
+        {
+                if (employe.id != 0)//update
+                {
+                    _employeService.UpdateEmploye(employe);
+                }
+                else//create
+                {
+                _employeService.CreateEmploye(employe);
+            }
+
+            _employeService.saveEmploye();
+        }
     }
 }

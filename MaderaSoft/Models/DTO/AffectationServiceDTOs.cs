@@ -25,5 +25,13 @@ namespace MaderaSoft.Models.DTO
             service = new ServiceDTO();
             groupe = new DroitDTO();
         }
+
+        public string affectationPrincipaleOuiNon()
+        {
+            if (isPrincipal)
+                return "Oui";
+            else
+                return "Non";
+        }
     }
 }
