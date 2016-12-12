@@ -213,6 +213,7 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Areas\GestionStocks\GestionStocksAreaRegistration.cs" />
     <Compile Include="Areas\RessourcesHumaines\Controllers\EmployeController.cs" />
     <Compile Include="Areas\RessourcesHumaines\Models\DTOs\EmployeDTOs.cs" />
     <Compile Include="Areas\RessourcesHumaines\Models\ViewModels\EmployeViewModels.cs" />
@@ -278,6 +279,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Areas\GestionStocks\Views\web.config" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\grayscale.min.js" />
     <None Include="Scripts\jquery-2.2.3.intellisense.js" />
@@ -334,11 +336,15 @@
     <Content Include="Views\Shared\_BootstrapDeleteModalPartial.cshtml" />
     <Content Include="Views\Shared\_AdminLayout.cshtml" />
     <Content Include="Views\Tracabilite\Index.cshtml" />
+    <Content Include="Views\DevisFacture\Edit.cshtml" />
+    <Content Include="Views\DevisFacture\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\GestionStocks\Controllers\" />
+    <Folder Include="Areas\GestionStocks\Models\" />
+    <Folder Include="Areas\GestionStocks\Views\Shared\" />
     <Folder Include="Content\Img\" />
-    <Folder Include="Views\DevisFacture\" />
     <Folder Include="Views\Employe\" />
   </ItemGroup>
   <ItemGroup>
