@@ -9,6 +9,7 @@
 {
     <div class="modal-body">
         @Html.HiddenFor(m => m.personne.id)
+        @Html.HiddenFor(m => m.personne.employe.id)
         <fieldset>
             <legend>Informations générales</legend>
             <div class="form-group-lg">
@@ -79,28 +80,33 @@
             </div>
         </fieldset>
         <fieldset>
-            <legend>Informations prefessionnelles</legend>
+            <legend>Informations professionnelles</legend>
+
+            @{
+                Html.bootstrapTable(Model.lesAffectationsEmploye);
+            }
+
             <div class="form-group-lg">
                 <div class="col-md-12">
                     @Html.LabelFor(m => m.personne.employe.typeEmploye)
-                    @Html.DropDownListFor(m => m.personne.employe.typeEmploye, Model.lesTypesEmployes)
+                    @Html.DropDownListFor(m => m.personne.employe.typeEmployeId, Model.lesTypesEmployes)
                     <p class="bg-warning">@Html.ValidationMessageFor(m => m.personne.employe.typeEmploye)</p>
                 </div>
             </div>
             <div class="form-group-lg">
                 <div class="col-md-4">
-                    @Html.LabelFor(m => m.personne.employe.nouvelleAffectation.service)
-                    @Html.DropDownListFor(m => m.personne.employe.nouvelleAffectation.service.id, Model.lesServices)
-                    <p class="bg-warning">@Html.ValidationMessageFor(m => m.personne.employe.nouvelleAffectation.service)</p>
+                    @Html.LabelFor(m => m.personne.employe.serviceIdPourAffectation)
+                    @Html.DropDownListFor(m => m.personne.employe.serviceIdPourAffectation, Model.lesServices)
+                    <p class="bg-warning">@Html.ValidationMessageFor(m => m.personne.employe.serviceIdPourAffectation)</p>
                 </div>
                 <div class="col-md-4">
-                    @Html.LabelFor(m => m.personne.employe.nouvelleAffectation.groupe)
-                    @Html.DropDownListFor(m => m.personne.employe.nouvelleAffectation.groupe.id, Model.lesDroits)
-                    <p class="bg-warning">@Html.ValidationMessageFor(m => m.personne.employe.nouvelleAffectation.groupe)</p>
+                    @Html.LabelFor(m => m.personne.employe.groupeIdPourAffectation)
+                    @Html.DropDownListFor(m => m.personne.employe.groupeIdPourAffectation, Model.lesDroits)
+                    <p class="bg-warning">@Html.ValidationMessageFor(m => m.personne.employe.groupeIdPourAffectation)</p>
                 </div>
                 <div class="col-md-4">
-                    @Html.LabelFor(m => m.personne.employe.nouvelleAffectation.isPrincipal)
-                    @Html.CheckBoxFor(m => m.personne.employe.nouvelleAffectation.isPrincipal)
+                    @Html.LabelFor(m => m.personne.employe.isAffecttionPrincipal)
+                    @Html.CheckBoxFor(m => m.personne.employe.isAffecttionPrincipal)
                 </div>
             </div>
         </fieldset>
