@@ -20,27 +20,36 @@ namespace System.Web.Mvc
         public static MvcHtmlString actionButton(this HtmlHelper helper, string libe, Parametres.TypeBouton type, string href = "", string cssClass = "")
         {
             string css = "";
-            switch(type)
+
+            if(type != Parametres.TypeBouton.Submit)
             {
-                case Parametres.TypeBouton.Creation:
-                    css = cssClass + " btn btn-success fa fa-plus\" type=\"button\"";
-                    break;
-                case Parametres.TypeBouton.Submit:
-                    css = cssClass + " btn btn-success fa fa-check\" type=\"submit\"";
-                    break;
-                case Parametres.TypeBouton.Modification:
-                    css = cssClass + " btn btn-warning fa fa-pencil\" type=\"button\"";
-                    break;
-                case Parametres.TypeBouton.Suppression:
-                    css = cssClass + " btn btn-danger fa fa-trash\" type=\"button\"";
-                    break;
-                case Parametres.TypeBouton.DissmissModal:
-                    css = cssClass + " btn btn-default\" data-dismiss=\"modal\" type=\"button\"";
-                    break;
-                default:
-                    break;
+                switch (type)
+                {
+                    case Parametres.TypeBouton.Creation:
+                        css = cssClass + " btn btn-success fa fa-plus\" type=\"button\"";
+                        break;
+                    case Parametres.TypeBouton.Modification:
+                        css = cssClass + " btn btn-warning fa fa-pencil\" type=\"button\"";
+                        break;
+                    case Parametres.TypeBouton.Suppression:
+                        css = cssClass + " btn btn-danger fa fa-trash\" type=\"button\"";
+                        break;
+                    case Parametres.TypeBouton.DissmissModal:
+                        css = cssClass + " btn btn-default\" data-dismiss=\"modal\" type=\"button\"";
+                        break;
+                    case Parametres.TypeBouton.Detail:
+                        css = cssClass + " btn btn-primary fa fa-eye\" type=\"button\"";
+                        break;
+                    default:
+                        break;
+                }
+                return new MvcHtmlString("<a class=\"" + css + " href=\"" + href + "\" > " + libe + "</a>");
             }
-            return new MvcHtmlString("<button class=\"" + css + " href=\"" + href + "\" > " + libe + "</button>");
+            else
+            {
+                css = cssClass + " btn btn-success fa fa-check\" type=\"submit\"";
+                return new MvcHtmlString("<button class=\"" + css + " href=\"" + href + "\" > " + libe + "</button>");
+            }      
         }
     }
 }
