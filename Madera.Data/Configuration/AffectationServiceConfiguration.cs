@@ -13,9 +13,10 @@ namespace Madera.Data.Configuration
         {
             ToTable("AffectationService");
             HasKey<int>(a => a.id);
+            //HasRequired<Employe>(x => x.employe).WithMany(x => x.affectationServices).HasForeignKey( x => x.employeId);
             HasRequired<Employe>(x => x.employe).WithMany(x => x.affectationServices);
-            HasRequired<Service>(x => x.service);
-            HasRequired<Droit>(x => x.groupe);
+            HasOptional<Service>(x => x.service);
+            HasOptional<Droit>(x => x.groupe);
             Property<bool>(a => a.isPrincipal);
 
         }
