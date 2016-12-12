@@ -38,7 +38,8 @@ namespace MaderaSoft
                       "~/Content/Admin/skin-blue.min.css"));
             bundles.Add(new ScriptBundle("~/bundles/adminlayoutjs").Include(
                       "~/Scripts/Admin/appScript.js",
-                      "~/Scripts/Admin/adminLte.min.js"));
+                      "~/Scripts/Admin/adminLte.min.js",
+                      "~/Scripts/Admin/SimulateurMaison.js"));
         }
     }
 }
