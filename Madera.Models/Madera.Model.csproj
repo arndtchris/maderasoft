@@ -112,7 +112,7 @@
     <Compile Include="Models\Adresse.cs" />
     <Compile Include="Models\AffectationService.cs" />
     <Compile Include="Models\ApplicationTrace.cs" />
-    <Compile Include="Models\Composent.cs" />
+    <Compile Include="Models\Composant.cs" />
     <Compile Include="Models\Composition.cs" />
     <Compile Include="Models\DevisFacture.cs" />
     <Compile Include="Models\Droit.cs" />

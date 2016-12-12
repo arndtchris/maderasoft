@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Madera.Model;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -12,16 +13,18 @@ namespace MaderaSoft.Areas.GestionStocks.Controllers
         // GET: GestionStocks/Stocks
         public class StocksDTO
         {
-            [DisplayName("Numéro Devis")]
+            [DisplayName("Code produit")]
             public int id { get; set; }
-            [DisplayName("Devis signé")]
-            public Boolean isSigned { get; set; }
-            [DisplayName("Devis supprimé")]
-            public Boolean isDeleted { get; set; }
-            [DisplayName("Numéro projet")]
-            public virtual Projet projet { get; set; }
-            [DisplayName("Référent")]
-            public virtual Employe employe { get; set; }
+            [DisplayName("Nom du composant")]
+            public String libe { get; set; }
+            [DisplayName("Quantité")]
+            public int qte { get; set; }
+            [DisplayName("Gamme")]
+            public virtual Gamme gamme { get; set; }
+            [DisplayName("Prix fournisseur")]
+            public double prixHT { get; set; }
+            [DisplayName("Nom fournisseur")]
+            public virtual Utilisateur fournisseur { get; set; }
 
             public StocksDTO()
             {

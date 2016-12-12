@@ -219,8 +219,6 @@
     <Compile Include="Areas\RessourcesHumaines\Models\DTOs\EmployeDTOs.cs" />
     <Compile Include="Areas\RessourcesHumaines\Models\ViewModels\EmployeViewModels.cs" />
     <Compile Include="Areas\RessourcesHumaines\RessourcesHumainesAreaRegistration.cs" />
-    <Compile Include="Areas\Simulateur\Controllers\MaisonController.cs" />
-    <Compile Include="Areas\Simulateur\SimulateurAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdresseController.cs" />
     <Compile Include="Controllers\DevisFactureController.cs" />
@@ -283,16 +281,8 @@
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Areas\GestionStocks\Views\web.config" />
-    <Content Include="Areas\Simulateur\Views\web.config" />
-    <Content Include="Areas\Simulateur\Views\_ViewStart.cshtml" />
-    <Content Include="Areas\Simulateur\Views\Shared\_Layout.cshtml" />
-    <Content Include="Areas\Simulateur\Views\Maison\Index.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\grayscale.min.js" />
-    <Content Include="Scripts\Admin\SimulateurMaison.js" />
-    <Content Include="Scripts\jquery-1.10.2.js" />
-    <Content Include="Scripts\jquery-1.10.2.min.js" />
-    <Content Include="Scripts\jquery-1.10.2.min.map" />
     <None Include="Scripts\jquery-2.2.3.intellisense.js" />
     <Content Include="Scripts\jquery-2.2.3.js" />
     <Content Include="Scripts\jquery-2.2.3.min.js" />
@@ -352,9 +342,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\GestionStocks\Models\" />
+    <Folder Include="Areas\GestionStocks\Models\DTOs\" />
+    <Folder Include="Areas\GestionStocks\Models\ViewModels\" />
     <Folder Include="Areas\GestionStocks\Views\Shared\" />
-    <Folder Include="Areas\Simulateur\Models\" />
     <Folder Include="Areas\GestionStocks\Views\Stocks\" />
     <Folder Include="Content\Img\" />
     <Folder Include="Views\Employe\" />
