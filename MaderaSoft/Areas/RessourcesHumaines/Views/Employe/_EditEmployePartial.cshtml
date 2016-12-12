@@ -81,11 +81,6 @@
         </fieldset>
         <fieldset>
             <legend>Informations professionnelles</legend>
-
-            @{
-                Html.bootstrapTable(Model.lesAffectationsEmploye);
-            }
-
             <div class="form-group-lg">
                 <div class="col-md-12">
                     @Html.LabelFor(m => m.personne.employe.typeEmploye)
@@ -109,6 +104,10 @@
                     @Html.CheckBoxFor(m => m.personne.employe.isAffecttionPrincipal)
                 </div>
             </div>
+
+            @{
+                Html.bootstrapTable(Model.lesAffectationsEmploye);
+            }
         </fieldset>
     </div>
     <div class="modal-footer">
