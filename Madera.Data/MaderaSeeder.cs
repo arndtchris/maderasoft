@@ -11,11 +11,12 @@ namespace Madera.Data
     {
         protected override void Seed(MaderaEntities context)
         {
-            SeedAdresses().ForEach(c => context.Adresses.Add(c));
-            SeedServices().ForEach(c => context.Services.Add(c));
-            SeedDroits().ForEach(c => context.Droits.Add(c));
-            SeedPersonnes().ForEach(c => context.Personnes.Add(c));
-            SeedTEmployes().ForEach(c => context.TEmployes.Add(c));
+            SeedAdresses().ForEach(d => context.Adresses.Add(d));
+            SeedServices().ForEach(e => context.Services.Add(e));
+            SeedDroits().ForEach(f => context.Droits.Add(f));
+            //SeedDevisFacture().ForEach(g => context.DevisFacture.Add(g));
+            //SeedEmployes().ForEach(c => context.Employes.Add(c));
+            SeedTEmployes().ForEach(h => context.TEmployes.Add(h));
 
             context.Commit();
         }
@@ -37,6 +38,13 @@ namespace Madera.Data
                     pays = "France",
                     numRue = "14",
                     nomRue = "Cours Léopold"
+                },
+                new Adresse {
+                    codePostal = "67000",
+                    ville = "Strasbourg",
+                    pays = "France",
+                    numRue = "12",
+                    nomRue = "rue des tulipes"
                 }
             };
         }
@@ -78,74 +86,70 @@ namespace Madera.Data
 
         }
 
-        private static List<Personne> SeedPersonnes()
-        {
-            return new List<Personne>
-            {
-                new Personne {
-                    id = 1,
-                    civ =  "Monsieur",
-                    nom = "Cimbaluria",
-                    prenom = "Mickaël",
-                    email = "mickael.cimbaluria@madera.fr",
-                    tel1 = "0383123456",
-                    tel2 = "",
-                    isFournisseur = false,
-                    isClient = false,
-                    isDeleted = false               
-                },
-                new Personne {
-                    id = 1,
-                    civ =  "Monsieur",
-                    nom = "Berthemin",
-                    prenom = "Thomas",
-                    email = "thomas.berthemin@madera.fr",
-                    tel1 = "0383123456",
-                    tel2 = "",
-                    isFournisseur = false,
-                    isClient = false,
-                    isDeleted = false
-                },new Personne {
-                    id = 1,
-                    civ =  "Monsieur",
-                    nom = "Cimbaluria",
-                    prenom = "Mickaël",
-                    email = "chris.arndt@madera.fr",
-                    tel1 = "0383123456",
-                    tel2 = "",
-                    isFournisseur = false,
-                    isClient = false,
-                    isDeleted = false
-                }
-            };
+        //private static List<Personne> SeedPersonnes()
+        //{
 
-        }
+        //    return new List<Personne>
+        //    {
+        //        new Personne {
+        //            id = 1,
+        //            civ =  "Monsieur",
+        //            nom = "Cimbaluria",
+        //            prenom = "Mickaël",
+        //            email = "mickael.cimbaluria@madera.fr",
+        //            tel1 = "0383123456",
+        //            tel2 = "",
+        //            isFournisseur = false,
+        //            isClient = true,
+        //            isDeleted = false               
+        //        },
+        //        new Personne {
+        //            id = 2,
+        //            civ =  "Monsieur",
+        //            nom = "Berthemin",
+        //            prenom = "Thomas",
+        //            email = "thomas.berthemin@madera.fr",
+        //            tel1 = "0383123456",
+        //            tel2 = "",
+        //            isFournisseur = false,
+        //            isClient = false,
+        //            isDeleted = false
+        //        },new Personne {
+        //            id = 3,
+        //            civ =  "Monsieur",
+        //            nom = "Arndt",
+        //            prenom = "Chris",
+        //            email = "chris.arndt@madera.fr",
+        //            tel1 = "0383123456",
+        //            tel2 = "",
+        //            isFournisseur = false,
+        //            isClient = false,
+        //            isDeleted = false
+        //        }
+        //    };
+
+        //}
 
 
-        private static List<DevisFacture> SeedDevisFacture()
-        {
-            return new List<DevisFacture>
-            {
-                new DevisFacture
-                {
-                    id = 1,
-                    isSigned = true,
-                    isDeleted = false,
-                },
-                new DevisFacture
-                {
-                    id = 2,
-                    isSigned = true,
-                    isDeleted = false,
-                },
-                new DevisFacture
-                {
-                    id = 3,
-                    isSigned = false,
-                    isDeleted = false,
-                }
-            };
-        }
+        //private static List<DevisFacture> SeedDevisFacture()
+        //{
+        //    Employe emp = new Employe(1, false, SeedTEmployes()[0], null, SeedPersonnes()[1]);
+        //    Projet p = new Projet(1, "Projet trop cool", 100, 120, false, true, SeedPersonnes()[0] , SeedAdresses()[0], emp);
+            
+
+        //    return new List<DevisFacture>
+        //    {
+        //        new DevisFacture
+        //        {
+        //            id = 1,
+        //            isSigned = true,
+        //            isDeleted = false,
+        //            projet = p,
+        //            referent = emp
+                    
+        //        }
+        //    };
+        //}
 
         private static List<Service> SeedServices()
         {
@@ -166,36 +170,27 @@ namespace Madera.Data
             };
         }
 
-        private static List<Personne> SeedPersonnes()
-        {
-            return new List<Personne>
-            {
-                new Personne
-                {
-                    isDeleted = false,
-                    isClient = false,
-                    isFournisseur = false,
-                    nom = "Arndt",
-                    prenom = "Chris"
-                },
-                new Personne
-                {
-                    isDeleted = false,
-                    isClient = false,
-                    isFournisseur = false,
-                    nom = "Berthemin",
-                    prenom = "Thomas"
-                },
-                new Personne
-                {
-                    isDeleted = false,
-                    isClient = false,
-                    isFournisseur = false,
-                    nom = "Cimbaluria",
-                    prenom = "Mickaêl"
-                }
-            };
-        }
+        //private static List<Employe> SeedEmployes()
+        //{
+        //    return new List<Employe>
+        //    {
+        //        new Employes
+        //        {
+        //            id = 1,
+        //            isDeleted = false
+        //        },
+        //        new Employes
+        //        {
+        //            id = 2,
+        //            isDeleted = false
+        //        },
+        //        new Employes
+        //        {
+        //            id = 3,
+        //            isDeleted = false
+        //        }
+        //    };
+        //}
 
         private static List<TEmploye> SeedTEmployes()
         {
