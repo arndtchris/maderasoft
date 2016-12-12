@@ -12,10 +12,10 @@ namespace Madera.Data
         protected override void Seed(MaderaEntities context)
         {
             SeedAdresses().ForEach(c => context.Adresses.Add(c));
-            SeedServices().ForEach(c => context.Services.Add(c));
-            SeedDroits().ForEach(c => context.Droits.Add(c));
-            SeedPersonnes().ForEach(c => context.Personnes.Add(c));
-            SeedTEmployes().ForEach(c => context.TEmployes.Add(c));
+            SeedServices().ForEach(d => context.Services.Add(d));
+            SeedDroits().ForEach(e => context.Droits.Add(e));
+            //SeedPersonnes().ForEach(f => context.Personnes.Add(f));
+            SeedTEmployes().ForEach(g => context.TEmployes.Add(g));
 
             context.Commit();
         }

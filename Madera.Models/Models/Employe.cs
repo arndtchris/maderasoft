@@ -11,7 +11,7 @@ namespace Madera.Model
         public Boolean isDeleted { get; set; }
         public virtual TEmploye typeEmploye { get; set; }
         public virtual List<AffectationService> affectationServices { get; set; }
-        public virtual Personne personne { get; set;}
+        //public virtual Personne personne { get; set;}
 
         public Employe()
         {

@@ -1,13 +1,13 @@
 ﻿
 @using MaderaSoft.Models.ViewModel
 @using Madera.Service
-@model MaderaSoft.Models.ViewModel.BootstrapTableViewModel
+@model BootstrapTableViewModel
 
 @if (Model.lesLignes.Count == 1)
 {
     <div class="row">
         <div class="col-md-offset-2 col-md-8">
-            <p class="warning">Ce tableau est vide</p>
+            <p class="bg-warning">@Model.messageSiVide</p>
         </div>
     </div>
 }
@@ -42,7 +42,18 @@ else
                                 @Html.Raw("<tr>");
                                 for (int k = 0; k < nbColonne; k++)
                                 {
-                                    @Html.Raw(String.Format("<td class=\"table-text\">" + Model.lesLignes[j][k]) + "</td>");
+                                    if (Model.lesLignes[j][k].GetType() == typeof (string))
+                                    {
+                                        @Html.Raw(String.Format("<td class=\"table-text\">" + Model.lesLignes[j][k]) + "</td>");
+                                    }
+                                    else if (Model.lesLignes[j][k].GetType() == typeof(BootstrapButtonViewModel))
+                                    {
+                                        @Html.Raw("<td class=\"table-text\">");
+                                        BootstrapButtonViewModel b = (BootstrapButtonViewModel)Model.lesLignes[j][k];
+                                        @Html.actionButton(b.libe, b.typeDeBouton, b.href, b.cssClass)
+                                        @Html.Raw("</td>");
+                                    }
+
                                 }
 
                                 if (Model.avecActionCrud)
@@ -65,4 +76,4 @@ else
            </div>
  </div>
 
-                }
+}
