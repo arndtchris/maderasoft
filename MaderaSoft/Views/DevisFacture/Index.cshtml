@@ -5,8 +5,18 @@
 @{
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
-
-
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        Gestion des devis
+        <small>Service commercial</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Service commercial</a></li>
+        <li class="active">Devis</li>
+    </ol>
+</section>
+@Html.actionButton("Ajouter un nouveau devis", Parametres.TypeBouton.Creation, Url.Action("EditModal", "DevisFacture").ToString(), "editModal")
 @{
 
     Html.bootstrapTable(Model.tableauDevisFactures);
