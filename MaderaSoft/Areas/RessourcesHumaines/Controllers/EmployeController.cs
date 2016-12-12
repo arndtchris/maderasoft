@@ -259,15 +259,15 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
                 ).ToList();
 
 
-            modelOut.lesAffectationsEmploye.lesLignes.Add(new List<object> { "Service", "Droit", "Acctivité principale", "" });
+            modelOut.lesAffectationsEmploye.lesLignes.Add(new List<object> { "Service", "Droit", "Activité principale","" });
 
-            if(modelOut.personne.employe != null)
+            if (modelOut.personne.employe != null)
             {
-                if(modelOut.personne.employe.affectationServices != null)
+                if (modelOut.personne.employe.affectationServices != null)
                 {
                     foreach (AffectationServiceDTO affectation in modelOut.personne.employe.affectationServices)
                     {
-                        modelOut.lesAffectationsEmploye.lesLignes.Add(new List<object> { affectation.service.libe, affectation.groupe.libe, affectation.isPrincipal, affectation.id });
+                        modelOut.lesAffectationsEmploye.lesLignes.Add(new List<object> { affectation.service.libe, affectation.groupe.libe, affectation.affectationPrincipaleOuiNon(), affectation.id });
                     }
                 }
 

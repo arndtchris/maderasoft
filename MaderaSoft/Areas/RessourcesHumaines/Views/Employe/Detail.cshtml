@@ -32,75 +32,107 @@
         <div role="tabpanel" class="tab-pane active" id="InfoGenerale">
             @using (Html.BeginForm("Edit", "Employe", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-inline", area = "RessourcesHumaines" }))
             {
-                    <fieldset>
-                        <legend>Informations générales</legend>
-                        <div class="form-group-lg">
-                            <div class="col-md-4">
-                                @Html.LabelFor(m => m.personne.civ)
-                                @Html.DropDownListFor(m => m.personne.civ, Model.lesCivilites)
-                                <p class="bg-warning">@Html.ValidationMessageFor(m => m.personne.civ)</p>
-                            </div>
-                            <div class="col-md-4">
-                                @Html.LabelFor(m => m.personne.nom)
-                                @Html.TextBoxFor(m => m.personne.nom)
-                                <p class="bg-warning">@Html.ValidationMessageFor(m => m.personne.nom)</p>
-                            </div>
-                            <div class="col-md-4">
-                                @Html.LabelFor(m => m.personne.prenom)
-                                @Html.TextBoxFor(m => m.personne.prenom)
-                                <p class="bg-warning">@Html.ValidationMessageFor(m => m.personne.prenom)</p>
-                            </div>
+                @Html.HiddenFor(m => m.personne.id)
+                @Html.HiddenFor(m => m.personne.employe.id)
+                <fieldset>
+                    <legend>Informations générales</legend>
+                    <div class="form-group-lg">
+                        <div class="col-md-4">
+                            @Html.LabelFor(m => m.personne.civ)
+                            @Html.DropDownListFor(m => m.personne.civ, Model.lesCivilites)
+                            <p class="bg-warning">@Html.ValidationMessageFor(m => m.personne.civ)</p>
                         </div>
-                        <div class="form-group-lg">
-                            <div class="col-md-4">
-                                @Html.LabelFor(m => m.personne.email)
-                                @Html.TextBoxFor(m => m.personne.email)
-                                <p class="bg-warning">@Html.ValidationMessageFor(m => m.personne.email)</p>
-                            </div>
-                            <div class="col-md-4">
-                                @Html.LabelFor(m => m.personne.tel1)
-                                @Html.TextBoxFor(m => m.personne.tel1)
-                                <p class="bg-warning">@Html.ValidationMessageFor(m => m.personne.tel1)</p>
-                            </div>
-                            <div class="col-md-4">
-                                @Html.LabelFor(m => m.personne.tel2)
-                                @Html.TextBoxFor(m => m.personne.tel2)
-                                <p class="bg-warning">@Html.ValidationMessageFor(m => m.personne.tel2)</p>
-                            </div>
+                        <div class="col-md-4">
+                            @Html.LabelFor(m => m.personne.nom)
+                            @Html.TextBoxFor(m => m.personne.nom)
+                            <p class="bg-warning">@Html.ValidationMessageFor(m => m.personne.nom)</p>
                         </div>
-                    </fieldset>
-                    <fieldset>
-                        <legend>Adresse</legend>
-                        <div class="form-group-lg">
-                            <div class="col-md-5">
-                                @Html.LabelFor(m => m.personne.adresse.numRue)
-                                @Html.TextBoxFor(m => m.personne.adresse.numRue)
-                                <p class="bg-warning">@Html.ValidationMessageFor(m => m.personne.adresse.numRue)</p>
-                            </div>
-                            <div class="col-md-7">
-                                @Html.LabelFor(m => m.personne.adresse.nomRue)
-                                @Html.TextBoxFor(m => m.personne.adresse.nomRue)
-                                <p class="bg-warning">@Html.ValidationMessageFor(m => m.personne.adresse.nomRue)</p>
-                            </div>
+                        <div class="col-md-4">
+                            @Html.LabelFor(m => m.personne.prenom)
+                            @Html.TextBoxFor(m => m.personne.prenom)
+                            <p class="bg-warning">@Html.ValidationMessageFor(m => m.personne.prenom)</p>
                         </div>
-                        <div class="form-group-lg">
-                            <div class="col-md-4">
-                                @Html.LabelFor(m => m.personne.adresse.codePostal)
-                                @Html.TextBoxFor(m => m.personne.adresse.codePostal)
-                                <p class="bg-warning">@Html.ValidationMessageFor(m => m.personne.adresse.codePostal)</p>
-                            </div>
-                            <div class="col-md-4">
-                                @Html.LabelFor(m => m.personne.adresse.ville)
-                                @Html.TextBoxFor(m => m.personne.adresse.ville)
-                                <p class="bg-warning">@Html.ValidationMessageFor(m => m.personne.adresse.ville)</p>
-                            </div>
-                            <div class="col-md-4">
-                                @Html.LabelFor(m => m.personne.adresse.pays)
-                                @Html.TextBoxFor(m => m.personne.adresse.pays)
-                                <p class="bg-warning">@Html.ValidationMessageFor(m => m.personne.adresse.pays)</p>
-                            </div>
+                    </div>
+                    <div class="form-group-lg">
+                        <div class="col-md-4">
+                            @Html.LabelFor(m => m.personne.email)
+                            @Html.TextBoxFor(m => m.personne.email)
+                            <p class="bg-warning">@Html.ValidationMessageFor(m => m.personne.email)</p>
                         </div>
-                    </fieldset>
+                        <div class="col-md-4">
+                            @Html.LabelFor(m => m.personne.tel1)
+                            @Html.TextBoxFor(m => m.personne.tel1)
+                            <p class="bg-warning">@Html.ValidationMessageFor(m => m.personne.tel1)</p>
+                        </div>
+                        <div class="col-md-4">
+                            @Html.LabelFor(m => m.personne.tel2)
+                            @Html.TextBoxFor(m => m.personne.tel2)
+                            <p class="bg-warning">@Html.ValidationMessageFor(m => m.personne.tel2)</p>
+                        </div>
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <legend>Adresse</legend>
+                    <div class="form-group-lg">
+                        <div class="col-md-5">
+                            @Html.LabelFor(m => m.personne.adresse.numRue)
+                            @Html.TextBoxFor(m => m.personne.adresse.numRue)
+                            <p class="bg-warning">@Html.ValidationMessageFor(m => m.personne.adresse.numRue)</p>
+                        </div>
+                        <div class="col-md-7">
+                            @Html.LabelFor(m => m.personne.adresse.nomRue)
+                            @Html.TextBoxFor(m => m.personne.adresse.nomRue)
+                            <p class="bg-warning">@Html.ValidationMessageFor(m => m.personne.adresse.nomRue)</p>
+                        </div>
+                    </div>
+                    <div class="form-group-lg">
+                        <div class="col-md-4">
+                            @Html.LabelFor(m => m.personne.adresse.codePostal)
+                            @Html.TextBoxFor(m => m.personne.adresse.codePostal)
+                            <p class="bg-warning">@Html.ValidationMessageFor(m => m.personne.adresse.codePostal)</p>
+                        </div>
+                        <div class="col-md-4">
+                            @Html.LabelFor(m => m.personne.adresse.ville)
+                            @Html.TextBoxFor(m => m.personne.adresse.ville)
+                            <p class="bg-warning">@Html.ValidationMessageFor(m => m.personne.adresse.ville)</p>
+                        </div>
+                        <div class="col-md-4">
+                            @Html.LabelFor(m => m.personne.adresse.pays)
+                            @Html.TextBoxFor(m => m.personne.adresse.pays)
+                            <p class="bg-warning">@Html.ValidationMessageFor(m => m.personne.adresse.pays)</p>
+                        </div>
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <legend>Informations professionnelles</legend>
+                    <div class="form-group-lg">
+                        <div class="col-md-12">
+                            @Html.LabelFor(m => m.personne.employe.typeEmploye)
+                            @Html.DropDownListFor(m => m.personne.employe.typeEmployeId, Model.lesTEmployes)
+                            <p class="bg-warning">@Html.ValidationMessageFor(m => m.personne.employe.typeEmploye)</p>
+                        </div>
+                    </div>
+                    <div class="form-group-lg">
+                        <div class="col-md-4">
+                            @Html.LabelFor(m => m.personne.employe.serviceIdPourAffectation)
+                            @Html.DropDownListFor(m => m.personne.employe.serviceIdPourAffectation, Model.lesServices)
+                            <p class="bg-warning">@Html.ValidationMessageFor(m => m.personne.employe.serviceIdPourAffectation)</p>
+                        </div>
+                        <div class="col-md-4">
+                            @Html.LabelFor(m => m.personne.employe.groupeIdPourAffectation)
+                            @Html.DropDownListFor(m => m.personne.employe.groupeIdPourAffectation, Model.lesDroits)
+                            <p class="bg-warning">@Html.ValidationMessageFor(m => m.personne.employe.groupeIdPourAffectation)</p>
+                        </div>
+                        <div class="col-md-4">
+                            @Html.LabelFor(m => m.personne.employe.isAffecttionPrincipal)
+                            @Html.CheckBoxFor(m => m.personne.employe.isAffecttionPrincipal)
+                        </div>
+                    </div>
+
+                    @{
+                        Html.bootstrapTable(Model.lesAffectationsEmploye);
+                    }
+                </fieldset>
                 <div>
                     @Html.actionButton(" Valider", Parametres.TypeBouton.Submit)
                 </div>
@@ -111,7 +143,7 @@
             {
                 <fieldset>
                     <legend>Affectation de services</legend>
-                    <div class="form-group-lg">
+                    @*<div class="form-group-lg">
                         <div class="col-md-5">
                             @Html.LabelFor(m => m.personne.employe.nouvelleAffectation.service)
                             @Html.DropDownListFor(m => m.personne.employe.nouvelleAffectation.service, Model.lesServices)
@@ -126,7 +158,7 @@
                             @Html.LabelFor(m => m.personne.employe.nouvelleAffectation.isPrincipal)
                             @Html.CheckBoxFor(m => m.personne.employe.nouvelleAffectation.isPrincipal)
                         </div>
-                    </div>
+                    </div>*@
                 </fieldset>
                 <div>
                             @Html.actionButton(" Valider", Parametres.TypeBouton.Submit)
