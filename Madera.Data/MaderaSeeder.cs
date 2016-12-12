@@ -11,11 +11,15 @@ namespace Madera.Data
     {
         protected override void Seed(MaderaEntities context)
         {
+            /*
+             * Le Seeder ne doit pas être utilisé pour alimenter des objets complexes (combinant plusieurs objets) 
+             * comme un module qui combine plusieurs composant.
+             * 
+             * Par contre le Seeder est adapté à la création de gammes, services, composants...
+             */
             SeedAdresses().ForEach(d => context.Adresses.Add(d));
             SeedServices().ForEach(e => context.Services.Add(e));
             SeedDroits().ForEach(f => context.Droits.Add(f));
-            //SeedDevisFacture().ForEach(g => context.DevisFacture.Add(g));
-            //SeedEmployes().ForEach(c => context.Employes.Add(c));
             SeedTEmployes().ForEach(h => context.TEmployes.Add(h));
             SeedGammes().ForEach(i => context.Gamme.Add(i));
 
@@ -76,71 +80,6 @@ namespace Madera.Data
             };
         }
 
-        //private static List<Personne> SeedPersonnes()
-        //{
-
-        //    return new List<Personne>
-        //    {
-        //        new Personne {
-        //            id = 1,
-        //            civ =  "Monsieur",
-        //            nom = "Cimbaluria",
-        //            prenom = "Mickaël",
-        //            email = "mickael.cimbaluria@madera.fr",
-        //            tel1 = "0383123456",
-        //            tel2 = "",
-        //            isFournisseur = false,
-        //            isClient = true,
-        //            isDeleted = false               
-        //        },
-        //        new Personne {
-        //            id = 2,
-        //            civ =  "Monsieur",
-        //            nom = "Berthemin",
-        //            prenom = "Thomas",
-        //            email = "thomas.berthemin@madera.fr",
-        //            tel1 = "0383123456",
-        //            tel2 = "",
-        //            isFournisseur = false,
-        //            isClient = false,
-        //            isDeleted = false
-        //        },new Personne {
-        //            id = 3,
-        //            civ =  "Monsieur",
-        //            nom = "Arndt",
-        //            prenom = "Chris",
-        //            email = "chris.arndt@madera.fr",
-        //            tel1 = "0383123456",
-        //            tel2 = "",
-        //            isFournisseur = false,
-        //            isClient = false,
-        //            isDeleted = false
-        //        }
-        //    };
-
-        //}
-
-
-        //private static List<DevisFacture> SeedDevisFacture()
-        //{
-        //    Employe emp = new Employe(1, false, SeedTEmployes()[0], null, SeedPersonnes()[1]);
-        //    Projet p = new Projet(1, "Projet trop cool", 100, 120, false, true, SeedPersonnes()[0] , SeedAdresses()[0], emp);
-
-
-        //    return new List<DevisFacture>
-        //    {
-        //        new DevisFacture
-        //        {
-        //            id = 1,
-        //            isSigned = true,
-        //            isDeleted = false,
-        //            projet = p,
-        //            referent = emp
-
-        //        }
-        //    };
-        //}
-
         private static List<Service> SeedServices()
         {
             return new List<Service>
@@ -159,28 +98,6 @@ namespace Madera.Data
                 }
             };
         }
-
-        //private static List<Employe> SeedEmployes()
-        //{
-        //    return new List<Employe>
-        //    {
-        //        new Employes
-        //        {
-        //            id = 1,
-        //            isDeleted = false
-        //        },
-        //        new Employes
-        //        {
-        //            id = 2,
-        //            isDeleted = false
-        //        },
-        //        new Employes
-        //        {
-        //            id = 3,
-        //            isDeleted = false
-        //        }
-        //    };
-        //}
 
         private static List<TEmploye> SeedTEmployes()
         {
