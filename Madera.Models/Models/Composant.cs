@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Madera.Model
 {
-    public class Composent
+    public class Composant
     {
 
         public int id { get; set; }
@@ -15,7 +15,7 @@ namespace Madera.Model
         public virtual Gamme gamme { get; set; }
         public virtual Utilisateur fournisseur { get; set; }
 
-        public Composent()
+        public Composant()
         {
 
         }

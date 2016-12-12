@@ -7,15 +7,15 @@ using Madera.Model;
 
 namespace Madera.Data.Repositories
 {
-    public class ComposentRepository : RepositoryBase<Composent>, IComposentRepository
+    public class ComposantRepository : RepositoryBase<Composant>, IComposantRepository
     {
-        public ComposentRepository(IDbFactory dbFactory)
+        public ComposantRepository(IDbFactory dbFactory)
             : base(dbFactory) { }
     }
 
 
 
-    public interface IComposentRepository : IRepository<Composent>
+    public interface IComposantRepository : IRepository<Composant>
     {
 
     }

@@ -58,7 +58,7 @@ namespace Madera.Data
             modelBuilder.Configurations.Add(new AdresseConfiguration());
             modelBuilder.Configurations.Add(new AffectationServiceConfiguration());
             modelBuilder.Configurations.Add(new ApplicationTraceConfiguration());
-            modelBuilder.Configurations.Add(new ComposentConfiguration());
+            modelBuilder.Configurations.Add(new ComposantConfiguration());
             modelBuilder.Configurations.Add(new CompositionConfiguration());
             modelBuilder.Configurations.Add(new DevisFactureConfiguration());
             modelBuilder.Configurations.Add(new DroitConfiguration());

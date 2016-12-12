@@ -7,11 +7,11 @@ using System.Data.Entity.ModelConfiguration;
 
 namespace Madera.Data.Configuration
 {
-    public class ComposentConfiguration : EntityTypeConfiguration<Composent>
+    public class ComposantConfiguration : EntityTypeConfiguration<Composant>
     {
-        public ComposentConfiguration()
+        public ComposantConfiguration()
         {
-            ToTable("Composent");
+            ToTable("Composant");
             HasKey<int>(a => a.id);
             Property<bool>(a => a.isDeleted);
             Property(a => a.libe).HasColumnType("varchar").HasMaxLength(150);
