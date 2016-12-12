@@ -22,6 +22,7 @@ namespace Madera.Data
         public DbSet<Employe> Employes { get; set; }
         public DbSet<TEmploye> TEmployes { get; set; }
         public DbSet<DevisFacture> DevisFacture { get; set; }
+        public DbSet<Gamme> Gamme { get; set; }
 
         public virtual void Commit()
         {

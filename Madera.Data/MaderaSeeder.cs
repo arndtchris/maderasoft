@@ -17,6 +17,7 @@ namespace Madera.Data
             //SeedDevisFacture().ForEach(g => context.DevisFacture.Add(g));
             //SeedEmployes().ForEach(c => context.Employes.Add(c));
             SeedTEmployes().ForEach(h => context.TEmployes.Add(h));
+            SeedGammes().ForEach(i => context.Gamme.Add(i));
 
             context.Commit();
         }
@@ -86,6 +87,32 @@ namespace Madera.Data
 
         }
 
+        private static List<Gamme> SeedGammes()
+        {
+            return new List<Gamme>
+            {
+                new Gamme
+                {
+                    id = 1,
+                    libe = "Essentiel",
+                    pourcentageGamme = 10
+                },
+                new Gamme
+                {
+                    id = 2,
+                    libe = "Intermédiaire",
+                    pourcentageGamme = 20
+                },
+                new Gamme
+                {
+                    id = 3,
+                    libe = "Luxe",
+                    pourcentageGamme = 30
+                },
+
+            };
+        }
+
         //private static List<Personne> SeedPersonnes()
         //{
 
@@ -135,7 +162,7 @@ namespace Madera.Data
         //{
         //    Employe emp = new Employe(1, false, SeedTEmployes()[0], null, SeedPersonnes()[1]);
         //    Projet p = new Projet(1, "Projet trop cool", 100, 120, false, true, SeedPersonnes()[0] , SeedAdresses()[0], emp);
-            
+
 
         //    return new List<DevisFacture>
         //    {
@@ -146,7 +173,7 @@ namespace Madera.Data
         //            isDeleted = false,
         //            projet = p,
         //            referent = emp
-                    
+
         //        }
         //    };
         //}
