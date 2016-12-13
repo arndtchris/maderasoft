@@ -15,7 +15,6 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Models.DTOs
         public Boolean isDeleted { get; set; }
 
         [DisplayName("Statut")]
-        [Required(ErrorMessage = "Veuillez renseigner le statut de l'employé")]
         public int typeEmployeId { get; set; }
         public virtual TEmployeDTO typeEmploye { get; set; }
 

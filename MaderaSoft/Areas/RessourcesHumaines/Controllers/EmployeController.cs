@@ -90,6 +90,7 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
                     Value = x.id.ToString()
                 }
                 ).ToList();
+            editEmploye.lesServices.Insert(0, new SelectListItem() { Text = "--- Sélectionnez ---", Value = "" });
 
             //On récupère les niveaux de droits disponibles dans l'application
             editEmploye.lesDroits = _droitService.GetDroits().Select(
@@ -99,6 +100,7 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
                     Value = x.id.ToString()
                 }
                 ).ToList();
+            editEmploye.lesDroits.Insert(0, new SelectListItem() { Text = "--- Sélectionnez ---", Value = "" });
 
 
             editEmploye.lesAffectationsEmploye.lesLignes.Add(new List<object> { "Service", "Droit", "Activité principale"});
@@ -125,6 +127,7 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
                         Value = x.TEmployeId.ToString()
                     }
                 ).ToList();
+            editEmploye.lesTypesEmployes.Insert(0, new SelectListItem() { Text = "--- Sélectionnez ---", Value = "" });
 
             modelOut.formulaireUrl = "~/Areas/RessourcesHumaines/Views/Employe/_EditEmployePartial.cshtml";
             
@@ -146,15 +149,12 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
             nouvelleAffectation.service = _serviceService.GetService(personne.employe.serviceIdPourAffectation);
             nouvelleAffectation.groupe = _droitService.GetDroit(personne.employe.groupeIdPourAffectation);
 
-
-
-            if (personne.employe.id != 0)
+            if (personne.employe.id != 0)//update
             {
                 try
                 {
                     perso = _personneService.GetPersonne(personne.id);
-                    perso.employe.affectationServices.Add(nouvelleAffectation);
-
+                    insertOrUpdateAffectation(ref perso, nouvelleAffectation);
                     //On prépare le type d'employé
                     perso.employe.typeEmploye = _temployeService.GetTEmploye(personne.employe.typeEmployeId);
 
@@ -167,7 +167,7 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
                     FlashMessage.Danger("Erreur lors de mis à jour de l'employé");
                 }
             }
-            else
+            else//create
             {
                 try
                 {
@@ -189,8 +189,6 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
 
             return RedirectToAction("Index");
         }
-
-
 
         [HttpGet]
         public ActionResult DeleteModal(int id)
@@ -222,6 +220,7 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
             return RedirectToAction("Index");
         }
 
+
         //GET : RessourcesHumaines/Employe/Detail/1
         [HttpGet]
         public ActionResult Detail(int id)
@@ -231,7 +230,7 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
             if (id != 0)
             {
                 modelOut.personne = Mapper.Map<Personne, PersonneEmployeDTO>(_personneService.GetPersonne(id));
-            }                
+            }
             else
             {
                 FlashMessage.Danger("Cet identifiant ne correspond pas à celui d'un employé");
@@ -249,6 +248,8 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
                 }
                 ).ToList();
 
+            modelOut.lesServices.Insert(0, new SelectListItem() { Text = "--- Sélectionnez ---", Value = "" });
+
             //On récupère les niveaux de droits disponibles dans l'application
             modelOut.lesDroits = _droitService.GetDroits().Select(
                 x => new SelectListItem()
@@ -257,9 +258,10 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
                     Value = x.id.ToString()
                 }
                 ).ToList();
+            modelOut.lesDroits.Insert(0, new SelectListItem() { Text = "--- Sélectionnez ---", Value = "" });
 
 
-            modelOut.lesAffectationsEmploye.lesLignes.Add(new List<object> { "Service", "Droit", "Activité principale","" });
+            modelOut.lesAffectationsEmploye.lesLignes.Add(new List<object> { "Service", "Droit", "Activité principale", "" });
 
             if (modelOut.personne.employe != null)
             {
@@ -273,9 +275,7 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
 
             }
 
-
             #endregion
-
 
             //On récupère les types d'employés disponibles dans l'application
             modelOut.lesTEmployes = _temployeService.GetTEmployes().Select(
@@ -330,21 +330,19 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
             return RedirectToAction("Index");
         }
 
-        private void insertOrUpdateAffectation (List<AffectationService> affectations)
+        private void insertOrUpdateAffectation (ref Personne personne, AffectationService nouvelleAffectation)
         {
-            foreach(AffectationService affectation in affectations)
+            //On regarde si cet empoyé a déjà une affectation sur ce service
+            if(personne.employe.affectationServices.FirstOrDefault(x => x.service.id == nouvelleAffectation.service.id) != null)//On met à jour l'affectation
             {
-                if (affectation.id != 0)//update
-                {
-                    _affectationService.UpdateAffectationService(affectation);
-                }
-                else//create
-                {
-                    _affectationService.CreateAffectationService(affectation);
-                }
-            }
+                personne.employe.affectationServices.First(x => x.service.libe == nouvelleAffectation.service.libe).isPrincipal = nouvelleAffectation.isPrincipal;
+                personne.employe.affectationServices.First(x => x.service.libe == nouvelleAffectation.service.libe).groupe = nouvelleAffectation.groupe;
 
-            _affectationService.saveAffectationService();
+            }
+            else//On ajoute l'affectation
+            {
+                personne.employe.affectationServices.Add(nouvelleAffectation);
+            }
         }
 
         private void insertOrUpdateEmploye(Employe employe)
