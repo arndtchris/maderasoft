@@ -39,7 +39,7 @@ namespace Madera.Service
             _applicationTraceService.create(new ApplicationTrace
             {
                 action = Parametres.Action.Creation.ToString(),
-                description = String.Format("Ajout de {0} {1} {2} en tant que {3} au sein de l'application",personne.civ, personne.nom, personne.prenom, _typePersonne),
+                description = String.Format("Ajout de {0} {1} {2} en tant que {3} au sein de l'application", getCiv(personne.civ), personne.nom, personne.prenom, _typePersonne),
             });
 
             _personneRepository.Insert(personne);
@@ -52,7 +52,7 @@ namespace Madera.Service
             _applicationTraceService.create(new ApplicationTrace
             {
                 action = Parametres.Action.Modification.ToString(),
-                description = String.Format("Mise à jour de {0} {1} {2} en tant que {3}", personne.civ, personne.nom, personne.prenom, _typePersonne),
+                description = String.Format("Mise à jour de {0} {1} {2} en tant que {3}", getCiv(personne.civ), personne.nom, personne.prenom, _typePersonne),
             });
 
             _personneRepository.Update(personne);
@@ -87,6 +87,26 @@ namespace Madera.Service
             else if (!perso.isClient && !perso.isFournisseur)
             {
                 _typePersonne = "employé";
+            }
+        }
+
+        private static string getCiv(string civ)
+        {
+
+            if (civ != null)
+            {
+                if (civ == "1")
+                {
+                    return "Madame";
+                }
+                else
+                {
+                    return "Monsieur";
+                }
+            }
+            else
+            {
+                return " ";
             }
         }
 
