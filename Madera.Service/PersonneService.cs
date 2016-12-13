@@ -51,7 +51,7 @@ namespace Madera.Service
 
             _applicationTraceService.create(new ApplicationTrace
             {
-                action = Parametres.Action.Creation.ToString(),
+                action = Parametres.Action.Modification.ToString(),
                 description = String.Format("Mise à jour de {0} {1} {2} en tant que {3}", personne.civ, personne.nom, personne.prenom, _typePersonne),
             });
 

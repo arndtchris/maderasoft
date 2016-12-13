@@ -83,7 +83,7 @@
             <legend>Informations professionnelles</legend>
             <div class="form-group-lg">
                 <div class="col-md-12">
-                    @Html.LabelFor(m => m.personne.employe.typeEmploye)
+                    @Html.LabelFor(m => m.personne.employe.typeEmployeId)
                     @Html.DropDownListFor(m => m.personne.employe.typeEmployeId, Model.lesTypesEmployes)
                     <p class="bg-warning">@Html.ValidationMessageFor(m => m.personne.employe.typeEmploye)</p>
                 </div>
