@@ -16,6 +16,7 @@ namespace Madera.Data.Configuration
             Property<bool>(a => a.isDeleted);
             Property(a => a.libe).HasColumnType("varchar").HasMaxLength(150);
             Property<double>(a => a.prixHT);
+            Property<int>(a => a.qteStock);
 
         }
     }
