@@ -70,6 +70,7 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
 
             BootstrapModalViewModel modelOut = new BootstrapModalViewModel();
             EditEmployeViewModel editEmploye = new EditEmployeViewModel();
+            BootstrapButtonViewModel button = new BootstrapButtonViewModel();
 
             if (id.HasValue)
             {
@@ -103,7 +104,7 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
             editEmploye.lesDroits.Insert(0, new SelectListItem() { Text = "--- Sélectionnez ---", Value = "" });
 
 
-            editEmploye.lesAffectationsEmploye.lesLignes.Add(new List<object> { "Service", "Droit", "Activité principale"});
+            editEmploye.lesAffectationsEmploye.lesLignes.Add(new List<object> {"", "Service", "Droit", "Activité principale"});
 
             if (editEmploye.personne.employe != null)
             {
@@ -111,7 +112,15 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
                 {
                     foreach (AffectationServiceDTO affectation in editEmploye.personne.employe.affectationServices)
                     {
-                        editEmploye.lesAffectationsEmploye.lesLignes.Add(new List<object> { affectation.service.libe, affectation.groupe.libe, affectation.affectationPrincipaleOuiNon()});
+                        button = new BootstrapButtonViewModel
+                        {
+                            href = Url.Action("Detail", "Employe", new { area = "RessourcesHumaines", id = editEmploye.personne.employe.id }).ToString(),
+                            cssClass = "",
+                            libe = " ",
+                            typeDeBouton = Parametres.TypeBouton.Detail
+                        };
+
+                        editEmploye.lesAffectationsEmploye.lesLignes.Add(new List<object> { button, affectation.service.libe, affectation.groupe.libe, affectation.affectationPrincipaleOuiNon() });
                     }
                 }
 
