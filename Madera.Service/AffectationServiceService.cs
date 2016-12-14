@@ -26,7 +26,7 @@ namespace Madera.Service
             _applicationTraceService.create(new ApplicationTrace
             {
                 action = Parametres.Action.Creation.ToString(),
-                //description = String.Format("Affectation de l'utilisateur {0} {1} au service {2} en tant que {3}", affectationService.groupe.libe, affectationService.employe.personne.nom, affectationService.service.libe, affectationService.groupe.libe),
+                description = String.Format("Ajout d'une nouvelle affectation au service {0} en tant que {1}", affectationService.service.libe, affectationService.groupe.libe),
             });
 
             _affectationServiceRepository.Insert(affectationService);
@@ -39,7 +39,7 @@ namespace Madera.Service
             {
                 utilisateur = "",
                 action = Parametres.Action.Suppression.ToString(),
-                description = String.Format("Supression d'une affectation à un service adrs_id = {0}", id),
+                description = String.Format("Supression d'une affectation à un service affec_id = {0}", id)
             });
             _affectationServiceRepository.Delete(x => x.id == id);
         }
@@ -63,8 +63,8 @@ namespace Madera.Service
         {
             _applicationTraceService.create(new ApplicationTrace
             {
-                action = Parametres.Action.Creation.ToString(),
-                //description = String.Format("Mise à jour de l'affectation de l'utilisateur {0} {1} au service {2} en tant que {3}", affectationService.groupe.libe, affectationService.employe.personne.nom, affectationService.service.libe, affectationService.groupe.libe),
+                action = Parametres.Action.Modification.ToString(),
+                description = String.Format("Mise à jour de l'affectation affec_id = {0} au service {1} en tant que {2}", affectationService.id, affectationService.service.libe, affectationService.groupe.libe)
             });
 
             _affectationServiceRepository.Update(affectationService);
