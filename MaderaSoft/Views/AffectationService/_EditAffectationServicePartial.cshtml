@@ -1,0 +1,27 @@
+﻿@using Madera.Service
+@model MaderaSoft.Models.ViewModel.AffectationServiceViewModel
+
+@using (Html.BeginForm("Edit", "AffectationService", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-inline" }))
+{
+        @Html.HiddenFor(m => m.affectationService.id)
+        <div class="form-group-lg">
+            <div class="col-md-4">
+                @Html.LabelFor(m => m.affectationService.service)
+                @Html.DropDownListFor(m => m.affectationService.service.id, Model.lesServices)
+                <p class="bg-warning">@Html.ValidationMessageFor(m => m.affectationService.service)</p>
+            </div>
+            <div class="col-md-4">
+                @Html.LabelFor(m => m.affectationService.groupe)
+                @Html.DropDownListFor(m => m.affectationService.groupe.id, Model.lesDroits)
+                <p class="bg-warning">@Html.ValidationMessageFor(m => m.affectationService.groupe)</p>
+            </div>
+            <div class="col-md-4">
+                @Html.LabelFor(m => m.affectationService.isPrincipal)
+                @Html.CheckBoxFor(m => m.affectationService.isPrincipal)
+            </div>
+        </div>
+    <div class="modal-footer">
+        @Html.actionButton(" Annuler", Parametres.TypeBouton.DissmissModal)
+        @Html.actionButton(" Valider", Parametres.TypeBouton.Submit)
+    </div>
+}
