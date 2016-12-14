@@ -159,7 +159,6 @@ namespace MaderaSoft.Controllers
             catch (Exception)
             {
                 FlashMessage.Danger("Erreur lors de la suppression de l'adresse");
-                throw;
             }
 
             return RedirectToAction("Index");
