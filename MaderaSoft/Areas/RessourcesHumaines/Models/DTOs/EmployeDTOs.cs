@@ -15,7 +15,7 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Models.DTOs
         public Boolean isDeleted { get; set; }
 
         [DisplayName("Statut")]
-        public int typeEmployeId { get; set; }
+        //public int typeEmployeId { get; set; }
         public virtual TEmployeDTO typeEmploye { get; set; }
 
         [DisplayName("Service")]

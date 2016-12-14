@@ -41,7 +41,7 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
         {
             EmployeIndexViewModel modelOut = new EmployeIndexViewModel();
             BootstrapButtonViewModel button = new BootstrapButtonViewModel();
-            modelOut.tableauEmployes.typeObjet = "Employe";
+            modelOut.tableauEmployes.typeObjet = "RessourcesHumaines/Employe";
             modelOut.tableauEmployes.avecActionCrud = true;
             modelOut.tableauEmployes.messageSiVide = "Aucun employé n'a été saisi dans l'application.";
 
@@ -124,14 +124,13 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
                     x => new SelectListItem()
                     {
                         Text = x.libe,
-                        Value = x.TEmployeId.ToString()
+                        Value = x.id.ToString()
                     }
                 ).ToList();
             editEmploye.lesTypesEmployes.Insert(0, new SelectListItem() { Text = "--- Sélectionnez ---", Value = "" });
 
             modelOut.formulaireUrl = "~/Areas/RessourcesHumaines/Views/Employe/_EditEmployePartial.cshtml";
-            
-
+            modelOut.titreModal = string.Format("Modification des informations de {0} {1} {2}", editEmploye.personne.getCiv(), editEmploye.personne.nom, editEmploye.personne.prenom);
             modelOut.objet = editEmploye;
 
             return PartialView("~/Views/Shared/_BootstrapModalPartial.cshtml", modelOut);
@@ -155,8 +154,9 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
                 {
                     perso = _personneService.GetPersonne(personne.id);
                     insertOrUpdateAffectation(ref perso, nouvelleAffectation);
+
                     //On prépare le type d'employé
-                    perso.employe.typeEmploye = _temployeService.GetTEmploye(personne.employe.typeEmployeId);
+                    perso.employe.typeEmploye = _temployeService.GetTEmploye(personne.employe.typeEmploye.id);
 
                     _personneService.UpdatePersonne(perso);
 
@@ -173,8 +173,9 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
                 {
                     perso = Mapper.Map<PersonneEmployeDTO, Personne>(personne);
                     perso.employe.affectationServices.Add(nouvelleAffectation);
+
                     //On prépare le type d'employé
-                    perso.employe.typeEmploye = _temployeService.GetTEmploye(personne.employe.typeEmployeId);
+                    perso.employe.typeEmploye = _temployeService.GetTEmploye(personne.employe.typeEmploye.id);
                     _personneService.CreatePersonne(perso);
                     FlashMessage.Confirmation("Employé créé avec succès");
                 }
@@ -220,7 +221,6 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
             return RedirectToAction("Index");
         }
 
-
         //GET : RessourcesHumaines/Employe/Detail/1
         [HttpGet]
         public ActionResult Detail(int id)
@@ -262,6 +262,7 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
 
 
             modelOut.lesAffectationsEmploye.lesLignes.Add(new List<object> { "Service", "Droit", "Activité principale", "" });
+            modelOut.lesAffectationsEmploye.typeObjet = "AffectationService";
 
             if (modelOut.personne.employe != null)
             {
@@ -282,7 +283,7 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
                 x => new SelectListItem()
                 {
                     Text = x.libe,
-                    Value = x.TEmployeId.ToString()
+                    Value = x.id.ToString()
                 }
                 ).ToList();
 
@@ -343,20 +344,6 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
             {
                 personne.employe.affectationServices.Add(nouvelleAffectation);
             }
-        }
-
-        private void insertOrUpdateEmploye(Employe employe)
-        {
-                if (employe.id != 0)//update
-                {
-                    _employeService.UpdateEmploye(employe);
-                }
-                else//create
-                {
-                _employeService.CreateEmploye(employe);
-            }
-
-            _employeService.saveEmploye();
         }
     }
 }
