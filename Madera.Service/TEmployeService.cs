@@ -42,7 +42,7 @@ namespace Madera.Service
                 action = Parametres.Action.Suppression.ToString(),
                 description = String.Format("Supression d'un type d'employé temploye_id = {0}", id),
             });
-            _temployeRepository.Delete(x => x.TEmployeId == id);
+            _temployeRepository.Delete(x => x.id == id);
         }
 
         public TEmploye GetTEmploye(int id)
@@ -65,7 +65,7 @@ namespace Madera.Service
             _applicationTraceService.create(new ApplicationTrace
             {
                 action = Parametres.Action.Modification.ToString(),
-                description = String.Format("Mise à jour d'un type d'employé temploye_id = {0}", TEmploye.TEmployeId),
+                description = String.Format("Mise à jour d'un type d'employé temploye_id = {0}", TEmploye.id),
             });
 
             _temployeRepository.Update(TEmploye);

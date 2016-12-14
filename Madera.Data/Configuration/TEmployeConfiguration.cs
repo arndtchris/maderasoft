@@ -13,7 +13,7 @@ namespace Madera.Data.Configuration
         public TEmployeConfiguration()
         {
             ToTable("TEmploye");
-            HasKey<int>(a => a.TEmployeId);
+            HasKey<int>(a => a.id);
             Property(a => a.libe).HasColumnType("varchar").HasMaxLength(100);
 
         }
