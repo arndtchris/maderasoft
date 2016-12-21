@@ -147,6 +147,7 @@
     <Compile Include="PersonneService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServiceService.cs" />
+    <Compile Include="StockService.cs" />
     <Compile Include="TEmployeService.cs" />
     <Compile Include="UtilisateurService.cs" />
   </ItemGroup>
