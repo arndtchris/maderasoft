@@ -6,19 +6,18 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace MaderaSoft.Areas.GestionStocks.Controllers
+namespace MaderaSoft.Areas.GestionStocks.Models.DTOs
 {
-    public class StocksController : Controller
+    public class StockController : Controller
     {
         // GET: GestionStocks/Stocks
-        public class StocksDTO
+        public class StockDTO
         {
-            [DisplayName("Code produit")]
             public int id { get; set; }
             [DisplayName("Nom du composant")]
             public String libe { get; set; }
-            [DisplayName("Quantité")]
-            public int qte { get; set; }
+            [DisplayName("Quantité stock")]
+            public int qteStock { get; set; }
             [DisplayName("Gamme")]
             public virtual Gamme gamme { get; set; }
             [DisplayName("Prix fournisseur")]
@@ -26,7 +25,7 @@ namespace MaderaSoft.Areas.GestionStocks.Controllers
             [DisplayName("Nom fournisseur")]
             public virtual Utilisateur fournisseur { get; set; }
 
-            public StocksDTO()
+            public StockDTO()
             {
             }
         }
