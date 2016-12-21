@@ -8,9 +8,8 @@ namespace Madera.Model
     public class Composition
     {
         public int id { get; set; }
-        public int qte { get; set; }
         public virtual Composant composant { get; set; }
-
+        public virtual Module module { get; set; }
         public Composition()
         {
 

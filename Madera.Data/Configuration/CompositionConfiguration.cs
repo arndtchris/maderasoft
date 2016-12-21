@@ -13,7 +13,8 @@ namespace Madera.Data.Configuration
         {
             ToTable("Composition");
             HasKey<int>(a => a.id);
-            Property<int>(a => a.qte);
+            HasOptional<Composant>(a => a.composant);
+            HasOptional<Module>(a => a.module);
         }
 
 
