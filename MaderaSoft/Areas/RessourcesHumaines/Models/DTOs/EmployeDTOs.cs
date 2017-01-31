@@ -26,7 +26,7 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Models.DTOs
         [Required(ErrorMessage = "Veuillez renseigner un groupe utilisateur pour cette affectation")]
         public int groupeIdPourAffectation { get; set; }
 
-        [DisplayName("Affectation principal")]
+        [DisplayName("Affectation principale")]
         public bool isAffecttionPrincipal { get; set; }
         public virtual List<AffectationServiceDTO> affectationServices { get; set; }
 
