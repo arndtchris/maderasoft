@@ -1,24 +1,20 @@
 ﻿var color = "";
+var code = "";
 
 $(function () {
-
-
 
     var x = 10;
     var y = 110;
     var dessin = "<svg id='dessin_svg' style='width:1000px;height:1000px;'>";
 
-
-    //console.log(":)");
     $("#button_svg").click(function () {
 
-        var taille = parseInt($("#long").val()) + 1
-
+        var taille = parseInt($("#larg").val()) + 1
         for (j = 0; j < taille ; j++) {
-            for (i = 0; i < $("#larg").val() ; i++) {
+            for (i = 0; i < $("#long").val() ; i++) {
                 var xAfter = x + 40;
                 x = x + 1;
-                dessin += "<a class='hma'  onclick='changeColor(lineLong" + i + j + ")' href='#'><line id='lineLong" + i + j + "' x1='" + x + "'x2='" + xAfter + "' y1='" + y + "' y2='" + y + "' stroke='black' stroke-width='5' /></a>";
+                dessin += "<a onclick='changeColor(lineLong" + i + j + ")' href='#'><line id='lineLong" + i + j + "' x1='" + x + "'x2='" + xAfter + "' y1='" + y + "' y2='" + y + "' stroke='black' stroke-width='5' /></a>";
                 //dessin += "<line x1='" + xBefore + "'x2='" + x + "' y1='" + yBefore + "' y2='" + yBefore + "' stroke='white' stroke-width='5' />";
                 x = xAfter;
             }
@@ -29,13 +25,13 @@ $(function () {
 
         x = 10;
         y = 110;
-        taille = parseInt($("#larg").val()) + 1
+        taille = parseInt($("#long").val()) + 1
 
         for (i = 0; i < taille ; i++) {
-            for (j = 0; j < $("#long").val() ; j++) {
+            for (j = 0; j < $("#larg").val() ; j++) {
                 var yAfter = y + 40;
                 y = y + 1;
-                dessin += "<a class='hma' onclick='changeColor(lineLarg" + j + i + ")' href='#'><line id='lineLarg" + j + i + "' x1='" + x + "'x2='" + x + "' y1='" + y + "' y2='" + yAfter + "' stroke='black' stroke-width='5' /></a>";
+                dessin += "<a onclick='changeColor(lineLarg" + j + i + ")' href='#'><line id='lineLarg" + j + i + "' x1='" + x + "'x2='" + x + "' y1='" + y + "' y2='" + yAfter + "' stroke='black' stroke-width='5' /></a>";
                 //dessin += "<line x1='" + xBefore + "'x2='" + x + "' y1='" + yBefore + "' y2='" + yBefore + "' stroke='white' stroke-width='5' />";
                 y = yAfter;
             }
@@ -50,7 +46,10 @@ $(function () {
 
     $("#porte_svg").click(function () {
 
-        color = $("#porte_svg").data("pos");
+        var $por = $("#porte_svg");
+
+        color = $por.data("color");
+        code = $por.data("code");
         console.log('COLOR1', color);
         makeCursor(color);
 
@@ -58,7 +57,10 @@ $(function () {
 
     $("#fenetre_svg").click(function () {
 
-        color = $("#fenetre_svg").data("pos");
+        var $fen = $("#fenetre_svg");
+
+        color = $fen.data("color");
+        code = $fen.data("code");
         console.log('COLOR1', color);
         makeCursor(color);
 
@@ -85,14 +87,51 @@ $(function () {
         ctx.lineTo(30, 30)
         ctx.stroke();
 
-        //test.style.cursor = 'url(' + cursor.toDataURL() + '), auto';
-
-        test.css('cursor', 'url(' + cursor.toDataURL() + '), auto');
+        test.css('cursor', 'url(' + cursor.toDataURL() + '), auto ');
     }
+
+    $("#save_svg").click(function () {
+        var $plan = $("#dessin").children();
+
+        //Appel AJAX
+        console.log("PLAN", $plan.children());
+
+        var obj = {};
+
+        $plan.children().each(function (key, value) {
+
+           /* if ($.isEmptyObject(obj)) {
+                obj[value] = 1
+            } else {
+                if ($.inArray(value, obj) > -1) {
+                    obj[value] = i + 1
+                }
+            }*/
+
+            console.log("KEY", key);
+            console.log("VALUE", $(value).first().childNodes());
+        });
+
+        $.post("/Simulateur/Maison/Edit", function ($plan) {
+            alert("Votre plan est bien enregistré, vous allez bientôt rentré en contact avec un commercial de notre équipe");
+        })
+        .fail(function () {
+            alert("Une erreur est survenue");
+        });
+
+    });
+
+
+
+
+
+
+
 });
 
 
 function changeColor(id) {
     console.log("clique color", id);
     $(id).css({ "stroke": color });
+    $(id).attr("values",code);
 }

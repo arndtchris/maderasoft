@@ -13,5 +13,12 @@ namespace MaderaSoft.Areas.Simulateur.Controllers
         {
             return View();
         }
+
+        // POST: Simulateur/Maison
+        public ActionResult Edit()
+        {
+            return View();
+
+        }
     }
 }
