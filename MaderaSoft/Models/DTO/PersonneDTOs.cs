@@ -5,7 +5,6 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using MaderaSoft.Areas.RessourcesHumaines.Models.DTOs;
 
 namespace MaderaSoft.Models.DTO
 {

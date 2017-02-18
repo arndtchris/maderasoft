@@ -7,9 +7,8 @@ using System.Web.UI.WebControls;
 using AutoMapper;
 using Madera.Model;
 using Madera.Service;
-using MaderaSoft.Areas.RessourcesHumaines.Models.DTOs;
-using MaderaSoft.Areas.RessourcesHumaines.Models.ViewModels;
 using MaderaSoft.Models.DTO;
+using MaderaSoft.Areas.RessourcesHumaines.Models.ViewModels;
 using MaderaSoft.Models.ViewModel;
 using Vereyon.Web;
 

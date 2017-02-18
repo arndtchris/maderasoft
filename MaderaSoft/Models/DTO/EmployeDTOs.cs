@@ -4,10 +4,8 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
-using Madera.Model;
-using MaderaSoft.Models.DTO;
 
-namespace MaderaSoft.Areas.RessourcesHumaines.Models.DTOs
+namespace MaderaSoft.Models.DTO
 {
     public class EmployeDTO
     {
