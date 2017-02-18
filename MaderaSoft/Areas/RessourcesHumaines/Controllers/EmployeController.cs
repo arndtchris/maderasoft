@@ -36,6 +36,11 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
         }
 
         // GET: RessourcesHumaines/Employe
+        /// <summary>
+        /// Permet de synthétiser l'ensemble des employés présents dans l'application au sein d'un tableau
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
         public ActionResult Index()
         {
             EmployeIndexViewModel modelOut = new EmployeIndexViewModel();
@@ -63,6 +68,11 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
             return View(modelOut);
         }
 
+        /// <summary>
+        /// Permet d'alimenter les informations nécéssaires à la génération d'une fenêtre modale de création/modification d'un employé
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet]
         public ActionResult EditModal(int? id)
         {
@@ -145,6 +155,11 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
 
         }
 
+        /// <summary>
+        /// Permet de valider la création/modification d'un employé
+        /// </summary>
+        /// <param name="personne"></param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult Edit(PersonneEmployeDTO personne)
         {
@@ -161,7 +176,7 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
                 try
                 {
                     perso = _personneService.GetPersonne(personne.id);
-                    insertOrUpdateAffectation(ref perso, nouvelleAffectation);
+                    _insertOrUpdateAffectation(ref perso, nouvelleAffectation);
 
                     //On prépare le type d'employé
                     perso.employe.typeEmploye = _temployeService.GetTEmploye(personne.employe.typeEmploye.id);
@@ -199,6 +214,11 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
             return RedirectToAction("Index");
         }
 
+        /// <summary>
+        /// Permet d'alimenter les informations nécessaires à la génération d'une modale permettant de supprimer un employé
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet]
         public ActionResult DeleteModal(int id)
         {
@@ -211,6 +231,11 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
             return PartialView("~/Views/Shared/_BootstrapModalPartial.cshtml", modelOut);
         }
 
+        /// <summary>
+        /// Pemret de supprimer un employé en fonction de son id
+        /// </summary>
+        /// <param name="idToDelete"></param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult Delete(int idToDelete)
         {
@@ -230,6 +255,11 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
         }
 
         //GET : RessourcesHumaines/Employe/Detail/1
+        /// <summary>
+        /// Permet d'afficher de manière détaillée l'ensemble des informations rattachés à un employé
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet]
         public ActionResult Detail(int id)
         {
@@ -298,6 +328,11 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
             return View(modelOut);
         }
 
+        /// <summary>
+        /// Permet de modifier les informations d'un employé depuis la vue détaillée
+        /// </summary>
+        /// <param name="modelIn"></param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult EditDetail(DetailEmployeViewModel modelIn)
         {
@@ -339,7 +374,13 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
             return RedirectToAction("Index");
         }
 
-        private void insertOrUpdateAffectation (ref Personne personne, AffectationService nouvelleAffectation)
+
+        /// <summary>
+        /// Permet de mettre à jour les affectations d'un employé
+        /// </summary>
+        /// <param name="personne"></param>
+        /// <param name="nouvelleAffectation"></param>
+        private void _insertOrUpdateAffectation (ref Personne personne, AffectationService nouvelleAffectation)
         {
             //On regarde si cet empoyé a déjà une affectation sur ce service
             if(personne.employe.affectationServices.FirstOrDefault(x => x.service.id == nouvelleAffectation.service.id) != null)//On met à jour l'affectation
