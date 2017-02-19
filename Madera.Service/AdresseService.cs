@@ -73,7 +73,7 @@ namespace Madera.Service
             _applicationTraceService.create(new ApplicationTrace
             {
                 action = Parametres.Action.Modification.ToString(),
-                description = String.Format("Mise à jour de l'adresse adrs_id = {0}",adresse.AdresseID),
+                description = String.Format("Mise à jour de l'adresse adrs_id = {0}",adresse.id),
             });
 
             adresseRepository.Update(adresse);      
@@ -97,7 +97,7 @@ namespace Madera.Service
                 action = Parametres.Action.Suppression.ToString(),
                 description = String.Format("Supression de l'adresse adrs_id = {0}", id),
             });
-            adresseRepository.Delete(x => x.AdresseID == id);            
+            adresseRepository.Delete(x => x.id == id);            
         }
     }
 

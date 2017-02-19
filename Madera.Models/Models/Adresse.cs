@@ -7,7 +7,7 @@ namespace Madera.Model
 {
     public class Adresse
     {
-        public int AdresseID { get; set; }
+        public int id { get; set; }
         public string numRue { get; set; }
         public string nomRue { get; set; }
         public string codePostal { get; set; }

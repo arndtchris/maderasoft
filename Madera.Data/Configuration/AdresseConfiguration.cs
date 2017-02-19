@@ -12,7 +12,7 @@ namespace Madera.Data.Configuration
         public AdresseConfiguration()
         {
             ToTable("Adresse");
-            HasKey<int>(a => a.AdresseID);
+            HasKey<int>(a => a.id);
             Property(a => a.codePostal).HasColumnType("varchar").HasMaxLength(5);
             Property(a => a.nomRue).HasColumnType("varchar").HasMaxLength(150);
             Property(a => a.numRue).HasColumnType("varchar").HasMaxLength(10);

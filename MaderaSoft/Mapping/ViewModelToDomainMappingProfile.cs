@@ -24,7 +24,7 @@ namespace MaderaSoft.Mapping
         protected override void Configure()
         {
             CreateMap<AdresseDTO, Adresse>()
-               .ForMember(g => g.AdresseID, map => map.MapFrom(vm => vm.AdresseID))
+               .ForMember(g => g.id, map => map.MapFrom(vm => vm.id))
                .ForMember(g => g.codePostal, map => map.MapFrom(vm => vm.codePostal))
                .ForMember(g => g.nomRue, map => map.MapFrom(vm => vm.nomRue))
                .ForMember(g => g.numRue, map => map.MapFrom(vm => vm.numRue))

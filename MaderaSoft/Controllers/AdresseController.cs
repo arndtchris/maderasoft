@@ -49,7 +49,7 @@ namespace MaderaSoft.Controllers
             //On rempli ensuite les autres lignes avec les données correspondantes
             foreach (AdresseDTO adresseDTO in lesAdresses)
             {
-                modelOut.tableauAdresses.lesLignes.Add(new List<object> {String.Format(adresseDTO.numRue + " " + adresseDTO.nomRue), adresseDTO.ville, adresseDTO.codePostal,adresseDTO.pays,adresseDTO.AdresseID.ToString()});
+                modelOut.tableauAdresses.lesLignes.Add(new List<object> {String.Format(adresseDTO.numRue + " " + adresseDTO.nomRue), adresseDTO.ville, adresseDTO.codePostal,adresseDTO.pays,adresseDTO.id.ToString()});
             }
 
             return View(modelOut);
@@ -94,7 +94,7 @@ namespace MaderaSoft.Controllers
             //et la table Adresse, c'est ce qui est réalisé ici
             var adresseATraiter = Mapper.Map<AdresseDTO, Adresse>(modelIn);
 
-            if (adresseATraiter.AdresseID != 0) //si notre objet contient déjà un ID, il s'agit d'une mise à jour
+            if (adresseATraiter.id != 0) //si notre objet contient déjà un ID, il s'agit d'une mise à jour
             {
                 try
                 {
