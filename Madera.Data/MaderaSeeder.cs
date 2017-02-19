@@ -17,7 +17,7 @@ namespace Madera.Data
              * 
              * Par contre le Seeder est adapté à la création de gammes, services, composants...
              */
-            SeedAdresses().ForEach(d => context.Adresses.Add(d));
+            //SeedAdresses().ForEach(d => context.Adresses.Add(d));
             SeedServices().ForEach(e => context.Services.Add(e));
             SeedDroits().ForEach(f => context.Droits.Add(f));
             SeedTEmployes().ForEach(h => context.TEmployes.Add(h));
@@ -26,7 +26,7 @@ namespace Madera.Data
             context.Commit();
         }
 
-        private static List<Adresse> SeedAdresses()
+        /*private static List<Adresse> SeedAdresses()
         {
             return new List<Adresse>
             {
@@ -52,7 +52,7 @@ namespace Madera.Data
                     nomRue = "rue des tulipes"
                 }
             };
-        }
+        }*/
 
         private static List<Gamme> SeedGammes()
         {
