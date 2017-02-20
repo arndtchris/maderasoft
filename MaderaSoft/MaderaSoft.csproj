@@ -221,6 +221,7 @@
     <Compile Include="Areas\RessourcesHumaines\RessourcesHumainesAreaRegistration.cs" />
     <Compile Include="Areas\Simulateur\Controllers\MaisonController.cs" />
     <Compile Include="Areas\Simulateur\SimulateurAreaRegistration.cs" />
+    <Compile Include="Areas\Simulateur\Models\ViewModels\MaisonViewModels.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdresseController.cs" />
     <Compile Include="Controllers\DevisFactureController.cs" />
@@ -247,6 +248,7 @@
     <Compile Include="Models\DTO\DroitDTOs.cs" />
     <Compile Include="Models\DTO\EmployeDTOs.cs" />
     <Compile Include="Models\DTO\PersonneDTOs.cs" />
+    <Compile Include="Models\DTO\PlanDTOs.cs" />
     <Compile Include="Models\DTO\ServiceDTOs.cs" />
     <Compile Include="Models\DTO\TEmployeDTOs.cs" />
     <Compile Include="Models\DTO\UtilisateurDTOs.cs" />

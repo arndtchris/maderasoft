@@ -1,18 +1,22 @@
 ﻿@{
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
+@using Madera.Service;
 
 <section id="test" class="content">
     <div class="row">
         <div class="col-lg-12">
-            <h2>TEST SVG THOMAS (Temporaire)</h2>
+            <h2>Plan maison modulaire</h2>
             <label>Largueur</label><input id="larg" type="text" />
             <label>Longueur</label><input id="long" type="text" />
-            <button id="button_svg">CLIQUE ICI !!!!!</button>
+            <button id="button_svg">Générer</button>
             <button id="porte_svg" data-code="c8fDh5" data-color="#00ff00">Porte</button>
             <button id="fenetre_svg" data-code="r7jka2" data-color="#0000ff">Fenêtre</button>
             <div id="dessin"></div>
-            <button id="save_svg">Sauvegarder votre plan</button>
+
+            @Html.actionButton("Sauvegarder votre plan", Parametres.TypeBouton.Creation, Url.Action("SavePlan", "Maison", new { area = "Simulateur" }).ToString(), "save_svg")
+
+
         </div>
     </div>
 </section>

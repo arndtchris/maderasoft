@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+//using MaderaSoft.Areas.Simulateur.Models.DTOs;
+using MaderaSoft.Areas.Simulateur.Models.ViewModels;
+using MaderaSoft.Models.DTO;
+using MaderaSoft.Models.ViewModel;
 
 namespace MaderaSoft.Areas.Simulateur.Controllers
 {
@@ -20,5 +24,19 @@ namespace MaderaSoft.Areas.Simulateur.Controllers
             return View();
 
         }
+
+        [HttpPost]
+        public ActionResult SavePlan(PlanDTO plan)
+        {
+            if (plan != null)
+            {
+                return Json("Success");
+            }
+            else
+            {
+                return Json("An Error Has occoured");
+            }
+        }
+
     }
 }

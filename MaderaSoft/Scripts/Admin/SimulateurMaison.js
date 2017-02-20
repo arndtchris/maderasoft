@@ -44,6 +44,8 @@ $(function () {
 
     });
 
+
+    // Par la suite, une fonction pour tout les composants récupérer dynamiquement
     $("#porte_svg").click(function () {
 
         var $por = $("#porte_svg");
@@ -90,42 +92,71 @@ $(function () {
         test.css('cursor', 'url(' + cursor.toDataURL() + '), auto ');
     }
 
-    $("#save_svg").click(function () {
-        var $plan = $("#dessin").children();
-
-        //Appel AJAX
-        console.log("PLAN", $plan.children());
-
+    $(".save_svg").click(function () {
+        event.preventDefault();
+        var $plan = $("#dessin_svg");
+        
+        var arrayComposant = [];
         var obj = {};
 
         $plan.children().each(function (key, value) {
 
-           /* if ($.isEmptyObject(obj)) {
-                obj[value] = 1
-            } else {
-                if ($.inArray(value, obj) > -1) {
-                    obj[value] = i + 1
+            var currentData = $(value).children().data("values");
+            if (typeof (currentData) != "undefined") {
+
+                var result = $.grep(arrayComposant, function (e) { return e.id == currentData; });
+
+                if (result.length == 0) {
+                    // not found
+                    var obj = {
+                        "id": currentData,
+                        "quantite": 1
+                    };
+                    arrayComposant.push(obj);
+
+                } else {
+                    // multiple items found
+                    var index = result.length - 1
+                    var quantite = arrayComposant[index].quantite;
+                    quantite++;
+                    arrayComposant[index].quantite = quantite;
                 }
-            }*/
-
-            console.log("KEY", key);
-            console.log("VALUE", $(value).first().childNodes());
+            }
         });
 
-        $.post("/Simulateur/Maison/Edit", function ($plan) {
-            alert("Votre plan est bien enregistré, vous allez bientôt rentré en contact avec un commercial de notre équipe");
+        console.log("MON TABLEAU", arrayComposant);
+
+        var p = JSON.stringify($plan);
+
+        var jsonObject = {
+            "listComposants": arrayComposant
+        };
+
+        console.log("jsonObject", jsonObject);
+
+
+        var jsonObj = {
+            "Name": "Rami",
+            "Roles": [{ "RoleName": "Admin", "Description": "Admin Role" }, { "RoleName": "User", "Description": "User Role" }]
+        };
+
+        console.log("jsonObject", jsonObj);
+
+        $.ajax({
+            method: "POST",
+            url: $(event.currentTarget).attr('href'),
+            contentType: "application/json",
+            dataType:"json",
+            data: JSON.stringify(jsonObject)
+        });
+        /*.done(function (data) {
+            console.log('réussite');
         })
-        .fail(function () {
-            alert("Une erreur est survenue");
-        });
+        .fail(function (data) {
+            console.log("fail");
+        });*/
 
     });
-
-
-
-
-
-
 
 });
 
@@ -133,5 +164,5 @@ $(function () {
 function changeColor(id) {
     console.log("clique color", id);
     $(id).css({ "stroke": color });
-    $(id).attr("values",code);
+    $(id).attr("data-values",code);
 }
