@@ -49,11 +49,11 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
             modelOut.tableauEmployes.avecActionCrud = true;
             modelOut.tableauEmployes.messageSiVide = "Aucun employé n'a été saisi dans l'application.";
 
-            List<PersonneDTO> lesEmployes = Mapper.Map<List<Personne>, List<PersonneDTO>>(_personneService.GetEmployes().ToList());
+            List<PEmployeTableauDTO> lesEmployes = Mapper.Map<List<Personne>, List<PEmployeTableauDTO>>(_personneService.GetEmployes().ToList());
 
-            modelOut.tableauEmployes.lesLignes.Add(new List<object> {"", "Nom", "Prénom","Adresse",""});
+            modelOut.tableauEmployes.lesLignes.Add(new List<object> {"", "Employé","Adresse",""});
 
-            foreach(PersonneDTO employe in lesEmployes)
+            foreach(PEmployeTableauDTO employe in lesEmployes)
             {
                 button = new BootstrapButtonViewModel {
                     href = Url.Action("Detail", "Employe", new { area = "RessourcesHumaines", id = employe.id}).ToString(),
@@ -61,7 +61,8 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
                     libe = " ",
                     typeDeBouton = Parametres.TypeBouton.Detail
                 };
-                modelOut.tableauEmployes.lesLignes.Add(new List<object> { button, employe.nom, employe.prenom, string.Format("{0} {1} {2} {3}",employe.adresse.numRue, employe.adresse.nomRue, employe.adresse.codePostal, employe.adresse.ville), employe.id.ToString() });
+             
+                modelOut.tableauEmployes.lesLignes.Add(new List<object> { button, string.Format("{0} {1} {2}", employe.getCiv().ToUpperFirst(), employe.nom.ToUpperFirst(), employe.prenom.ToUpperFirst()), string.Format("{0} {1} {2} {3}",employe.adresse.numRue, employe.adresse.nomRue, employe.adresse.codePostal, employe.adresse.ville), employe.id.ToString() });
             }
 
 
@@ -84,10 +85,10 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
             if (id.HasValue)
             {
                 editEmploye.personne = Mapper.Map<Personne, PersonneEmployeDTO>(_personneService.GetPersonne(id.Value));
-                modelOut.titreModal = string.Format("Modification des informations de {0} {1} {2}", editEmploye.personne.getCiv(), editEmploye.personne.nom, editEmploye.personne.prenom);
+                modelOut.titreModal = string.Format("Modification des informations de {0} {1} {2}", editEmploye.personne.getCiv(), editEmploye.personne.nom.ToUpperFirst(), editEmploye.personne.prenom.ToUpperFirst());
             }else
             {
-                modelOut.titreModal = "Edition d'un employé";
+                modelOut.titreModal = "Ajout d'un employé";
             }
 
             #region préparation des affectations
@@ -148,7 +149,6 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
             editEmploye.lesTypesEmployes.Insert(0, new SelectListItem() { Text = "--- Sélectionnez ---", Value = "" });
 
             modelOut.formulaireUrl = "~/Areas/RessourcesHumaines/Views/Employe/_EditEmployePartial.cshtml";
-            modelOut.titreModal = string.Format("Modification des informations de {0} {1} {2}", editEmploye.personne.getCiv(), editEmploye.personne.nom, editEmploye.personne.prenom);
             modelOut.objet = editEmploye;
 
             return PartialView("~/Views/Shared/_BootstrapModalPartial.cshtml", modelOut);

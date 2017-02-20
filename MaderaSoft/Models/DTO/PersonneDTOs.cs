@@ -53,6 +53,38 @@ namespace MaderaSoft.Models.DTO
         }
     }
 
+    public class PEmployeTableauDTO
+    {
+        public int id { get; set; }
+        public string civ { get; set; }
+        public string nom { get; set; }
+        public string prenom { get; set; }
+        public AdresseDTO adresse { get; set; }
+
+        public string getCiv()
+        {
+            if (this.civ != null)
+            {
+                if (this.civ == "1")
+                {
+                    return "Mme";
+                }
+                else
+                {
+                    return "M";
+                }
+            }
+            else
+            {
+                return " ";
+            }
+        }
+        public PEmployeTableauDTO()
+        {
+            adresse = new AdresseDTO();
+        }
+    }
+
     public class PersonneEmployeDTO : PersonneDTO
     {
         public EmployeDTO employe { get; set; }

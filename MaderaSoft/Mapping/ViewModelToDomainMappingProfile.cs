@@ -70,6 +70,8 @@ namespace MaderaSoft.Mapping
                .ForMember(g => g.login, map => map.MapFrom(vm => vm.login))
                .ForMember(g => g.password, map => map.MapFrom(vm => vm.password));
 
+            #region Personne
+
             CreateMap<PersonneDTO, Personne>()
                .ForMember(g => g.civ, map => map.MapFrom(vm => vm.civ))
                .ForMember(g => g.nom, map => map.MapFrom(vm => vm.nom))
@@ -83,10 +85,20 @@ namespace MaderaSoft.Mapping
                .ForMember(g => g.employe, map => map.MapFrom(vm => vm.employe));
 
 
+            CreateMap<PEmployeTableauDTO, Personne>()
+               .ForMember(g => g.civ, map => map.MapFrom(vm => vm.civ))
+               .ForMember(g => g.nom, map => map.MapFrom(vm => vm.nom))
+               .ForMember(g => g.prenom, map => map.MapFrom(vm => vm.prenom));
+
+            #endregion
+
+
+
             CreateMap<EmployeDTO, Employe>()
                .ForMember(g => g.isDeleted, map => map.MapFrom(vm => vm.isDeleted))
                .ForMember(g => g.typeEmploye, map => map.MapFrom(vm => vm.typeEmploye))
                .ForMember(g => g.affectationServices, map => map.MapFrom(vm => vm.affectationServices));
+
 
         }
     }
