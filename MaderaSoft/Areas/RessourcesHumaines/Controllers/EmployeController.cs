@@ -133,15 +133,15 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
 
             #region préparation du tableau récapitulatif des affectations
 
-            if (editEmploye.personne.employe != null)
+            if (editEmploye.personne != null)
             {
-                if (editEmploye.personne.employe.affectationServices != null)
+                if (editEmploye.personne.affectationServices != null)
                 {
-                    foreach (AffectationServiceDTO affectation in editEmploye.personne.employe.affectationServices)
+                    foreach (AffectationServiceDTO affectation in editEmploye.personne.affectationServices)
                     {
                         button = new BootstrapButtonViewModel
                         {
-                            href = Url.Action("Detail", "Employe", new { area = "RessourcesHumaines", id = editEmploye.personne.employe.id }).ToString(),
+                            href = Url.Action("Detail", "Employe", new { area = "RessourcesHumaines", id = editEmploye.personne.id }).ToString(),
                             cssClass = "",
                             libe = " ",
                             typeDeBouton = Parametres.TypeBouton.Detail
@@ -190,7 +190,7 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
 
                     _insertOrUpdateAffectation(ref perso, nouvelleAffectation);
 
-                    _personneService.UpdatePersonne(perso);
+                    _employeService.UpdateEmploye(perso);
 
                     FlashMessage.Confirmation("Employé mis à jour avec succès");
                 }
@@ -208,7 +208,7 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
 
                     //On prépare le type d'employé
                     perso.typeEmploye = _temployeService.GetTEmploye(personne.typeEmploye.id);
-                    _personneService.CreatePersonne(perso);
+                    _employeService.CreateEmploye(perso);
 
                     FlashMessage.Confirmation("Employé créé avec succès");
                 }
@@ -218,7 +218,7 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
                 }
                 
             }
-            _personneService.savePersonne();
+            _employeService.saveEmploye();
 
             return RedirectToAction("Index");
         }
