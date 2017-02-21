@@ -452,7 +452,7 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
         {
             if(nouvelleAffectation.service != null)
             {
-                //On regarde si cet empoyé a déjà une affectation sur ce service
+                //On regarde si cet empolyé a déjà une affectation sur ce service
                 if (personne.employe.affectationServices.FirstOrDefault(x => x.service.id == nouvelleAffectation.service.id) != null)//On met à jour l'affectation
                 {
                     personne.employe.affectationServices.First(x => x.service.libe == nouvelleAffectation.service.libe).isPrincipal = nouvelleAffectation.isPrincipal;

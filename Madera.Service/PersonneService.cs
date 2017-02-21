@@ -12,13 +12,19 @@ namespace Madera.Service
     {
         private readonly IPersonneRepository _personneRepository;
         private readonly IApplicationTraceService _applicationTraceService;
+        private readonly IAdresseService _adresseService;
+        private readonly IEmployeService _employeService;
+        private readonly IUtilisateurService _utilisateurService;
         private readonly IUnitOfWork _unitOfWork;
         private string _typePersonne = "";
 
-        public PersonneService(IPersonneRepository personneRepository, IUnitOfWork unitOfWork, IApplicationTraceService applicationTraceService)
+        public PersonneService(IPersonneRepository personneRepository, IUnitOfWork unitOfWork, IApplicationTraceService applicationTraceService, IAdresseService adresseService, IEmployeService employeService, IUtilisateurService utilisateurService)
         {
             this._personneRepository = personneRepository;
             this._applicationTraceService = applicationTraceService;
+            this._adresseService = adresseService;
+            this._utilisateurService = utilisateurService;
+            this._employeService = employeService;
             this._unitOfWork = unitOfWork;
         }
 
@@ -48,6 +54,23 @@ namespace Madera.Service
         public void UpdatePersonne(Personne personne)
         {
             donneTypeDePersonne(ref this._typePersonne, personne);
+
+            //Si la personne possède une adresse, on doit également la mettre à jour
+            //EntityFramework ne gère pas la mise à jour des enfants
+            //L'adresse est obligatoire, on a pas beoin de vérifier le null
+            _adresseService.UpdateAdresse(personne.adresse);
+
+            //Si la permsonne a un employé, on le met à jour
+            if(personne.employe != null)
+            {
+                _employeService.UpdateEmploye(personne.employe);
+            }
+
+            //Si la personne possède un utilisateur, on le met à jour
+            if(personne.utilisateur != null)
+            {
+                _utilisateurService.UpdateUtilisateur(personne.utilisateur);
+            }
 
             _applicationTraceService.create(new ApplicationTrace
             {
