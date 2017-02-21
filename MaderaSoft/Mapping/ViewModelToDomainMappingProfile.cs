@@ -79,12 +79,9 @@ namespace MaderaSoft.Mapping
                .ForMember(g => g.email, map => map.MapFrom(vm => vm.email))
                .ForMember(g => g.tel1, map => map.MapFrom(vm => vm.tel1))
                .ForMember(g => g.tel2, map => map.MapFrom(vm => vm.tel2))
-               .ForMember(g => g.adresse, map => map.MapFrom(vm => vm.adresse));
-
-            CreateMap<PersonneEmployeDTO, Personne>()
+               .ForMember(g => g.adresse, map => map.MapFrom(vm => vm.adresse))
                .ForMember(g => g.employe, map => map.MapFrom(vm => vm.employe));
-
-
+            
             CreateMap<PEmployeTableauDTO, Personne>()
                .ForMember(g => g.civ, map => map.MapFrom(vm => vm.civ))
                .ForMember(g => g.nom, map => map.MapFrom(vm => vm.nom))

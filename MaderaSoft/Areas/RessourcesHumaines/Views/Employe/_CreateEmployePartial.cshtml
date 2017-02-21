@@ -2,7 +2,7 @@
 @using MaderaSoft.Models.DTO;
 @using MaderaSoft.Areas.RessourcesHumaines.Models.ViewModels;
 
-@model EditEmployeViewModel
+@model CreateEmployeViewModel
 
 
 @using (Html.BeginForm("Edit", "Employe", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-inline", area = "RessourcesHumaines" }))
@@ -10,7 +10,6 @@
     <div class="modal-body">
         @Html.HiddenFor(m => m.personne.id)
         @Html.HiddenFor(m => m.personne.employe.id)
-        @Html.HiddenFor(m => m.personne.adresse.id)
         <fieldset>
             <legend>Informations générales</legend>
             <div class="form-group-lg">
@@ -93,12 +92,12 @@
                     @Html.LabelFor(m => m.personne.employe.serviceIdPourAffectation)
                     @if (Model.personne.id != 0)
                     {
-                        @Html.DropDownListFor(m => m.personne.employe.serviceIdPourAffectation, Model.lesServices, new { data_val = false })
+                        @Html.DropDownListFor(m => m.personne.employe.serviceIdPourAffectation, Model.lesServices)
+                        <p class="bg-warning">@Html.ValidationMessageFor(m => m.personne.employe.serviceIdPourAffectation)</p>
                     }
                     else
                     {
                         @Html.DropDownListFor(m => m.personne.employe.serviceIdPourAffectation, Model.lesServices)
-                        <p class="bg-warning">@Html.ValidationMessageFor(m => m.personne.employe.serviceIdPourAffectation)</p>
                     }
 
 
@@ -108,28 +107,27 @@
 
                     @if (Model.personne.id != 0)
                     {
-                        @Html.DropDownListFor(m => m.personne.employe.groupeIdPourAffectation, Model.lesDroits, new { data_val = false })
-
+                        @Html.DropDownListFor(m => m.personne.employe.groupeIdPourAffectation, Model.lesDroits)
+                        <p class="bg-warning">@Html.ValidationMessageFor(m => m.personne.employe.groupeIdPourAffectation)</p>
                     }
                     else
                     {
                         @Html.DropDownListFor(m => m.personne.employe.groupeIdPourAffectation, Model.lesDroits)
-                        <p class="bg-warning">@Html.ValidationMessageFor(m => m.personne.employe.groupeIdPourAffectation)</p>
                     }
                 </div>
                 <div class="col-md-4">
                     @if (Model.personne.id != 0)
+                    {
+                        @Html.LabelFor(m => m.personne.employe.isAffecttionPrincipal)
+                        @Html.CheckBoxFor(m => m.personne.employe.isAffecttionPrincipal)
+                    }
+                    else
                     {
                         if (Model.personne.employe.affectationServices.FirstOrDefault(x => x.isPrincipal == true) == null)
                         {
                             @Html.LabelFor(m => m.personne.employe.isAffecttionPrincipal)
                             @Html.CheckBoxFor(m => m.personne.employe.isAffecttionPrincipal)
                         }
-                    }
-                    else
-                    {
-                        @Html.LabelFor(m => m.personne.employe.isAffecttionPrincipal)
-                        @Html.CheckBoxFor(m => m.personne.employe.isAffecttionPrincipal)
                     }
                 </div>
             </div>

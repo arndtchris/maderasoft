@@ -8,6 +8,9 @@ using System.Web.Mvc;
 
 namespace MaderaSoft.Models.DTO
 {
+    /// <summary>
+    /// DTO simple de la table PersonneDTO
+    /// </summary>
     public class PersonneDTO
     {
         public int id { get; set; }
@@ -28,6 +31,7 @@ namespace MaderaSoft.Models.DTO
         [DisplayName("Tel. fixe")]
         public string tel2 { get; set; }
         public AdresseDTO adresse { get; set; }
+        public virtual EmployeDTO employe { get; set; }
 
         public string getCiv()
         {
@@ -85,13 +89,22 @@ namespace MaderaSoft.Models.DTO
         }
     }
 
-    public class PersonneEmployeDTO : PersonneDTO
+    public class CreatePersonneEmployeDTO : PersonneDTO
     {
-        public EmployeDTO employe { get; set; }
-
-        public PersonneEmployeDTO()
+        public override EmployeDTO employe { get; set; }
+        public CreatePersonneEmployeDTO()
         {
-            employe = new EmployeDTO();
+            employe = new CreateEmployeDTO();
+        }
+    }
+
+    public class EditPersonneEmployeDTO : PersonneDTO
+    {
+        public override EmployeDTO employe { get; set; }
+
+        public EditPersonneEmployeDTO()
+        {
+            employe = new EditEmployeDTO();
         }
     }
 }

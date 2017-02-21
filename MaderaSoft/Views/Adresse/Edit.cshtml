@@ -4,7 +4,7 @@
 
 @using (Html.BeginForm("Edit", "Adresse", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-inline" }))
 {
-    @Html.HiddenFor(m => m.AdresseID)
+    @Html.HiddenFor(m => m.id)
     <div class="row">
         <div class="col-md-6">
             <div class="form-group">

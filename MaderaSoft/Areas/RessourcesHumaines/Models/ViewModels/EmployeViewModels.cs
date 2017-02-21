@@ -20,18 +20,18 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Models.ViewModels
         }
     }
 
-    public class EditEmployeViewModel
+    public class CreateEmployeViewModel
     {
-        public PersonneEmployeDTO personne { get; set; }
+        public virtual PersonneDTO personne { get; set; }
         public BootstrapTableViewModel lesAffectationsEmploye { get; set; }
         public List<SelectListItem> lesServices { get; set; }
         public List<SelectListItem> lesDroits { get; set; }
         public List<SelectListItem> lesCivilites { get; set; }
         public List<SelectListItem> lesTypesEmployes { get; set; }
 
-        public EditEmployeViewModel()
+        public CreateEmployeViewModel()
         {
-            personne = new PersonneEmployeDTO();
+            personne = new CreatePersonneEmployeDTO();
             lesTypesEmployes = new List<SelectListItem>();
             lesAffectationsEmploye = new BootstrapTableViewModel();
             lesAffectationsEmploye.messageSiVide = "Cet employé n'a pas encore d'affectation";
@@ -44,9 +44,19 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Models.ViewModels
         }
     }
 
+    public class EditEmployeViewModel : CreateEmployeViewModel
+    {
+       public override PersonneDTO personne { get; set; }
+        
+        public EditEmployeViewModel()
+        {
+            personne = new EditPersonneEmployeDTO();
+        }
+    }
+
     public class DetailEmployeViewModel
     {
-        public PersonneEmployeDTO personne { get; set; }
+        public CreatePersonneEmployeDTO personne { get; set; }
         public BootstrapTableViewModel lesAffectationsEmploye { get; set; }
         public List<SelectListItem> lesServices { get; set; }
         public List<SelectListItem> lesDroits { get; set; }
@@ -55,7 +65,7 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Models.ViewModels
 
         public DetailEmployeViewModel()
         {
-            personne = new PersonneEmployeDTO();
+            personne = new CreatePersonneEmployeDTO();
             lesAffectationsEmploye = new BootstrapTableViewModel();
             lesServices = new List<SelectListItem>();
             lesDroits = new List<SelectListItem>();

@@ -14,6 +14,9 @@ namespace Madera.Data.Infrastructure
         public UnitOfWork(IDbFactory dbFactory)
         {
             this.dbFactory = dbFactory;
+            System.Diagnostics.Debug.WriteLine("");
+            System.Diagnostics.Debug.WriteLine("--- Nouvelle instance de la bdd ---");
+            System.Diagnostics.Debug.WriteLine("");
         }
 
         public MaderaEntities DbContext
@@ -25,6 +28,9 @@ namespace Madera.Data.Infrastructure
         public void Commit()
         {
             DbContext.Commit();
+            System.Diagnostics.Debug.WriteLine("");
+            System.Diagnostics.Debug.WriteLine("--- Fermeture de l'instance de la bdd ---");
+            System.Diagnostics.Debug.WriteLine("");
         }
     }
 }

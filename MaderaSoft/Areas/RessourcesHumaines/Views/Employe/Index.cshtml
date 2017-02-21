@@ -20,7 +20,7 @@
 <!-- Main content -->
 <section class="content">
 
-    @Html.actionButton("Ajouter un nouvel employé", Parametres.TypeBouton.Creation, Url.Action("EditModal", "Employe", new { area = "RessourcesHumaines" }).ToString(), "editModal")
+    @Html.actionButton("Ajouter un nouvel employé", Parametres.TypeBouton.Creation, Url.Action("CreateModal", "Employe", new { area = "RessourcesHumaines" }).ToString(), "editModal")
 
     @{
         Html.bootstrapTable(Model.tableauEmployes);

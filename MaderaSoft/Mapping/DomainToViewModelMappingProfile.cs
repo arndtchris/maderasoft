@@ -33,7 +33,6 @@ namespace MaderaSoft.Mapping
             CreateMap<Service, ServiceDTO>();
             CreateMap<TEmploye, TEmployeDTO>();
             CreateMap<AffectationService, AffectationServiceDTO>();
-            CreateMap<Personne, PersonneEmployeDTO>();
             CreateMap<Personne, PEmployeTableauDTO>();
         }
     }

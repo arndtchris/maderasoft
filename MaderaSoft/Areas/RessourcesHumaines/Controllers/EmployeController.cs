@@ -75,46 +75,63 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet]
-        public ActionResult EditModal(int? id)
+        public ActionResult CreateModal()
+        {
+            BootstrapModalViewModel modelOut = new BootstrapModalViewModel();
+            CreateEmployeViewModel editEmploye = new CreateEmployeViewModel();
+            BootstrapButtonViewModel button = new BootstrapButtonViewModel();
+
+            modelOut.titreModal = "Ajout d'un employé";
+
+            //On récupère la liste des services disponibles dans l'application
+            editEmploye.lesServices = _donneListeService();
+
+            //On récupère les niveaux de droits disponibles dans l'application
+            editEmploye.lesDroits = _donneListeGroupeUtilisateur();
+
+            //On récuère la liste des types d'employé
+            editEmploye.lesTypesEmployes = _donneListeTypeEmploye();
+
+            //On prépare le tableau récapitulant les affectations de l'employé
+            editEmploye.lesAffectationsEmploye.lesLignes.Add(new List<object> {"", "Service", "Droit", "Activité principale"});
+
+            modelOut.formulaireUrl = "~/Areas/RessourcesHumaines/Views/Employe/_CreateEmployePartial.cshtml";
+            modelOut.objet = editEmploye;
+
+            return PartialView("~/Views/Shared/_BootstrapModalPartial.cshtml", modelOut);
+        }
+
+        /// <summary>
+        /// Permet d'alimenter les informations nécessaires à la génération d'une modal d'édition d'un employé
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        
+        [HttpGet]
+        public ActionResult EditModal(int id)
         {
 
             BootstrapModalViewModel modelOut = new BootstrapModalViewModel();
             EditEmployeViewModel editEmploye = new EditEmployeViewModel();
             BootstrapButtonViewModel button = new BootstrapButtonViewModel();
 
-            if (id.HasValue)
-            {
-                editEmploye.personne = Mapper.Map<Personne, PersonneEmployeDTO>(_personneService.GetPersonne(id.Value));
-                modelOut.titreModal = string.Format("Modification des informations de {0} {1} {2}", editEmploye.personne.getCiv(), editEmploye.personne.nom.ToUpperFirst(), editEmploye.personne.prenom.ToUpperFirst());
-            }else
-            {
-                modelOut.titreModal = "Ajout d'un employé";
-            }
+            editEmploye.personne = Mapper.Map<Personne, PersonneDTO>(_personneService.GetPersonne(id));
+            modelOut.titreModal = string.Format("Modification des informations de {0} {1} {2}", editEmploye.personne.getCiv(), editEmploye.personne.nom.ToUpperFirst(), editEmploye.personne.prenom.ToUpperFirst());
 
-            #region préparation des affectations
 
             //On récupère la liste des services disponibles dans l'application
-            editEmploye.lesServices = _serviceService.GetServices().Select(
-                x => new SelectListItem()
-                {
-                    Text = x.libe,
-                    Value = x.id.ToString()
-                }
-                ).ToList();
-            editEmploye.lesServices.Insert(0, new SelectListItem() { Text = "--- Sélectionnez ---", Value = "" });
+            editEmploye.lesServices = _donneListeService();
 
             //On récupère les niveaux de droits disponibles dans l'application
-            editEmploye.lesDroits = _droitService.GetDroits().Select(
-                x => new SelectListItem()
-                {
-                    Text = x.libe,
-                    Value = x.id.ToString()
-                }
-                ).ToList();
-            editEmploye.lesDroits.Insert(0, new SelectListItem() { Text = "--- Sélectionnez ---", Value = "" });
+            editEmploye.lesDroits = _donneListeGroupeUtilisateur();
 
+            //On récuère la liste des types d'employés
+            editEmploye.lesTypesEmployes = _donneListeTypeEmploye();
 
-            editEmploye.lesAffectationsEmploye.lesLignes.Add(new List<object> {"", "Service", "Droit", "Activité principale"});
+            //On prépare le tableau récapitulant les affectations de l'employé
+            editEmploye.lesAffectationsEmploye.lesLignes.Add(new List<object> { "", "Service", "Droit", "Activité principale" });
+
+            #region préparation du tableau récapitulatif des affectations
 
             if (editEmploye.personne.employe != null)
             {
@@ -136,17 +153,7 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
 
             }
 
-
             #endregion
-
-            editEmploye.lesTypesEmployes = _temployeService.GetTEmployes().Select(
-                    x => new SelectListItem()
-                    {
-                        Text = x.libe,
-                        Value = x.id.ToString()
-                    }
-                ).ToList();
-            editEmploye.lesTypesEmployes.Insert(0, new SelectListItem() { Text = "--- Sélectionnez ---", Value = "" });
 
             modelOut.formulaireUrl = "~/Areas/RessourcesHumaines/Views/Employe/_EditEmployePartial.cshtml";
             modelOut.objet = editEmploye;
@@ -161,25 +168,27 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
         /// <param name="personne"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult Edit(PersonneEmployeDTO personne)
+        public ActionResult Edit(PersonneDTO personne)
         {
             AffectationService nouvelleAffectation = new AffectationService();
             Personne perso = new Personne();
 
             //On prépare la nouvelle affectation
-            nouvelleAffectation.isPrincipal = personne.employe.isAffecttionPrincipal;
-            nouvelleAffectation.service = _serviceService.GetService(personne.employe.serviceIdPourAffectation);
-            nouvelleAffectation.groupe = _droitService.GetDroit(personne.employe.groupeIdPourAffectation);
+            if(personne.employe.serviceIdPourAffectation != 0 && personne.employe.groupeIdPourAffectation != 0)
+            {
+                nouvelleAffectation.isPrincipal = personne.employe.isAffecttionPrincipal;
+                nouvelleAffectation.service = _serviceService.GetService(personne.employe.serviceIdPourAffectation);
+                nouvelleAffectation.groupe = _droitService.GetDroit(personne.employe.groupeIdPourAffectation);
+            }
 
             if (personne.employe.id != 0)//update
             {
                 try
                 {
-                    perso = _personneService.GetPersonne(personne.id);
-                    _insertOrUpdateAffectation(ref perso, nouvelleAffectation);
-
-                    //On prépare le type d'employé
+                    perso = Mapper.Map<PersonneDTO, Personne>(personne);
                     perso.employe.typeEmploye = _temployeService.GetTEmploye(personne.employe.typeEmploye.id);
+
+                    _insertOrUpdateAffectation(ref perso, nouvelleAffectation);
 
                     _personneService.UpdatePersonne(perso);
 
@@ -194,12 +203,13 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
             {
                 try
                 {
-                    perso = Mapper.Map<PersonneEmployeDTO, Personne>(personne);
+                    perso = Mapper.Map<PersonneDTO, Personne>(personne);
                     perso.employe.affectationServices.Add(nouvelleAffectation);
 
                     //On prépare le type d'employé
                     perso.employe.typeEmploye = _temployeService.GetTEmploye(personne.employe.typeEmploye.id);
                     _personneService.CreatePersonne(perso);
+
                     FlashMessage.Confirmation("Employé créé avec succès");
                 }
                 catch (Exception e)
@@ -208,7 +218,6 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
                 }
                 
             }
-
             _personneService.savePersonne();
 
             return RedirectToAction("Index");
@@ -265,9 +274,9 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
         {
             DetailEmployeViewModel modelOut = new DetailEmployeViewModel();
 
-            if (id != 0)
+            /*if (id != 0)
             {
-                modelOut.personne = Mapper.Map<Personne, PersonneEmployeDTO>(_personneService.GetPersonne(id));
+                modelOut.personne = Mapper.Map<Personne, PersonneDTO>(_personneService.GetPersonne(id));
             }
             else
             {
@@ -323,7 +332,7 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
                     Text = x.libe,
                     Value = x.id.ToString()
                 }
-                ).ToList();
+                ).ToList();*/
 
             return View(modelOut);
         }
@@ -374,6 +383,65 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
             return RedirectToAction("Index");
         }
 
+        /// <summary>
+        /// Donne la liste des types d'employés en base de données
+        /// </summary>
+        /// <returns></returns>
+        private List<SelectListItem> _donneListeTypeEmploye()
+        {
+            List<SelectListItem> lesTypesDEmployes = _temployeService.GetTEmployes().Select(
+                    x => new SelectListItem()
+                    {
+                        Text = x.libe,
+                        Value = x.id.ToString()
+                    }
+                ).ToList();
+            lesTypesDEmployes.Insert(0, new SelectListItem() { Text = "--- Sélectionnez ---", Value = "" });
+
+            return lesTypesDEmployes;
+        }
+
+        /// <summary>
+        /// Donne la liste des services disponibles en base de données
+        /// </summary>
+        /// <returns>List<SelectListItem></returns>
+        private List<SelectListItem> _donneListeService()
+        {
+            List<SelectListItem> lesServices = new List<SelectListItem>();
+
+            //On récupère la liste des services disponibles dans l'application
+            lesServices = _serviceService.GetServices().Select(
+                x => new SelectListItem()
+                {
+                    Text = x.libe,
+                    Value = x.id.ToString()
+                }
+                ).ToList();
+            lesServices.Insert(0, new SelectListItem() { Text = "--- Sélectionnez ---", Value = "" });
+
+            return lesServices;
+        }
+
+        /// <summary>
+        /// Donne la liste des groupes utilisateur disponibles en base de données
+        /// </summary>
+        /// <returns>List<SelectListItem></returns>
+        private List<SelectListItem> _donneListeGroupeUtilisateur()
+        {
+            List<SelectListItem> lesGroupes = new List<SelectListItem>();
+
+            //On récupère la liste des services disponibles dans l'application
+            lesGroupes = _droitService.GetDroits().Select(
+                x => new SelectListItem()
+                {
+                    Text = x.libe,
+                    Value = x.id.ToString()
+                }
+                ).ToList();
+            lesGroupes.Insert(0, new SelectListItem() { Text = "--- Sélectionnez ---", Value = "" });
+
+            return lesGroupes;
+        }
 
         /// <summary>
         /// Permet de mettre à jour les affectations d'un employé
@@ -382,17 +450,21 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
         /// <param name="nouvelleAffectation"></param>
         private void _insertOrUpdateAffectation (ref Personne personne, AffectationService nouvelleAffectation)
         {
-            //On regarde si cet empoyé a déjà une affectation sur ce service
-            if(personne.employe.affectationServices.FirstOrDefault(x => x.service.id == nouvelleAffectation.service.id) != null)//On met à jour l'affectation
+            if(nouvelleAffectation.service != null)
             {
-                personne.employe.affectationServices.First(x => x.service.libe == nouvelleAffectation.service.libe).isPrincipal = nouvelleAffectation.isPrincipal;
-                personne.employe.affectationServices.First(x => x.service.libe == nouvelleAffectation.service.libe).groupe = nouvelleAffectation.groupe;
+                //On regarde si cet empoyé a déjà une affectation sur ce service
+                if (personne.employe.affectationServices.FirstOrDefault(x => x.service.id == nouvelleAffectation.service.id) != null)//On met à jour l'affectation
+                {
+                    personne.employe.affectationServices.First(x => x.service.libe == nouvelleAffectation.service.libe).isPrincipal = nouvelleAffectation.isPrincipal;
+                    personne.employe.affectationServices.First(x => x.service.libe == nouvelleAffectation.service.libe).groupe = nouvelleAffectation.groupe;
 
+                }
+                else//On ajoute l'affectation
+                {
+                    personne.employe.affectationServices.Add(nouvelleAffectation);
+                }
             }
-            else//On ajoute l'affectation
-            {
-                personne.employe.affectationServices.Add(nouvelleAffectation);
-            }
+
         }
     }
 }
