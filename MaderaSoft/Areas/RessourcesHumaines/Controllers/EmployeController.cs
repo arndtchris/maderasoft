@@ -108,17 +108,52 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
         /// <returns></returns>
         
         [HttpGet]
-        public ActionResult EditModal(int id)
+        public ActionResult EditModal(int? id)
         {
 
             BootstrapModalViewModel modelOut = new BootstrapModalViewModel();
-            EditEmployeViewModel editEmploye = new EditEmployeViewModel();
+            CreateEmployeViewModel editEmploye = new CreateEmployeViewModel();
             BootstrapButtonViewModel button = new BootstrapButtonViewModel();
 
-            editEmploye.personne = Mapper.Map<Employe, EmployeDTO>(_employeService.GetEmploye(id));
-            modelOut.titreModal = string.Format("Modification des informations de {0} {1} {2}", editEmploye.personne.getCiv(), editEmploye.personne.nom.ToUpperFirst(), editEmploye.personne.prenom.ToUpperFirst());
+            if(id.HasValue)
+            {
+                editEmploye.personne = Mapper.Map<Employe, EmployeDTO>(_employeService.GetEmploye(id.Value));
 
+                modelOut.titreModal = string.Format("Modification des informations de {0} {1} {2}", editEmploye.personne.getCiv(), editEmploye.personne.nom.ToUpperFirst(), editEmploye.personne.prenom.ToUpperFirst());
 
+                #region préparation du tableau récapitulatif des affectations
+
+                //On prépare le tableau récapitulant les affectations de l'employé
+                editEmploye.lesAffectationsEmploye.lesLignes.Add(new List<object> { "", "Service", "Droit", "Activité principale" });
+
+                if (editEmploye.personne != null)
+                {
+                    if (editEmploye.personne.affectationServices != null)
+                    {
+                        foreach (AffectationServiceDTO affectation in editEmploye.personne.affectationServices)
+                        {
+                            button = new BootstrapButtonViewModel
+                            {
+                                href = Url.Action("Detail", "Employe", new { area = "RessourcesHumaines", id = editEmploye.personne.id }).ToString(),
+                                cssClass = "",
+                                libe = " ",
+                                typeDeBouton = Parametres.TypeBouton.Detail
+                            };
+
+                            editEmploye.lesAffectationsEmploye.lesLignes.Add(new List<object> { button, affectation.service.libe, affectation.groupe.libe, affectation.affectationPrincipaleOuiNon() });
+                        }
+                    }
+
+                }
+
+                #endregion
+
+            }
+            else
+            {
+                modelOut.titreModal = "Ajout d'un employé";
+            }
+                
             //On récupère la liste des services disponibles dans l'application
             editEmploye.lesServices = _donneListeService();
 
@@ -126,34 +161,7 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
             editEmploye.lesDroits = _donneListeGroupeUtilisateur();
 
             //On récuère la liste des types d'employés
-            editEmploye.lesTypesEmployes = _donneListeTypeEmploye();
-
-            //On prépare le tableau récapitulant les affectations de l'employé
-            editEmploye.lesAffectationsEmploye.lesLignes.Add(new List<object> { "", "Service", "Droit", "Activité principale" });
-
-            #region préparation du tableau récapitulatif des affectations
-
-            if (editEmploye.personne != null)
-            {
-                if (editEmploye.personne.affectationServices != null)
-                {
-                    foreach (AffectationServiceDTO affectation in editEmploye.personne.affectationServices)
-                    {
-                        button = new BootstrapButtonViewModel
-                        {
-                            href = Url.Action("Detail", "Employe", new { area = "RessourcesHumaines", id = editEmploye.personne.id }).ToString(),
-                            cssClass = "",
-                            libe = " ",
-                            typeDeBouton = Parametres.TypeBouton.Detail
-                        };
-
-                        editEmploye.lesAffectationsEmploye.lesLignes.Add(new List<object> { button, affectation.service.libe, affectation.groupe.libe, affectation.affectationPrincipaleOuiNon() });
-                    }
-                }
-
-            }
-
-            #endregion
+            editEmploye.lesTypesEmployes = _donneListeTypeEmploye();           
 
             modelOut.formulaireUrl = "~/Areas/RessourcesHumaines/Views/Employe/_EditEmployePartial.cshtml";
             modelOut.objet = editEmploye;
