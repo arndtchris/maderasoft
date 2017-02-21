@@ -22,7 +22,7 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Models.ViewModels
 
     public class CreateEmployeViewModel
     {
-        public virtual PersonneDTO personne { get; set; }
+        public virtual EmployeDTO personne { get; set; }
         public BootstrapTableViewModel lesAffectationsEmploye { get; set; }
         public List<SelectListItem> lesServices { get; set; }
         public List<SelectListItem> lesDroits { get; set; }
@@ -31,7 +31,7 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Models.ViewModels
 
         public CreateEmployeViewModel()
         {
-            personne = new CreatePersonneEmployeDTO();
+            personne = new CreateEmployeDTO();
             lesTypesEmployes = new List<SelectListItem>();
             lesAffectationsEmploye = new BootstrapTableViewModel();
             lesAffectationsEmploye.messageSiVide = "Cet employé n'a pas encore d'affectation";
@@ -46,11 +46,11 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Models.ViewModels
 
     public class EditEmployeViewModel : CreateEmployeViewModel
     {
-       public override PersonneDTO personne { get; set; }
+       public override EmployeDTO personne { get; set; }
         
         public EditEmployeViewModel()
         {
-            personne = new EditPersonneEmployeDTO();
+            personne = new EditEmployeDTO();
         }
     }
 

@@ -10,11 +10,11 @@ namespace MaderaSoft.Models.DTO
     /// <summary>
     /// DTO simple de la table Employe
     /// </summary>
-    public class EmployeDTO
+    public class EmployeDTO : PersonneDTO
     {
-        public int id { get; set; }
+        //public int id { get; set; }
 
-        public bool isDeleted { get; set; }
+        //public bool isDeleted { get; set; }
 
         [DisplayName("Affectation principale")]
         public bool isAffecttionPrincipal { get; set; }

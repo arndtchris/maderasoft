@@ -9,7 +9,6 @@
 {
     <div class="modal-body">
         @Html.HiddenFor(m => m.personne.id)
-        @Html.HiddenFor(m => m.personne.employe.id)
         <fieldset>
             <legend>Informations générales</legend>
             <div class="form-group-lg">
@@ -123,7 +122,7 @@
                     }
                     else
                     {
-                        if (Model.personne.employe.affectationServices.FirstOrDefault(x => x.isPrincipal == true) == null)
+                        if (Model.personne.affectationServices.FirstOrDefault(x => x.isPrincipal == true) == null)
                         {
                             @Html.LabelFor(m => m.personne.employe.isAffecttionPrincipal)
                             @Html.CheckBoxFor(m => m.personne.employe.isAffecttionPrincipal)

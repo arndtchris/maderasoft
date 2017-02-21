@@ -9,7 +9,6 @@
 {
     <div class="modal-body">
         @Html.HiddenFor(m => m.personne.id)
-        @Html.HiddenFor(m => m.personne.employe.id)
         @Html.HiddenFor(m => m.personne.adresse.id)
         <fieldset>
             <legend>Informations générales</legend>
@@ -84,52 +83,52 @@
             <legend>Informations professionnelles</legend>
             <div class="form-group-lg">
                 <div class="col-md-12">
-                    @Html.LabelFor(m => m.personne.employe.typeEmploye)
-                    @Html.DropDownListFor(m => m.personne.employe.typeEmploye.id, Model.lesTypesEmployes)
+                    @Html.LabelFor(m => m.personne.typeEmploye)
+                    @Html.DropDownListFor(m => m.personne.typeEmploye.id, Model.lesTypesEmployes)
                 </div>
             </div>
             <div class="form-group-lg">
                 <div class="col-md-4">
-                    @Html.LabelFor(m => m.personne.employe.serviceIdPourAffectation)
+                    @Html.LabelFor(m => m.personne.serviceIdPourAffectation)
                     @if (Model.personne.id != 0)
                     {
-                        @Html.DropDownListFor(m => m.personne.employe.serviceIdPourAffectation, Model.lesServices, new { data_val = false })
+                        @Html.DropDownListFor(m => m.personne.serviceIdPourAffectation, Model.lesServices, new { data_val = false })
                     }
                     else
                     {
-                        @Html.DropDownListFor(m => m.personne.employe.serviceIdPourAffectation, Model.lesServices)
-                        <p class="bg-warning">@Html.ValidationMessageFor(m => m.personne.employe.serviceIdPourAffectation)</p>
+                        @Html.DropDownListFor(m => m.personne.serviceIdPourAffectation, Model.lesServices)
+                        <p class="bg-warning">@Html.ValidationMessageFor(m => m.personne.serviceIdPourAffectation)</p>
                     }
 
 
                 </div>
                 <div class="col-md-4">
-                    @Html.LabelFor(m => m.personne.employe.groupeIdPourAffectation)
+                    @Html.LabelFor(m => m.personne.groupeIdPourAffectation)
 
                     @if (Model.personne.id != 0)
                     {
-                        @Html.DropDownListFor(m => m.personne.employe.groupeIdPourAffectation, Model.lesDroits, new { data_val = false })
+                        @Html.DropDownListFor(m => m.personne.groupeIdPourAffectation, Model.lesDroits, new { data_val = false })
 
                     }
                     else
                     {
-                        @Html.DropDownListFor(m => m.personne.employe.groupeIdPourAffectation, Model.lesDroits)
-                        <p class="bg-warning">@Html.ValidationMessageFor(m => m.personne.employe.groupeIdPourAffectation)</p>
+                        @Html.DropDownListFor(m => m.personne.groupeIdPourAffectation, Model.lesDroits)
+                        <p class="bg-warning">@Html.ValidationMessageFor(m => m.personne.groupeIdPourAffectation)</p>
                     }
                 </div>
                 <div class="col-md-4">
                     @if (Model.personne.id != 0)
                     {
-                        if (Model.personne.employe.affectationServices.FirstOrDefault(x => x.isPrincipal == true) == null)
+                        if (Model.personne.affectationServices.FirstOrDefault(x => x.isPrincipal == true) == null)
                         {
-                            @Html.LabelFor(m => m.personne.employe.isAffecttionPrincipal)
-                            @Html.CheckBoxFor(m => m.personne.employe.isAffecttionPrincipal)
+                            @Html.LabelFor(m => m.personne.isAffecttionPrincipal)
+                            @Html.CheckBoxFor(m => m.personne.isAffecttionPrincipal)
                         }
                     }
                     else
                     {
-                        @Html.LabelFor(m => m.personne.employe.isAffecttionPrincipal)
-                        @Html.CheckBoxFor(m => m.personne.employe.isAffecttionPrincipal)
+                        @Html.LabelFor(m => m.personne.isAffecttionPrincipal)
+                        @Html.CheckBoxFor(m => m.personne.isAffecttionPrincipal)
                     }
                 </div>
             </div>

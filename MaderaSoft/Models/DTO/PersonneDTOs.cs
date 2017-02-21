@@ -14,6 +14,9 @@ namespace MaderaSoft.Models.DTO
     public class PersonneDTO
     {
         public int id { get; set; }
+
+        public bool isDeleted { get; set; }
+
         [DisplayName("Civilité")]
         [Required(ErrorMessage = "Veuillez renseigner une civilité")]
         public string civ { get; set; }

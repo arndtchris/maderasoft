@@ -61,16 +61,16 @@ namespace Madera.Service
             _adresseService.UpdateAdresse(personne.adresse);
 
             //Si la permsonne a un employé, on le met à jour
-            if(personne.employe != null)
-            {
-                _employeService.UpdateEmploye(personne.employe);
-            }
+            //if(personne.employe != null)
+            //{
+            //    _employeService.UpdateEmploye(personne.employe);
+            //}
 
-            //Si la personne possède un utilisateur, on le met à jour
-            if(personne.utilisateur != null)
-            {
-                _utilisateurService.UpdateUtilisateur(personne.utilisateur);
-            }
+            ////Si la personne possède un utilisateur, on le met à jour
+            //if(personne.utilisateur != null)
+            //{
+            //    _utilisateurService.UpdateUtilisateur(personne.utilisateur);
+            //}
 
             _applicationTraceService.create(new ApplicationTrace
             {

@@ -13,13 +13,15 @@ namespace Madera.Service
         private readonly IEmployeRepository _employeRepository;
         private readonly IApplicationTraceService _applicationTraceService;
         private readonly IAffectationServiceService _affectationServiceService;
+        private readonly IAdresseService _adresseService;
         private readonly IUnitOfWork _unitOfWork;
 
-        public EmployeService(IEmployeRepository employeRepository, IUnitOfWork unitOfWork, IApplicationTraceService applicationTraceService, IAffectationServiceService affectationServiceService)
+        public EmployeService(IEmployeRepository employeRepository, IUnitOfWork unitOfWork, IApplicationTraceService applicationTraceService, IAffectationServiceService affectationServiceService, IAdresseService adresseService)
         {
             this._employeRepository = employeRepository;
             this._applicationTraceService = applicationTraceService;
             this._affectationServiceService = affectationServiceService;
+            this._adresseService = adresseService;
             this._unitOfWork = unitOfWork;
         }
 
@@ -40,7 +42,13 @@ namespace Madera.Service
 
         public void UpdateEmploye(Employe employe)
         {
-            if(employe.affectationServices.Count > 0)
+
+            //Si la personne possède une adresse, on doit également la mettre à jour
+            //EntityFramework ne gère pas la mise à jour des enfants
+            //L'adresse est obligatoire, on a pas beoin de vérifier le null
+            _adresseService.UpdateAdresse(employe.adresse);
+
+            if (employe.affectationServices.Count > 0)
             {
                 foreach(AffectationService affec in employe.affectationServices)
                 {
