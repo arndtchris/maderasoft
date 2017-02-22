@@ -21,19 +21,21 @@ namespace Madera.Service
             this._unitOfWork = unitOfWork;
         }
 
-        public void CreateDroit(Droit droit)
+        public void Create(Droit droit)
         {
+            _droitRepository.Insert(droit);
+
             _applicationTraceService.create(new ApplicationTrace
             {
+                utilisateur = "",
                 action = Parametres.Action.Creation.ToString(),
                 description = "Création d'un nouveau droit utilisateur",
             });
-
-            _droitRepository.Insert(droit);
         }
 
-        public void DeleteDroit(int id)
+        public void Delete(int id)
         {
+            _droitRepository.Delete(x => x.id == id);
             //ToDo : réaliser une suppression complète ou logique en fonction des droits de l'utilisateur en session
             _applicationTraceService.create(new ApplicationTrace
             {
@@ -41,43 +43,38 @@ namespace Madera.Service
                 action = Parametres.Action.Suppression.ToString(),
                 description = String.Format("Supression d'un type de droit utilisateur droit_id = {0}", id),
             });
-            _droitRepository.Delete(x => x.id == id);
         }
 
-        public Droit GetDroit(int id)
+        public Droit Get(int id)
         {
             return _droitRepository.GetById(id);
         }
 
-        public IEnumerable<Droit> GetDroits()
+        public IEnumerable<Droit> DonneTous()
         {
             return _droitRepository.GetAll();
         }
 
-        public void SaveDroit()
+        public void Save()
         {
             _unitOfWork.Commit();
         }
 
-        public void UpdateDroit(Droit droit)
+        public void Update(Droit droit)
         {
+            _droitRepository.Update(droit);
+
             _applicationTraceService.create(new ApplicationTrace
             {
+                utilisateur = "",
                 action = Parametres.Action.Modification.ToString(),
                 description = String.Format("Mise à jour d'un type de droit utilisateur droit_id = {0}", droit.id),
             });
-
-            _droitRepository.Update(droit);
         }
     }
 
-    public interface IDroitService
+    public interface IDroitService : IService<Droit>
     {
-        IEnumerable<Droit> GetDroits();
-        Droit GetDroit(int id);
-        void CreateDroit(Droit droit);
-        void UpdateDroit(Droit droit);
-        void DeleteDroit(int id);
-        void SaveDroit();
+
     }
 }

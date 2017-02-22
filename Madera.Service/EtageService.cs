@@ -33,8 +33,9 @@ namespace Madera.Service
 
             applicationTraceService.create(new ApplicationTrace
             {
+                utilisateur = "",
                 action = Parametres.Action.Creation.ToString(),
-                description = string.Format("Création d'un étage etage_id={0}", item.id),
+                description = "Création d'un étage",
             });
         }
 

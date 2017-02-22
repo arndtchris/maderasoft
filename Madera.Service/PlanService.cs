@@ -31,7 +31,7 @@ namespace Madera.Service
             {
                 utilisateur = "",
                 action = Parametres.Action.Creation.ToString(),
-                description = string.Format("Création d'un nouveau plan plan_id={0}", item.id),
+                description = "Création d'un nouveau plan",
             });
         }
 

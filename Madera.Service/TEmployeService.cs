@@ -22,19 +22,21 @@ namespace Madera.Service
             this._unitOfWork = _unitOfWork;
         }
 
-        public void CreateTEmploye(TEmploye TEmploye)
+        public void Create(TEmploye TEmploye)
         {
+            _temployeRepository.Insert(TEmploye);
+
             _applicationTraceService.create(new ApplicationTrace
             {
+                utilisateur = "",
                 action = Parametres.Action.Creation.ToString(),
                 description = "Création d'un type d'employé",
             });
-
-            _temployeRepository.Insert(TEmploye);
         }
 
-        public void DeleteTEmploye(int id)
+        public void Delete(int id)
         {
+            _temployeRepository.Delete(x => x.id == id);
             //ToDo : réaliser une suppression complète ou logique en fonction des droits de l'utilisateur en session
             _applicationTraceService.create(new ApplicationTrace
             {
@@ -42,43 +44,39 @@ namespace Madera.Service
                 action = Parametres.Action.Suppression.ToString(),
                 description = String.Format("Supression d'un type d'employé temploye_id = {0}", id),
             });
-            _temployeRepository.Delete(x => x.id == id);
         }
 
-        public TEmploye GetTEmploye(int id)
+        public TEmploye Get(int id)
         {
            return _temployeRepository.GetById(id);
         }
 
-        public IEnumerable<TEmploye> GetTEmployes()
+        public IEnumerable<TEmploye> DonneTous()
         {
             return _temployeRepository.GetAll();
         }
 
-        public void SaveTEmploye()
+        public void Save()
         {
             _unitOfWork.Commit();
         }
 
-        public void UpdateTEmploye(TEmploye TEmploye)
+        public void Update(TEmploye TEmploye)
         {
+
+            _temployeRepository.Update(TEmploye);
+
             _applicationTraceService.create(new ApplicationTrace
             {
+                utilisateur = "",
                 action = Parametres.Action.Modification.ToString(),
                 description = String.Format("Mise à jour d'un type d'employé temploye_id = {0}", TEmploye.id),
             });
-
-            _temployeRepository.Update(TEmploye);
         }
     }
 
-    public interface ITEmployeService
+    public interface ITEmployeService : IService<TEmploye>
     {
-        IEnumerable<TEmploye> GetTEmployes();
-        TEmploye GetTEmploye(int id);
-        void CreateTEmploye(TEmploye TEmploye);
-        void UpdateTEmploye(TEmploye TEmploye);
-        void DeleteTEmploye(int id);
-        void SaveTEmploye();
+
     }
 }

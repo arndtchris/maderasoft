@@ -49,7 +49,7 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
             modelOut.tableauEmployes.avecActionCrud = true;
             modelOut.tableauEmployes.messageSiVide = "Aucun employé n'a été saisi dans l'application.";
 
-            List<PEmployeTableauDTO> lesEmployes = Mapper.Map<List<Employe>, List<PEmployeTableauDTO>>(_employeService.GetEmployes().ToList());
+            List<PEmployeTableauDTO> lesEmployes = Mapper.Map<List<Employe>, List<PEmployeTableauDTO>>(_employeService.DonneTous().ToList());
 
             modelOut.tableauEmployes.lesLignes.Add(new List<object> {"", "Employé","Adresse",""});
 
@@ -117,7 +117,7 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
 
             if(id.HasValue)
             {
-                editEmploye.personne = Mapper.Map<Employe, EmployeDTO>(_employeService.GetEmploye(id.Value));
+                editEmploye.personne = Mapper.Map<Employe, EmployeDTO>(_employeService.Get(id.Value));
 
                 modelOut.titreModal = string.Format("Modification des informations de {0} {1} {2}", editEmploye.personne.getCiv(), editEmploye.personne.nom.ToUpperFirst(), editEmploye.personne.prenom.ToUpperFirst());
 
@@ -185,8 +185,8 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
             if(personne.serviceIdPourAffectation != 0 && personne.groupeIdPourAffectation != 0)
             {
                 nouvelleAffectation.isPrincipal = personne.isAffecttionPrincipal;
-                nouvelleAffectation.service = _serviceService.GetService(personne.serviceIdPourAffectation);
-                nouvelleAffectation.groupe = _droitService.GetDroit(personne.groupeIdPourAffectation);
+                nouvelleAffectation.service = _serviceService.Get(personne.serviceIdPourAffectation);
+                nouvelleAffectation.groupe = _droitService.Get(personne.groupeIdPourAffectation);
             }
 
             if (personne.id != 0)//update
@@ -194,11 +194,11 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
                 try
                 {
                     perso = Mapper.Map<EmployeDTO, Employe>(personne);
-                    perso.typeEmploye = _temployeService.GetTEmploye(personne.typeEmploye.id);
+                    perso.typeEmploye = _temployeService.Get(personne.typeEmploye.id);
 
                     _insertOrUpdateAffectation(ref perso, nouvelleAffectation);
 
-                    _employeService.UpdateEmploye(perso);
+                    _employeService.Update(perso);
 
                     FlashMessage.Confirmation("Employé mis à jour avec succès");
                 }
@@ -215,8 +215,8 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
                     perso.affectationServices.Add(nouvelleAffectation);
 
                     //On prépare le type d'employé
-                    perso.typeEmploye = _temployeService.GetTEmploye(personne.typeEmploye.id);
-                    _employeService.CreateEmploye(perso);
+                    perso.typeEmploye = _temployeService.Get(personne.typeEmploye.id);
+                    _employeService.Create(perso);
 
                     FlashMessage.Confirmation("Employé créé avec succès");
                 }
@@ -226,7 +226,7 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
                 }
                 
             }
-            _employeService.saveEmploye();
+            _employeService.Save();
 
             return RedirectToAction("Index");
         }
@@ -259,8 +259,8 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
             try
             {
                 FlashMessage.Confirmation("Suppression de l'employé");
-                _personneService.deletePersonne(idToDelete);
-                _personneService.savePersonne();
+                _personneService.Delete(idToDelete);
+                _personneService.Save();
             }
             catch (Exception)
             {
@@ -364,7 +364,7 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
             {
                 try
                 {
-                    _personneService.UpdatePersonne(personne);
+                    _personneService.Update(personne);
                     FlashMessage.Confirmation("Employé mis à jour avec succès");
                 }
                 catch (Exception e)
@@ -376,7 +376,7 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
             {
                 try
                 {
-                    _personneService.CreatePersonne(personne);
+                    _personneService.Create(personne);
                     FlashMessage.Confirmation("Employé créé avec succès");
                 }
                 catch (Exception e)
@@ -386,7 +386,7 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
 
             }
 
-            _personneService.savePersonne();
+            _personneService.Save();
 
             return RedirectToAction("Index");
         }
@@ -397,7 +397,7 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
         /// <returns></returns>
         private List<SelectListItem> _donneListeTypeEmploye()
         {
-            List<SelectListItem> lesTypesDEmployes = _temployeService.GetTEmployes().Select(
+            List<SelectListItem> lesTypesDEmployes = _temployeService.DonneTous().Select(
                     x => new SelectListItem()
                     {
                         Text = x.libe,
@@ -418,7 +418,7 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
             List<SelectListItem> lesServices = new List<SelectListItem>();
 
             //On récupère la liste des services disponibles dans l'application
-            lesServices = _serviceService.GetServices().Select(
+            lesServices = _serviceService.DonneTous().Select(
                 x => new SelectListItem()
                 {
                     Text = x.libe,
@@ -439,7 +439,7 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
             List<SelectListItem> lesGroupes = new List<SelectListItem>();
 
             //On récupère la liste des services disponibles dans l'application
-            lesGroupes = _droitService.GetDroits().Select(
+            lesGroupes = _droitService.DonneTous().Select(
                 x => new SelectListItem()
                 {
                     Text = x.libe,

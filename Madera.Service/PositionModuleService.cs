@@ -32,8 +32,9 @@ namespace Madera.Service
 
             applicationTraceService.create(new ApplicationTrace
             {
+                utilisateur = "",
                 action = Parametres.Action.Creation.ToString(),
-                description = string.Format("Création d'un position module positionModule_id={0}", item.id),
+                description = "Création d'un élément position module",
             });
         }
 

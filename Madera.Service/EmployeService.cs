@@ -25,22 +25,29 @@ namespace Madera.Service
             this._unitOfWork = unitOfWork;
         }
 
-        public IEnumerable<Employe> GetEmployes()
+        public IEnumerable<Employe> DonneTous()
         {
             return _employeRepository.GetAll();
         }
 
-        public Employe GetEmploye(int id)
+        public Employe Get(int id)
         {
             return _employeRepository.GetById(id);
         }
 
-        public void CreateEmploye(Employe employe)
+        public void Create(Employe employe)
         {
             _employeRepository.Insert(employe);
+
+            _applicationTraceService.create(new ApplicationTrace
+            {
+                utilisateur = "",
+                action = Parametres.Action.Modification.ToString(),
+                description = "Création d'un employé",
+            });
         }
 
-        public void UpdateEmploye(Employe employe)
+        public void Update(Employe employe)
         {
 
             //Si la personne possède une adresse, on doit également la mettre à jour
@@ -54,7 +61,7 @@ namespace Madera.Service
                 {
                     if(affec.id != 0)//on met à jour l'affection
                     {
-                        _affectationServiceService.UpdateAffectationService(affec);
+                        _affectationServiceService.Update(affec);
                     }
                     else//il faut créer l'affectation
                     {
@@ -64,37 +71,41 @@ namespace Madera.Service
                             affec.employe.id = employe.id;
                         }
 
-                        _affectationServiceService.CreateAffectationService(affec);
+                        _affectationServiceService.Create(affec);
                     }
                 }
             }
 
             _employeRepository.Update(employe);
+
+            _applicationTraceService.create(new ApplicationTrace
+            {
+                utilisateur = "",
+                action = Parametres.Action.Modification.ToString(),
+                description = String.Format("Mise à jour de l'employé employe_id = {0}", employe.id),
+            });
         }
 
-        public void saveEmploye()
+        public void Save()
         {
             _unitOfWork.Commit();
         }
 
-        public void deleteEmploye(int id)
+        public void Delete(int id)
         {
+            _employeRepository.Delete(x => x.id == id);
+
             _applicationTraceService.create(new ApplicationTrace
             {
+                utilisateur = "",
                 action = Parametres.Action.Suppression.ToString(),
-                description = String.Format("Supression de l'employé employé_id = {0}", id),
+                description = String.Format("Supression de l'employé employe_id = {0}", id),
             });
-            _employeRepository.Delete(x => x.id == id);
         }
     }
 
-    public interface IEmployeService
+    public interface IEmployeService : IService<Employe>
     {
-        IEnumerable<Employe> GetEmployes();
-        Employe GetEmploye(int id);
-        void CreateEmploye(Employe employe);
-        void UpdateEmploye(Employe employe);
-        void saveEmploye();
-        void deleteEmploye(int id);
+
     }
 }

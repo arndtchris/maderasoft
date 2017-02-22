@@ -40,7 +40,7 @@ namespace MaderaSoft.Controllers
             /*
              * Pour transporter un minimum d'informationon récupère directement un model allégé (DTO) au lieu d'un Plain Object 
              */
-            List<DevisFactureDTO> lesDevis = Mapper.Map<List<DevisFacture>, List<DevisFactureDTO>>(devisfactureService.GetLesDevis().ToList());
+            List<DevisFactureDTO> lesDevis = Mapper.Map<List<DevisFacture>, List<DevisFactureDTO>>(devisfactureService.DonneTous().ToList());
 
             //On initialise le première ligne du tableau qui permettra d'en construire l'entête
             /*modelOut.tableauDevisFactures.lesLignes.Add(new List<string> { "Numéro devis", "Devis signé", "Devis supprimé", "Numéro projet", "Référent", ""});
@@ -61,7 +61,7 @@ namespace MaderaSoft.Controllers
             BootstrapModalViewModel modelOut = new BootstrapModalViewModel();
 
             if (id.HasValue)//Si on id est transmis on reprend les valeurs du devis correspondant
-                Mapper.Map<DevisFacture, DevisFactureDTO>(devisfactureService.GetUnDevis(id.Value));
+                Mapper.Map<DevisFacture, DevisFactureDTO>(devisfactureService.Get(id.Value));
             else//Sinon on instancie un nouveau devis
                 modelOut.objet = new DevisFactureDTO();
 
@@ -98,12 +98,12 @@ namespace MaderaSoft.Controllers
                 try
                 {
                     FlashMessage.Confirmation("Devis mis à jour avec succès");
-                    devisfactureService.UpdateDevis(devisATraiter);
+                    devisfactureService.Update(devisATraiter);
 
                     //Après avoir défini toutes les nouvelles entrées à réaliser en bdd, 
                     //on demande au Pattern UnitOfWork de réaliser les transactions nécessaire pour assurer la persistence des données
                     //En effet la méthode saveDevis() appelle unitOfWork.Commit();
-                    devisfactureService.saveDevis();
+                    devisfactureService.Save();
                 }
                 catch (Exception)
                 {
@@ -135,8 +135,8 @@ namespace MaderaSoft.Controllers
             try
             {
                 FlashMessage.Confirmation("Suppression du devis");
-                devisfactureService.deleteDevis(idToDelete);
-                devisfactureService.saveDevis();
+                devisfactureService.Delete(idToDelete);
+                devisfactureService.Save();
             }
             catch (Exception)
             {

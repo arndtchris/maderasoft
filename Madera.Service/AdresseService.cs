@@ -8,16 +8,16 @@ namespace Madera.Service
 {
     public class AdresseService : IAdresseService
     {
-        private readonly IAdresseRepository adresseRepository;
+        private readonly IAdresseRepository _adresseRepository;
         private readonly IApplicationTraceService _applicationTraceService;
-        private readonly IUnitOfWork unitOfWork;
+        private readonly IUnitOfWork _unitOfWork;
 
 
         public AdresseService(IAdresseRepository adresseRepository, IUnitOfWork unitOfWork, IApplicationTraceService applicationTraceService)
         {
-            this.adresseRepository = adresseRepository;
+            this._adresseRepository = adresseRepository;
             this._applicationTraceService = applicationTraceService;
-            this.unitOfWork = unitOfWork;
+            this._unitOfWork = unitOfWork;
         }
 
         /// <summary>
@@ -26,7 +26,7 @@ namespace Madera.Service
         /// <returns>IEnumerable<Adresse></returns>
         public IEnumerable<Adresse> DonneTous()
         {
-            return adresseRepository.GetAll();
+            return _adresseRepository.GetAll();
         }
 
         /// <summary>
@@ -36,7 +36,7 @@ namespace Madera.Service
         /// <returns>IEnumerable<Adresse></returns>
         public IEnumerable<Adresse> GetAdressesByCountry(string country)
         {
-            return adresseRepository.GetAdresses(country);
+            return _adresseRepository.GetAdresses(country);
         }
 
 
@@ -47,7 +47,7 @@ namespace Madera.Service
         /// <returns>Adresse</returns>
         public Adresse Get(int id)
         {
-            return adresseRepository.GetById(id);
+            return _adresseRepository.GetById(id);
         }
 
         /// <summary>
@@ -61,7 +61,7 @@ namespace Madera.Service
                 description = "Création d'une nouvelle adresse",
             });
 
-             adresseRepository.Insert(adresse);            
+            _adresseRepository.Insert(adresse);            
         }
 
         /// <summary>
@@ -76,7 +76,7 @@ namespace Madera.Service
                 description = String.Format("Mise à jour de l'adresse adrs_id = {0}",adresse.id),
             });
 
-            adresseRepository.Update(adresse);      
+            _adresseRepository.Update(adresse);      
         }
 
         /// <summary>
@@ -92,7 +92,7 @@ namespace Madera.Service
                 action = Parametres.Action.Suppression.ToString(),
                 description = String.Format("Supression de l'adresse adrs_id = {0}", id),
             });
-            adresseRepository.Delete(x => x.id == id);
+            _adresseRepository.Delete(x => x.id == id);
         }
 
         /// <summary>
@@ -100,7 +100,7 @@ namespace Madera.Service
         /// </summary>
         public void Save()
         {
-            unitOfWork.Commit();
+            _unitOfWork.Commit();
         }
     }
 
