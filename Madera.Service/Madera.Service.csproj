@@ -143,10 +143,12 @@
     <Compile Include="DroitService.cs" />
     <Compile Include="DevisFactureService.cs" />
     <Compile Include="EmployeService.cs" />
+    <Compile Include="EtageService.cs" />
     <Compile Include="IService.cs" />
     <Compile Include="Parametres.cs" />
     <Compile Include="PersonneService.cs" />
     <Compile Include="PlanService.cs" />
+    <Compile Include="PositionModuleService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServiceService.cs" />
     <Compile Include="StockService.cs" />

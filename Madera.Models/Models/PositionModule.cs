@@ -14,6 +14,7 @@ namespace Madera.Model
         public int y2 { get; set; }
 
         public virtual Module module { get; set; }
+        public virtual Etage etage { get; set; }
 
         public PositionModule() { }
 

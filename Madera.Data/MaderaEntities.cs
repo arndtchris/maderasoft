@@ -23,6 +23,9 @@ namespace Madera.Data
         public DbSet<TEmploye> TEmployes { get; set; }
         public DbSet<DevisFacture> DevisFacture { get; set; }
         public DbSet<Gamme> Gamme { get; set; }
+        public DbSet<Plan> Plan { get; set; }
+        public DbSet<PositionModule> PositionModule { get; set; }
+        public DbSet<Etage> Etage { get; set; }
 
         public virtual void Commit()
         {
@@ -76,6 +79,9 @@ namespace Madera.Data
             modelBuilder.Configurations.Add(new TEtabConfiguration());
             modelBuilder.Configurations.Add(new TModuleConfiguration());
             modelBuilder.Configurations.Add(new UtilisateurConfiguration());
+            modelBuilder.Configurations.Add(new PlanConfiguration());
+            modelBuilder.Configurations.Add(new PositionModuleConfiguration());
+            modelBuilder.Configurations.Add(new EtageConfiguration());
         }
     }
 }

@@ -46,7 +46,7 @@ namespace Madera.Service
             //Si la personne possède une adresse, on doit également la mettre à jour
             //EntityFramework ne gère pas la mise à jour des enfants
             //L'adresse est obligatoire, on a pas beoin de vérifier le null
-            _adresseService.UpdateAdresse(employe.adresse);
+            _adresseService.Update(employe.adresse);
 
             if (employe.affectationServices.Count > 0)
             {

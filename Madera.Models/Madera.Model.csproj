@@ -118,11 +118,14 @@
     <Compile Include="Models\Droit.cs" />
     <Compile Include="Models\Employe.cs" />
     <Compile Include="Models\Etab.cs" />
+    <Compile Include="Models\Etage.cs" />
     <Compile Include="Models\EtatAvancementProjet.cs" />
     <Compile Include="Models\Gamme.cs" />
     <Compile Include="Models\HistoriqueProjet.cs" />
     <Compile Include="Models\Module.cs" />
     <Compile Include="Models\Personne.cs" />
+    <Compile Include="Models\Plan.cs" />
+    <Compile Include="Models\PositionModule.cs" />
     <Compile Include="Models\Projet.cs" />
     <Compile Include="Models\Service.cs" />
     <Compile Include="Models\Taxe.cs" />

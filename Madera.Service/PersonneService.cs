@@ -58,19 +58,7 @@ namespace Madera.Service
             //Si la personne possède une adresse, on doit également la mettre à jour
             //EntityFramework ne gère pas la mise à jour des enfants
             //L'adresse est obligatoire, on a pas beoin de vérifier le null
-            _adresseService.UpdateAdresse(personne.adresse);
-
-            //Si la permsonne a un employé, on le met à jour
-            //if(personne.employe != null)
-            //{
-            //    _employeService.UpdateEmploye(personne.employe);
-            //}
-
-            ////Si la personne possède un utilisateur, on le met à jour
-            //if(personne.utilisateur != null)
-            //{
-            //    _utilisateurService.UpdateUtilisateur(personne.utilisateur);
-            //}
+            _adresseService.Update(personne.adresse);
 
             _applicationTraceService.create(new ApplicationTrace
             {
