@@ -9,8 +9,7 @@ namespace Madera.Data.Repositories
 {
     public class AdresseRepository : RepositoryBase<Adresse>, IAdresseRepository
     {
-        public AdresseRepository(IDbFactory dbFactory)
-            : base(dbFactory) { }
+        public AdresseRepository(IDbFactory dbFactory): base(dbFactory) { }
 
         public IEnumerable<Adresse> GetAdresses(string country)
         {

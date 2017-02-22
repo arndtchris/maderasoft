@@ -40,7 +40,7 @@ namespace MaderaSoft.Controllers
             /*
              * Pour transporter un minimum d'informationon récupère directement un model allégé (DTO) au lieu d'un Plain Object 
              */ 
-            List<AdresseDTO> lesAdresses = Mapper.Map<List<Adresse>, List<AdresseDTO>>(adresseService.GetAdresses().ToList());
+            List<AdresseDTO> lesAdresses = Mapper.Map<List<Adresse>, List<AdresseDTO>>(adresseService.DonneTous().ToList());
 
             //On initialise le première ligne du tableau qui permettra d'en construire l'entête
             modelOut.tableauAdresses.lesLignes.Add(new List<object> { "Rue", "Ville", "Code postal", "Pays",""});
@@ -62,7 +62,7 @@ namespace MaderaSoft.Controllers
             BootstrapModalViewModel modelOut = new BootstrapModalViewModel();
 
             if(id.HasValue)//Si on id est transmis on reprend les valeurs de l'adresse correspondante
-                modelOut.objet = Mapper.Map<Adresse, AdresseDTO>(adresseService.GetAdresse(id.Value));
+                modelOut.objet = Mapper.Map<Adresse, AdresseDTO>(adresseService.Get(id.Value));
             else//Sinon on instanci une nouvelle adresse
                 modelOut.objet = new AdresseDTO();
 
@@ -99,12 +99,12 @@ namespace MaderaSoft.Controllers
                 try
                 {
                     FlashMessage.Confirmation("Adresse mise à jour avec succes");
-                    adresseService.UpdateAdresse(adresseATraiter);
+                    adresseService.Update(adresseATraiter);
 
                     //Après avoir défini toutes les nouvelles entrées à réaliser en bdd, 
                     //on demande au Pattern UnitOfWork de réaliser les transactions nécessaire pour assurer la persistence des données
                     //En effet la méthode saveAdresse() appelle unitOfWork.Commit();
-                    adresseService.saveAdresse();
+                    adresseService.Save();
                 }
                 catch (Exception)
                 {
@@ -118,12 +118,12 @@ namespace MaderaSoft.Controllers
                 try
                 {
                     FlashMessage.Confirmation("Adresse ajoutée avec succès");
-                    adresseService.CreateAdresse(adresseATraiter);
+                    adresseService.Create(adresseATraiter);
 
                     //Après avoir défini toutes les nouvelles entrées à réaliser en bdd, 
                     //on demande au Pattern UnitOfWork de réaliser les transactions nécessaire pour assurer la persistence des données
                     //En effet la méthode saveAdresse() appelle unitOfWork.Commit();
-                    adresseService.saveAdresse();
+                    adresseService.Save();
                 }
                 catch (Exception e)
                 {
@@ -153,8 +153,8 @@ namespace MaderaSoft.Controllers
             try
             {
                 FlashMessage.Confirmation("Suppression de l'adresse");
-                adresseService.deleteAdresse(idToDelete);
-                adresseService.saveAdresse();
+                adresseService.Delete(idToDelete);
+                adresseService.Save();
             }
             catch (Exception)
             {

@@ -24,7 +24,7 @@ namespace Madera.Service
         /// Retourne toutes les adresses contenu en base de données
         /// </summary>
         /// <returns>IEnumerable<Adresse></returns>
-        public IEnumerable<Adresse> GetAdresses()
+        public IEnumerable<Adresse> DonneTous()
         {
             return adresseRepository.GetAll();
         }
@@ -45,7 +45,7 @@ namespace Madera.Service
         /// </summary>
         /// <param name="id"></param>
         /// <returns>Adresse</returns>
-        public Adresse GetAdresse(int id)
+        public Adresse Get(int id)
         {
             return adresseRepository.GetById(id);
         }
@@ -54,7 +54,7 @@ namespace Madera.Service
         /// Insert une nouvelle adresse en base de données
         /// </summary>
         /// <param name="adresse"></param>
-        public void CreateAdresse(Adresse adresse)
+        public void Create(Adresse adresse)
         {
             _applicationTraceService.create(new ApplicationTrace{
                 action = Parametres.Action.Creation.ToString(),
@@ -68,7 +68,7 @@ namespace Madera.Service
         /// Met à jour une adresse en base de données
         /// </summary>
         /// <param name="adresse"></param>
-        public void UpdateAdresse(Adresse adresse)
+        public void Update(Adresse adresse)
         {
             _applicationTraceService.create(new ApplicationTrace
             {
@@ -79,16 +79,11 @@ namespace Madera.Service
             adresseRepository.Update(adresse);      
         }
 
-        public void saveAdresse()
-        {
-            unitOfWork.Commit();
-        }
-
         /// <summary>
         /// Supprime l'adresse correspondante à l'id renseigné
         /// </summary>
         /// <param name="id"></param>
-        public void deleteAdresse(int id)
+        public void Delete(int id)
         {
             //ToDo : réaliser une suppression complète ou logique en fonction des droits de l'utilisateur en session
             _applicationTraceService.create(new ApplicationTrace
@@ -97,20 +92,22 @@ namespace Madera.Service
                 action = Parametres.Action.Suppression.ToString(),
                 description = String.Format("Supression de l'adresse adrs_id = {0}", id),
             });
-            adresseRepository.Delete(x => x.id == id);            
+            adresseRepository.Delete(x => x.id == id);
+        }
+
+        /// <summary>
+        /// Permet de fermer et rendre effective une série de requêtes sql
+        /// </summary>
+        public void Save()
+        {
+            unitOfWork.Commit();
         }
     }
 
     //Définition des méthodes qui seront accessibles depuis la couche de présentation
     //A ce niveau on peut définir des méthodes AjouteAdresseEtDonneListe() qui va combiner plusieurs méthodes basiques du pattern Repository
-    public interface IAdresseService
+    public interface IAdresseService : IService<Adresse>
     {
-        IEnumerable<Adresse> GetAdresses();
         IEnumerable<Adresse> GetAdressesByCountry(string country);
-        Adresse GetAdresse(int id);
-        void CreateAdresse(Adresse adresse);
-        void UpdateAdresse(Adresse adresse);
-        void saveAdresse();
-        void deleteAdresse(int id);
     }
 }
