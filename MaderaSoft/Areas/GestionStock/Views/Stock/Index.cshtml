@@ -1,0 +1,33 @@
+﻿@using System.Web.Mvc.Html;
+@using MaderaSoft.Areas.GestionStock.Models.ViewModels;
+@using Madera.Service;
+
+@model StockIndexViewModel
+
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        Gestion des stocks
+        <small>Composants</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Gestion des stocks</a></li>
+        <li class="active">Composants</li>
+    </ol>
+</section>
+
+<!-- Main content -->
+<section class="content">
+
+    @Html.actionButton("Ajouter un nouveau composant", Parametres.TypeBouton.Creation, Url.Action("EditModal", "Composant", new { area = "GestionStock" }).ToString(), "editModal")
+
+    @{
+        Html.bootstrapTable(Model.tableauComposants);
+    }
+
+</section>
+<!-- /.content -->

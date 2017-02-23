@@ -6,11 +6,10 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace MaderaSoft.Areas.GestionStocks.Models.DTOs
+namespace MaderaSoft.Areas.GestionStock.Models.DTOs
 {
-    public class StockController : Controller
-    {
-        // GET: GestionStocks/Stocks
+
+        // GET: GestionStock/Stocks
         public class StockDTO
         {
             public int id { get; set; }
@@ -30,4 +29,3 @@ namespace MaderaSoft.Areas.GestionStocks.Models.DTOs
             }
         }
     }
-}

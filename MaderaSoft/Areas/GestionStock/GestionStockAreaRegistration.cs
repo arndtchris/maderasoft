@@ -1,22 +1,22 @@
 ﻿using System.Web.Mvc;
 
-namespace MaderaSoft.Areas.GestionStocks
+namespace MaderaSoft.Areas.GestionStock
 {
-    public class GestionStocksAreaRegistration : AreaRegistration 
+    public class GestionStockAreaRegistration : AreaRegistration 
     {
         public override string AreaName 
         {
             get 
             {
-                return "GestionStocks";
+                return "GestionStock";
             }
         }
 
         public override void RegisterArea(AreaRegistrationContext context) 
         {
             context.MapRoute(
-                "GestionStocks_default",
-                "GestionStocks/{controller}/{action}/{id}",
+                "GestionStock_default",
+                "GestionStock/{controller}/{action}/{id}",
                 new { action = "Index", id = UrlParameter.Optional }
             );
         }
