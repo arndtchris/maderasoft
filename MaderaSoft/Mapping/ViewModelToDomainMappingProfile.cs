@@ -72,6 +72,7 @@ namespace MaderaSoft.Mapping
 
             #region Personne
 
+
             CreateMap<PersonneDTO, Personne>()
                .ForMember(g => g.id, map => map.MapFrom(vm => vm.id))
                .ForMember(g => g.isDeleted, map => map.MapFrom(vm => vm.isDeleted))
@@ -90,12 +91,21 @@ namespace MaderaSoft.Mapping
 
             #endregion
 
-
-
+            #region Employé
             CreateMap<EmployeDTO, Employe>()
+               .ForMember(g => g.id, map => map.MapFrom(vm => vm.id))
                .ForMember(g => g.isDeleted, map => map.MapFrom(vm => vm.isDeleted))
                .ForMember(g => g.typeEmploye, map => map.MapFrom(vm => vm.typeEmploye))
                .ForMember(g => g.affectationServices, map => map.MapFrom(vm => vm.affectationServices));
+
+            CreateMap<EditEmployeDTO, Employe>()
+               .ForMember(g => g.id, map => map.MapFrom(vm => vm.id))
+               .ForMember(g => g.typeEmploye, map => map.MapFrom(vm => vm.typeEmploye))
+               .ForMember(g => g.affectationServices, map => map.MapFrom(vm => vm.affectationServices));
+
+            #endregion 
+
+
 
 
         }

@@ -20,18 +20,18 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Models.ViewModels
         }
     }
 
-    public class CreateEmployeViewModel
+    public class EditEmployeViewModel
     {
-        public virtual EmployeDTO personne { get; set; }
+        public EditEmployeDTO personne { get; set; }
         public BootstrapTableViewModel lesAffectationsEmploye { get; set; }
         public List<SelectListItem> lesServices { get; set; }
         public List<SelectListItem> lesDroits { get; set; }
         public List<SelectListItem> lesCivilites { get; set; }
         public List<SelectListItem> lesTypesEmployes { get; set; }
 
-        public CreateEmployeViewModel()
+        public EditEmployeViewModel()
         {
-            personne = new CreateEmployeDTO();
+            personne = new EditEmployeDTO();
             lesTypesEmployes = new List<SelectListItem>();
             lesAffectationsEmploye = new BootstrapTableViewModel();
             lesAffectationsEmploye.messageSiVide = "Cet employé n'a pas encore d'affectation";
@@ -43,40 +43,4 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Models.ViewModels
             };
         }
     }
-
-    public class EditEmployeViewModel : CreateEmployeViewModel
-    {
-       public override EmployeDTO personne { get; set; }
-        
-        public EditEmployeViewModel()
-        {
-            personne = new EditEmployeDTO();
-        }
-    }
-
-    public class DetailEmployeViewModel
-    {
-        public CreatePersonneEmployeDTO personne { get; set; }
-        public BootstrapTableViewModel lesAffectationsEmploye { get; set; }
-        public List<SelectListItem> lesServices { get; set; }
-        public List<SelectListItem> lesDroits { get; set; }
-        public List<SelectListItem> lesTEmployes { get; set; }
-        public List<SelectListItem> lesCivilites { get; set; }
-
-        public DetailEmployeViewModel()
-        {
-            personne = new CreatePersonneEmployeDTO();
-            lesAffectationsEmploye = new BootstrapTableViewModel();
-            lesServices = new List<SelectListItem>();
-            lesDroits = new List<SelectListItem>();
-            lesTEmployes = new List<SelectListItem>();
-
-            lesCivilites = new List<SelectListItem> {
-                new SelectListItem {Value = "",Text = "--- Sélectionnez ---" },
-                new SelectListItem {Value = "1",Text = "Madame" },
-                new SelectListItem {Value = "2",Text = "Monsieur" }
-            };
-        }
-    }
-
  }

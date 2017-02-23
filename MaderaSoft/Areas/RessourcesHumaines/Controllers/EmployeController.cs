@@ -68,39 +68,7 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
 
             return View(modelOut);
         }
-
-        /// <summary>
-        /// Permet d'alimenter les informations nécéssaires à la génération d'une fenêtre modale de création/modification d'un employé
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        [HttpGet]
-        public ActionResult CreateModal()
-        {
-            BootstrapModalViewModel modelOut = new BootstrapModalViewModel();
-            CreateEmployeViewModel editEmploye = new CreateEmployeViewModel();
-            BootstrapButtonViewModel button = new BootstrapButtonViewModel();
-
-            modelOut.titreModal = "Ajout d'un employé";
-
-            //On récupère la liste des services disponibles dans l'application
-            editEmploye.lesServices = _donneListeService();
-
-            //On récupère les niveaux de droits disponibles dans l'application
-            editEmploye.lesDroits = _donneListeGroupeUtilisateur();
-
-            //On récuère la liste des types d'employé
-            editEmploye.lesTypesEmployes = _donneListeTypeEmploye();
-
-            //On prépare le tableau récapitulant les affectations de l'employé
-            editEmploye.lesAffectationsEmploye.lesLignes.Add(new List<object> {"", "Service", "Droit", "Activité principale"});
-
-            modelOut.formulaireUrl = "~/Areas/RessourcesHumaines/Views/Employe/_CreateEmployePartial.cshtml";
-            modelOut.objet = editEmploye;
-
-            return PartialView("~/Views/Shared/_BootstrapModalPartial.cshtml", modelOut);
-        }
-
+        
         /// <summary>
         /// Permet d'alimenter les informations nécessaires à la génération d'une modal d'édition d'un employé
         /// </summary>
@@ -112,12 +80,12 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
         {
 
             BootstrapModalViewModel modelOut = new BootstrapModalViewModel();
-            CreateEmployeViewModel editEmploye = new CreateEmployeViewModel();
+            EditEmployeViewModel editEmploye = new EditEmployeViewModel();
             BootstrapButtonViewModel button = new BootstrapButtonViewModel();
 
             if(id.HasValue)
             {
-                editEmploye.personne = Mapper.Map<Employe, EmployeDTO>(_employeService.Get(id.Value));
+                editEmploye.personne = Mapper.Map<Employe, EditEmployeDTO>(_employeService.Get(id.Value));
 
                 modelOut.titreModal = string.Format("Modification des informations de {0} {1} {2}", editEmploye.personne.getCiv(), editEmploye.personne.nom.ToUpperFirst(), editEmploye.personne.prenom.ToUpperFirst());
 
@@ -176,7 +144,7 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
         /// <param name="personne"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult Edit(EmployeDTO personne)
+        public ActionResult Edit(EditEmployeDTO personne)
         {
             AffectationService nouvelleAffectation = new AffectationService();
             Employe perso = new Employe();
@@ -193,7 +161,7 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
             {
                 try
                 {
-                    perso = Mapper.Map<EmployeDTO, Employe>(personne);
+                    perso = Mapper.Map<EditEmployeDTO, Employe>(personne);
                     perso.typeEmploye = _temployeService.Get(personne.typeEmploye.id);
 
                     _insertOrUpdateAffectation(ref perso, nouvelleAffectation);
@@ -211,7 +179,7 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
             {
                 try
                 {
-                    perso = Mapper.Map<EmployeDTO, Employe>(personne);
+                    perso = Mapper.Map<EditEmployeDTO, Employe>(personne);
                     perso.affectationServices.Add(nouvelleAffectation);
 
                     //On prépare le type d'employé
@@ -277,12 +245,12 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        [HttpGet]
+        /*[HttpGet]
         public ActionResult Detail(int id)
         {
             DetailEmployeViewModel modelOut = new DetailEmployeViewModel();
 
-            /*if (id != 0)
+            if (id != 0)
             {
                 modelOut.personne = Mapper.Map<Personne, PersonneDTO>(_personneService.GetPersonne(id));
             }
@@ -340,17 +308,17 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
                     Text = x.libe,
                     Value = x.id.ToString()
                 }
-                ).ToList();*/
+                ).ToList();
 
             return View(modelOut);
-        }
+        }*/
 
         /// <summary>
         /// Permet de modifier les informations d'un employé depuis la vue détaillée
         /// </summary>
         /// <param name="modelIn"></param>
         /// <returns></returns>
-        [HttpPost]
+        /*[HttpPost]
         public ActionResult EditDetail(DetailEmployeViewModel modelIn)
         {
             var personne = Mapper.Map<PersonneDTO, Personne>(modelIn.personne);
@@ -389,7 +357,7 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
             _personneService.Save();
 
             return RedirectToAction("Index");
-        }
+        }*/
 
         /// <summary>
         /// Donne la liste des types d'employés en base de données

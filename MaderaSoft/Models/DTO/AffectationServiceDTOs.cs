@@ -17,7 +17,7 @@ namespace MaderaSoft.Models.DTO
         [DisplayName("Groupe utilisateur")]
         [Required(ErrorMessage = "Veuillez renseigner un groupe utilisateur")]
         public virtual DroitDTO groupe { get; set; }
-        [DisplayName("Affectation principal")]
+        [DisplayName("Affectation principale")]
         public Boolean isPrincipal { get; set; }
 
         public AffectationServiceDTO()

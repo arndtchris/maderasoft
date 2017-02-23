@@ -27,7 +27,9 @@ namespace MaderaSoft.Mapping
             CreateMap<DevisFacture, DevisFactureDTO>();
             CreateMap<ApplicationTrace, ApplicationTraceDTO>();
             CreateMap<Utilisateur, UtilisateurDTO>();
-            CreateMap<Employe, EmployeDTO>();
+            CreateMap<Employe, EditEmployeDTO>();
+            CreateMap<Employe, EmployeDTO>()
+                .Include<Employe, EditEmployeDTO>();
             CreateMap<Personne, PersonneDTO>();
             CreateMap<Droit, DroitDTO>();
             CreateMap<Service, ServiceDTO>();

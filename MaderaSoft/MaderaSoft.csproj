@@ -348,7 +348,6 @@
     <Content Include="Areas\Simulateur\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Simulateur\Views\web.config" />
     <Content Include="Areas\Simulateur\Views\_ViewStart.cshtml" />
-    <Content Include="Areas\RessourcesHumaines\Views\Employe\_CreateEmployePartial.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\grayscale.min.js" />
     <None Include="Scripts\jquery-2.2.3.intellisense.js" />

@@ -34,7 +34,6 @@ namespace MaderaSoft.Models.DTO
         [DisplayName("Tel. fixe")]
         public string tel2 { get; set; }
         public AdresseDTO adresse { get; set; }
-        public virtual EmployeDTO employe { get; set; }
 
         public string getCiv()
         {
@@ -89,25 +88,6 @@ namespace MaderaSoft.Models.DTO
         public PEmployeTableauDTO()
         {
             adresse = new AdresseDTO();
-        }
-    }
-
-    public class CreatePersonneEmployeDTO : PersonneDTO
-    {
-        public override EmployeDTO employe { get; set; }
-        public CreatePersonneEmployeDTO()
-        {
-            employe = new CreateEmployeDTO();
-        }
-    }
-
-    public class EditPersonneEmployeDTO : PersonneDTO
-    {
-        public override EmployeDTO employe { get; set; }
-
-        public EditPersonneEmployeDTO()
-        {
-            employe = new EditEmployeDTO();
         }
     }
 }
