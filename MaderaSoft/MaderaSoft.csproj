@@ -259,6 +259,7 @@
     <Compile Include="Models\ViewModel\AffectationServiceViewModels.cs" />
     <Compile Include="Models\ViewModel\BootstrapViewModels.cs" />
     <Compile Include="Models\ViewModel\DevisFactureViewModels.cs" />
+    <Compile Include="Models\ViewModel\PersonneViewModels.cs" />
     <Compile Include="Models\ViewModel\UtilisateurViewModel.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
@@ -348,6 +349,8 @@
     <Content Include="Areas\Simulateur\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Simulateur\Views\web.config" />
     <Content Include="Areas\Simulateur\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\RessourcesHumaines\Views\Employe\_CardEmployePartial.cshtml" />
+    <Content Include="Areas\RessourcesHumaines\Views\Employe\_CardAdresse.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\grayscale.min.js" />
     <None Include="Scripts\jquery-2.2.3.intellisense.js" />

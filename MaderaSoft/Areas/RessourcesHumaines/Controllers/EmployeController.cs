@@ -245,119 +245,82 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        /*[HttpGet]
+        [HttpGet]
         public ActionResult Detail(int id)
         {
             DetailEmployeViewModel modelOut = new DetailEmployeViewModel();
 
-            if (id != 0)
+            #region préparation des données de l'employé
+
+            EmployeDTO emp = Mapper.Map<Employe, EmployeDTO>(_employeService.Get(id));
+
+            modelOut.cardEmploye.employe = new EmployeSimpleDTO
             {
-                modelOut.personne = Mapper.Map<Personne, PersonneDTO>(_personneService.GetPersonne(id));
-            }
-            else
-            {
-                FlashMessage.Danger("Cet identifiant ne correspond pas à celui d'un employé");
-                return RedirectToAction("Index");
-            }
+                id = emp.id,
+                civ = emp.civ,
+                nom = emp.nom,
+                prenom = emp.prenom,
+                email = emp.email,
+                tel1 = emp.tel1,
+                tel2 = emp.tel2,
+                typeEmploye = emp.typeEmploye
+            };
 
-            #region préparation des affectations
-
-            //On récupère la liste des services disponibles dans l'application
-            modelOut.lesServices = _serviceService.GetServices().Select(
-                x => new SelectListItem()
-                {
-                    Text = x.libe,
-                    Value = x.id.ToString()
-                }
-                ).ToList();
-
-            modelOut.lesServices.Insert(0, new SelectListItem() { Text = "--- Sélectionnez ---", Value = "" });
-
-            //On récupère les niveaux de droits disponibles dans l'application
-            modelOut.lesDroits = _droitService.GetDroits().Select(
-                x => new SelectListItem()
-                {
-                    Text = x.libe,
-                    Value = x.id.ToString()
-                }
-                ).ToList();
-            modelOut.lesDroits.Insert(0, new SelectListItem() { Text = "--- Sélectionnez ---", Value = "" });
-
-
-            modelOut.lesAffectationsEmploye.lesLignes.Add(new List<object> { "Service", "Droit", "Activité principale", "" });
-            modelOut.lesAffectationsEmploye.typeObjet = "AffectationService";
-
-            if (modelOut.personne.employe != null)
-            {
-                if (modelOut.personne.employe.affectationServices != null)
-                {
-                    foreach (AffectationServiceDTO affectation in modelOut.personne.employe.affectationServices)
-                    {
-                        modelOut.lesAffectationsEmploye.lesLignes.Add(new List<object> { affectation.service.libe, affectation.groupe.libe, affectation.affectationPrincipaleOuiNon(), affectation.id });
-                    }
-                }
-
-            }
+            modelOut.cardEmploye.lesTypesEmployes = _donneListeTypeEmploye();
 
             #endregion
 
-            //On récupère les types d'employés disponibles dans l'application
-            modelOut.lesTEmployes = _temployeService.GetTEmployes().Select(
-                x => new SelectListItem()
+            modelOut.adresse = emp.adresse;
+
+            #region préparation du tableau récapitulatif des affectations
+
+            modelOut.cardAffectations.tableauAffectations.avecActionCrud = true;
+
+            //On prépare le tableau récapitulant les affectations de l'employé
+            modelOut.cardAffectations.tableauAffectations.lesLignes.Add(new List<object> { "Service", "Droit", "Activité principale","" });
+
+            if (emp.affectationServices != null)
+            {
+                foreach (AffectationServiceDTO affectation in emp.affectationServices)
                 {
-                    Text = x.libe,
-                    Value = x.id.ToString()
+                    modelOut.cardAffectations.tableauAffectations.lesLignes.Add(new List<object> { affectation.service.libe, affectation.groupe.libe, affectation.affectationPrincipaleOuiNon() });
                 }
-                ).ToList();
+            }
+            #endregion
+
+            #region préparation des éléments utiles à la création d'une affectation
+
+            modelOut.cardAffectations.lesDroits = _donneListeGroupeUtilisateur();
+
+            modelOut.cardAffectations.lesServices = _donneListeService();
+
+            modelOut.cardAffectations.nouvelleAffectation.emplyeId = id;
+
+
+            #endregion
 
             return View(modelOut);
-        }*/
 
-        /// <summary>
-        /// Permet de modifier les informations d'un employé depuis la vue détaillée
-        /// </summary>
-        /// <param name="modelIn"></param>
-        /// <returns></returns>
-        /*[HttpPost]
-        public ActionResult EditDetail(DetailEmployeViewModel modelIn)
+        }
+
+
+        [HttpPost]
+        public ActionResult DetailEmploye(EmployeSimpleDTO employe)
         {
-            var personne = Mapper.Map<PersonneDTO, Personne>(modelIn.personne);
+            CardEmployeViewModel modelOut = new CardEmployeViewModel();
 
-            if (!ModelState.IsValid)
-            {
-                return RedirectToAction("Index");
-            }
+            _employeService.Update(Mapper.Map<EmployeSimpleDTO,Employe>(employe));
+            _employeService.Save();
 
-            if (personne.id != 0)
-            {
-                try
-                {
-                    _personneService.Update(personne);
-                    FlashMessage.Confirmation("Employé mis à jour avec succès");
-                }
-                catch (Exception e)
-                {
-                    FlashMessage.Danger("Erreur lors de mis à jour de l'employé");
-                }
-            }
-            else
-            {
-                try
-                {
-                    _personneService.Create(personne);
-                    FlashMessage.Confirmation("Employé créé avec succès");
-                }
-                catch (Exception e)
-                {
-                    FlashMessage.Danger("Erreur lors de l'ajout de l'employé");
-                }
+            modelOut.employe = employe;
+            modelOut.lesTypesEmployes = _donneListeTypeEmploye(); ;
 
-            }
+            return PartialView("~/Areas/RessourcesHumaines/Views/Employe/_CardEmployePartial.cshtml", modelOut);
+            
 
-            _personneService.Save();
 
-            return RedirectToAction("Index");
-        }*/
+        }
+
 
         /// <summary>
         /// Donne la liste des types d'employés en base de données

@@ -47,4 +47,16 @@ namespace MaderaSoft.Models.DTO
 
         }
     }
+
+    public class EmployeSimpleDTO : PersonneSimpleDTO
+    {
+        [DisplayName("Statut")]
+        public virtual TEmployeDTO typeEmploye { get; set; }
+
+        public EmployeSimpleDTO()
+        {
+
+        }
+
+    }
 }

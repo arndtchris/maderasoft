@@ -32,6 +32,8 @@ namespace MaderaSoft.Mapping
                .ForMember(g => g.ville, map => map.MapFrom(vm => vm.ville));
 
             CreateMap<AffectationServiceDTO, AffectationService>()
+                .ForMember(g => g.id, map => map.MapFrom(vm => vm.id))
+                .ForMember(g => g.employe, map => map.MapFrom(vm => vm.employe))
                 .ForMember(g => g.groupe, map => map.MapFrom(vm => vm.groupe))
                 .ForMember(g => g.isPrincipal, map => map.MapFrom(vm => vm.isPrincipal))
                 .ForMember(g => g.service, map => map.MapFrom(vm => vm.service));
@@ -83,7 +85,17 @@ namespace MaderaSoft.Mapping
                .ForMember(g => g.tel1, map => map.MapFrom(vm => vm.tel1))
                .ForMember(g => g.tel2, map => map.MapFrom(vm => vm.tel2))
                .ForMember(g => g.adresse, map => map.MapFrom(vm => vm.adresse));
-            
+
+            CreateMap<PersonneSimpleDTO, Personne>()
+               .ForMember(g => g.id, map => map.MapFrom(vm => vm.id))
+               .ForMember(g => g.isDeleted, map => map.MapFrom(vm => vm.isDeleted))
+               .ForMember(g => g.civ, map => map.MapFrom(vm => vm.civ))
+               .ForMember(g => g.nom, map => map.MapFrom(vm => vm.nom))
+               .ForMember(g => g.prenom, map => map.MapFrom(vm => vm.prenom))
+               .ForMember(g => g.email, map => map.MapFrom(vm => vm.email))
+               .ForMember(g => g.tel1, map => map.MapFrom(vm => vm.tel1))
+               .ForMember(g => g.tel2, map => map.MapFrom(vm => vm.tel2));
+
             CreateMap<PEmployeTableauDTO, Personne>()
                .ForMember(g => g.civ, map => map.MapFrom(vm => vm.civ))
                .ForMember(g => g.nom, map => map.MapFrom(vm => vm.nom))
@@ -94,14 +106,17 @@ namespace MaderaSoft.Mapping
             #region Employé
             CreateMap<EmployeDTO, Employe>()
                .ForMember(g => g.id, map => map.MapFrom(vm => vm.id))
-               .ForMember(g => g.isDeleted, map => map.MapFrom(vm => vm.isDeleted))
                .ForMember(g => g.typeEmploye, map => map.MapFrom(vm => vm.typeEmploye))
                .ForMember(g => g.affectationServices, map => map.MapFrom(vm => vm.affectationServices));
 
-            CreateMap<EditEmployeDTO, Employe>()
-               .ForMember(g => g.id, map => map.MapFrom(vm => vm.id))
+            CreateMap<EditEmployeDTO, Employe>();
+               /*.ForMember(g => g.id, map => map.MapFrom(vm => vm.id))
                .ForMember(g => g.typeEmploye, map => map.MapFrom(vm => vm.typeEmploye))
-               .ForMember(g => g.affectationServices, map => map.MapFrom(vm => vm.affectationServices));
+               .ForMember(g => g.affectationServices, map => map.MapFrom(vm => vm.affectationServices));*/
+
+            CreateMap<EmployeSimpleDTO, Employe>()
+               .ForMember(g => g.id, map => map.MapFrom(vm => vm.id))
+               .ForMember(g => g.typeEmploye, map => map.MapFrom(vm => vm.typeEmploye));
 
             #endregion 
 

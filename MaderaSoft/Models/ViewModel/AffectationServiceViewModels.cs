@@ -7,17 +7,14 @@ using MaderaSoft.Models.DTO;
 
 namespace MaderaSoft.Models.ViewModel
 {
-    public class AffectationServiceViewModel
+    public class CardAffectationServiceViewModel
     {
-        public AffectationServiceDTO affectationService { get; set; }
         public List<SelectListItem> lesServices { get; set; }
+
         public List<SelectListItem> lesDroits { get; set; }
 
-        public AffectationServiceViewModel()
-        {
-            affectationService = new AffectationServiceDTO();
-            lesServices = new List<SelectListItem>();
-            lesDroits = new List<SelectListItem>();
-        }
+        public NouvelleAffectationDTO nouvelleAffectation { get; set; }
+
+        public BootstrapTableViewModel tableauAffectations { get; set; }
     }
 }

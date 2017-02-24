@@ -43,4 +43,22 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Models.ViewModels
             };
         }
     }
- }
+
+    public class CardEmployeViewModel
+    {
+        public EmployeSimpleDTO employe { get; set; }
+
+        public List<SelectListItem> lesTypesEmployes { get; set; }
+
+    }
+
+
+    public class DetailEmployeViewModel
+    {
+        public CardAffectationServiceViewModel cardAffectations { get; set; }
+
+        public CardEmployeViewModel cardEmploye { get; set; }
+
+        public AdresseDTO adresse { get; set; }
+    }
+}
