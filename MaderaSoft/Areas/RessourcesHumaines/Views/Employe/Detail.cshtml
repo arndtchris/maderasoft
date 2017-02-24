@@ -21,11 +21,11 @@
 <!-- Main content -->
 <section class="content">
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-6" id="cardEmploye">
             @Html.Partial("~/Areas/RessourcesHumaines/Views/Employe/_CardEmployePartial.cshtml", Model.cardEmploye)
         </div>
-        <div class="col-md-6">
-
+        <div class="col-md-6" id="cardAdresse">
+            @Html.Partial("~/Areas/RessourcesHumaines/Views/Employe/_CardAdressePartial.cshtml", Model.adresse)
         </div>
     </div>
     <div class="row">
@@ -34,4 +34,4 @@
     </div>
 
 <!-- /.content -->
-</section class="content">
+</section>

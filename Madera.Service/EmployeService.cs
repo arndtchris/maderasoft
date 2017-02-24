@@ -42,7 +42,7 @@ namespace Madera.Service
             _applicationTraceService.create(new ApplicationTrace
             {
                 utilisateur = "",
-                action = Parametres.Action.Modification.ToString(),
+                action = Parametres.Action.Creation.ToString(),
                 description = "Création d'un employé",
             });
         }
@@ -52,10 +52,10 @@ namespace Madera.Service
 
             //Si la personne possède une adresse, on doit également la mettre à jour
             //EntityFramework ne gère pas la mise à jour des enfants
-            //L'adresse est obligatoire, on a pas beoin de vérifier le null
-            _adresseService.Update(employe.adresse);
+            if(employe.adresse != null)
+                _adresseService.Update(employe.adresse);
 
-            if (employe.affectationServices.Count > 0)
+            if (employe.affectationServices != null && employe.affectationServices.Count > 0)
             {
                 foreach(AffectationService affec in employe.affectationServices)
                 {

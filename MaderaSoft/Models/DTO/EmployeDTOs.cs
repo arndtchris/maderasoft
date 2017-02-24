@@ -55,7 +55,7 @@ namespace MaderaSoft.Models.DTO
 
         public EmployeSimpleDTO()
         {
-
+            typeEmploye = new TEmployeDTO();
         }
 
     }

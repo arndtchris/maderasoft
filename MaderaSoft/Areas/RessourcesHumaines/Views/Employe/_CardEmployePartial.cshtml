@@ -1,14 +1,21 @@
 ﻿@using MaderaSoft.Areas.RessourcesHumaines.Models.ViewModels;
+@using Madera.Service;
 
 @model CardEmployeViewModel
 
-@using (Html.BeginForm("DetailEmploye", "Employe", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-inline", area = "RessourcesHumaines" }))
+@using(Ajax.BeginForm("DetailEmploye", "Employe",new {area = "RessourcessHumaines"},new AjaxOptions
+{
+    InsertionMode = InsertionMode.Replace,
+    HttpMethod = "POST",
+    UpdateTargetId = "cardEmploye",
+    Url = Url.Action("DetailEmploye", "Employe", new { area = "RessourcesHumaines" }, null),
+}))
 {
 
     @Html.HiddenFor(m => m.employe.id)
-    <fieldset>
-        <legend>Informations générales</legend>
-        <div class="form-group-lg">
+    <div class="content box box-primary">
+        <div class="box-header with-border">Informations personnelles</div>
+        <div class="row">
             <div class="col-md-4">
                 @Html.LabelFor(m => m.employe.civ)
                 @Html.DropDownListFor(m => m.employe.civ, Model.lesCivilites)
@@ -25,7 +32,7 @@
                 <p class="bg-warning">@Html.ValidationMessageFor(m => m.employe.prenom)</p>
             </div>
         </div>
-        <div class="form-group-lg">
+        <div class="row">
             <div class="col-md-4">
                 @Html.LabelFor(m => m.employe.email)
                 @Html.TextBoxFor(m => m.employe.email)
@@ -42,8 +49,12 @@
                 <p class="bg-warning">@Html.ValidationMessageFor(m => m.employe.tel2)</p>
             </div>
         </div>
-    </fieldset>
-
+        <div class="row">
+            <div class="col-md-offset-9 col-md-2">
+                @Html.actionButton(" Valider", Parametres.TypeBouton.Submit)
+            </div>
+        </div>
+    </div>
 }
 
 

@@ -16,5 +16,13 @@ namespace MaderaSoft.Models.ViewModel
         public NouvelleAffectationDTO nouvelleAffectation { get; set; }
 
         public BootstrapTableViewModel tableauAffectations { get; set; }
+
+        public CardAffectationServiceViewModel()
+        {
+            lesServices = new List<SelectListItem>();
+            lesDroits = new List<SelectListItem>();
+            nouvelleAffectation = new NouvelleAffectationDTO();
+            tableauAffectations = new BootstrapTableViewModel();
+        }
     }
 }

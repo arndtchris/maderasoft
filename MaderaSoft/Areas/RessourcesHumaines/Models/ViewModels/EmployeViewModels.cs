@@ -50,6 +50,20 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Models.ViewModels
 
         public List<SelectListItem> lesTypesEmployes { get; set; }
 
+        public List<SelectListItem> lesCivilites { get; set; }
+
+        public CardEmployeViewModel()
+        {
+            employe = new EmployeSimpleDTO();
+            lesTypesEmployes = new List<SelectListItem>();
+            lesCivilites = new List<SelectListItem> {
+                new SelectListItem {Value = "",Text = "--- Sélectionnez ---" },
+                new SelectListItem {Value = "1",Text = "Madame" },
+                new SelectListItem {Value = "2",Text = "Monsieur" }
+            };
+        }
+            
+
     }
 
 
@@ -60,5 +74,12 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Models.ViewModels
         public CardEmployeViewModel cardEmploye { get; set; }
 
         public AdresseDTO adresse { get; set; }
+
+        public DetailEmployeViewModel()
+        {
+            cardAffectations = new CardAffectationServiceViewModel();
+            cardEmploye = new CardEmployeViewModel();
+            adresse = new AdresseDTO();
+        }
     }
 }

@@ -249,10 +249,11 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
         public ActionResult Detail(int id)
         {
             DetailEmployeViewModel modelOut = new DetailEmployeViewModel();
+            EmployeDTO emp = Mapper.Map<Employe, EmployeDTO>(_employeService.Get(id));
+
+            #region préparation de la card employé
 
             #region préparation des données de l'employé
-
-            EmployeDTO emp = Mapper.Map<Employe, EmployeDTO>(_employeService.Get(id));
 
             modelOut.cardEmploye.employe = new EmployeSimpleDTO
             {
@@ -267,6 +268,7 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
             };
 
             modelOut.cardEmploye.lesTypesEmployes = _donneListeTypeEmploye();
+            //modelOut.cardEmploye.lesCivilites = _d
 
             #endregion
 
@@ -277,7 +279,7 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
             modelOut.cardAffectations.tableauAffectations.avecActionCrud = true;
 
             //On prépare le tableau récapitulant les affectations de l'employé
-            modelOut.cardAffectations.tableauAffectations.lesLignes.Add(new List<object> { "Service", "Droit", "Activité principale","" });
+            modelOut.cardAffectations.tableauAffectations.lesLignes.Add(new List<object> { "Service", "Droit", "Activité principale", "" });
 
             if (emp.affectationServices != null)
             {
@@ -299,26 +301,59 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
 
             #endregion
 
-            return View(modelOut);
+            #endregion
 
+            #region préparation de la card adresse
+
+            modelOut.adresse = emp.adresse;
+
+            #endregion
+
+
+
+            return View(modelOut);
         }
 
-
+        /// <summary>
+        /// Méthode utilisée depuis un appel Ajax pour mettre à jour les données relatives à l'identité d'un employé depuis sa fiche détaillée.
+        /// Dans un contexte Ajax les notifications usuelles ne sont pas affichées
+        /// </summary>
+        /// <param name="employe"></param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult DetailEmploye(EmployeSimpleDTO employe)
         {
             CardEmployeViewModel modelOut = new CardEmployeViewModel();
 
-            _employeService.Update(Mapper.Map<EmployeSimpleDTO,Employe>(employe));
-            _employeService.Save();
+            try
+            {
+                _employeService.Update(Mapper.Map<EmployeSimpleDTO, Employe>(employe));
+                _employeService.Save();
+
+                FlashMessage.Confirmation("Employé mis à jour avec succès");
+            }
+            catch (Exception e)
+            {
+                FlashMessage.Danger("Erreur lors de la mise à jour de l'employé");
+            }
 
             modelOut.employe = employe;
             modelOut.lesTypesEmployes = _donneListeTypeEmploye(); ;
 
             return PartialView("~/Areas/RessourcesHumaines/Views/Employe/_CardEmployePartial.cshtml", modelOut);
-            
+        }
 
+        [HttpPost]
+        public ActionResult DetailAdresse(AdresseDTO adresse)
+        {
+            AdresseDTO modelOut = new AdresseDTO();
 
+            _adresseService.Update(Mapper.Map<AdresseDTO, Adresse>(adresse));
+            _adresseService.Save();
+
+            modelOut = adresse;
+
+            return PartialView("~/Areas/RessourcesHumaines/Views/Employe/_CardAdressePartial.cshtml", modelOut);
         }
 
 
