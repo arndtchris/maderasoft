@@ -31,11 +31,10 @@ namespace MaderaSoft.Mapping
             CreateMap<Personne, PersonneDTO>();
             CreateMap<Personne, PersonneSimpleDTO>();
 
-            //CreateMap<Employe, EmployeDTO>();
-            CreateMap<Employe, EditEmployeDTO>();
+            CreateMap<Employe, EditEmployeDTO>().MaxDepth(1);
             CreateMap<Employe, EmployeSimpleDTO>();
             CreateMap<Employe, EmployeDTO>()
-                .Include<Employe, EditEmployeDTO>();
+                .Include<Employe, EditEmployeDTO>().MaxDepth(1);
 
             CreateMap<Droit, DroitDTO>();
             CreateMap<Service, ServiceDTO>();

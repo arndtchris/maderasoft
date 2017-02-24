@@ -109,10 +109,10 @@ namespace MaderaSoft.Mapping
                .ForMember(g => g.typeEmploye, map => map.MapFrom(vm => vm.typeEmploye))
                .ForMember(g => g.affectationServices, map => map.MapFrom(vm => vm.affectationServices));
 
-            CreateMap<EditEmployeDTO, Employe>();
-               /*.ForMember(g => g.id, map => map.MapFrom(vm => vm.id))
+            CreateMap<EditEmployeDTO, Employe>().MaxDepth(1)
+               .ForMember(g => g.id, map => map.MapFrom(vm => vm.id))
                .ForMember(g => g.typeEmploye, map => map.MapFrom(vm => vm.typeEmploye))
-               .ForMember(g => g.affectationServices, map => map.MapFrom(vm => vm.affectationServices));*/
+               .ForMember(g => g.affectationServices, map => map.MapFrom(vm => vm.affectationServices));
 
             CreateMap<EmployeSimpleDTO, Employe>()
                .ForMember(g => g.id, map => map.MapFrom(vm => vm.id))
