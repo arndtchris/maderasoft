@@ -1,0 +1,41 @@
+﻿@using MaderaSoft.Models.ViewModel;
+@using Madera.Service;
+
+@model CardAffectationServiceViewModel
+
+<div class="content box box-primary">
+    <div class="box-header with-border">Les affectations selon service</div>
+    <div class="row">
+        @using (Ajax.BeginForm("DetailAjoutAffectation", "Employe", new { area = "RessourcessHumaines" }, new AjaxOptions
+        {
+            InsertionMode = InsertionMode.Replace,
+            HttpMethod = "POST",
+            UpdateTargetId = "cardAffectation",
+            Url = Url.Action("DetailAjoutAffectation", "Employe", new { area = "RessourcesHumaines" }, null),
+        }))
+        {
+            @Html.HiddenFor(m => m.nouvelleAffectation.emplyeId)
+            <div class="row">
+                <div class="col-md-4">
+                    @Html.LabelFor(m => m.nouvelleAffectation.serviceIdPourAffectation)
+                    @Html.DropDownListFor(m => m.nouvelleAffectation.serviceIdPourAffectation, Model.lesServices)
+                    <p class="bg-warning">@Html.ValidationMessageFor(m => m.nouvelleAffectation.serviceIdPourAffectation)</p>
+                </div>
+                <div class="col-md-4">
+                    @Html.LabelFor(m => m.nouvelleAffectation.groupeIdPourAffectation)
+                    @Html.DropDownListFor(m => m.nouvelleAffectation.groupeIdPourAffectation, Model.lesDroits)
+                    <p class="bg-warning">@Html.ValidationMessageFor(m => m.nouvelleAffectation.groupeIdPourAffectation)</p>
+                </div>
+                <div class="col-md-4">
+                    @Html.LabelFor(m => m.nouvelleAffectation.isAffecttionPrincipal)
+                    @Html.CheckBoxFor(m => m.nouvelleAffectation.isAffecttionPrincipal)
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-offset-9 col-md-2">
+                    @Html.actionButton(" Valider", Parametres.TypeBouton.Submit)
+                </div>
+            </div>
+        }
+    </div>
+ </div>

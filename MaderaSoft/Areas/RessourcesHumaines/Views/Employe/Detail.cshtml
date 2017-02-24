@@ -29,7 +29,9 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-6"></div>
+        <div class="col-md-6" id="cardAffectation">
+            @Html.Partial("~/Areas/RessourcesHumaines/Views/Employe/_CardAffectationPartial.cshtml", Model.cardAffectations)
+        </div>
         <div class="col-md-6"></div>
     </div>
 

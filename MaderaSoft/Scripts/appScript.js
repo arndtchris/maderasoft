@@ -24,5 +24,4 @@
     $(".alert").fadeOut(6000);
 
     $.validator.unobtrusive.parse("form");
-
 });

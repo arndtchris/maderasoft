@@ -251,9 +251,7 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
             DetailEmployeViewModel modelOut = new DetailEmployeViewModel();
             EmployeDTO emp = Mapper.Map<Employe, EmployeDTO>(_employeService.Get(id));
 
-            #region préparation de la card employé
-
-            #region préparation des données de l'employé
+            #region préparation de la card identité de l'employé
 
             modelOut.cardEmploye.employe = new EmployeSimpleDTO
             {
@@ -268,27 +266,12 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
             };
 
             modelOut.cardEmploye.lesTypesEmployes = _donneListeTypeEmploye();
-            //modelOut.cardEmploye.lesCivilites = _d
 
             #endregion
 
-            modelOut.adresse = emp.adresse;
-
-            #region préparation du tableau récapitulatif des affectations
-
-            modelOut.cardAffectations.tableauAffectations.avecActionCrud = true;
-
-            //On prépare le tableau récapitulant les affectations de l'employé
-            modelOut.cardAffectations.tableauAffectations.lesLignes.Add(new List<object> { "Service", "Droit", "Activité principale", "" });
-
-            if (emp.affectationServices != null)
-            {
-                foreach (AffectationServiceDTO affectation in emp.affectationServices)
-                {
-                    modelOut.cardAffectations.tableauAffectations.lesLignes.Add(new List<object> { affectation.service.libe, affectation.groupe.libe, affectation.affectationPrincipaleOuiNon() });
-                }
-            }
-            #endregion
+            #region préparation de la card des affectations de l'employé
+            //les affectations de l'employé
+            modelOut.cardAffectations.tableauAffectations = emp.affectationServices;
 
             #region préparation des éléments utiles à la création d'une affectation
 
@@ -309,14 +292,11 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
 
             #endregion
 
-
-
             return View(modelOut);
         }
 
         /// <summary>
         /// Méthode utilisée depuis un appel Ajax pour mettre à jour les données relatives à l'identité d'un employé depuis sa fiche détaillée.
-        /// Dans un contexte Ajax les notifications usuelles ne sont pas affichées
         /// </summary>
         /// <param name="employe"></param>
         /// <returns></returns>
@@ -343,6 +323,11 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
             return PartialView("~/Areas/RessourcesHumaines/Views/Employe/_CardEmployePartial.cshtml", modelOut);
         }
 
+        /// <summary>
+        /// Méthode utilisée depuis un appel Ajax pour mettre à jour les données relatives à l'adresse d'un employé depuis sa fiche détaillée.
+        /// </summary>
+        /// <param name="adresse"></param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult DetailAdresse(AdresseDTO adresse)
         {
@@ -356,6 +341,36 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
             return PartialView("~/Areas/RessourcesHumaines/Views/Employe/_CardAdressePartial.cshtml", modelOut);
         }
 
+        /// <summary>
+        /// Méthode utilisée depuis un appel Ajax pour ajouter une affectation à un employé depuis sa fiche détaillée.
+        /// </summary>
+        /// <param name="nouvelleAffectation"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult DetailAjoutAffectation(NouvelleAffectationDTO nouvelleAffectation)
+        {
+            CardAffectationServiceViewModel modelOut = new CardAffectationServiceViewModel();
+            AffectationServiceDTO newAffectation = new AffectationServiceDTO();
+            EmployeDTO emp = new EmployeDTO();
+
+            newAffectation.employe = Mapper.Map<Employe, EmployeDTO>(_employeService.Get(nouvelleAffectation.emplyeId));
+            newAffectation.groupe = Mapper.Map<Droit, DroitDTO>(_droitService.Get(nouvelleAffectation.groupeIdPourAffectation));
+            newAffectation.service = Mapper.Map<Service, ServiceDTO>(_serviceService.Get(nouvelleAffectation.serviceIdPourAffectation));
+            newAffectation.isPrincipal = nouvelleAffectation.isAffecttionPrincipal;
+
+            _affectationService.Create(Mapper.Map<AffectationServiceDTO, AffectationService>(newAffectation));
+            _affectationService.Save();
+
+            //On reconstruit le modèle de sortie
+            emp = Mapper.Map<Employe, EmployeDTO>(_employeService.Get(nouvelleAffectation.emplyeId));
+            modelOut.tableauAffectations = emp.affectationServices;
+
+            modelOut.nouvelleAffectation.emplyeId = nouvelleAffectation.emplyeId;
+            modelOut.lesDroits = _donneListeGroupeUtilisateur();
+            modelOut.lesServices = _donneListeService();
+
+            return PartialView("~/Areas/RessourcesHumaines/Views/Employe/_CardAffectationPartial.cshtml", modelOut);
+        }
 
         /// <summary>
         /// Donne la liste des types d'employés en base de données

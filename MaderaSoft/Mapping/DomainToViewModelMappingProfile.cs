@@ -39,7 +39,9 @@ namespace MaderaSoft.Mapping
             CreateMap<Droit, DroitDTO>();
             CreateMap<Service, ServiceDTO>();
             CreateMap<TEmploye, TEmployeDTO>();
-            CreateMap<AffectationService, AffectationServiceDTO>();
+
+            CreateMap<AffectationService, AffectationServiceDTO>().MaxDepth(1);
+
             CreateMap<Personne, PEmployeTableauDTO>();
         }
     }

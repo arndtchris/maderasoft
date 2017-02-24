@@ -54,5 +54,10 @@ namespace MaderaSoft.Models.DTO
         [DisplayName("Groupe utilisateur")]
         [Required(ErrorMessage = "Veuillez renseigner un groupe utilisateur pour cette affectation")]
         public int groupeIdPourAffectation { get; set; }
+
+        public NouvelleAffectationDTO()
+        {
+
+        }
     }
 }

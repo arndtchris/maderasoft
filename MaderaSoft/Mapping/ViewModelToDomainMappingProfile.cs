@@ -31,7 +31,7 @@ namespace MaderaSoft.Mapping
                .ForMember(g => g.pays, map => map.MapFrom(vm => vm.pays))
                .ForMember(g => g.ville, map => map.MapFrom(vm => vm.ville));
 
-            CreateMap<AffectationServiceDTO, AffectationService>()
+            CreateMap<AffectationServiceDTO, AffectationService>().MaxDepth(1)
                 .ForMember(g => g.id, map => map.MapFrom(vm => vm.id))
                 .ForMember(g => g.employe, map => map.MapFrom(vm => vm.employe))
                 .ForMember(g => g.groupe, map => map.MapFrom(vm => vm.groupe))

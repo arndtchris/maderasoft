@@ -48,9 +48,22 @@
         <member name="M:MaderaSoft.Areas.RessourcesHumaines.Controllers.EmployeController.DetailEmploye(MaderaSoft.Models.DTO.EmployeSimpleDTO)">
             <summary>
             Méthode utilisée depuis un appel Ajax pour mettre à jour les données relatives à l'identité d'un employé depuis sa fiche détaillée.
-            Dans un contexte Ajax les notifications usuelles ne sont pas affichées
             </summary>
             <param name="employe"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MaderaSoft.Areas.RessourcesHumaines.Controllers.EmployeController.DetailAdresse(MaderaSoft.Models.DTO.AdresseDTO)">
+            <summary>
+            Méthode utilisée depuis un appel Ajax pour mettre à jour les données relatives à l'adresse d'un employé depuis sa fiche détaillée.
+            </summary>
+            <param name="adresse"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MaderaSoft.Areas.RessourcesHumaines.Controllers.EmployeController.DetailAjoutAffectation(MaderaSoft.Models.DTO.NouvelleAffectationDTO)">
+            <summary>
+            Méthode utilisée depuis un appel Ajax pour ajouter une affectation à un employé depuis sa fiche détaillée.
+            </summary>
+            <param name="nouvelleAffectation"></param>
             <returns></returns>
         </member>
         <member name="M:MaderaSoft.Areas.RessourcesHumaines.Controllers.EmployeController._donneListeTypeEmploye">
