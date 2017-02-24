@@ -34,6 +34,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>Documents.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -350,7 +351,7 @@
     <Content Include="Areas\Simulateur\Views\web.config" />
     <Content Include="Areas\Simulateur\Views\_ViewStart.cshtml" />
     <Content Include="Areas\RessourcesHumaines\Views\Employe\_CardEmployePartial.cshtml" />
-    <Content Include="Areas\RessourcesHumaines\Views\Employe\_CardAdresse.cshtml" />
+    <Content Include="Areas\RessourcesHumaines\Views\Employe\_CardAdressePartial.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\grayscale.min.js" />
     <None Include="Scripts\jquery-2.2.3.intellisense.js" />
@@ -358,6 +359,8 @@
     <Content Include="Scripts\jquery-2.2.3.min.js" />
     <Content Include="Scripts\jquery-2.2.3.min.map" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
