@@ -26,5 +26,19 @@ namespace Madera.Service
             Submit,
             Detail
         }
+
+        public enum TypeNotification
+        {
+            Success,
+            Warning,
+            Danger,
+            Information
+        }
+
+        public enum DureeNotification
+        {
+            FadeOut,
+            Always
+        }
     }
 }

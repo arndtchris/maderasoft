@@ -234,6 +234,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\BootstrapHelper.cs" />
+    <Compile Include="Helpers\NotificationHelper.cs" />
     <Compile Include="Mapping\AutoMapperConfiguration.cs" />
     <Compile Include="Mapping\DomainToViewModelMappingProfile.cs" />
     <Compile Include="Mapping\ViewModelToDomainMappingProfile.cs" />
@@ -253,6 +254,7 @@
     <Compile Include="Models\DTO\ServiceDTOs.cs" />
     <Compile Include="Models\DTO\TEmployeDTOs.cs" />
     <Compile Include="Models\DTO\UtilisateurDTOs.cs" />
+    <Compile Include="Models\NotificationUtilisateur.cs" />
     <Compile Include="Models\ViewModel\AdresseViewModels.cs" />
     <Compile Include="Models\DTO\AdresseDTOs.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -434,7 +436,7 @@
       <Name>Madera.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\Madera.Models\Madera.Model.csproj">
-      <Project>{f0f92c4c-ab34-48de-a251-feb0188b5498}</Project>
+      <Project>{F0F92C4C-AB34-48DE-A251-FEB0188B5498}</Project>
       <Name>Madera.Model</Name>
     </ProjectReference>
     <ProjectReference Include="..\Madera.Service\Madera.Service.csproj">
