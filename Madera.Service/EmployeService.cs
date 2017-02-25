@@ -92,6 +92,21 @@ namespace Madera.Service
 
         public void Delete(int id)
         {
+            Employe emp = this.Get(id);
+            List<int> ids = new List<int>();
+
+            foreach(AffectationService affec in emp.affectationServices)
+            {
+                ids.Add(affec.id);
+            }
+
+            foreach(int i in ids)
+            {
+                _affectationServiceService.Delete(i);
+            }
+
+            _adresseService.Delete(emp.adresse.id);
+
             _employeRepository.Delete(x => x.id == id);
 
             _applicationTraceService.create(new ApplicationTrace
