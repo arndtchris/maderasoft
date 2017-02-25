@@ -17,9 +17,16 @@ namespace System.Web.Mvc
             helper.RenderPartial("~/Views/Shared/_BootstrapTablePartial.cshtml", modelIn);
         }
 
-        public static MvcHtmlString actionButton(this HtmlHelper helper, string libe, Parametres.TypeBouton type, string href = "", string cssClass = "")
+        public static MvcHtmlString actionButton(this HtmlHelper helper, string libe, Parametres.TypeBouton type, string href = "", string cssClass = "", string textTooltip = "")
         {
             string css = "";
+            string metaTooltip = "";
+
+
+            if(!string.IsNullOrEmpty(textTooltip))
+            {
+                metaTooltip = "data-toggle=\"tooltip\" data-placement=\"top\" title=\"" + textTooltip + "\"";
+            }
 
             if(type != Parametres.TypeBouton.Submit)
             {
@@ -43,12 +50,12 @@ namespace System.Web.Mvc
                     default:
                         break;
                 }
-                return new MvcHtmlString("<a class=\"" + css + " href=\"" + href + "\" > " + libe + "</a>");
+                return new MvcHtmlString("<a class=\"" + css + " href=\"" + href + "\""+ metaTooltip +" > " + libe + "</a>");
             }
             else
             {
                 css = cssClass + " btn btn-success fa fa-check\" type=\"submit\"";
-                return new MvcHtmlString("<button class=\"" + css + " href=\"" + href + "\" > " + libe + "</button>");
+                return new MvcHtmlString("<button class=\"" + css + " href=\"" + href + "\""+ metaTooltip +" > " + libe + "</button>");
             }      
         }
     }
