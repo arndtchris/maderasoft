@@ -72,6 +72,7 @@ namespace Madera.Service
         {
             _applicationTraceService.create(new ApplicationTrace
             {
+                utilisateur ="",
                 action = Parametres.Action.Modification.ToString(),
                 description = String.Format("Mise à jour de l'adresse adrs_id = {0}",adresse.id),
             });

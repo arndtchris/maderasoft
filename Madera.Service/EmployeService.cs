@@ -68,14 +68,13 @@ namespace Madera.Service
                         if(affec.employe == null)
                         {
                             affec.employe = new Employe();
-                            affec.employe.id = employe.id;
+                            affec.employe = employe;
                         }
 
                         _affectationServiceService.Create(affec);
                     }
                 }
             }
-
             _employeRepository.Update(employe);
 
             _applicationTraceService.create(new ApplicationTrace
