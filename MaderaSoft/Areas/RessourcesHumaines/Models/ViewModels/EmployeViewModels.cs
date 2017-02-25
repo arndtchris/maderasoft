@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Madera.Model;
+using MaderaSoft.Models;
 using MaderaSoft.Models.DTO;
 using MaderaSoft.Models.ViewModel;
 

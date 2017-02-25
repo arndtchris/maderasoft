@@ -1,16 +1,36 @@
 ﻿@using MaderaSoft.Areas.RessourcesHumaines.Models.ViewModels;
 @using Madera.Service;
+@using Vereyon.Web;
 
 @model CardEmployeViewModel
 
-@using(Ajax.BeginForm("DetailEmploye", "Employe",new {area = "RessourcessHumaines"},new AjaxOptions
+<style>
+    .alert{
+        position: absolute;
+        z-index: 900;
+        right : 15px;
+    }
+
+</style>
+
+<script>
+    function fadeOutAlert()
+    {
+        $('.alert').fadeOut(6000);
+    }
+
+</script>
+
+@using (Ajax.BeginForm("DetailEmploye", "Employe", new { area = "RessourcessHumaines" }, new AjaxOptions
 {
     InsertionMode = InsertionMode.Replace,
     HttpMethod = "POST",
     UpdateTargetId = "cardEmploye",
     Url = Url.Action("DetailEmploye", "Employe", new { area = "RessourcesHumaines" }, null),
+    OnComplete = "fadeOutAlert()"
 }))
 {
+    @Html.RenderFlashMessages()
 
     @Html.HiddenFor(m => m.employe.id)
     <div class="content box box-primary">

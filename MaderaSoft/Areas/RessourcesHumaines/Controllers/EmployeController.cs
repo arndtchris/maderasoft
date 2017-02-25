@@ -5,12 +5,12 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.UI.WebControls;
 using AutoMapper;
-using Madera.Model;
 using Madera.Service;
 using MaderaSoft.Models.DTO;
 using MaderaSoft.Areas.RessourcesHumaines.Models.ViewModels;
 using MaderaSoft.Models.ViewModel;
 using Vereyon.Web;
+using Madera.Model;
 
 namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
 {
@@ -147,10 +147,10 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
         public ActionResult Edit(EditEmployeDTO personne)
         {
             AffectationService nouvelleAffectation = new AffectationService();
-            Employe perso = new Employe();
+            Employe employeOrigine = new Employe();
 
             //On prépare la nouvelle affectation
-            if(personne.serviceIdPourAffectation != 0 && personne.groupeIdPourAffectation != 0)
+            if (personne.serviceIdPourAffectation != 0 && personne.groupeIdPourAffectation != 0)
             {
                 nouvelleAffectation.isPrincipal = personne.isAffecttionPrincipal;
                 nouvelleAffectation.service = _serviceService.Get(personne.serviceIdPourAffectation);
@@ -161,12 +161,12 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
             {
                 try
                 {
-                    perso = Mapper.Map<EditEmployeDTO, Employe>(personne);
-                    perso.typeEmploye = _temployeService.Get(personne.typeEmploye.id);
+                    employeOrigine = _employeService.Get(personne.id);
 
-                    _insertOrUpdateAffectation(ref perso, nouvelleAffectation);
+                    _insertOrUpdateAffectation(ref employeOrigine, nouvelleAffectation);
 
-                    _employeService.Update(perso);
+                    _employeService.Update(employeOrigine);
+                    _employeService.Save();
 
                     FlashMessage.Confirmation("Employé mis à jour avec succès");
                 }
@@ -179,12 +179,12 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
             {
                 try
                 {
-                    perso = Mapper.Map<EditEmployeDTO, Employe>(personne);
-                    perso.affectationServices.Add(nouvelleAffectation);
+                    employeOrigine = Mapper.Map<EditEmployeDTO, Employe>(personne);
+                    employeOrigine.affectationServices.Add(nouvelleAffectation);
 
                     //On prépare le type d'employé
-                    perso.typeEmploye = _temployeService.Get(personne.typeEmploye.id);
-                    _employeService.Create(perso);
+                    employeOrigine.typeEmploye = _temployeService.Get(personne.typeEmploye.id);
+                    _employeService.Create(employeOrigine);
 
                     FlashMessage.Confirmation("Employé créé avec succès");
                 }
@@ -271,7 +271,19 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
 
             #region préparation de la card des affectations de l'employé
             //les affectations de l'employé
-            modelOut.cardAffectations.tableauAffectations = emp.affectationServices;
+
+            //On prépare le tableau récapitulant les affectations de l'employé
+            modelOut.cardAffectations.tableauAffectations.avecActionCrud = false;
+            modelOut.cardAffectations.tableauAffectations.lesLignes.Add(new List<object> { "Service", "Droit", "Activité principale","" });
+
+            if (emp.affectationServices != null)
+            {
+                foreach (AffectationServiceDTO affectation in emp.affectationServices)
+                {
+
+                    modelOut.cardAffectations.tableauAffectations.lesLignes.Add(new List<object> { affectation.service.libe, affectation.groupe.libe, affectation.affectationPrincipaleOuiNon(),"" });
+                }
+            }
 
             #region préparation des éléments utiles à la création d'une affectation
 
@@ -314,11 +326,16 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
             }
             catch (Exception e)
             {
+                modelOut.employe = employe;
+                modelOut.lesTypesEmployes = _donneListeTypeEmploye();
+
                 FlashMessage.Danger("Erreur lors de la mise à jour de l'employé");
+
+                return PartialView("~/Areas/RessourcesHumaines/Views/Employe/_CardEmployePartial.cshtml", modelOut);
             }
 
             modelOut.employe = employe;
-            modelOut.lesTypesEmployes = _donneListeTypeEmploye(); ;
+            modelOut.lesTypesEmployes = _donneListeTypeEmploye();
 
             return PartialView("~/Areas/RessourcesHumaines/Views/Employe/_CardEmployePartial.cshtml", modelOut);
         }
@@ -332,9 +349,18 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
         public ActionResult DetailAdresse(AdresseDTO adresse)
         {
             AdresseDTO modelOut = new AdresseDTO();
-
-            _adresseService.Update(Mapper.Map<AdresseDTO, Adresse>(adresse));
-            _adresseService.Save();
+            try
+            {
+                _adresseService.Update(Mapper.Map<AdresseDTO, Adresse>(adresse));
+                _adresseService.Save();
+                FlashMessage.Confirmation("Adresse mise à jour avec succès");
+            }
+            catch(Exception e)
+            {
+                modelOut = adresse;
+                FlashMessage.Danger("Erreur lors de la mise à jour");
+                return PartialView("~/Areas/RessourcesHumaines/Views/Employe/_CardAdressePartial.cshtml", modelOut);
+            }
 
             modelOut = adresse;
 
@@ -350,24 +376,82 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
         public ActionResult DetailAjoutAffectation(NouvelleAffectationDTO nouvelleAffectation)
         {
             CardAffectationServiceViewModel modelOut = new CardAffectationServiceViewModel();
-            AffectationServiceDTO newAffectation = new AffectationServiceDTO();
-            EmployeDTO emp = new EmployeDTO();
+            AffectationService newAffectation = new AffectationService();
+            Employe emp = new Employe();
+            EmployeDTO emplo = new EmployeDTO();
 
-            newAffectation.employe = Mapper.Map<Employe, EmployeDTO>(_employeService.Get(nouvelleAffectation.emplyeId));
-            newAffectation.groupe = Mapper.Map<Droit, DroitDTO>(_droitService.Get(nouvelleAffectation.groupeIdPourAffectation));
-            newAffectation.service = Mapper.Map<Service, ServiceDTO>(_serviceService.Get(nouvelleAffectation.serviceIdPourAffectation));
-            newAffectation.isPrincipal = nouvelleAffectation.isAffecttionPrincipal;
+            try
+            {
+                emp = _employeService.Get(nouvelleAffectation.emplyeId);
 
-            _affectationService.Create(Mapper.Map<AffectationServiceDTO, AffectationService>(newAffectation));
-            _affectationService.Save();
+                newAffectation.groupe = _droitService.Get(nouvelleAffectation.groupeIdPourAffectation);
+                newAffectation.service = _serviceService.Get(nouvelleAffectation.serviceIdPourAffectation);
+                newAffectation.isPrincipal = nouvelleAffectation.isAffecttionPrincipal;
 
-            //On reconstruit le modèle de sortie
-            emp = Mapper.Map<Employe, EmployeDTO>(_employeService.Get(nouvelleAffectation.emplyeId));
-            modelOut.tableauAffectations = emp.affectationServices;
 
-            modelOut.nouvelleAffectation.emplyeId = nouvelleAffectation.emplyeId;
-            modelOut.lesDroits = _donneListeGroupeUtilisateur();
-            modelOut.lesServices = _donneListeService();
+                _insertOrUpdateAffectation(ref emp, newAffectation);
+
+                _employeService.Update(emp);
+                _employeService.Save();
+
+
+                FlashMessage.Confirmation("Ajout de l'affectation avec succès");
+
+                #region tableau des affectations de l'employé
+
+                //On récupère l'employé avecla dernière affectation
+                emplo = Mapper.Map<Employe, EmployeDTO>(_employeService.Get(nouvelleAffectation.emplyeId));
+
+                //On prépare le tableau récapitulant les affectations de l'employé
+                modelOut.tableauAffectations.avecActionCrud = false;
+                modelOut.tableauAffectations.lesLignes.Add(new List<object> { "Service", "Droit", "Activité principale", "" });
+
+                if (emplo.affectationServices != null)
+                {
+                    foreach (AffectationServiceDTO affectation in emplo.affectationServices)
+                    {
+
+                        modelOut.tableauAffectations.lesLignes.Add(new List<object> { affectation.service.libe, affectation.groupe.libe, affectation.affectationPrincipaleOuiNon(), "" });
+                    }
+                }
+
+                #endregion
+
+                modelOut.nouvelleAffectation.emplyeId = nouvelleAffectation.emplyeId;
+                modelOut.lesDroits = _donneListeGroupeUtilisateur();
+                modelOut.lesServices = _donneListeService();
+
+
+            }
+            catch (Exception e)
+            {
+                emplo = Mapper.Map<Employe, EmployeDTO>(_employeService.Get(nouvelleAffectation.emplyeId));
+
+                #region tableau des affectations de l'employé
+
+                //On prépare le tableau récapitulant les affectations de l'employé
+                modelOut.tableauAffectations.avecActionCrud = false;
+                modelOut.tableauAffectations.lesLignes.Add(new List<object> { "Service", "Droit", "Activité principale", "" });
+
+                if (emplo.affectationServices != null)
+                {
+                    foreach (AffectationServiceDTO affectation in emplo.affectationServices)
+                    {
+
+                        modelOut.tableauAffectations.lesLignes.Add(new List<object> { affectation.service.libe, affectation.groupe.libe, affectation.affectationPrincipaleOuiNon(), "" });
+                    }
+                }
+
+                #endregion
+
+                modelOut.nouvelleAffectation.emplyeId = nouvelleAffectation.emplyeId;
+                modelOut.lesDroits = _donneListeGroupeUtilisateur();
+                modelOut.lesServices = _donneListeService();
+
+                FlashMessage.Danger("Erreur lors de la création de l'affectation");
+            }
+
+
 
             return PartialView("~/Areas/RessourcesHumaines/Views/Employe/_CardAffectationPartial.cshtml", modelOut);
         }
@@ -441,7 +525,7 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
         {
             if(nouvelleAffectation.service != null)
             {
-                //On regarde si cet empolyé a déjà une affectation sur ce service
+                //On regarde si cet employé a déjà une affectation sur ce service
                 if (personne.affectationServices.FirstOrDefault(x => x.service.id == nouvelleAffectation.service.id) != null)//On met à jour l'affectation
                 {
                     personne.affectationServices.First(x => x.service.libe == nouvelleAffectation.service.libe).isPrincipal = nouvelleAffectation.isPrincipal;
@@ -450,6 +534,7 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
                 }
                 else//On ajoute l'affectation
                 {
+                    nouvelleAffectation.employe = personne;
                     personne.affectationServices.Add(nouvelleAffectation);
                 }
             }

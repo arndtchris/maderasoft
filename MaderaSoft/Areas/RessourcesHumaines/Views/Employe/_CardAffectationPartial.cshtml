@@ -1,7 +1,25 @@
 ﻿@using MaderaSoft.Models.ViewModel;
 @using Madera.Service;
+@using Vereyon.Web;
 
 @model CardAffectationServiceViewModel
+
+<style>
+    .alert {
+        position: absolute;
+        z-index: 900;
+        right: 15px;
+    }
+</style>
+
+<script>
+    function fadeOutAlert()
+    {
+        $('.alert').fadeOut(6000);
+        $('[data-toggle="tooltip"]').tooltip();
+    }
+
+</script>
 
 <div class="content box box-primary">
     <div class="box-header with-border">Les affectations selon service</div>
@@ -12,8 +30,10 @@
             HttpMethod = "POST",
             UpdateTargetId = "cardAffectation",
             Url = Url.Action("DetailAjoutAffectation", "Employe", new { area = "RessourcesHumaines" }, null),
+            OnComplete = "fadeOutAlert()"
         }))
         {
+            @Html.RenderFlashMessages()
             @Html.HiddenFor(m => m.nouvelleAffectation.emplyeId)
             <div class="row">
                 <div class="col-md-4">
@@ -33,9 +53,14 @@
             </div>
             <div class="row">
                 <div class="col-md-offset-9 col-md-2">
-                    @Html.actionButton(" Valider", Parametres.TypeBouton.Submit)
+                    @Html.actionButton(" Valider", Parametres.TypeBouton.Submit,"","","Il est possible de corriger une affectation en resélectionnant le service et un groupe utilisateur différent")
                 </div>
             </div>
+        }
+    </div>
+    <div class="row">
+        @{ 
+            Html.bootstrapTable(Model.tableauAffectations);
         }
     </div>
  </div>

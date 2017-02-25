@@ -1,18 +1,36 @@
 ﻿@using MaderaSoft.Areas.RessourcesHumaines.Models.ViewModels;
 @using Madera.Service;
 @using MaderaSoft.Models.DTO;
+@using Vereyon.Web;
 
 @model AdresseDTO
 
-@using(Ajax.BeginForm("DetailEmploye", "Employe",new {area = "RessourcessHumaines"},new AjaxOptions
+<style>
+    .alert {
+        position: absolute;
+        z-index: 900;
+        right: 15px;
+    }
+</style>
+
+<script>
+    function fadeOutAlert()
+    {
+        $('.alert').fadeOut(6000);
+    }
+
+</script>
+
+@using (Ajax.BeginForm("DetailEmploye", "Employe", new { area = "RessourcessHumaines" }, new AjaxOptions
 {
     InsertionMode = InsertionMode.Replace,
     HttpMethod = "POST",
     UpdateTargetId = "cardAdresse",
-    Url = Url.Action("DetailAdresse", "Employe", new { area = "RessourcesHumaines" }, null)
+    Url = Url.Action("DetailAdresse", "Employe", new { area = "RessourcesHumaines" }, null),
+    OnComplete = "fadeOutAlert()"
 }))
 {
-
+    @Html.RenderFlashMessages()
     @Html.HiddenFor(m => m.id)
     <div class="content box box-primary">
         <div class="box-header with-border">Adresse personnelle</div>
