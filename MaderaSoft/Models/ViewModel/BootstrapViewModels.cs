@@ -10,9 +10,11 @@ namespace MaderaSoft.Models.ViewModel
     {
         public int idToDelete { get; set; }
 
-        public string typeObjet { get; set; }
-
         public string message { get; set; }
+
+        public string urlController { get; set; }
+
+        public string method { get; set; }
 
         public BootstrapDeleteModalViewModel()
         {

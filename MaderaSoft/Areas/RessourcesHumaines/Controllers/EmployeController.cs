@@ -211,7 +211,7 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
             modelOut.typeObjet = "RessourcesHumaines/Employe";
             modelOut.formulaireUrl = "~/Views/Shared/_BootstrapDeleteModalPartial.cshtml";
             modelOut.titreModal = "Suppression d'un employé";
-            modelOut.objet = new BootstrapDeleteModalViewModel { idToDelete = id, message = "Etes vous sûr de vouloir supprimer cet employé ?" };
+            modelOut.objet = new BootstrapDeleteModalViewModel { idToDelete = id, message = "Etes vous sûr de vouloir supprimer cet employé ?", method="Delete", urlController="Employe" };
 
             return PartialView("~/Views/Shared/_BootstrapModalPartial.cshtml", modelOut);
         }
@@ -227,8 +227,8 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
             try
             {
                 FlashMessage.Confirmation("Suppression de l'employé");
-                _personneService.Delete(idToDelete);
-                _personneService.Save();
+                _employeService.Delete(idToDelete);
+                _employeService.Save();
             }
             catch (Exception)
             {
