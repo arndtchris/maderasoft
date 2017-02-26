@@ -45,7 +45,7 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
         {
             EmployeIndexViewModel modelOut = new EmployeIndexViewModel();
             BootstrapButtonViewModel button = new BootstrapButtonViewModel();
-            modelOut.tableauEmployes.typeObjet = "RessourcesHumaines/Employe";
+            //modelOut.tableauEmployes.typeObjet = "RessourcesHumaines/Employe";
             modelOut.tableauEmployes.avecActionCrud = true;
             modelOut.tableauEmployes.messageSiVide = "Aucun employé n'a été saisi dans l'application.";
 
@@ -208,7 +208,7 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
         public ActionResult DeleteModal(int id)
         {
             BootstrapModalViewModel modelOut = new BootstrapModalViewModel();
-            modelOut.typeObjet = "RessourcesHumaines/Employe";
+            //modelOut.typeObjet = "RessourcesHumaines/Employe";
             modelOut.formulaireUrl = "~/Views/Shared/_BootstrapDeleteModalPartial.cshtml";
             modelOut.titreModal = "Suppression d'un employé";
             modelOut.objet = new BootstrapDeleteModalViewModel { idToDelete = id, message = "Etes vous sûr de vouloir supprimer cet employé ?", method="Delete", urlController="Employe" };
@@ -226,9 +226,10 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
         {
             try
             {
-                FlashMessage.Confirmation("Suppression de l'employé");
+                
                 _employeService.Delete(idToDelete);
                 _employeService.Save();
+                FlashMessage.Confirmation("Suppression de l'employé");
             }
             catch (Exception)
             {
@@ -281,7 +282,7 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
                 foreach (AffectationServiceDTO affectation in emp.affectationServices)
                 {
 
-                    modelOut.cardAffectations.tableauAffectations.lesLignes.Add(new List<object> { affectation.service.libe, affectation.groupe.libe, affectation.affectationPrincipaleOuiNon(),"" });
+                    modelOut.cardAffectations.tableauAffectations.lesLignes.Add(new List<object> { affectation.service.libe, affectation.groupe.libe, affectation.affectationPrincipaleOuiNon(),affectation.id });
                 }
             }
 
@@ -411,7 +412,7 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
                     foreach (AffectationServiceDTO affectation in emplo.affectationServices)
                     {
 
-                        modelOut.tableauAffectations.lesLignes.Add(new List<object> { affectation.service.libe, affectation.groupe.libe, affectation.affectationPrincipaleOuiNon(), "" });
+                        modelOut.tableauAffectations.lesLignes.Add(new List<object> { affectation.service.libe, affectation.groupe.libe, affectation.affectationPrincipaleOuiNon(), affectation.id });
                     }
                 }
 
@@ -452,6 +453,95 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
             }
 
 
+
+            return PartialView("~/Areas/RessourcesHumaines/Views/Employe/_CardAffectationPartial.cshtml", modelOut);
+        }
+
+        /*[HttpGet]
+        public ActionResult AffectationDeleteModal(int id)
+        {
+            BootstrapModalViewModel modelOut = new BootstrapModalViewModel();
+            //modelOut.typeObjet = "RessourcesHumaines/Employe";
+            modelOut.formulaireUrl = "~/Views/Shared/_BootstrapDeleteModalPartial.cshtml";
+            modelOut.titreModal = "Suppression d'une affectation d'un employé";
+            modelOut.objet = new BootstrapDeleteModalViewModel { idToDelete = id, message = "Etes vous sûr de vouloir l'affectation de cet employé ?", method = "DeleteAffectationModal", urlController = "Employe" };
+
+            return PartialView("~/Views/Shared/_BootstrapModalPartial.cshtml", modelOut);
+        }*/
+
+        [HttpPost]
+        public ActionResult DeleteAffectationDetail(int idToDelete)
+        {
+            CardAffectationServiceViewModel modelOut = new CardAffectationServiceViewModel();
+            EmployeDTO emp = new EmployeDTO();
+
+            //On conserve l'id de l'employé correspondant pour recontruire ensuite l'affiche de ses affectations
+            int idEmploye = _affectationService.Get(idToDelete).employe.id;
+
+            try
+            {
+                //On supprimer l'affectation
+                _affectationService.Delete(idToDelete);
+                _affectationService.Save();
+                FlashMessage.Confirmation("Suppression de l'affectation avec succès");
+
+                emp = Mapper.Map<Employe, EmployeDTO>(_employeService.Get(idEmploye));
+
+                //On reconstruit l'affichage
+                modelOut.tableauAffectations.avecActionCrud = false;
+                modelOut.tableauAffectations.lesLignes.Add(new List<object> { "Service", "Droit", "Activité principale", "" });
+
+                if (emp.affectationServices != null)
+                {
+                    foreach (AffectationServiceDTO affectation in emp.affectationServices)
+                    {
+
+                        modelOut.tableauAffectations.lesLignes.Add(new List<object> { affectation.service.libe, affectation.groupe.libe, affectation.affectationPrincipaleOuiNon(), affectation.id });
+                    }
+                }
+
+                #region préparation des éléments utiles à la création d'une affectation
+
+                modelOut.lesDroits = _donneListeGroupeUtilisateur();
+
+                modelOut.lesServices = _donneListeService();
+
+                modelOut.nouvelleAffectation.emplyeId = emp.id;
+
+
+                #endregion
+
+            }
+            catch (Exception e)
+            {
+                FlashMessage.Danger("Erreur lors de la suppression de l'affectation");
+
+                //On reconstruit l'affichage
+                modelOut.tableauAffectations.avecActionCrud = false;
+                modelOut.tableauAffectations.lesLignes.Add(new List<object> { "Service", "Droit", "Activité principale", "" });
+
+                if (emp.affectationServices != null)
+                {
+                    foreach (AffectationServiceDTO affectation in emp.affectationServices)
+                    {
+
+                        modelOut.tableauAffectations.lesLignes.Add(new List<object> { affectation.service.libe, affectation.groupe.libe, affectation.affectationPrincipaleOuiNon(), affectation.id });
+                    }
+                }
+
+                #region préparation des éléments utiles à la création d'une affectation
+
+                modelOut.lesDroits = _donneListeGroupeUtilisateur();
+
+                modelOut.lesServices = _donneListeService();
+
+                modelOut.nouvelleAffectation.emplyeId = emp.id;
+
+
+                #endregion
+
+                return PartialView("~/Areas/RessourcesHumaines/Views/Employe/_CardAffectationPartial.cshtml", modelOut);
+            }
 
             return PartialView("~/Areas/RessourcesHumaines/Views/Employe/_CardAffectationPartial.cshtml", modelOut);
         }

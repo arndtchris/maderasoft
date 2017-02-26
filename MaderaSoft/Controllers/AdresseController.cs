@@ -139,7 +139,7 @@ namespace MaderaSoft.Controllers
         public ActionResult DeleteModal(int id)
         {
             BootstrapModalViewModel modelOut = new BootstrapModalViewModel();
-            modelOut.typeObjet = "Adresse";
+            //modelOut.typeObjet = "Adresse";
             modelOut.formulaireUrl = "~/Views/Shared/_BootstrapDeleteModalPartial.cshtml";
             modelOut.titreModal = "Suppression d'une adresse";
             modelOut.objet = new BootstrapDeleteModalViewModel { idToDelete = id, message = "Etes vous sûr de vouloir supprimer cette adresse ?", method="Delete",urlController="Adresse"};
