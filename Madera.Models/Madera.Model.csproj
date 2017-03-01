@@ -112,6 +112,7 @@
     <Compile Include="Models\Adresse.cs" />
     <Compile Include="Models\AffectationService.cs" />
     <Compile Include="Models\ApplicationTrace.cs" />
+    <Compile Include="Models\Etage.cs" />
     <Compile Include="Models\Composant.cs" />
     <Compile Include="Models\Composition.cs" />
     <Compile Include="Models\DevisFacture.cs" />

@@ -4,17 +4,22 @@ var code = "";
 $(function () {
 
     var x = 10;
-    var y = 110;
-    var dessin = "<svg id='dessin_svg' style='width:1000px;height:1000px;'>";
+    var y = 10;
+    var etage = 1;
 
     $("#button_svg").click(function () {
+
+        //Pour le cas ou plus d'un étage, rénitialisation de x et y, et ajout incrémetation du numéro étage indispensable
+        x = 10;
+        y = 10;
+        var dessin = "<svg class='dessin_svg' id='etage"+etage+"' style='width:200px;height:200px;'>";
 
         var taille = parseInt($("#larg").val()) + 1
         for (j = 0; j < taille ; j++) {
             for (i = 0; i < $("#long").val() ; i++) {
                 var xAfter = x + 40;
                 x = x + 1;
-                dessin += "<a onclick='changeColor(lineLong" + i + j + ")' href='#'><line id='lineLong" + i + j + "' x1='" + x + "'x2='" + xAfter + "' y1='" + y + "' y2='" + y + "' stroke='black' stroke-width='5' /></a>";
+                dessin += "<a onclick='changeColor(lineLong" + i + j + etage +")' href='#'><line id='lineLong" + i + j + etage +"' x1='" + x + "'x2='" + xAfter + "' y1='" + y + "' y2='" + y + "' stroke='black' stroke-width='5' /></a>";
                 //dessin += "<line x1='" + xBefore + "'x2='" + x + "' y1='" + yBefore + "' y2='" + yBefore + "' stroke='white' stroke-width='5' />";
                 x = xAfter;
             }
@@ -24,23 +29,25 @@ $(function () {
 
 
         x = 10;
-        y = 110;
+        y = 10;
         taille = parseInt($("#long").val()) + 1
 
         for (i = 0; i < taille ; i++) {
             for (j = 0; j < $("#larg").val() ; j++) {
                 var yAfter = y + 40;
                 y = y + 1;
-                dessin += "<a onclick='changeColor(lineLarg" + j + i + ")' href='#'><line id='lineLarg" + j + i + "' x1='" + x + "'x2='" + x + "' y1='" + y + "' y2='" + yAfter + "' stroke='black' stroke-width='5' /></a>";
+                dessin += "<a onclick='changeColor(lineLarg" + j + i + etage + ")' href='#'><line id='lineLarg" + j + i + etage + "' x1='" + x + "'x2='" + x + "' y1='" + y + "' y2='" + yAfter + "' stroke='black' stroke-width='5' /></a>";
                 //dessin += "<line x1='" + xBefore + "'x2='" + x + "' y1='" + yBefore + "' y2='" + yBefore + "' stroke='white' stroke-width='5' />";
                 y = yAfter;
             }
             x = x + 40;
-            y = 110;
+            y = 10;
         }
 
         dessin += "</svg>";
         $("#dessin").append(dessin);
+
+        etage = etage + 1
 
     });
 
@@ -92,55 +99,62 @@ $(function () {
         test.css('cursor', 'url(' + cursor.toDataURL() + '), auto ');
     }
 
-    $(".save_svg").click(function () {
+    $(".save_svg").click(function (event) {
         event.preventDefault();
-        var $plan = $("#dessin_svg");
+
+        var $plan = $(".dessin_svg");
         
-        var arrayComposant = [];
+        console.log("PLAN COMPLET", $plan);
+
+        var arrayPlans = [];
+        var arrayModule = [];
         var obj = {};
 
-        $plan.children().each(function (key, value) {
+        //parcours chaque plan d'etage
+        $plan.each(function (k, v) {
 
-            var currentData = $(value).children().data("values");
-            if (typeof (currentData) != "undefined") {
+            console.log("V", v);
 
-                var result = $.grep(arrayComposant, function (e) { return e.id == currentData; });
+            $(v).children().each(function (key, value) {
+                console.log("Value", value);
+                var currentData = $(value).children().data("values");
+                console.log("currentData", currentData);
+                if (typeof (currentData) != "undefined") {
 
-                if (result.length == 0) {
-                    // not found
-                    var obj = {
-                        "id": currentData,
-                        "quantite": 1
-                    };
-                    arrayComposant.push(obj);
+                    var result = $.grep(arrayModule, function (e) { console.log("E", e); return e.id == currentData; });
 
-                } else {
-                    // multiple items found
-                    var index = result.length - 1
-                    var quantite = arrayComposant[index].quantite;
-                    quantite++;
-                    arrayComposant[index].quantite = quantite;
+                      // console.log("-------------------------------------",result);
+                   /* if (result.length == 0) {
+                       
+                        var obj = {
+                            "id": currentData,
+                            "quantite": 1
+                        };
+                        arrayModule[currentData] = (obj);
+                        console.log("----------------------------", arrayModule);
+                    } else {
+                        console.log("ici donc au moins dans le tableau");
+                       // var index = result.length -1;
+                        console.log("index", index);
+                        var quantite = arrayModule[currentData].quantite;
+                        quantite++;
+                        arrayModule[currentData].quantite = quantite;
+                    }*/
                 }
-            }
+            });
+            console.log("MODULE ARRAY", arrayModule);
+            arrayPlans.push(arrayModule);
+            arrayModule = [];
+            var quantite = 1;
         });
 
-        console.log("MON TABLEAU", arrayComposant);
-
-        var p = JSON.stringify($plan);
+        console.log("TABLEAU DE TOUT LES PLANS DE LA MAISON", arrayPlans);
 
         var jsonObject = {
-            "listComposants": arrayComposant
+            "listComposants": arrayPlans
         };
 
         console.log("jsonObject", jsonObject);
-
-
-        var jsonObj = {
-            "Name": "Rami",
-            "Roles": [{ "RoleName": "Admin", "Description": "Admin Role" }, { "RoleName": "User", "Description": "User Role" }]
-        };
-
-        console.log("jsonObject", jsonObj);
 
         $.ajax({
             method: "POST",
@@ -148,13 +162,13 @@ $(function () {
             contentType: "application/json",
             dataType:"json",
             data: JSON.stringify(jsonObject)
-        });
-        /*.done(function (data) {
+        })
+        .done(function (data) {
             console.log('réussite');
         })
         .fail(function (data) {
             console.log("fail");
-        });*/
+        });
 
     });
 
