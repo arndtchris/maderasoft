@@ -107,49 +107,57 @@ $(function () {
         console.log("PLAN COMPLET", $plan);
 
         var arrayPlans = [];
-        var arrayModule = [];
-        var obj = {};
+        var composantPlan = {};
+        var etages = [];
 
+        var i = 0;
         //parcours chaque plan d'etage
         $plan.each(function (k, v) {
 
             console.log("V", v);
-
+            
             $(v).children().each(function (key, value) {
+                
                 console.log("Value", value);
                 var currentData = $(value).children().data("values");
+                var x1 = $(value).children().attr("x1");
+                var x2 = $(value).children().attr("x2");
+                var y1 = $(value).children().attr("y1");
+                var y2 = $(value).children().attr("y2");
+                var lineId = $(value).children().attr("id");
                 console.log("currentData", currentData);
+                console.log("x1", x1);
+                console.log("x2", x2);
+                console.log("y1", y1);
+                console.log("y2", y2);
+                console.log("lineId", lineId);
+               
                 if (typeof (currentData) != "undefined") {
 
-                    var result = $.grep(arrayModule, function (e) { console.log("E", e); return e.id == currentData; });
+                    var module = {
+                        "id": currentData,
+                        "x1": x1,
+                        "y1": y1,
+                        "x2": x2,
+                        "y2": y2
+                    }
 
-                      // console.log("-------------------------------------",result);
-                   /* if (result.length == 0) {
-                       
-                        var obj = {
-                            "id": currentData,
-                            "quantite": 1
-                        };
-                        arrayModule[currentData] = (obj);
-                        console.log("----------------------------", arrayModule);
-                    } else {
-                        console.log("ici donc au moins dans le tableau");
-                       // var index = result.length -1;
-                        console.log("index", index);
-                        var quantite = arrayModule[currentData].quantite;
-                        quantite++;
-                        arrayModule[currentData].quantite = quantite;
-                    }*/
+                    console.log("---------i-------", i);
+
+                    etages.push(module);
+  
                 }
             });
-            console.log("MODULE ARRAY", arrayModule);
-            arrayPlans.push(arrayModule);
-            arrayModule = [];
-            var quantite = 1;
+
+            console.log("-------------ETAGE--------------", etages);
+
+            composantPlan[i] = etages;
+            etages = [];
+            i++;
+            console.log("composantPlan", composantPlan);
+            
         });
-
-        console.log("TABLEAU DE TOUT LES PLANS DE LA MAISON", arrayPlans);
-
+        arrayPlans.push(composantPlan);
         var jsonObject = {
             "listComposants": arrayPlans
         };
