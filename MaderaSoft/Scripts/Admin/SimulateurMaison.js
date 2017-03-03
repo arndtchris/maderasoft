@@ -106,9 +106,14 @@ $(function () {
         
         console.log("PLAN COMPLET", $plan);
 
-        var arrayPlans = [];
-        var composantPlan = {};
-        var etages = [];
+        //un étage contient une liste de PositionModule, contenus dans lesModules
+        var etage = {};
+        var lesModules = [];
+
+        //un plan est composé de plusieurs étages, contenus dans lesEtages
+        var planDTO = {};
+        var lesEtages = [];
+
 
         var i = 0;
         //parcours chaque plan d'etage
@@ -116,6 +121,7 @@ $(function () {
 
             console.log("V", v);
             
+            //On construit un étage
             $(v).children().each(function (key, value) {
                 
                 console.log("Value", value);
@@ -134,42 +140,48 @@ $(function () {
                
                 if (typeof (currentData) != "undefined") {
 
-                    var module = {
-                        "id": currentData,
+                    var positionModule = {
+                        "module": { "id": currentData },
                         "x1": x1,
                         "y1": y1,
                         "x2": x2,
-                        "y2": y2
+                        "y2": y2,
+                        "lineId" : lineId
                     }
 
                     console.log("---------i-------", i);
 
-                    etages.push(module);
+                    //On a trouvé un nouveau module, on l'ajoute à ceux de cet étage
+                    lesModules.push(positionModule);
   
                 }
             });
 
-            console.log("-------------ETAGE--------------", etages);
+            //On ajoute les modules à l'étage correspondant
+            etage = { "lesModules" : lesModules }
 
-            composantPlan[i] = etages;
-            etages = [];
+            console.log("-------------ETAGE--------------", lesModules);
+
+            //On ajoute l'étage que l'on vient de finir
+            lesEtages.push(etage);
+
+            //On vide l'étage en cours pour le prochin tour de boucle
+            etage = {};
+
+            //On incrémente pour passer à l'étage suivant
             i++;
-            console.log("composantPlan", composantPlan);
             
         });
-        arrayPlans.push(composantPlan);
-        var jsonObject = {
-            "listComposants": arrayPlans
-        };
 
-        console.log("jsonObject", jsonObject);
+        //On ajoute notre liste d'étages au plan
+        planDTO = { "lesEtages": lesEtages }
 
         $.ajax({
             method: "POST",
             url: $(event.currentTarget).attr('href'),
             contentType: "application/json",
             dataType:"json",
-            data: JSON.stringify(jsonObject)
+            data: JSON.stringify(planDTO)
         })
         .done(function (data) {
             console.log('réussite');

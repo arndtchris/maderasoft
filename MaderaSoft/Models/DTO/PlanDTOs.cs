@@ -7,7 +7,15 @@ namespace MaderaSoft.Models.DTO
 {
     public class PlanDTO
     {
-            public List<ComposantPlan> listComposants { get; set; }
+        public int largeur { get; set; }
+        public int longueur { get; set; }
+
+        public List<EtageDTO> lesEtages { get; set; }
+
+        public PlanDTO()
+        {
+            lesEtages = new List<EtageDTO>();
+        }
 
     }
     public class ComposantPlan

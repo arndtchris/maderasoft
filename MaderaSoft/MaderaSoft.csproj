@@ -249,8 +249,11 @@
     <Compile Include="Models\DTO\DevisFactureDTOs.cs" />
     <Compile Include="Models\DTO\DroitDTOs.cs" />
     <Compile Include="Models\DTO\EmployeDTOs.cs" />
+    <Compile Include="Models\DTO\EtageDTOs.cs" />
+    <Compile Include="Models\DTO\ModuleDTOs.cs" />
     <Compile Include="Models\DTO\PersonneDTOs.cs" />
     <Compile Include="Models\DTO\PlanDTOs.cs" />
+    <Compile Include="Models\DTO\PositionModuleDTOs.cs" />
     <Compile Include="Models\DTO\ServiceDTOs.cs" />
     <Compile Include="Models\DTO\TEmployeDTOs.cs" />
     <Compile Include="Models\DTO\UtilisateurDTOs.cs" />
@@ -331,6 +334,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\Admin\adminLte.min.js" />
     <Content Include="Scripts\Admin\appScript.js" />
+    <Content Include="Scripts\Admin\SimulateurMaison.js" />
     <Content Include="Scripts\ai.0.22.19-build00125.js" />
     <Content Include="Scripts\ai.0.22.19-build00125.min.js" />
     <Content Include="Scripts\appScript.js" />
