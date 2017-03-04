@@ -1,0 +1,36 @@
+﻿@using Madera.Service;
+@using MaderaSoft.Models.DTO;
+@using MaderaSoft.Areas.GestionModule.Models.ViewModels;
+
+@model CreateModuleViewModel
+
+
+@using (Html.BeginForm("Edit", "Module", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-inline", area = "GestionModule" }))
+{
+    <div class="modal-body">
+        @Html.HiddenFor(m => m.module.id)
+        <fieldset>
+            <legend>Informations module</legend>
+            <div class="form-group-lg">
+                <div class="col-md-4">
+                    @Html.LabelFor(m => m.module.libe)
+                    @Html.TextBoxFor(m => m.module.libe)
+                    <p class="bg-warning">@Html.ValidationMessageFor(m => m.module.libe)</p>
+                </div>
+                <div class="col-md-4">
+                    @Html.LabelFor(m => m.module.typeModule)
+                    @Html.DropDownListFor(m => m.module.typeModule.id, Model.lesGammes)
+                </div>
+            </div>
+        </fieldset>
+    </div>
+            <div class="modal-footer">
+                @Html.actionButton(" Annuler", Parametres.TypeBouton.DissmissModal)
+                @Html.actionButton(" Valider", Parametres.TypeBouton.Submit)
+            </div>
+}
+
+
+
+
+
