@@ -116,7 +116,7 @@ namespace MaderaSoft.Areas.GestionModule.Controllers
                 {
                     try
                     {
-                        mdl = Mapper.Map<ModuleDTO, Module>(module);
+                    mdl = Mapper.Map<ModuleDTO, Module>(module);
                     
                     int test = mdl.typeModule.id;
                     string test2 = mdl.typeModule.libe;
