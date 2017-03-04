@@ -48,7 +48,8 @@ namespace MaderaSoft.Mapping
             CreateMap<Areas.GestionModule.Models.DTOs.ModuleDTO, Module>()
                .ForMember(g => g.id, map => map.MapFrom(vm => vm.id))
                .ForMember(g => g.libe, map => map.MapFrom(vm => vm.libe))
-               .ForMember(g => g.typeModule, map => map.MapFrom(vm => vm.typeModule));
+               .ForMember(g => g.typeModule, map => map.MapFrom(vm => vm.typeModule))
+               .ForMember(g => g.prix, map => map.MapFrom(vm => vm.prix));
 
             CreateMap<ApplicationTraceDTO, ApplicationTrace>()
                .ForMember(g => g.utilisateur, map => map.MapFrom(vm => vm.utilisateur))

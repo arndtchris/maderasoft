@@ -12,6 +12,8 @@ namespace Madera.Model
         public string coupePrincipe { get; set; }
         public virtual TModule typeModule { get; set; }
 
+        public decimal prix { get; set; }
+
         public Module()
         {
 

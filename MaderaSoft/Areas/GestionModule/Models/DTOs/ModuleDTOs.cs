@@ -18,6 +18,8 @@ namespace MaderaSoft.Areas.GestionModule.Models.DTOs
         public String libe { get; set; }
         [DisplayName("Gamme")]
         public virtual TModule typeModule { get; set; }
+        public decimal prix { get; set; }
+
         public ModuleDTO()
         {
             TModuleDTO typeModule = new TModuleDTO();
