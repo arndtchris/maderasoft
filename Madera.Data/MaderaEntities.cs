@@ -25,8 +25,10 @@ namespace Madera.Data
         public DbSet<Gamme> Gamme { get; set; }
         public DbSet<Plan> Plan { get; set; }
         public DbSet<PositionModule> PositionModule { get; set; }
+        public DbSet<Module> Module { get; set; }
+        public DbSet<Composant> Composant { get; set; }
         public DbSet<Etage> Etage { get; set; }
-
+        public DbSet<TModule> TModule { get; set; }
         public virtual void Commit()
         {
             this.SaveChanges();
