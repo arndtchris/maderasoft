@@ -214,9 +214,14 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Areas\GestionModule\Controllers\ModuleController.cs" />
+    <Compile Include="Areas\GestionModule\GestionModuleAreaRegistration.cs" />
+    <Compile Include="Areas\GestionModule\Models\DTOs\ModuleDTOs.cs" />
+    <Compile Include="Areas\GestionModule\Models\ViewModels\ModuleViewModels.cs" />
     <Compile Include="Areas\GestionStock\Controllers\StockController.cs" />
-    <Compile Include="Areas\GestionStock\GestionStocksAreaRegistration.cs" />
+    <Compile Include="Areas\GestionStock\GestionStockAreaRegistration.cs" />
     <Compile Include="Areas\GestionStock\Models\DTOs\StockDTOs.cs" />
+    <Compile Include="Areas\GestionStock\Models\ViewModels\StockViewModels.cs" />
     <Compile Include="Areas\RessourcesHumaines\Controllers\EmployeController.cs" />
     <Compile Include="Areas\RessourcesHumaines\Models\ViewModels\EmployeViewModels.cs" />
     <Compile Include="Areas\RessourcesHumaines\RessourcesHumainesAreaRegistration.cs" />
@@ -256,6 +261,7 @@
     <Compile Include="Models\DTO\PositionModuleDTOs.cs" />
     <Compile Include="Models\DTO\ServiceDTOs.cs" />
     <Compile Include="Models\DTO\TEmployeDTOs.cs" />
+    <Compile Include="Models\DTO\TModuleDTO.cs" />
     <Compile Include="Models\DTO\UtilisateurDTOs.cs" />
     <Compile Include="Models\NotificationUtilisateur.cs" />
     <Compile Include="Models\ViewModel\AdresseViewModels.cs" />
@@ -359,6 +365,16 @@
     <Content Include="Areas\RessourcesHumaines\Views\Employe\_CardEmployePartial.cshtml" />
     <Content Include="Areas\RessourcesHumaines\Views\Employe\_CardAdressePartial.cshtml" />
     <Content Include="Areas\RessourcesHumaines\Views\Employe\_CardAffectationPartial.cshtml" />
+    <Content Include="Areas\GestionModule\Views\Module\Index.cshtml" />
+    <Content Include="Areas\GestionModule\Views\Module\_EditModulePartial.cshtml" />
+    <Content Include="Areas\GestionModule\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\GestionModule\Views\web.config" />
+    <Content Include="Areas\GestionModule\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\GestionStock\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\GestionStock\Views\Stock\Index.cshtml" />
+    <Content Include="Areas\GestionStock\Views\Stock\_EditStockPartial.cshtml" />
+    <Content Include="Areas\GestionStock\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\GestionStock\Views\web.config" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\grayscale.min.js" />
     <None Include="Scripts\jquery-2.2.3.intellisense.js" />
@@ -422,8 +438,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\GestionStock\Models\ViewModels\" />
-    <Folder Include="Areas\GestionStock\Views\Shared\" />
+    <Folder Include="Areas\GestionStock\Views\StockDTOs\" />
     <Folder Include="Areas\GestionStock\Views\StocksDTOs\" />
     <Folder Include="Areas\GestionStock\Views\Stocks\" />
     <Folder Include="bin\roslyn\" />
