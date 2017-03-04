@@ -22,6 +22,7 @@ namespace Madera.Data
             SeedDroits().ForEach(f => context.Droits.Add(f));
             SeedTEmployes().ForEach(h => context.TEmployes.Add(h));
             SeedGammes().ForEach(i => context.Gamme.Add(i));
+            SeedTModule().ForEach(j => context.TModule.Add(j));
 
             context.Commit();
         }
@@ -114,6 +115,26 @@ namespace Madera.Data
                 new TEmploye
                 {
                     libe = "DSI"
+                }
+
+            };
+        }
+
+        private static List<TModule> SeedTModule()
+        {
+            return new List<TModule>
+            {
+                new TModule
+                {
+                    libe = "Basic"
+                },
+                new TModule
+                {
+                    libe = "Timber"
+                },
+                new TModule
+                {
+                    libe = "Prestige"
                 }
 
             };
