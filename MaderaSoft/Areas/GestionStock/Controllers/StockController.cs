@@ -32,7 +32,7 @@ namespace MaderaSoft.Areas.GestionStock.Controllers
         {
             StockIndexViewModel modelOut = new StockIndexViewModel();
             BootstrapButtonViewModel button = new BootstrapButtonViewModel();
-            modelOut.tableauComposants.typeObjet = "GestionStock/Stocks";
+            modelOut.tableauComposants.typeObjet = "GestionStock/Stock";
             modelOut.tableauComposants.avecActionCrud = true;
             modelOut.tableauComposants.messageSiVide = "Aucun composant n'a été ajouté à l'application.";
 
@@ -57,11 +57,11 @@ namespace MaderaSoft.Areas.GestionStock.Controllers
         }
 
         [HttpGet]
-        public ActionResult CreateModal()
+        public ActionResult EditModal()
         {
 
             BootstrapModalViewModel modelOut = new BootstrapModalViewModel();
-            EditStockViewModel editComposant = new EditStockViewModel();
+            CreateStockViewModel editComposant = new CreateStockViewModel();
             BootstrapButtonViewModel button = new BootstrapButtonViewModel();
 
             //if (id.HasValue)
@@ -74,15 +74,25 @@ namespace MaderaSoft.Areas.GestionStock.Controllers
             //    modelOut.titreModal = "Edition d'un composant";
             //}
 
-
-            modelOut.formulaireUrl = "~/Areas/GestionStock/Views/Stocks/_EditStockPartial.cshtml";
+            editComposant.lesGammes = _donneListeGammes();
+            modelOut.formulaireUrl = "~/Areas/GestionStock/Views/Stock/_EditStockPartial.cshtml";
             modelOut.titreModal = string.Format("Modification des informations du composant");
             modelOut.objet = editComposant;
 
             return PartialView("~/Views/Shared/_BootstrapModalPartial.cshtml", modelOut);
 
         }
+        private List<SelectListItem> _donneListeGammes()
+        {
+            List<SelectListItem> lesGammes = new List<SelectListItem>();
 
+            lesGammes.Insert(0, new SelectListItem() { Text = "--- Sélectionnez ---", Value = "" });
+            lesGammes.Insert(1, new SelectListItem() { Text = "Basic", Value = "" });
+            lesGammes.Insert(2, new SelectListItem() { Text = "Timber", Value = "" });
+            lesGammes.Insert(3, new SelectListItem() { Text = "Prestige", Value = "" });
+
+            return lesGammes;
+        }
         [HttpPost]
         public ActionResult Edit(StockDTO composant)
         {
