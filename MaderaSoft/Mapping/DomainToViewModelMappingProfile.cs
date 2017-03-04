@@ -30,6 +30,7 @@ namespace MaderaSoft.Mapping
 
             CreateMap<Personne, PersonneDTO>();
             CreateMap<Personne, PersonneSimpleDTO>();
+            CreateMap<Module, Areas.GestionModule.Models.DTOs.ModuleDTO>();
 
             CreateMap<Employe, EditEmployeDTO>().MaxDepth(1);
             CreateMap<Employe, EmployeSimpleDTO>();
