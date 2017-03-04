@@ -1,5 +1,4 @@
-﻿@using System.Web.Mvc.Html;
-@using MaderaSoft.Areas.GestionStock.Models.ViewModels;
+﻿@using MaderaSoft.Areas.GestionStock.Models.ViewModels;
 @using Madera.Service;
 
 @model StockIndexViewModel
@@ -23,7 +22,7 @@
 <!-- Main content -->
 <section class="content">
 
-    @Html.actionButton("Ajouter un nouveau composant", Parametres.TypeBouton.Creation, Url.Action("EditModal", "Composant", new { area = "GestionStock" }).ToString(), "editModal")
+    @Html.actionButton("Ajouter un nouveau composant", Parametres.TypeBouton.Creation, Url.Action("EditModal", "Stock", new { area = "GestionStock" }).ToString(), "editModal")
 
     @{
         Html.bootstrapTable(Model.tableauComposants);
