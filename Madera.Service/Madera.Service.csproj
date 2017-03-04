@@ -145,6 +145,7 @@
     <Compile Include="EmployeService.cs" />
     <Compile Include="EtageService.cs" />
     <Compile Include="IService.cs" />
+    <Compile Include="ModuleService.cs" />
     <Compile Include="Parametres.cs" />
     <Compile Include="PersonneService.cs" />
     <Compile Include="PlanService.cs" />
@@ -153,6 +154,7 @@
     <Compile Include="ServiceService.cs" />
     <Compile Include="StockService.cs" />
     <Compile Include="TEmployeService.cs" />
+    <Compile Include="TModuleService.cs" />
     <Compile Include="UtilisateurService.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -165,6 +167,7 @@
       <Name>Madera.Model</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
