@@ -1,4 +1,4 @@
-﻿@using MaderaSoft.Areas.GestionModule.Models.ViewModels;
+﻿@using MaderaSoft.Areas.RechercheDeveloppement.Models.ViewModels;
 @using Madera.Service;
 
 @model ModuleIndexViewModel
@@ -22,7 +22,7 @@
 <!-- Main content -->
 <section class="content">
 
-    @Html.actionButton("Ajouter un nouveau module", Parametres.TypeBouton.Creation, Url.Action("EditModal", "Module", new { area = "GestionModule" }).ToString(), "editModal")
+    @Html.actionButton("Ajouter un nouveau module", Parametres.TypeBouton.Creation, Url.Action("EditModal", "Module", new { area = "RechercheDeveloppement" }).ToString(), "editModal")
 
     @{
         Html.bootstrapTable(Model.tableauModules);

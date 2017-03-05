@@ -8,7 +8,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace MaderaSoft.Areas.GestionModule.Models.DTOs
+namespace MaderaSoft.Areas.RechercheDeveloppement.Models.DTOs
 {
     public class ModuleDTO
     {

@@ -1,22 +1,22 @@
 ﻿using System.Web.Mvc;
 
-namespace MaderaSoft.Areas.GestionModule
+namespace MaderaSoft.Areas.RechercheDeveloppement
 {
-    public class GestionModuleAreaRegistration : AreaRegistration 
+    public class RechercheDeveloppementAreaRegistration : AreaRegistration 
     {
         public override string AreaName 
         {
             get 
             {
-                return "GestionModule";
+                return "RechercheDeveloppement";
             }
         }
 
         public override void RegisterArea(AreaRegistrationContext context) 
         {
             context.MapRoute(
-                "GestionModule_default",
-                "GestionModule/{controller}/{action}/{id}",
+                "RechercheDeveloppement_default",
+                "RechercheDeveloppement/{controller}/{action}/{id}",
                 new { action = "Index", id = UrlParameter.Optional }
             );
         }

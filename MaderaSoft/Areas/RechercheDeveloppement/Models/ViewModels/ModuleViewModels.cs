@@ -1,4 +1,4 @@
-﻿using MaderaSoft.Areas.GestionModule.Models.DTOs;
+﻿using MaderaSoft.Areas.RechercheDeveloppement.Models.DTOs;
 using MaderaSoft.Models.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -6,7 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace MaderaSoft.Areas.GestionModule.Models.ViewModels
+namespace MaderaSoft.Areas.RechercheDeveloppement.Models.ViewModels
 {
 
     public class ModuleIndexViewModel

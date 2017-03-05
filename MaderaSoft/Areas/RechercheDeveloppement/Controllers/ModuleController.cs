@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using Madera.Model;
 using Madera.Service;
-using MaderaSoft.Areas.GestionModule.Models.DTOs;
-using MaderaSoft.Areas.GestionModule.Models.ViewModels;
+using MaderaSoft.Areas.RechercheDeveloppement.Models.DTOs;
+using MaderaSoft.Areas.RechercheDeveloppement.Models.ViewModels;
 using MaderaSoft.Models.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -11,7 +11,7 @@ using System.Web;
 using System.Web.Mvc;
 using Vereyon.Web;
 
-namespace MaderaSoft.Areas.GestionModule.Controllers
+namespace MaderaSoft.Areas.RechercheDeveloppement.Controllers
 {
     public class ModuleController : Controller
     {
@@ -34,7 +34,7 @@ namespace MaderaSoft.Areas.GestionModule.Controllers
             {
                 ModuleIndexViewModel modelOut = new ModuleIndexViewModel();
                 BootstrapButtonViewModel button = new BootstrapButtonViewModel();
-                modelOut.tableauModules.typeObjet = "GestionModule/Module";
+                modelOut.tableauModules.typeObjet = "RechercheDeveloppement/Module";
                 modelOut.tableauModules.avecActionCrud = true;
                 modelOut.tableauModules.messageSiVide = "Aucun module n'a été ajouté à l'application.";
 
@@ -46,7 +46,7 @@ namespace MaderaSoft.Areas.GestionModule.Controllers
                 {
                     button = new BootstrapButtonViewModel
                     {
-                        href = Url.Action("Detail", "Module", new { area = "GestionModule", id = module.id }).ToString(),
+                        href = Url.Action("Detail", "Module", new { area = "RechercheDeveloppement", id = module.id }).ToString(),
                         cssClass = "",
                         libe = " ",
                         typeDeBouton = Parametres.TypeBouton.Detail
@@ -72,7 +72,7 @@ namespace MaderaSoft.Areas.GestionModule.Controllers
 
 
             editModule.lesGammes = _donneListeGammes();
-                modelOut.formulaireUrl = "~/Areas/GestionModule/Views/Module/_EditModulePartial.cshtml";
+                modelOut.formulaireUrl = "~/Areas/RechercheDeveloppement/Views/Module/_EditModulePartial.cshtml";
                 modelOut.titreModal = string.Format("Modification des informations du module");
                 modelOut.objet = editModule;
 
@@ -144,7 +144,7 @@ namespace MaderaSoft.Areas.GestionModule.Controllers
             public ActionResult DeleteModal(int id)
             {
                 BootstrapModalViewModel modelOut = new BootstrapModalViewModel();
-                modelOut.typeObjet = "GestionModule/Module";
+                modelOut.typeObjet = "RechercheDeveloppement/Module";
                 modelOut.formulaireUrl = "~/Views/Shared/_BootstrapDeleteModalPartial.cshtml";
                 modelOut.titreModal = "Suppression d'un module";
                 modelOut.objet = new BootstrapDeleteModalViewModel { idToDelete = id, message = "Etes vous sûr de vouloir supprimer ce module ?" };

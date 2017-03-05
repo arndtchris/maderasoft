@@ -45,7 +45,7 @@ namespace MaderaSoft.Mapping
                 .ForMember(g => g.projet, map => map.MapFrom(vm => vm.projet)).MaxDepth(1)
                 .ForMember(g => g.referent, map => map.MapFrom(vm => vm.employe)).MaxDepth(1);
 
-            CreateMap<Areas.GestionModule.Models.DTOs.ModuleDTO, Module>()
+            CreateMap<Areas.RechercheDeveloppement.Models.DTOs.ModuleDTO, Module>()
                .ForMember(g => g.id, map => map.MapFrom(vm => vm.id))
                .ForMember(g => g.libe, map => map.MapFrom(vm => vm.libe))
                .ForMember(g => g.typeModule, map => map.MapFrom(vm => vm.typeModule))
