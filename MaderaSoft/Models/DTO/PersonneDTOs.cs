@@ -34,6 +34,7 @@ namespace MaderaSoft.Models.DTO
         [DisplayName("Tel. fixe")]
         public string tel2 { get; set; }
         public AdresseDTO adresse { get; set; }
+        public UtilisateurDTO utilisateur { get; set; }
 
         public string getCiv()
         {
@@ -56,6 +57,7 @@ namespace MaderaSoft.Models.DTO
         public PersonneDTO()
         {
             adresse = new AdresseDTO();
+            utilisateur = new UtilisateurDTO();
         }
     }
 
@@ -89,5 +91,29 @@ namespace MaderaSoft.Models.DTO
         {
             adresse = new AdresseDTO();
         }
+    }
+
+    public class PersonneSimpleDTO
+    {
+        public int id { get; set; }
+
+        public bool isDeleted { get; set; }
+
+        [DisplayName("Civilité")]
+        [Required(ErrorMessage = "Veuillez renseigner une civilité")]
+        public string civ { get; set; }
+        [DisplayName("Nom")]
+        [Required(ErrorMessage = "Veuillez renseigner un nom")]
+        public string nom { get; set; }
+        [DisplayName("Prénom")]
+        [Required(ErrorMessage = "Veuillez renseigner un prénom")]
+        public string prenom { get; set; }
+        [DisplayName("Email")]
+        //[RegularExpression("^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$", ErrorMessage = "Cette adresse email n'est as valide")]
+        public string email { get; set; }
+        [DisplayName("Tel. portable")]
+        public string tel1 { get; set; }
+        [DisplayName("Tel. fixe")]
+        public string tel2 { get; set; }
     }
 }

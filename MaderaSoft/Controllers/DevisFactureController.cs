@@ -121,10 +121,10 @@ namespace MaderaSoft.Controllers
         public ActionResult DeleteModal(int id)
         {
             BootstrapModalViewModel modelOut = new BootstrapModalViewModel();
-            modelOut.typeObjet = "Devis";
+            //modelOut.typeObjet = "Devis";
             modelOut.formulaireUrl = "~/Views/Shared/_BootstrapDeleteModalPartial.cshtml";
             modelOut.titreModal = "Suppression d'un devis";
-            modelOut.objet = new BootstrapDeleteModalViewModel { idToDelete = id, message = "Etes vous sûr de vouloir supprimer ce devis ?" };
+            modelOut.objet = new BootstrapDeleteModalViewModel { idToDelete = id, message = "Etes vous sûr de vouloir supprimer ce devis ?", method="Delete",urlController="DevisFacture" };
 
             return PartialView("~/Views/Shared/_BootstrapModalPartial.cshtml", modelOut);
         }

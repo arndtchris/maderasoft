@@ -1,0 +1,81 @@
+﻿@using MaderaSoft.Areas.RessourcesHumaines.Models.ViewModels;
+@using Madera.Service;
+@using Vereyon.Web;
+
+@model CardEmployeViewModel
+
+<style>
+    .alert{
+        position: absolute;
+        z-index: 900;
+        right : 15px;
+    }
+
+</style>
+
+<script>
+    function fadeOutAlert()
+    {
+        $('.alert').fadeOut(6000);
+    }
+
+</script>
+
+@using (Ajax.BeginForm("DetailEmploye", "Employe", new { area = "RessourcessHumaines" }, new AjaxOptions
+{
+    InsertionMode = InsertionMode.Replace,
+    HttpMethod = "POST",
+    UpdateTargetId = "cardEmploye",
+    Url = Url.Action("DetailEmploye", "Employe", new { area = "RessourcesHumaines" }, null),
+    OnComplete = "fadeOutAlert()"
+}))
+{
+    @Html.RenderFlashMessages()
+
+    @Html.HiddenFor(m => m.employe.id)
+    <div class="content box box-primary">
+        <div class="box-header with-border"><h3 class="box-title">Informations personnelles</h3></div>
+        <div class="row">
+            <div class="col-md-4">
+                @Html.LabelFor(m => m.employe.civ)
+                @Html.DropDownListFor(m => m.employe.civ, Model.lesCivilites)
+                <p class="bg-warning">@Html.ValidationMessageFor(m => m.employe.civ)</p>
+            </div>
+            <div class="col-md-4">
+                @Html.LabelFor(m => m.employe.nom)
+                @Html.TextBoxFor(m => m.employe.nom)
+                <p class="bg-warning">@Html.ValidationMessageFor(m => m.employe.nom)</p>
+            </div>
+            <div class="col-md-4">
+                @Html.LabelFor(m => m.employe.prenom)
+                @Html.TextBoxFor(m => m.employe.prenom)
+                <p class="bg-warning">@Html.ValidationMessageFor(m => m.employe.prenom)</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                @Html.LabelFor(m => m.employe.email)
+                @Html.TextBoxFor(m => m.employe.email)
+                <p class="bg-warning">@Html.ValidationMessageFor(m => m.employe.email)</p>
+            </div>
+            <div class="col-md-4">
+                @Html.LabelFor(m => m.employe.tel1)
+                @Html.TextBoxFor(m => m.employe.tel1)
+                <p class="bg-warning">@Html.ValidationMessageFor(m => m.employe.tel1)</p>
+            </div>
+            <div class="col-md-4">
+                @Html.LabelFor(m => m.employe.tel2)
+                @Html.TextBoxFor(m => m.employe.tel2)
+                <p class="bg-warning">@Html.ValidationMessageFor(m => m.employe.tel2)</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-offset-9 col-md-2">
+                @Html.actionButton(" Valider", Parametres.TypeBouton.Submit)
+            </div>
+        </div>
+    </div>
+}
+
+
+

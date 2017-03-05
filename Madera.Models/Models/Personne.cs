@@ -18,8 +18,7 @@ namespace Madera.Model
         public Boolean isClient { get; set; }
         public Boolean isDeleted { get; set; }
         public virtual Adresse adresse { get; set; }
-        //public virtual Utilisateur utilisateur { get; set; }
-        //public virtual Employe employe { get; set; }
+        public virtual Utilisateur utilisateur { get; set; }
 
         public Personne()
         {

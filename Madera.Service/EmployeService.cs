@@ -14,14 +14,16 @@ namespace Madera.Service
         private readonly IApplicationTraceService _applicationTraceService;
         private readonly IAffectationServiceService _affectationServiceService;
         private readonly IAdresseService _adresseService;
+        private readonly IUtilisateurService _utilisateurService;
         private readonly IUnitOfWork _unitOfWork;
 
-        public EmployeService(IEmployeRepository employeRepository, IUnitOfWork unitOfWork, IApplicationTraceService applicationTraceService, IAffectationServiceService affectationServiceService, IAdresseService adresseService)
+        public EmployeService(IEmployeRepository employeRepository, IUnitOfWork unitOfWork, IApplicationTraceService applicationTraceService, IAffectationServiceService affectationServiceService, IAdresseService adresseService, IUtilisateurService utilisateurService)
         {
             this._employeRepository = employeRepository;
             this._applicationTraceService = applicationTraceService;
             this._affectationServiceService = affectationServiceService;
             this._adresseService = adresseService;
+            this._utilisateurService = utilisateurService;
             this._unitOfWork = unitOfWork;
         }
 
@@ -42,7 +44,7 @@ namespace Madera.Service
             _applicationTraceService.create(new ApplicationTrace
             {
                 utilisateur = "",
-                action = Parametres.Action.Modification.ToString(),
+                action = Parametres.Action.Creation.ToString(),
                 description = "Création d'un employé",
             });
         }
@@ -52,10 +54,20 @@ namespace Madera.Service
 
             //Si la personne possède une adresse, on doit également la mettre à jour
             //EntityFramework ne gère pas la mise à jour des enfants
-            //L'adresse est obligatoire, on a pas beoin de vérifier le null
-            _adresseService.Update(employe.adresse);
+            if(employe.adresse != null)
+                _adresseService.Update(employe.adresse);
 
-            if (employe.affectationServices.Count > 0)
+            //L'utilisateur existe, on le met à jour
+            if(employe.utilisateur.id != 0)
+            {
+                _utilisateurService.Update(employe.utilisateur);
+
+            }else if(employe.utilisateur.id == 0 && string.IsNullOrEmpty(employe.utilisateur.login))//l'utilisateur n'existe pas, on le créé
+            {
+                _utilisateurService.Create(employe.utilisateur);
+            }
+
+            if (employe.affectationServices != null && employe.affectationServices.Count > 0)
             {
                 foreach(AffectationService affec in employe.affectationServices)
                 {
@@ -68,14 +80,13 @@ namespace Madera.Service
                         if(affec.employe == null)
                         {
                             affec.employe = new Employe();
-                            affec.employe.id = employe.id;
+                            affec.employe = employe;
                         }
 
                         _affectationServiceService.Create(affec);
                     }
                 }
             }
-
             _employeRepository.Update(employe);
 
             _applicationTraceService.create(new ApplicationTrace
@@ -93,6 +104,21 @@ namespace Madera.Service
 
         public void Delete(int id)
         {
+            Employe emp = this.Get(id);
+            List<int> ids = new List<int>();
+
+            foreach(AffectationService affec in emp.affectationServices)
+            {
+                ids.Add(affec.id);
+            }
+
+            foreach(int i in ids)
+            {
+                _affectationServiceService.Delete(i);
+            }
+
+            _adresseService.Delete(emp.adresse.id);
+
             _employeRepository.Delete(x => x.id == id);
 
             _applicationTraceService.create(new ApplicationTrace

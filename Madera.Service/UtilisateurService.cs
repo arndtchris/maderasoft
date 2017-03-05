@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Web;
 using Madera.Data.Infrastructure;
 using Madera.Data.Repositories;
@@ -24,6 +25,15 @@ namespace Madera.Service
 
         public void Create(Utilisateur utilisateur)
         {
+            if (string.IsNullOrEmpty(utilisateur.password))
+            {
+                utilisateur.password = Crypte(Parametres.defaultPassword);
+            }
+
+            utilisateur.isFirstConnexion = true;
+            utilisateur.dCreation = DateTime.Now;
+            utilisateur.dConnexion = DateTime.MinValue;
+
             _utilisateurRepository.Insert(utilisateur);
 
             _applicationTraceService.create(new ApplicationTrace
@@ -62,21 +72,75 @@ namespace Madera.Service
             _unitOfWork.Commit();
         }
 
-        public void Update(Utilisateur utilsateur)
+        public void Update(Utilisateur utilisateur)
         {
-            _utilisateurRepository.Update(utilsateur);
+
+            _utilisateurRepository.Update(utilisateur);
 
             _applicationTraceService.create(new ApplicationTrace
             {
                 utilisateur = "",
                 action = Parametres.Action.Modification.ToString(),
-                description = String.Format("Mise à jour de l'utilisateur utilisateur_id = {0}", utilsateur.id),
+                description = String.Format("Mise à jour de l'utilisateur utilisateur_id = {0}", utilisateur.id),
+            });
+        }
+
+        public string Crypte(string password)
+        {
+            var bytes = new UTF8Encoding().GetBytes(password);
+            byte[] hashBytes;
+            using (var algorithm = new System.Security.Cryptography.SHA512Managed())
+            {
+                hashBytes = algorithm.ComputeHash(bytes);
+            }
+            return Convert.ToBase64String(hashBytes);
+        }
+
+        public void ActiveUtilisateur(int id)
+        {
+            _utilisateurRepository.activeUtilisateur(id);
+
+            _applicationTraceService.create(new ApplicationTrace
+            {
+                utilisateur = "",
+                action = Parametres.Action.Modification.ToString(),
+                description = String.Format("Activation du compte utilisateur utilisateur_id = {0}", id),
+            });
+        }
+
+        public void DesactiveUtilisateur(int id)
+        {
+            _utilisateurRepository.desactiveUtilisateur(id);
+
+            _applicationTraceService.create(new ApplicationTrace
+            {
+                utilisateur = "",
+                action = Parametres.Action.Modification.ToString(),
+                description = String.Format("Désactivation du compte utilisateur utilisateur_id = {0}", id),
+            });
+        }
+
+        public void ResetPwd(int id)
+        {
+            _utilisateurRepository.resetPwd(id, Crypte(Parametres.defaultPassword));
+
+            _applicationTraceService.create(new ApplicationTrace
+            {
+                utilisateur = "",
+                action = Parametres.Action.Modification.ToString(),
+                description = String.Format("Réinitialisation du mot de passe du compte utilisateur utilisateur_id = {0}", id),
             });
         }
     }
 
     public interface IUtilisateurService : IService<Utilisateur>
     {
+        void ActiveUtilisateur(int id);
 
+        void DesactiveUtilisateur(int id);
+
+        void ResetPwd(int id);
+
+        string Crypte(string password);
     }
 }

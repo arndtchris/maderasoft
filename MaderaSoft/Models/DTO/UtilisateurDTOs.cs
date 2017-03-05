@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Web;
 
@@ -7,12 +8,28 @@ namespace MaderaSoft.Models.DTO
 {
     public class UtilisateurDTO
     {
+        [DisplayName("id")]
+        public int id { get; set; }
+
+        [DisplayName("Identifiant")]
         public string login { get; set; }
+
+        [DisplayName("Mot de passe")]
         public string password { get; set; }
+
+        [DisplayName("Date de création")]
         public DateTime dCreation { get; set; }
-        public DateTime dConnexion { get; set; }
+
+        [DisplayName("Date de dernier connexion")]
+        public DateTime? dConnexion { get; set; }
+
+        [DisplayName("Archivé")]
         public bool isActive { get; set; }
+
+        [DisplayName("Supprimé")]
         public bool isDeleted { get; set; }
+
+        public bool isFirstConnexion { get; set; }
 
         public string utilisateurActif()
         {
@@ -33,6 +50,17 @@ namespace MaderaSoft.Models.DTO
         public UtilisateurDTO()
         {
 
+        }
+
+        public UtilisateurDTO(UtilisateurDTO util)
+        {
+            this.dConnexion = util.dConnexion;
+            this.id = util.id;
+            this.dCreation = util.dCreation;
+            this.isActive = util.isActive;
+            this.isDeleted = util.isDeleted;
+            this.login = util.login;
+            this.password = util.password;
         }
     }
 }

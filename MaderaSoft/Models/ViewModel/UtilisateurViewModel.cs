@@ -18,4 +18,17 @@ namespace MaderaSoft.Models.ViewModel
             tableauAdresses = new BootstrapTableViewModel();
         }
     }
+
+    public class CardEmployeUtilisateurViewModel : NotificationUtilisateur
+    {
+        //public int idUtilisateur { get; set; }
+        public UtilisateurDTO utilisateur { get; set; }
+
+        public CardEmployeUtilisateurViewModel()
+        {
+            utilisateur = new UtilisateurDTO();
+        }
+    }
+
+
 }

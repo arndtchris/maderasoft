@@ -13,6 +13,7 @@ namespace Madera.Model
         public string codePostal { get; set; }
         public string ville { get; set; }
         public string pays { get; set; }
+        public virtual Personne personne { get; set; }
 
         public Adresse()
         {

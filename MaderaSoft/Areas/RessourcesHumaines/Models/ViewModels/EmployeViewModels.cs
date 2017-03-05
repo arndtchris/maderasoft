@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Madera.Model;
+using MaderaSoft.Models;
 using MaderaSoft.Models.DTO;
 using MaderaSoft.Models.ViewModel;
 
@@ -43,4 +44,46 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Models.ViewModels
             };
         }
     }
- }
+
+    public class CardEmployeViewModel
+    {
+        public PersonneSimpleDTO employe { get; set; }
+
+        //public List<SelectListItem> lesTypesEmployes { get; set; }
+
+        public List<SelectListItem> lesCivilites { get; set; }
+
+        public CardEmployeViewModel()
+        {
+            employe = new PersonneSimpleDTO();
+            //lesTypesEmployes = new List<SelectListItem>();
+            lesCivilites = new List<SelectListItem> {
+                new SelectListItem {Value = "",Text = "--- Sélectionnez ---" },
+                new SelectListItem {Value = "1",Text = "Madame" },
+                new SelectListItem {Value = "2",Text = "Monsieur" }
+            };
+        }
+            
+
+    }
+
+
+    public class DetailEmployeViewModel
+    {
+        public CardAffectationServiceViewModel cardAffectations { get; set; }
+
+        public CardEmployeViewModel cardEmploye { get; set; }
+
+        public CardEmployeUtilisateurViewModel cardUtilisateur { get; set; }
+
+        public AdresseDTO adresse { get; set; }
+
+        public DetailEmployeViewModel()
+        {
+            cardAffectations = new CardAffectationServiceViewModel();
+            cardEmploye = new CardEmployeViewModel();
+            cardUtilisateur = new CardEmployeUtilisateurViewModel();
+            adresse = new AdresseDTO();
+        }
+    }
+}

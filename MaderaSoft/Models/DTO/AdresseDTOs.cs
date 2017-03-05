@@ -30,7 +30,6 @@ namespace MaderaSoft.Models.DTO
 
         public AdresseDTO()
         {
-
         }
     }
 }
