@@ -34,6 +34,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>Documents.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -217,6 +218,7 @@
     <Compile Include="Areas\GestionStock\GestionStocksAreaRegistration.cs" />
     <Compile Include="Areas\GestionStock\Models\DTOs\StockDTOs.cs" />
     <Compile Include="Areas\RessourcesHumaines\Controllers\EmployeController.cs" />
+    <Compile Include="Areas\RessourcesHumaines\Controllers\UtilisateurController.cs" />
     <Compile Include="Areas\RessourcesHumaines\Models\ViewModels\EmployeViewModels.cs" />
     <Compile Include="Areas\RessourcesHumaines\RessourcesHumainesAreaRegistration.cs" />
     <Compile Include="Areas\Simulateur\Controllers\MaisonController.cs" />
@@ -233,6 +235,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\BootstrapHelper.cs" />
+    <Compile Include="Helpers\NotificationHelper.cs" />
     <Compile Include="Mapping\AutoMapperConfiguration.cs" />
     <Compile Include="Mapping\DomainToViewModelMappingProfile.cs" />
     <Compile Include="Mapping\ViewModelToDomainMappingProfile.cs" />
@@ -252,6 +255,7 @@
     <Compile Include="Models\DTO\ServiceDTOs.cs" />
     <Compile Include="Models\DTO\TEmployeDTOs.cs" />
     <Compile Include="Models\DTO\UtilisateurDTOs.cs" />
+    <Compile Include="Models\NotificationUtilisateur.cs" />
     <Compile Include="Models\ViewModel\AdresseViewModels.cs" />
     <Compile Include="Models\DTO\AdresseDTOs.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -259,6 +263,7 @@
     <Compile Include="Models\ViewModel\AffectationServiceViewModels.cs" />
     <Compile Include="Models\ViewModel\BootstrapViewModels.cs" />
     <Compile Include="Models\ViewModel\DevisFactureViewModels.cs" />
+    <Compile Include="Models\ViewModel\PersonneViewModels.cs" />
     <Compile Include="Models\ViewModel\UtilisateurViewModel.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
@@ -348,6 +353,10 @@
     <Content Include="Areas\Simulateur\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Simulateur\Views\web.config" />
     <Content Include="Areas\Simulateur\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\RessourcesHumaines\Views\Employe\_CardEmployePartial.cshtml" />
+    <Content Include="Areas\RessourcesHumaines\Views\Employe\_CardAdressePartial.cshtml" />
+    <Content Include="Areas\RessourcesHumaines\Views\Employe\_CardAffectationPartial.cshtml" />
+    <Content Include="Areas\RessourcesHumaines\Views\Employe\_CardUtilisateurPartial.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\grayscale.min.js" />
     <None Include="Scripts\jquery-2.2.3.intellisense.js" />
@@ -355,6 +364,8 @@
     <Content Include="Scripts\jquery-2.2.3.min.js" />
     <Content Include="Scripts\jquery-2.2.3.min.map" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -413,6 +424,7 @@
     <Folder Include="Areas\GestionStock\Views\Shared\" />
     <Folder Include="Areas\GestionStock\Views\StocksDTOs\" />
     <Folder Include="Areas\GestionStock\Views\Stocks\" />
+    <Folder Include="Areas\RessourcesHumaines\Views\Utilisateur\" />
     <Folder Include="bin\roslyn\" />
     <Folder Include="Content\Img\" />
     <Folder Include="Views\Employe\" />
@@ -427,7 +439,7 @@
       <Name>Madera.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\Madera.Models\Madera.Model.csproj">
-      <Project>{f0f92c4c-ab34-48de-a251-feb0188b5498}</Project>
+      <Project>{F0F92C4C-AB34-48DE-A251-FEB0188B5498}</Project>
       <Name>Madera.Model</Name>
     </ProjectReference>
     <ProjectReference Include="..\Madera.Service\Madera.Service.csproj">
