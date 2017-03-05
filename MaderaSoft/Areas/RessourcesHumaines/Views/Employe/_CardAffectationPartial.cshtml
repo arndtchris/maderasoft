@@ -24,6 +24,7 @@
 @Html.RenderFlashMessages()
 <div class="content box box-primary">
     <div class="box-header with-border"><h3 class="box-title">Les affectations selon service</h3></div>
+    @Html.AfficheNotificationUtilisateur(Model.notifications)
         @using (Ajax.BeginForm("DetailAjoutAffectation", "Employe", new { area = "RessourcessHumaines" }, new AjaxOptions
         {
             InsertionMode = InsertionMode.Replace,
@@ -36,17 +37,19 @@
             @Html.HiddenFor(m => m.nouvelleAffectation.emplyeId)
             <div class="row">
                 <div class="col-md-3">
-                    @Html.LabelFor(m => m.nouvelleAffectation.serviceIdPourAffectation)
+                    @Html.LabelFor(m => m.nouvelleAffectation.serviceIdPourAffectation)<br/>
                     @Html.DropDownListFor(m => m.nouvelleAffectation.serviceIdPourAffectation, Model.lesServices)
                     <p class="bg-warning">@Html.ValidationMessageFor(m => m.nouvelleAffectation.serviceIdPourAffectation)</p>
                 </div>
                 <div class="col-md-3">
-                    @Html.LabelFor(m => m.nouvelleAffectation.groupeIdPourAffectation)
+                    @Html.LabelFor(m => m.nouvelleAffectation.groupeIdPourAffectation)<br />
                     @Html.DropDownListFor(m => m.nouvelleAffectation.groupeIdPourAffectation, Model.lesDroits)
                     <p class="bg-warning">@Html.ValidationMessageFor(m => m.nouvelleAffectation.groupeIdPourAffectation)</p>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-2">
                     @Html.LabelFor(m => m.nouvelleAffectation.isAffecttionPrincipal)
+                </div>
+                <div class="col-md-1">
                     @Html.CheckBoxFor(m => m.nouvelleAffectation.isAffecttionPrincipal)
                 </div>
                 <div class="col-md-2">

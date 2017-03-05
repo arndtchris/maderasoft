@@ -66,5 +66,6 @@ namespace MaderaSoft.Models.ViewModel
         public Parametres.TypeBouton typeDeBouton { get; set; }
         public string libe { get; set; }
         public string cssClass { get; set; }
+        public string tooltip { get; set; }
     }
 }

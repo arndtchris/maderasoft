@@ -39,7 +39,8 @@ namespace System.Web.Mvc
         /// <returns></returns>
         private static MvcHtmlString _genereNotification(Notification notification)
         {
-            string classCss = "";
+            string classCss = "notification ";
+            string icon = "";
 
             switch(notification.dureeNotification)
             {
@@ -55,20 +56,24 @@ namespace System.Web.Mvc
             {
                 case Parametres.TypeNotification.Success:
                     classCss += "bg-green disabled color-palette ";
+                    icon = "<i class=\"fa fa-check\" aria-hidden=\"true\"></i> ";
                     break;
                 case Parametres.TypeNotification.Warning:
-                    classCss += "alert-warning ";
+                    classCss += "bg-yellow disabled color-palette ";
+                    icon = "<i class=\"fa fa-exclamation-triangle\" aria-hidden=\"true\"></i> ";
                     break;
                 case Parametres.TypeNotification.Danger:
-                    classCss += "alert-danger ";
+                    classCss += "bg-red disabled color-palette ";
+                    icon = "<i class=\"fa fa-stop-circle\" aria-hidden=\"true\"></i> ";
                     break;
                 case Parametres.TypeNotification.Information:
-                    classCss += "alert-info ";
+                    classCss += "bg-aqua disabled color-palette";
+                    icon = "<i class=\"fa fa-info-circle\" aria-hidden=\"true\"></i> ";
                     break;
             }
 
             return new MvcHtmlString(
-                "<div class=\"" + classCss +"alert-dismissible\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button>" + notification.message + "</div>"
+                "<div class=\"" + classCss +"\"><p class=\"p-notification\">"+ icon + notification.message + "</p></div>"
                 );
 
         }

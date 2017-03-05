@@ -7,7 +7,7 @@ using MaderaSoft.Models.DTO;
 
 namespace MaderaSoft.Models.ViewModel
 {
-    public class CardAffectationServiceViewModel
+    public class CardAffectationServiceViewModel : NotificationUtilisateur
     {
         public List<SelectListItem> lesServices { get; set; }
 

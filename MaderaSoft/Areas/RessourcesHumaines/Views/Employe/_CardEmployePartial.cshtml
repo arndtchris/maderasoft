@@ -36,41 +36,41 @@
     <div class="content box box-primary">
         <div class="box-header with-border"><h3 class="box-title">Informations personnelles</h3></div>
         <div class="row">
-            <div class="col-md-4">
-                @Html.LabelFor(m => m.employe.civ)
+            <div class="col-sm-4 col-md-4">
+                @Html.LabelFor(m => m.employe.civ)<br/>
                 @Html.DropDownListFor(m => m.employe.civ, Model.lesCivilites)
                 <p class="bg-warning">@Html.ValidationMessageFor(m => m.employe.civ)</p>
             </div>
-            <div class="col-md-4">
-                @Html.LabelFor(m => m.employe.nom)
+            <div class="col-sm-4 col-md-4">
+                @Html.LabelFor(m => m.employe.nom)<br/>
                 @Html.TextBoxFor(m => m.employe.nom)
                 <p class="bg-warning">@Html.ValidationMessageFor(m => m.employe.nom)</p>
             </div>
-            <div class="col-md-4">
-                @Html.LabelFor(m => m.employe.prenom)
+            <div class="col-sm-4 col-md-4">
+                @Html.LabelFor(m => m.employe.prenom)<br/>
                 @Html.TextBoxFor(m => m.employe.prenom)
                 <p class="bg-warning">@Html.ValidationMessageFor(m => m.employe.prenom)</p>
             </div>
         </div>
         <div class="row">
-            <div class="col-md-4">
-                @Html.LabelFor(m => m.employe.email)
+            <div class="col-sm-4 col-md-4">
+                @Html.LabelFor(m => m.employe.email)<br/>
                 @Html.TextBoxFor(m => m.employe.email)
                 <p class="bg-warning">@Html.ValidationMessageFor(m => m.employe.email)</p>
             </div>
-            <div class="col-md-4">
-                @Html.LabelFor(m => m.employe.tel1)
+            <div class="col-sm-4 col-md-4">
+                @Html.LabelFor(m => m.employe.tel1)<br />
                 @Html.TextBoxFor(m => m.employe.tel1)
                 <p class="bg-warning">@Html.ValidationMessageFor(m => m.employe.tel1)</p>
             </div>
-            <div class="col-md-4">
-                @Html.LabelFor(m => m.employe.tel2)
+            <div class="col-sm-4 col-md-4">
+                @Html.LabelFor(m => m.employe.tel2)<br />
                 @Html.TextBoxFor(m => m.employe.tel2)
                 <p class="bg-warning">@Html.ValidationMessageFor(m => m.employe.tel2)</p>
             </div>
         </div>
         <div class="row">
-            <div class="col-md-offset-9 col-md-2">
+            <div class="col-sm-offset-9 col-sm-2 col-md-offset-9 col-md-2">
                 @Html.actionButton(" Valider", Parametres.TypeBouton.Submit)
             </div>
         </div>

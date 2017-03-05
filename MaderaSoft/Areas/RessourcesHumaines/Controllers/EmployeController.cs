@@ -64,7 +64,8 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
                     href = Url.Action("Detail", "Employe", new { area = "RessourcesHumaines", id = employe.id }).ToString(),
                     cssClass = "",
                     libe = " ",
-                    typeDeBouton = Parametres.TypeBouton.Detail
+                    typeDeBouton = Parametres.TypeBouton.Detail,
+                    tooltip = "Voir la fiche détaillée de cet employé"
                 };
 
                 modelOut.tableauEmployes.lesLignes.Add(new List<object> { button, string.Format("{0} {1} {2}", employe.getCiv().ToUpperFirst(), employe.nom.ToUpperFirst(), employe.prenom.ToUpperFirst()), string.Format("{0} {1} {2} {3}", employe.adresse.numRue, employe.adresse.nomRue, employe.adresse.codePostal, employe.adresse.ville), employe.id.ToString() });
@@ -518,6 +519,45 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
 
             try
             {
+                emp = Mapper.Map<Employe, EmployeDTO>(_employeService.Get(idEmploye));
+
+                //Un employé doit avoir au moins une affectation
+                if(emp.affectationServices.Count == 1)
+                {
+                    modelOut.notifications.Add(new Notification
+                    {
+                        dureeNotification = Parametres.DureeNotification.Always,
+                        message = "Un employé doit avoir au moins une affectation",
+                        typeNotification = Parametres.TypeNotification.Warning
+                    });
+
+                    //On reconstruit l'affichage
+                    modelOut.tableauAffectations.avecActionCrud = false;
+                    modelOut.tableauAffectations.lesLignes.Add(new List<object> { "Service", "Droit", "Activité principale", "" });
+
+                    if (emp.affectationServices != null)
+                    {
+                        foreach (AffectationServiceDTO affectation in emp.affectationServices)
+                        {
+
+                            modelOut.tableauAffectations.lesLignes.Add(new List<object> { affectation.service.libe, affectation.groupe.libe, affectation.affectationPrincipaleOuiNon(), affectation.id });
+                        }
+                    }
+
+                    #region préparation des éléments utiles à la création d'une affectation
+
+                    modelOut.lesDroits = _donneListeGroupeUtilisateur();
+
+                    modelOut.lesServices = _donneListeService();
+
+                    modelOut.nouvelleAffectation.emplyeId = emp.id;
+
+
+                    #endregion
+
+                    return PartialView("~/Areas/RessourcesHumaines/Views/Employe/_CardAffectationPartial.cshtml", modelOut);
+                }
+
                 //On supprimer l'affectation
                 _affectationService.Delete(idToDelete);
                 _affectationService.Save();

@@ -4938,3 +4938,14 @@ table.text-center th {
 {
     min-height:20px;
 }
+
+.notification
+{
+    padding : 1px;
+    margin : 3px;
+}
+.p-notification
+{
+    padding : 3px;
+    margin-bottom : 0px;
+}

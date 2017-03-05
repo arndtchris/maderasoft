@@ -50,7 +50,14 @@ else
                                     {
                                         @Html.Raw("<td class=\"table-text\">");
                                         BootstrapButtonViewModel b = (BootstrapButtonViewModel)Model.lesLignes[j][k];
-                                        @Html.actionButton(b.libe, b.typeDeBouton, b.href, b.cssClass)
+                                        if (string.IsNullOrEmpty(b.tooltip))
+                                        {
+                                            @Html.actionButton(b.libe, b.typeDeBouton, b.href, b.cssClass)
+                                        }
+                                        else
+                                        {
+                                            @Html.actionButton(b.libe, b.typeDeBouton, b.href, b.cssClass, b.tooltip)
+                                        }
                                         @Html.Raw("</td>");
                                     }
 
