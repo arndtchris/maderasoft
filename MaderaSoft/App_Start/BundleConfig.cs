@@ -9,7 +9,9 @@ namespace MaderaSoft
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Scripts/jquery-2.2.3.min.js"));
+                        "~/Scripts/jquery-2.2.3.min.js",
+                        "~/Scripts/jquery.unobtrusive-ajax.min.js"
+                        ));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
@@ -36,10 +38,12 @@ namespace MaderaSoft
             bundles.Add(new StyleBundle("~/Content/admincss").Include(
                       "~/Content/Admin/AdminLTE.css",
                       "~/Content/Admin/skin-blue.min.css"));
+
             bundles.Add(new ScriptBundle("~/bundles/adminlayoutjs").Include(
                       "~/Scripts/Admin/appScript.js",
                       "~/Scripts/Admin/adminLte.min.js",
-                      "~/Scripts/Admin/SimulateurMaison.js"));
+                      "~/Scripts/Admin/SimulateurMaison.js"                      
+                      ));
         }
     }
 }
