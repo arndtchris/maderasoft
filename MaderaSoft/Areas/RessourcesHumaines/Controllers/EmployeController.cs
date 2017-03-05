@@ -55,30 +55,31 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
 
             List<PEmployeTableauDTO> lesEmployes = Mapper.Map<List<Employe>, List<PEmployeTableauDTO>>(_employeService.DonneTous().ToList());
 
-            modelOut.tableauEmployes.lesLignes.Add(new List<object> {"", "Employé","Adresse",""});
+            modelOut.tableauEmployes.lesLignes.Add(new List<object> { "", "Employé", "Adresse", "" });
 
-            foreach(PEmployeTableauDTO employe in lesEmployes)
+            foreach (PEmployeTableauDTO employe in lesEmployes)
             {
-                button = new BootstrapButtonViewModel {
-                    href = Url.Action("Detail", "Employe", new { area = "RessourcesHumaines", id = employe.id}).ToString(),
+                button = new BootstrapButtonViewModel
+                {
+                    href = Url.Action("Detail", "Employe", new { area = "RessourcesHumaines", id = employe.id }).ToString(),
                     cssClass = "",
                     libe = " ",
                     typeDeBouton = Parametres.TypeBouton.Detail
                 };
-             
-                modelOut.tableauEmployes.lesLignes.Add(new List<object> { button, string.Format("{0} {1} {2}", employe.getCiv().ToUpperFirst(), employe.nom.ToUpperFirst(), employe.prenom.ToUpperFirst()), string.Format("{0} {1} {2} {3}",employe.adresse.numRue, employe.adresse.nomRue, employe.adresse.codePostal, employe.adresse.ville), employe.id.ToString() });
+
+                modelOut.tableauEmployes.lesLignes.Add(new List<object> { button, string.Format("{0} {1} {2}", employe.getCiv().ToUpperFirst(), employe.nom.ToUpperFirst(), employe.prenom.ToUpperFirst()), string.Format("{0} {1} {2} {3}", employe.adresse.numRue, employe.adresse.nomRue, employe.adresse.codePostal, employe.adresse.ville), employe.id.ToString() });
             }
 
 
             return View(modelOut);
         }
-        
+
         /// <summary>
         /// Permet d'alimenter les informations nécessaires à la génération d'une modal d'édition d'un employé
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        
+
         [HttpGet]
         public ActionResult EditModal(int? id)
         {
@@ -87,7 +88,7 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
             EditEmployeViewModel editEmploye = new EditEmployeViewModel();
             BootstrapButtonViewModel button = new BootstrapButtonViewModel();
 
-            if(id.HasValue)
+            if (id.HasValue)
             {
                 editEmploye.personne = Mapper.Map<Employe, EditEmployeDTO>(_employeService.Get(id.Value));
 
@@ -125,7 +126,7 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
             {
                 modelOut.titreModal = "Ajout d'un employé";
             }
-                
+
             //On récupère la liste des services disponibles dans l'application
             editEmploye.lesServices = _donneListeService();
 
@@ -133,7 +134,7 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
             editEmploye.lesDroits = _donneListeGroupeUtilisateur();
 
             //On récuère la liste des types d'employés
-            editEmploye.lesTypesEmployes = _donneListeTypeEmploye();           
+            editEmploye.lesTypesEmployes = _donneListeTypeEmploye();
 
             modelOut.formulaireUrl = "~/Areas/RessourcesHumaines/Views/Employe/_EditEmployePartial.cshtml";
             modelOut.objet = editEmploye;
@@ -200,7 +201,7 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
                 {
                     FlashMessage.Danger("Erreur lors de l'ajout de l'employé");
                 }
-                
+
             }
             _employeService.Save();
 
@@ -219,7 +220,7 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
             //modelOut.typeObjet = "RessourcesHumaines/Employe";
             modelOut.formulaireUrl = "~/Views/Shared/_BootstrapDeleteModalPartial.cshtml";
             modelOut.titreModal = "Suppression d'un employé";
-            modelOut.objet = new BootstrapDeleteModalViewModel { idToDelete = id, message = "Etes vous sûr de vouloir supprimer cet employé ?", method="Delete", urlController="Employe" };
+            modelOut.objet = new BootstrapDeleteModalViewModel { idToDelete = id, message = "Etes vous sûr de vouloir supprimer cet employé ?", method = "Delete", urlController = "Employe" };
 
             return PartialView("~/Views/Shared/_BootstrapModalPartial.cshtml", modelOut);
         }
@@ -234,7 +235,7 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
         {
             try
             {
-                
+
                 _employeService.Delete(idToDelete);
                 _employeService.Save();
                 FlashMessage.Confirmation("Suppression de l'employé");
@@ -263,6 +264,7 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
             #region préparation de la card identité de l'employé
 
             modelOut.cardEmploye.employe = new EmployeSimpleDTO
+            {
                 id = emp.id,
                 civ = emp.civ,
                 nom = emp.nom,
@@ -279,59 +281,54 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
 
             #region préparation des infos utilisateur de l'employé
 
-                modelOut.cardUtilisateur.utilisateur = emp.utilisateur;
-                
-                if(emp.utilisateur.isActive)
-                {
-                    modelOut.cardUtilisateur.notifications.Add(new MaderaSoft.Models.Notification
-                    {
-                        dureeNotification = Parametres.DureeNotification.Always,
-                        message = "Le compte utilisateur est actif",
-                        typeNotification = Parametres.TypeNotification.Information
-                    });
+            modelOut.cardUtilisateur.utilisateur = emp.utilisateur;
 
-                    if(emp.utilisateur.isFirstConnexion)
-                    {
-                    	modelOut.cardUtilisateur.notifications.Add(new MaderaSoft.Models.Notification
-                    	{
-                        	dureeNotification = Parametres.DureeNotification.Always,
-                        	message = "L'utilisateur doit changer le mot de passe par défaut",
-                        	typeNotification = Parametres.TypeNotification.Warning
-                    	});
-               	    }
-                }
-                else
+            if (emp.utilisateur.isActive)
+            {
+                modelOut.cardUtilisateur.notifications.Add(new MaderaSoft.Models.Notification
+                {
+                    dureeNotification = Parametres.DureeNotification.Always,
+                    message = "Le compte utilisateur est actif",
+                    typeNotification = Parametres.TypeNotification.Information
+                });
+
+                if (emp.utilisateur.isFirstConnexion)
                 {
                     modelOut.cardUtilisateur.notifications.Add(new MaderaSoft.Models.Notification
                     {
                         dureeNotification = Parametres.DureeNotification.Always,
-                        message = "Le compte utilisateur est désactivé",
+                        message = "L'utilisateur doit changer le mot de passe par défaut",
                         typeNotification = Parametres.TypeNotification.Warning
                     });
-                email = emp.email,
-                tel2 = emp.tel2,
-                typeEmploye = emp.typeEmploye
-            };
+                }
+            }
+            else
+            {
+                modelOut.cardUtilisateur.notifications.Add(new MaderaSoft.Models.Notification
+                {
+                    dureeNotification = Parametres.DureeNotification.Always,
+                    message = "Le compte utilisateur est désactivé",
+                    typeNotification = Parametres.TypeNotification.Warning
+                });
+            }
 
-                
+
 
             #endregion
-            //les affectations de l'employé
 
             #region préparation de la card des affectations de l'employé
             //les affectations de l'employé
-            modelOut.cardAffectations.tableauAffectations.lesLignes.Add(new List<object> { "Service", "Droit", "Activité principale","" });
 
             //On prépare le tableau récapitulant les affectations de l'employé
             modelOut.cardAffectations.tableauAffectations.avecActionCrud = false;
-            modelOut.cardAffectations.tableauAffectations.lesLignes.Add(new List<object> { "Service", "Droit", "Activité principale","" });
+            modelOut.cardAffectations.tableauAffectations.lesLignes.Add(new List<object> { "Service", "Droit", "Activité principale", "" });
 
             if (emp.affectationServices != null)
             {
                 foreach (AffectationServiceDTO affectation in emp.affectationServices)
                 {
 
-                    modelOut.cardAffectations.tableauAffectations.lesLignes.Add(new List<object> { affectation.service.libe, affectation.groupe.libe, affectation.affectationPrincipaleOuiNon(),affectation.id });
+                    modelOut.cardAffectations.tableauAffectations.lesLignes.Add(new List<object> { affectation.service.libe, affectation.groupe.libe, affectation.affectationPrincipaleOuiNon(), affectation.id });
                 }
             }
 
@@ -367,32 +364,27 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
         {
             CardEmployeViewModel modelOut = new CardEmployeViewModel();
 
-            /*try
-            {*/
-                _personneService.Update(Mapper.Map<PersonneSimpleDTO, Personne>(employe));
-                _personneService.Save();
+            try
+            {
+            _personneService.Update(Mapper.Map<PersonneSimpleDTO, Personne>(employe));
+            _personneService.Save();
 
-                FlashMessage.Confirmation("Employé mis à jour avec succès");
-            /*}
+            FlashMessage.Confirmation("Employé mis à jour avec succès");
+            }
             catch (Exception e)
             {
                 modelOut.employe = employe;
-                modelOut.lesTypesEmployes = _donneListeTypeEmploye();
 
                 FlashMessage.Danger("Erreur lors de la mise à jour de l'employé");
 
                 return PartialView("~/Areas/RessourcesHumaines/Views/Employe/_CardEmployePartial.cshtml", modelOut);
-            }*/
+            }
 
             modelOut.employe = employe;
             //modelOut.lesTypesEmployes = _donneListeTypeEmploye();
 
             return PartialView("~/Areas/RessourcesHumaines/Views/Employe/_CardEmployePartial.cshtml", modelOut);
         }
-            catch (Exception e)
-            {
-                modelOut.employe = employe;
-                modelOut.lesTypesEmployes = _donneListeTypeEmploye();
 
         /// <summary>
         /// Méthode utilisée depuis un appel Ajax pour mettre à jour les données relatives à l'adresse d'un employé depuis sa fiche détaillée.
@@ -409,7 +401,7 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
                 _adresseService.Save();
                 FlashMessage.Confirmation("Adresse mise à jour avec succès");
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 modelOut = adresse;
                 FlashMessage.Danger("Erreur lors de la mise à jour");
@@ -504,15 +496,10 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
 
                 FlashMessage.Danger("Erreur lors de la création de l'affectation");
             }
-                }
-
-                #endregion
 
 
 
             return PartialView("~/Areas/RessourcesHumaines/Views/Employe/_CardAffectationPartial.cshtml", modelOut);
-
-                FlashMessage.Danger("Erreur lors de la création de l'affectation");
         }
 
         /// <summary>
@@ -520,83 +507,6 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
         /// </summary>
         /// <param name="idToDelete"></param>
         /// <returns></returns>
-        [HttpPost]
-        public ActionResult DeleteAffectationDetail(int idToDelete)
-        {
-            CardAffectationServiceViewModel modelOut = new CardAffectationServiceViewModel();
-            EmployeDTO emp = new EmployeDTO();
-
-            //On conserve l'id de l'employé correspondant pour recontruire ensuite l'affiche de ses affectations
-            int idEmploye = _affectationService.Get(idToDelete).employe.id;
-
-            try
-            {
-                //On supprimer l'affectation
-                _affectationService.Delete(idToDelete);
-                _affectationService.Save();
-                FlashMessage.Confirmation("Suppression de l'affectation avec succès");
-
-                emp = Mapper.Map<Employe, EmployeDTO>(_employeService.Get(idEmploye));
-
-                //On reconstruit l'affichage
-                modelOut.tableauAffectations.avecActionCrud = false;
-                modelOut.tableauAffectations.lesLignes.Add(new List<object> { "Service", "Droit", "Activité principale", "" });
-
-                if (emp.affectationServices != null)
-                {
-                    foreach (AffectationServiceDTO affectation in emp.affectationServices)
-                    {
-
-                        modelOut.tableauAffectations.lesLignes.Add(new List<object> { affectation.service.libe, affectation.groupe.libe, affectation.affectationPrincipaleOuiNon(), affectation.id });
-                    }
-                }
-
-                #region préparation des éléments utiles à la création d'une affectation
-
-                modelOut.lesDroits = _donneListeGroupeUtilisateur();
-
-                modelOut.lesServices = _donneListeService();
-
-                modelOut.nouvelleAffectation.emplyeId = emp.id;
-
-
-                #endregion
-
-            }
-            catch (Exception e)
-            {
-                FlashMessage.Danger("Erreur lors de la suppression de l'affectation");
-
-                //On reconstruit l'affichage
-                modelOut.tableauAffectations.avecActionCrud = false;
-                modelOut.tableauAffectations.lesLignes.Add(new List<object> { "Service", "Droit", "Activité principale", "" });
-
-                if (emp.affectationServices != null)
-                {
-                    foreach (AffectationServiceDTO affectation in emp.affectationServices)
-                    {
-
-                        modelOut.tableauAffectations.lesLignes.Add(new List<object> { affectation.service.libe, affectation.groupe.libe, affectation.affectationPrincipaleOuiNon(), affectation.id });
-                    }
-                }
-
-                #region préparation des éléments utiles à la création d'une affectation
-
-                modelOut.lesDroits = _donneListeGroupeUtilisateur();
-
-                modelOut.lesServices = _donneListeService();
-
-                modelOut.nouvelleAffectation.emplyeId = emp.id;
-
-
-                #endregion
-
-                return PartialView("~/Areas/RessourcesHumaines/Views/Employe/_CardAffectationPartial.cshtml", modelOut);
-            }
-
-            return PartialView("~/Areas/RessourcesHumaines/Views/Employe/_CardAffectationPartial.cshtml", modelOut);
-        }
-
         [HttpPost]
         public ActionResult DeleteAffectationDetail(int idToDelete)
         {
@@ -739,9 +649,9 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
         /// </summary>
         /// <param name="personne"></param>
         /// <param name="nouvelleAffectation"></param>
-        private void _insertOrUpdateAffectation (ref Employe personne, AffectationService nouvelleAffectation)
+        private void _insertOrUpdateAffectation(ref Employe personne, AffectationService nouvelleAffectation)
         {
-            if(nouvelleAffectation.service != null)
+            if (nouvelleAffectation.service != null)
             {
                 //On regarde si cet employé a déjà une affectation sur ce service
                 if (personne.affectationServices.FirstOrDefault(x => x.service.id == nouvelleAffectation.service.id) != null)//On met à jour l'affectation

@@ -45,6 +45,8 @@ namespace MaderaSoft.Mapping
             CreateMap<Personne, PEmployeTableauDTO>().MaxDepth(1);
             CreateMap<AffectationService, AffectationServiceDTO>().MaxDepth(1);
 
+            CreateMap<Module,Areas.GestionModule.Models.DTOs.ModuleDTO>();
+
         }
     }
 }
