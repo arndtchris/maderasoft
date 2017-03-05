@@ -1,4 +1,7 @@
 ﻿$(function () {
+    //Activation des tooltips bootstrap
+    $('[data-toggle="tooltip"]').tooltip();
+
     $('.editModal').bind('click', function (event) {
         event.preventDefault();
         $.ajax({
@@ -24,5 +27,4 @@
     $(".alert").fadeOut(6000);
 
     $.validator.unobtrusive.parse("form");
-
 });
