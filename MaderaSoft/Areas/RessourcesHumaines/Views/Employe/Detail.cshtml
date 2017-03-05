@@ -32,6 +32,10 @@
         <div class="col-md-6" id="cardAffectation">
             @Html.Partial("~/Areas/RessourcesHumaines/Views/Employe/_CardAffectationPartial.cshtml", Model.cardAffectations)
         </div>
+        <div class="col-md-6" id="cardUtilisateur">
+            @Html.Partial("~/Areas/RessourcesHumaines/Views/Employe/_CardUtilisateurPartial.cshtml", Model.cardUtilisateur)
+            @Html.Partial("~/Areas/RessourcesHumaines/Views/Employe/_CardAffectationPartial.cshtml", Model.cardAffectations)
+        </div>
         <div class="col-md-6"></div>
     </div>
 

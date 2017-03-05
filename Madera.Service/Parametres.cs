@@ -40,5 +40,7 @@ namespace Madera.Service
             FadeOut,
             Always
         }
+
+        public const string defaultPassword = "123456789*";
     }
 }

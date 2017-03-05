@@ -66,20 +66,58 @@
             <param name="nouvelleAffectation"></param>
             <returns></returns>
         </member>
+        <member name="M:MaderaSoft.Areas.RessourcesHumaines.Controllers.EmployeController.DeleteAffectationDetail(System.Int32)">
+            <summary>
+            Méthode utilisée depuis un appel Ajax pour supprimer une affectation à un employé depuis sa ficche détaillée.
+            </summary>
+            <param name="idToDelete"></param>
+            <returns></returns>
+        </member>
         <member name="M:MaderaSoft.Areas.RessourcesHumaines.Controllers.EmployeController._donneListeTypeEmploye">
             <summary>
             Donne la liste des types d'employés en base de données
             </summary>
             <returns></returns>
         </member>
-        <!-- Badly formed XML comment ignored for member "M:MaderaSoft.Areas.RessourcesHumaines.Controllers.EmployeController._donneListeService" -->
-        <!-- Badly formed XML comment ignored for member "M:MaderaSoft.Areas.RessourcesHumaines.Controllers.EmployeController._donneListeGroupeUtilisateur" -->
+        <member name="M:MaderaSoft.Areas.RessourcesHumaines.Controllers.EmployeController._donneListeService">
+            <summary>
+            Donne la liste des services disponibles en base de données
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:MaderaSoft.Areas.RessourcesHumaines.Controllers.EmployeController._donneListeGroupeUtilisateur">
+            <summary>
+            Donne la liste des groupes utilisateur disponibles en base de données
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:MaderaSoft.Areas.RessourcesHumaines.Controllers.EmployeController._insertOrUpdateAffectation(Madera.Model.Employe@,Madera.Model.AffectationService)">
             <summary>
             Permet de mettre à jour les affectations d'un employé
             </summary>
             <param name="personne"></param>
             <param name="nouvelleAffectation"></param>
+        </member>
+        <member name="M:MaderaSoft.Areas.RessourcesHumaines.Controllers.UtilisateurController.ResetPwdEmployeDetail(System.Int32)">
+            <summary>
+            Méthode utilisée depuis un appel ajax pour réinitialiser le mot de passe d'un employé depuis sa fiche détaillée
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MaderaSoft.Areas.RessourcesHumaines.Controllers.UtilisateurController.DesactiveEmployeDetail(System.Int32)">
+            <summary>
+            Méthode utilisée dépuis un appel ajax pour désactiver un compte utilisateur depuis la fiche détaillée d'un employé
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MaderaSoft.Areas.RessourcesHumaines.Controllers.UtilisateurController.ActiveEmployeDetail(System.Int32)">
+            <summary>
+            Méthode utilisée dépuis un appel ajax pour désactiver un compte utilisateur depuis la fiche détaillée d'un employé
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
         </member>
         <member name="T:MaderaSoft.Models.DTO.EmployeDTO">
             <summary>

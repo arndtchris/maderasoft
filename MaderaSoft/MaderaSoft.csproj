@@ -223,6 +223,7 @@
     <Compile Include="Areas\GestionStock\Models\DTOs\StockDTOs.cs" />
     <Compile Include="Areas\GestionStock\Models\ViewModels\StockViewModels.cs" />
     <Compile Include="Areas\RessourcesHumaines\Controllers\EmployeController.cs" />
+    <Compile Include="Areas\RessourcesHumaines\Controllers\UtilisateurController.cs" />
     <Compile Include="Areas\RessourcesHumaines\Models\ViewModels\EmployeViewModels.cs" />
     <Compile Include="Areas\RessourcesHumaines\RessourcesHumainesAreaRegistration.cs" />
     <Compile Include="Areas\Simulateur\Controllers\MaisonController.cs" />
@@ -365,6 +366,7 @@
     <Content Include="Areas\RessourcesHumaines\Views\Employe\_CardEmployePartial.cshtml" />
     <Content Include="Areas\RessourcesHumaines\Views\Employe\_CardAdressePartial.cshtml" />
     <Content Include="Areas\RessourcesHumaines\Views\Employe\_CardAffectationPartial.cshtml" />
+    <Content Include="Areas\RessourcesHumaines\Views\Employe\_CardUtilisateurPartial.cshtml" />
     <Content Include="Areas\GestionModule\Views\Module\Index.cshtml" />
     <Content Include="Areas\GestionModule\Views\Module\_EditModulePartial.cshtml" />
     <Content Include="Areas\GestionModule\Views\Shared\_Layout.cshtml" />
@@ -441,6 +443,7 @@
     <Folder Include="Areas\GestionStock\Views\StockDTOs\" />
     <Folder Include="Areas\GestionStock\Views\StocksDTOs\" />
     <Folder Include="Areas\GestionStock\Views\Stocks\" />
+    <Folder Include="Areas\RessourcesHumaines\Views\Utilisateur\" />
     <Folder Include="bin\roslyn\" />
     <Folder Include="Content\Img\" />
     <Folder Include="Views\Employe\" />

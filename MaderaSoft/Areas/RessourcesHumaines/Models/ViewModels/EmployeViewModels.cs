@@ -47,16 +47,16 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Models.ViewModels
 
     public class CardEmployeViewModel
     {
-        public EmployeSimpleDTO employe { get; set; }
+        public PersonneSimpleDTO employe { get; set; }
 
-        public List<SelectListItem> lesTypesEmployes { get; set; }
+        //public List<SelectListItem> lesTypesEmployes { get; set; }
 
         public List<SelectListItem> lesCivilites { get; set; }
 
         public CardEmployeViewModel()
         {
-            employe = new EmployeSimpleDTO();
-            lesTypesEmployes = new List<SelectListItem>();
+            employe = new PersonneSimpleDTO();
+            //lesTypesEmployes = new List<SelectListItem>();
             lesCivilites = new List<SelectListItem> {
                 new SelectListItem {Value = "",Text = "--- Sélectionnez ---" },
                 new SelectListItem {Value = "1",Text = "Madame" },
@@ -74,12 +74,15 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Models.ViewModels
 
         public CardEmployeViewModel cardEmploye { get; set; }
 
+        public CardEmployeUtilisateurViewModel cardUtilisateur { get; set; }
+
         public AdresseDTO adresse { get; set; }
 
         public DetailEmployeViewModel()
         {
             cardAffectations = new CardAffectationServiceViewModel();
             cardEmploye = new CardEmployeViewModel();
+            cardUtilisateur = new CardEmployeUtilisateurViewModel();
             adresse = new AdresseDTO();
         }
     }

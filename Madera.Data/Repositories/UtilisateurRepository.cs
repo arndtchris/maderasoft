@@ -9,19 +9,37 @@ namespace Madera.Data.Repositories
         public UtilisateurRepository(IDbFactory dbFactory)
             : base(dbFactory) { }
 
+        public void activeUtilisateur(int id)
+        {
+            Utilisateur util = this.dbSet.Find(id);
+            base.DbContext.Entry(util).Property("isActive").CurrentValue = true;
+        }
+
+        public void desactiveUtilisateur(int id)
+        {
+            Utilisateur util = this.dbSet.Find(id);
+            base.DbContext.Entry(util).Property("isActive").CurrentValue = false;
+        }
+
         public override void Insert(Utilisateur entity)
         {
             entity.dCreation = DateTime.Now;
+            entity.dConnexion = DateTime.Now;
             entity.isDeleted = false;
             entity.isActive = true;
             entity.isFirstConnexion = true;
-            entity.password = Crypte(entity.password);
             base.Insert(entity);
+        }
+
+        public void resetPwd(int id, string pwd)
+        {
+            Utilisateur util = this.dbSet.Find(id);
+            base.DbContext.Entry(util).Property("password").CurrentValue = pwd;
         }
 
         public override void Update(Utilisateur entity)
         {
-            entity.password = Crypte(entity.password);
+
             base.Update(entity);
         }
 
@@ -30,7 +48,9 @@ namespace Madera.Data.Repositories
 
     public interface IUtilisateurRepository : IRepository<Utilisateur>
     {
-
+        void activeUtilisateur(int id);
+        void desactiveUtilisateur(int id);
+        void resetPwd(int id,string pwd);
     }
 
 

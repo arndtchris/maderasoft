@@ -14,14 +14,16 @@ namespace Madera.Service
         private readonly IApplicationTraceService _applicationTraceService;
         private readonly IAffectationServiceService _affectationServiceService;
         private readonly IAdresseService _adresseService;
+        private readonly IUtilisateurService _utilisateurService;
         private readonly IUnitOfWork _unitOfWork;
 
-        public EmployeService(IEmployeRepository employeRepository, IUnitOfWork unitOfWork, IApplicationTraceService applicationTraceService, IAffectationServiceService affectationServiceService, IAdresseService adresseService)
+        public EmployeService(IEmployeRepository employeRepository, IUnitOfWork unitOfWork, IApplicationTraceService applicationTraceService, IAffectationServiceService affectationServiceService, IAdresseService adresseService, IUtilisateurService utilisateurService)
         {
             this._employeRepository = employeRepository;
             this._applicationTraceService = applicationTraceService;
             this._affectationServiceService = affectationServiceService;
             this._adresseService = adresseService;
+            this._utilisateurService = utilisateurService;
             this._unitOfWork = unitOfWork;
         }
 
@@ -54,6 +56,16 @@ namespace Madera.Service
             //EntityFramework ne gère pas la mise à jour des enfants
             if(employe.adresse != null)
                 _adresseService.Update(employe.adresse);
+
+            //L'utilisateur existe, on le met à jour
+            if(employe.utilisateur.id != 0)
+            {
+                _utilisateurService.Update(employe.utilisateur);
+
+            }else if(employe.utilisateur.id == 0 && string.IsNullOrEmpty(employe.utilisateur.login))//l'utilisateur n'existe pas, on le créé
+            {
+                _utilisateurService.Create(employe.utilisateur);
+            }
 
             if (employe.affectationServices != null && employe.affectationServices.Count > 0)
             {

@@ -13,9 +13,8 @@ namespace Madera.Data.Configuration
         {
             ToTable("Personne");
             HasKey<int>(a => a.id);
-            HasOptional<Adresse>(x => x.adresse);
-            //HasOptional<Utilisateur>(x => x.utilisateur);
-            //HasOptional<Employe>(x => x.employe);
+            HasRequired<Adresse>(x => x.adresse);
+            HasOptional<Utilisateur>(x => x.utilisateur);
             Property(a => a.civ).HasColumnType("varchar").HasMaxLength(3);
             Property(a => a.nom).HasColumnType("varchar").HasMaxLength(80);
             Property(a => a.prenom).HasColumnType("varchar").HasMaxLength(80);

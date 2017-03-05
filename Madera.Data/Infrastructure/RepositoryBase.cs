@@ -11,8 +11,8 @@ namespace Madera.Data.Infrastructure
 {
     public abstract class RepositoryBase<T> where T : class
     {
-        private MaderaEntities dataContext;
-        private readonly IDbSet<T> dbSet;
+        public MaderaEntities dataContext;
+        protected readonly IDbSet<T> dbSet;
 
         protected IDbFactory DbFactory { get; private set; }
 
@@ -34,6 +34,7 @@ namespace Madera.Data.Infrastructure
 
         public virtual void Update(T entity)
         {
+
             dbSet.Attach(entity);
             dataContext.Entry(entity).State = EntityState.Modified;
         }
@@ -71,16 +72,6 @@ namespace Madera.Data.Infrastructure
         {
             return dbSet.Where(where).FirstOrDefault<T>();
         }
-
-        protected static string Crypte(string password)
-        {
-            var bytes = new UTF8Encoding().GetBytes(password);
-            byte[] hashBytes;
-            using (var algorithm = new System.Security.Cryptography.SHA512Managed())
-            {
-                hashBytes = algorithm.ComputeHash(bytes);
-            }
-            return Convert.ToBase64String(hashBytes);
-        }
+       
     }
 }

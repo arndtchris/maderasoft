@@ -34,6 +34,7 @@ namespace MaderaSoft.Models.DTO
         [DisplayName("Tel. fixe")]
         public string tel2 { get; set; }
         public AdresseDTO adresse { get; set; }
+        public UtilisateurDTO utilisateur { get; set; }
 
         public string getCiv()
         {
@@ -56,6 +57,7 @@ namespace MaderaSoft.Models.DTO
         public PersonneDTO()
         {
             adresse = new AdresseDTO();
+            utilisateur = new UtilisateurDTO();
         }
     }
 

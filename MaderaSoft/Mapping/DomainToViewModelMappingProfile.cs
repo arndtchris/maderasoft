@@ -23,27 +23,28 @@ namespace MaderaSoft.Mapping
 
         protected override void Configure()
         {
-            CreateMap<Adresse, AdresseDTO>();
-            CreateMap<DevisFacture, DevisFactureDTO>();
-            CreateMap<ApplicationTrace, ApplicationTraceDTO>();
-            CreateMap<Utilisateur, UtilisateurDTO>();
+            CreateMap<Adresse, AdresseDTO>().MaxDepth(1);
+            CreateMap<DevisFacture, DevisFactureDTO>().MaxDepth(1);
+            CreateMap<ApplicationTrace, ApplicationTraceDTO>().MaxDepth(1);
+            CreateMap<Utilisateur, UtilisateurDTO>().MaxDepth(1);
 
-            CreateMap<Personne, PersonneDTO>();
-            CreateMap<Personne, PersonneSimpleDTO>();
-            CreateMap<Module, Areas.GestionModule.Models.DTOs.ModuleDTO>();
+            CreateMap<Personne, PersonneDTO>().MaxDepth(1);
+            CreateMap<Personne, PersonneSimpleDTO>().MaxDepth(1);
 
             CreateMap<Employe, EditEmployeDTO>().MaxDepth(1);
-            CreateMap<Employe, EmployeSimpleDTO>();
-            CreateMap<Employe, EmployeDTO>()
-                .Include<Employe, EditEmployeDTO>().MaxDepth(1);
+            CreateMap<Employe, EmployeSimpleDTO>().MaxDepth(1);
+            CreateMap<Employe, EmployeDTO>().MaxDepth(1)
+                .Include<Employe, EditEmployeDTO>().ForMember(g => g.adresse, map => map.MapFrom(vm => vm.adresse)).MaxDepth(1);
 
-            CreateMap<Droit, DroitDTO>();
-            CreateMap<Service, ServiceDTO>();
-            CreateMap<TEmploye, TEmployeDTO>();
+            CreateMap<Droit, DroitDTO>().MaxDepth(1);
+            CreateMap<Service, ServiceDTO>().MaxDepth(1);
+            CreateMap<TEmploye, TEmployeDTO>().MaxDepth(1);
 
             CreateMap<AffectationService, AffectationServiceDTO>().MaxDepth(1);
 
-            CreateMap<Personne, PEmployeTableauDTO>();
+            CreateMap<Personne, PEmployeTableauDTO>().MaxDepth(1);
+            CreateMap<AffectationService, AffectationServiceDTO>().MaxDepth(1);
+
         }
     }
 }

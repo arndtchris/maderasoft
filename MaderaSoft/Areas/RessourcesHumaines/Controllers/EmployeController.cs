@@ -11,6 +11,8 @@ using MaderaSoft.Areas.RessourcesHumaines.Models.ViewModels;
 using MaderaSoft.Models.ViewModel;
 using Vereyon.Web;
 using Madera.Model;
+using MaderaSoft.Models;
+using System.Data.SqlTypes;
 
 namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
 {
@@ -23,8 +25,9 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
         private readonly IAdresseService _adresseService;
         private readonly IDroitService _droitService;
         private readonly IAffectationServiceService _affectationService;
+        private readonly IUtilisateurService _utilisateurService;
 
-        public EmployeController(IEmployeService employeService, IServiceService serviceService, IPersonneService personneService, IAdresseService adresseService, IDroitService droitService, ITEmployeService temployeService, IAffectationServiceService affectationService)
+        public EmployeController(IEmployeService employeService, IServiceService serviceService, IPersonneService personneService, IAdresseService adresseService, IDroitService droitService, ITEmployeService temployeService, IAffectationServiceService affectationService, IUtilisateurService utilisateurService)
         {
             this._employeService = employeService;
             this._serviceService = serviceService;
@@ -33,6 +36,7 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
             this._droitService = droitService;
             this._temployeService = temployeService;
             this._affectationService = affectationService;
+            this._utilisateurService = utilisateurService;
         }
 
         // GET: RessourcesHumaines/Employe
@@ -180,7 +184,11 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
                 try
                 {
                     employeOrigine = Mapper.Map<EditEmployeDTO, Employe>(personne);
+
+
+                    employeOrigine.utilisateur.password = _utilisateurService.Crypte(Parametres.defaultPassword);
                     employeOrigine.affectationServices.Add(nouvelleAffectation);
+                    employeOrigine.utilisateur.login = employeOrigine.nom.ToUpper() + '.' + employeOrigine.prenom.ToUpper().First();
 
                     //On prépare le type d'employé
                     employeOrigine.typeEmploye = _temployeService.Get(personne.typeEmploye.id);
@@ -255,7 +263,6 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
             #region préparation de la card identité de l'employé
 
             modelOut.cardEmploye.employe = new EmployeSimpleDTO
-            {
                 id = emp.id,
                 civ = emp.civ,
                 nom = emp.nom,
@@ -266,12 +273,54 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
                 typeEmploye = emp.typeEmploye
             };
 
-            modelOut.cardEmploye.lesTypesEmployes = _donneListeTypeEmploye();
+            //modelOut.cardEmploye.lesTypesEmployes = _donneListeTypeEmploye();
 
             #endregion
 
+            #region préparation des infos utilisateur de l'employé
+
+                modelOut.cardUtilisateur.utilisateur = emp.utilisateur;
+                
+                if(emp.utilisateur.isActive)
+                {
+                    modelOut.cardUtilisateur.notifications.Add(new MaderaSoft.Models.Notification
+                    {
+                        dureeNotification = Parametres.DureeNotification.Always,
+                        message = "Le compte utilisateur est actif",
+                        typeNotification = Parametres.TypeNotification.Information
+                    });
+
+                    if(emp.utilisateur.isFirstConnexion)
+                    {
+                    	modelOut.cardUtilisateur.notifications.Add(new MaderaSoft.Models.Notification
+                    	{
+                        	dureeNotification = Parametres.DureeNotification.Always,
+                        	message = "L'utilisateur doit changer le mot de passe par défaut",
+                        	typeNotification = Parametres.TypeNotification.Warning
+                    	});
+               	    }
+                }
+                else
+                {
+                    modelOut.cardUtilisateur.notifications.Add(new MaderaSoft.Models.Notification
+                    {
+                        dureeNotification = Parametres.DureeNotification.Always,
+                        message = "Le compte utilisateur est désactivé",
+                        typeNotification = Parametres.TypeNotification.Warning
+                    });
+                email = emp.email,
+                tel2 = emp.tel2,
+                typeEmploye = emp.typeEmploye
+            };
+
+                
+
+            #endregion
+            //les affectations de l'employé
+
             #region préparation de la card des affectations de l'employé
             //les affectations de l'employé
+            modelOut.cardAffectations.tableauAffectations.lesLignes.Add(new List<object> { "Service", "Droit", "Activité principale","" });
 
             //On prépare le tableau récapitulant les affectations de l'employé
             modelOut.cardAffectations.tableauAffectations.avecActionCrud = false;
@@ -318,13 +367,13 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
         {
             CardEmployeViewModel modelOut = new CardEmployeViewModel();
 
-            try
-            {
-                _employeService.Update(Mapper.Map<EmployeSimpleDTO, Employe>(employe));
-                _employeService.Save();
+            /*try
+            {*/
+                _personneService.Update(Mapper.Map<PersonneSimpleDTO, Personne>(employe));
+                _personneService.Save();
 
                 FlashMessage.Confirmation("Employé mis à jour avec succès");
-            }
+            /*}
             catch (Exception e)
             {
                 modelOut.employe = employe;
@@ -333,13 +382,17 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
                 FlashMessage.Danger("Erreur lors de la mise à jour de l'employé");
 
                 return PartialView("~/Areas/RessourcesHumaines/Views/Employe/_CardEmployePartial.cshtml", modelOut);
-            }
+            }*/
 
             modelOut.employe = employe;
-            modelOut.lesTypesEmployes = _donneListeTypeEmploye();
+            //modelOut.lesTypesEmployes = _donneListeTypeEmploye();
 
             return PartialView("~/Areas/RessourcesHumaines/Views/Employe/_CardEmployePartial.cshtml", modelOut);
         }
+            catch (Exception e)
+            {
+                modelOut.employe = employe;
+                modelOut.lesTypesEmployes = _donneListeTypeEmploye();
 
         /// <summary>
         /// Méthode utilisée depuis un appel Ajax pour mettre à jour les données relatives à l'adresse d'un employé depuis sa fiche détaillée.
@@ -451,23 +504,98 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
 
                 FlashMessage.Danger("Erreur lors de la création de l'affectation");
             }
+                }
+
+                #endregion
 
 
 
             return PartialView("~/Areas/RessourcesHumaines/Views/Employe/_CardAffectationPartial.cshtml", modelOut);
+
+                FlashMessage.Danger("Erreur lors de la création de l'affectation");
         }
 
-        /*[HttpGet]
-        public ActionResult AffectationDeleteModal(int id)
+        /// <summary>
+        /// Méthode utilisée depuis un appel Ajax pour supprimer une affectation à un employé depuis sa ficche détaillée.
+        /// </summary>
+        /// <param name="idToDelete"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult DeleteAffectationDetail(int idToDelete)
         {
-            BootstrapModalViewModel modelOut = new BootstrapModalViewModel();
-            //modelOut.typeObjet = "RessourcesHumaines/Employe";
-            modelOut.formulaireUrl = "~/Views/Shared/_BootstrapDeleteModalPartial.cshtml";
-            modelOut.titreModal = "Suppression d'une affectation d'un employé";
-            modelOut.objet = new BootstrapDeleteModalViewModel { idToDelete = id, message = "Etes vous sûr de vouloir l'affectation de cet employé ?", method = "DeleteAffectationModal", urlController = "Employe" };
+            CardAffectationServiceViewModel modelOut = new CardAffectationServiceViewModel();
+            EmployeDTO emp = new EmployeDTO();
 
-            return PartialView("~/Views/Shared/_BootstrapModalPartial.cshtml", modelOut);
-        }*/
+            //On conserve l'id de l'employé correspondant pour recontruire ensuite l'affiche de ses affectations
+            int idEmploye = _affectationService.Get(idToDelete).employe.id;
+
+            try
+            {
+                //On supprimer l'affectation
+                _affectationService.Delete(idToDelete);
+                _affectationService.Save();
+                FlashMessage.Confirmation("Suppression de l'affectation avec succès");
+
+                emp = Mapper.Map<Employe, EmployeDTO>(_employeService.Get(idEmploye));
+
+                //On reconstruit l'affichage
+                modelOut.tableauAffectations.avecActionCrud = false;
+                modelOut.tableauAffectations.lesLignes.Add(new List<object> { "Service", "Droit", "Activité principale", "" });
+
+                if (emp.affectationServices != null)
+                {
+                    foreach (AffectationServiceDTO affectation in emp.affectationServices)
+                    {
+
+                        modelOut.tableauAffectations.lesLignes.Add(new List<object> { affectation.service.libe, affectation.groupe.libe, affectation.affectationPrincipaleOuiNon(), affectation.id });
+                    }
+                }
+
+                #region préparation des éléments utiles à la création d'une affectation
+
+                modelOut.lesDroits = _donneListeGroupeUtilisateur();
+
+                modelOut.lesServices = _donneListeService();
+
+                modelOut.nouvelleAffectation.emplyeId = emp.id;
+
+
+                #endregion
+
+            }
+            catch (Exception e)
+            {
+                FlashMessage.Danger("Erreur lors de la suppression de l'affectation");
+
+                //On reconstruit l'affichage
+                modelOut.tableauAffectations.avecActionCrud = false;
+                modelOut.tableauAffectations.lesLignes.Add(new List<object> { "Service", "Droit", "Activité principale", "" });
+
+                if (emp.affectationServices != null)
+                {
+                    foreach (AffectationServiceDTO affectation in emp.affectationServices)
+                    {
+
+                        modelOut.tableauAffectations.lesLignes.Add(new List<object> { affectation.service.libe, affectation.groupe.libe, affectation.affectationPrincipaleOuiNon(), affectation.id });
+                    }
+                }
+
+                #region préparation des éléments utiles à la création d'une affectation
+
+                modelOut.lesDroits = _donneListeGroupeUtilisateur();
+
+                modelOut.lesServices = _donneListeService();
+
+                modelOut.nouvelleAffectation.emplyeId = emp.id;
+
+
+                #endregion
+
+                return PartialView("~/Areas/RessourcesHumaines/Views/Employe/_CardAffectationPartial.cshtml", modelOut);
+            }
+
+            return PartialView("~/Areas/RessourcesHumaines/Views/Employe/_CardAffectationPartial.cshtml", modelOut);
+        }
 
         [HttpPost]
         public ActionResult DeleteAffectationDetail(int idToDelete)
@@ -567,7 +695,7 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
         /// <summary>
         /// Donne la liste des services disponibles en base de données
         /// </summary>
-        /// <returns>List<SelectListItem></returns>
+        /// <returns></returns>
         private List<SelectListItem> _donneListeService()
         {
             List<SelectListItem> lesServices = new List<SelectListItem>();
@@ -588,7 +716,7 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
         /// <summary>
         /// Donne la liste des groupes utilisateur disponibles en base de données
         /// </summary>
-        /// <returns>List<SelectListItem></returns>
+        /// <returns></returns>
         private List<SelectListItem> _donneListeGroupeUtilisateur()
         {
             List<SelectListItem> lesGroupes = new List<SelectListItem>();
