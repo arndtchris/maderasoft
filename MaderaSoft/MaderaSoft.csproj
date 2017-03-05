@@ -274,9 +274,6 @@
     <Compile Include="Models\ViewModel\DevisFactureViewModels.cs" />
     <Compile Include="Models\ViewModel\PersonneViewModels.cs" />
     <Compile Include="Models\ViewModel\UtilisateurViewModel.cs" />
-    <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
-    <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
-    <Compile Include="obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -285,16 +282,12 @@
     <Content Include="bin\Autofac.dll" />
     <Content Include="bin\Autofac.Integration.Mvc.dll" />
     <Content Include="bin\AutoMapper.dll" />
-    <Content Include="bin\EntityFramework.dll" />
-    <Content Include="bin\EntityFramework.SqlServer.dll" />
-    <Content Include="bin\fr\EntityFramework.resources.dll" />
-    <Content Include="bin\fr\EntityFramework.SqlServer.resources.dll" />
-    <Content Include="bin\fr\System.Web.Helpers.resources.dll" />
-    <Content Include="bin\fr\System.Web.Mvc.resources.dll" />
-    <Content Include="bin\fr\System.Web.Razor.resources.dll" />
-    <Content Include="bin\fr\System.Web.WebPages.Deployment.resources.dll" />
-    <Content Include="bin\fr\System.Web.WebPages.Razor.resources.dll" />
-    <Content Include="bin\fr\System.Web.WebPages.resources.dll" />
+    <Content Include="bin\EntityFramework.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="bin\EntityFramework.SqlServer.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="bin\Madera.Data.dll" />
     <Content Include="bin\Madera.Models.dll" />
     <Content Include="bin\Madera.Service.dll" />
@@ -335,6 +328,10 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\grayscale.min.css" />
+    <Content Include="Content\Img\downloads-bg.jpg" />
+    <Content Include="Content\Img\intro-bg.jpg" />
+    <Content Include="Content\Img\map-marker.png" />
+    <Content Include="Content\Img\Wood.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -379,6 +376,10 @@
     <Content Include="Areas\GestionStock\Views\web.config" />
     <Content Include="Areas\RessourcesHumaines\Views\Shared\_MenuRessourcesHumainesPartial.cshtml" />
     <Content Include="Areas\RechercheDeveloppement\Views\Shared\_MenuRechercheDeveloppementPartial.cshtml" />
+    <None Include="Properties\PublishProfiles\maderasoftcesi - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\maderasoftcesi - Web Deploy.pubxml">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\grayscale.min.js" />
     <None Include="Scripts\jquery-2.2.3.intellisense.js" />
@@ -396,7 +397,9 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -447,7 +450,6 @@
     <Folder Include="Areas\GestionStock\Views\Stocks\" />
     <Folder Include="Areas\RessourcesHumaines\Views\Utilisateur\" />
     <Folder Include="bin\roslyn\" />
-    <Folder Include="Content\Img\" />
     <Folder Include="Views\Employe\" />
   </ItemGroup>
   <ItemGroup>

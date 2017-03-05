@@ -11,7 +11,7 @@ namespace Madera.Data
 {
     public class MaderaEntities : DbContext
     {
-        public MaderaEntities() : base("MaderaEntities") { }
+        public MaderaEntities() : base("madera") { }
 
         public DbSet<Adresse> Adresses { get; set; }
         public DbSet<AffectationService> AffectationsServices { get; set; }
