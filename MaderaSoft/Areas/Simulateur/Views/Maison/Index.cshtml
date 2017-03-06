@@ -10,8 +10,8 @@
             <label>Largueur</label><input id="larg" type="text" />
             <label>Longueur</label><input id="long" type="text" />
             <button id="button_svg">Générer</button>
-            <button id="porte_svg" data-code="c8fDh5" data-color="#00ff00">Porte</button>
-            <button id="fenetre_svg" data-code="r7jka2" data-color="#0000ff">Fenêtre</button>
+            <button id="porte_svg" data-code="1" data-color="#00ff00">Porte</button>
+            <button id="fenetre_svg" data-code="2" data-color="#0000ff">Fenêtre</button>
             <div id="dessin"></div>
 
             @Html.actionButton("Sauvegarder votre plan", Parametres.TypeBouton.Creation, Url.Action("SavePlan", "Maison", new { area = "Simulateur" }).ToString(), "save_svg")

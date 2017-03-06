@@ -7,8 +7,10 @@ namespace MaderaSoft.Models.DTO
 {
     public class PlanDTO
     {
+        public int id { get; set; }
         public int largeur { get; set; }
         public int longueur { get; set; }
+        public string nom { get; set; }
 
         public List<EtageDTO> lesEtages { get; set; }
 

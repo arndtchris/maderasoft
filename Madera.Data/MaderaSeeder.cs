@@ -23,6 +23,7 @@ namespace Madera.Data
             SeedTEmployes().ForEach(h => context.TEmployes.Add(h));
             SeedGammes().ForEach(i => context.Gamme.Add(i));
             SeedTModule().ForEach(j => context.TModule.Add(j));
+            SeedModules().ForEach(j => context.Module.Add(j));
 
             context.Commit();
         }
@@ -54,6 +55,13 @@ namespace Madera.Data
                 }
             };
         }*/
+
+        private static List<Module> SeedModules()
+        {
+            List<Module> lModule = new List<Module>();
+            lModule.Add(new Module { id = 1, coupePrincipe = "string", libe = "mod1", prix = 3, typeModule = SeedTModule().First() });
+            return lModule;
+        }
 
         private static List<Gamme> SeedGammes()
         {

@@ -7,6 +7,8 @@ namespace MaderaSoft.Models.DTO
 {
     public class PositionModuleDTO
     {
+        public int id { get; set; }
+
         public int x1 { get; set; }
         public int x2 { get; set; }
 
@@ -16,6 +18,7 @@ namespace MaderaSoft.Models.DTO
         public int lineId { get; set; }
 
         public ModuleDTO module { get; set; }
+        public EtageDTO etage { get; set; }
 
         public PositionModuleDTO()
         {

@@ -15,6 +15,7 @@ namespace Madera.Data.Configuration
             HasKey<int>(a => a.id);
             Property<int>(a => a.largeur).IsRequired();
             Property<int>(a => a.longueur).IsRequired();
+            Property(a => a.nom).HasColumnType("varchar").HasMaxLength(50);
         }
 
     }

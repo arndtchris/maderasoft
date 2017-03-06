@@ -165,8 +165,6 @@ $(function () {
             //On ajoute l'étage que l'on vient de finir
             lesEtages.push(JSON.parse(JSON.stringify(etage)));
 
-            debugger;
-
             //On vide l'étage en cours pour le prochin tour de boucle
             etage = {};
             lesModules = [];
