@@ -223,8 +223,10 @@
     <Compile Include="Areas\GestionStock\Models\DTOs\StockDTOs.cs" />
     <Compile Include="Areas\GestionStock\Models\ViewModels\StockViewModels.cs" />
     <Compile Include="Areas\RessourcesHumaines\Controllers\EmployeController.cs" />
+    <Compile Include="Areas\RessourcesHumaines\Controllers\GestionDroitController.cs" />
     <Compile Include="Areas\RessourcesHumaines\Controllers\UtilisateurController.cs" />
     <Compile Include="Areas\RessourcesHumaines\Models\ViewModels\EmployeViewModels.cs" />
+    <Compile Include="Areas\RessourcesHumaines\Models\ViewModels\GestionDroitViewModels.cs" />
     <Compile Include="Areas\RessourcesHumaines\RessourcesHumainesAreaRegistration.cs" />
     <Compile Include="Areas\Simulateur\Controllers\MaisonController.cs" />
     <Compile Include="Areas\Simulateur\SimulateurAreaRegistration.cs" />
@@ -257,6 +259,8 @@
     <Compile Include="Models\DTO\EmployeDTOs.cs" />
     <Compile Include="Models\DTO\EtageDTOs.cs" />
     <Compile Include="Models\DTO\ModuleDTOs.cs" />
+    <Compile Include="Models\DTO\PermissionDTOs.cs" />
+    <Compile Include="Models\DTO\PermissionGroupeDTOs.cs" />
     <Compile Include="Models\DTO\PersonneDTOs.cs" />
     <Compile Include="Models\DTO\PlanDTOs.cs" />
     <Compile Include="Models\DTO\PositionModuleDTOs.cs" />
@@ -377,6 +381,7 @@
     <Content Include="Areas\GestionStock\Views\web.config" />
     <Content Include="Areas\RessourcesHumaines\Views\Shared\_MenuRessourcesHumainesPartial.cshtml" />
     <Content Include="Areas\RechercheDeveloppement\Views\Shared\_MenuRechercheDeveloppementPartial.cshtml" />
+    <Content Include="Areas\RessourcesHumaines\Views\GestionDroit\Index.cshtml" />
     <None Include="Properties\PublishProfiles\maderasoftcesi - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\maderasoftcesi - Web Deploy.pubxml">
       <SubType>Designer</SubType>
