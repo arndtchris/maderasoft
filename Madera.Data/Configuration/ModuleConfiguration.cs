@@ -13,7 +13,7 @@ namespace Madera.Data.Configuration
         {
             ToTable("Module");
             HasKey<int>(a => a.id);
-            HasRequired<TModule>(a => a.typeModule);
+            HasOptional<TModule>(a => a.typeModule);
             Property(a => a.libe).HasColumnType("varchar").HasMaxLength(150);
             Property(a => a.coupePrincipe).HasColumnType("varchar");
             //Property<decimal>(a => a.prix);

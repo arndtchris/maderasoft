@@ -13,7 +13,7 @@ namespace Madera.Model
         public int y1 { get; set; }
         public int y2 { get; set; }
 
-        public int lineId { get; set; }
+        public string lineId { get; set; }
 
         public virtual Module module { get; set; }
         public virtual Etage etage { get; set; }

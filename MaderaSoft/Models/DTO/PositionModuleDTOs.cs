@@ -15,7 +15,7 @@ namespace MaderaSoft.Models.DTO
         public int y1 { get; set; }
         public int y2 { get; set; }
 
-        public int lineId { get; set; }
+        public string lineId { get; set; }
 
         public ModuleDTO module { get; set; }
         public EtageDTO etage { get; set; }

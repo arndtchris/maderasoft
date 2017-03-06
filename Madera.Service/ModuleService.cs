@@ -71,10 +71,7 @@ namespace Madera.Service
 
     public interface IModuleService : IService<Module>
     {
-        void Create(Module module);
-        void Update(Module module);
-        void Save();
-        void Delete(int id);
+        
 
     }
 }
