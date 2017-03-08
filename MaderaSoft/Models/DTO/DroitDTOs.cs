@@ -12,6 +12,7 @@ namespace MaderaSoft.Models.DTO
         public Boolean update { get; set; }
         public Boolean read { get; set; }
         public Boolean delete { get; set; }
+        public Boolean softDelete { get; set; }
         public string libe { get; set; }
 
         public DroitDTO()

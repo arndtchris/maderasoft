@@ -61,6 +61,7 @@ namespace MaderaSoft.Mapping
             CreateMap<DroitDTO, Droit>().MaxDepth(1)
                 .ForMember(g => g.create, map => map.MapFrom(vm => vm.create))
                 .ForMember(g => g.delete, map => map.MapFrom(vm => vm.delete))
+                .ForMember(g => g.softDelete, map => map.MapFrom(vm => vm.softDelete))
                 .ForMember(g => g.read, map => map.MapFrom(vm => vm.read))
                 .ForMember(g => g.update, map => map.MapFrom(vm => vm.update))
                 .ForMember(g => g.libe, map => map.MapFrom(vm => vm.libe));

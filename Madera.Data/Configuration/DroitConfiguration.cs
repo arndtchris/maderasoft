@@ -18,6 +18,7 @@ namespace Madera.Data.Configuration
             Property<bool>(a => a.update);
             Property<bool>(a => a.create);
             Property<bool>(a => a.read);
+            Property<bool>(a => a.softDelete);
         }
     }
 }

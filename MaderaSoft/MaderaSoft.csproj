@@ -259,8 +259,6 @@
     <Compile Include="Models\DTO\EmployeDTOs.cs" />
     <Compile Include="Models\DTO\EtageDTOs.cs" />
     <Compile Include="Models\DTO\ModuleDTOs.cs" />
-    <Compile Include="Models\DTO\PermissionDTOs.cs" />
-    <Compile Include="Models\DTO\PermissionGroupeDTOs.cs" />
     <Compile Include="Models\DTO\PersonneDTOs.cs" />
     <Compile Include="Models\DTO\PlanDTOs.cs" />
     <Compile Include="Models\DTO\PositionModuleDTOs.cs" />
@@ -346,7 +344,6 @@
     <Content Include="Scripts\Admin\SimulateurMaison.js" />
     <Content Include="Scripts\ai.0.22.19-build00125.js" />
     <Content Include="Scripts\ai.0.22.19-build00125.min.js" />
-    <Content Include="Scripts\appScript.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
@@ -382,6 +379,7 @@
     <Content Include="Areas\RessourcesHumaines\Views\Shared\_MenuRessourcesHumainesPartial.cshtml" />
     <Content Include="Areas\RechercheDeveloppement\Views\Shared\_MenuRechercheDeveloppementPartial.cshtml" />
     <Content Include="Areas\RessourcesHumaines\Views\GestionDroit\Index.cshtml" />
+    <Content Include="Areas\RessourcesHumaines\Views\GestionDroit\_ParametreDroitPartial.cshtml" />
     <None Include="Properties\PublishProfiles\maderasoftcesi - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\maderasoftcesi - Web Deploy.pubxml">
       <SubType>Designer</SubType>
