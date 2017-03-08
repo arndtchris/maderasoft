@@ -1,7 +1,12 @@
 ﻿var color = "";
 var code = "";
+var nom = "";
 
 $(function () {
+
+    /*$('#carousel').elastislide({
+        minItems: 1
+    });*/
 
     var x = 10;
     var y = 10;
@@ -12,7 +17,7 @@ $(function () {
         //Pour le cas ou plus d'un étage, rénitialisation de x et y, et ajout incrémetation du numéro étage indispensable
         x = 10;
         y = 10;
-        var dessin = "<svg class='dessin_svg' id='etage"+etage+"' style='width:200px;height:200px;'>";
+        var dessin = "<svg class='dessin_svg' id='etage"+etage+"' style='width:500px;height:500px;'>";
 
         var taille = parseInt($("#larg").val()) + 1
         for (j = 0; j < taille ; j++) {
@@ -53,29 +58,25 @@ $(function () {
 
 
     // Par la suite, une fonction pour tout les composants récupérer dynamiquement
-    $("#porte_svg").click(function () {
 
-        var $por = $("#porte_svg");
+    $(".module").click(function () {
 
-        color = $por.data("color");
-        code = $por.data("code");
-        console.log('COLOR1', color);
-        makeCursor(color);
+        var mod = $(this).attr("id");
 
-    });
+        console.log('$mod', mod);
+        console.log('$mod', $("#"+mod));
 
-    $("#fenetre_svg").click(function () {
+        color = $("#" + mod).data("color");
+        code = $("#" + mod).data("code");
+        nom = $("#" + mod).data("nom");
 
-        var $fen = $("#fenetre_svg");
-
-        color = $fen.data("color");
-        code = $fen.data("code");
         console.log('COLOR1', color);
         makeCursor(color);
 
     });
 
     function makeCursor(color) {
+
         var test = $("#test");
         var cursor = document.createElement('canvas'),
             ctx = cursor.getContext('2d');
@@ -104,7 +105,7 @@ $(function () {
 
         var $plan = $(".dessin_svg");
         
-        console.log("PLAN COMPLET", $plan);
+        //console.log("PLAN COMPLET", $plan);
 
         //un étage contient une liste de PositionModule, contenus dans lesModules
         var etage = {};
@@ -119,24 +120,24 @@ $(function () {
         //parcours chaque plan d'etage
         $plan.each(function (k, v) {
 
-            console.log("V", v);
+            //console.log("V", v);
             
             //On construit un étage
             $(v).children().each(function (key, value) {
                 
-                console.log("Value", value);
+                //console.log("Value", value);
                 var currentData = $(value).children().data("values");
                 var x1 = $(value).children().attr("x1");
                 var x2 = $(value).children().attr("x2");
                 var y1 = $(value).children().attr("y1");
                 var y2 = $(value).children().attr("y2");
                 var lineId = $(value).children().attr("id");
-                console.log("currentData", currentData);
+                /*console.log("currentData", currentData);
                 console.log("x1", x1);
                 console.log("x2", x2);
                 console.log("y1", y1);
                 console.log("y2", y2);
-                console.log("lineId", lineId);
+                console.log("lineId", lineId);*/
                
                 if (typeof (currentData) != "undefined") {
 
@@ -149,7 +150,7 @@ $(function () {
                         "lineId" : lineId
                     }
 
-                    console.log("---------i-------", i);
+                    //console.log("---------i-------", i);
 
                     //On a trouvé un nouveau module, on l'ajoute à ceux de cet étage
                     lesModules.push(positionModule);
@@ -160,7 +161,7 @@ $(function () {
             //On ajoute les modules à l'étage correspondant
             etage = { "lesModules" : lesModules }
 
-            console.log("-------------ETAGE--------------", lesModules);
+            //console.log("-------------ETAGE--------------", lesModules);
 
             //On ajoute l'étage que l'on vient de finir
             lesEtages.push(JSON.parse(JSON.stringify(etage)));
@@ -199,5 +200,24 @@ $(function () {
 function changeColor(id) {
     console.log("clique color", id);
     $(id).css({ "stroke": color });
-    $(id).attr("data-values",code);
+    $(id).attr("data-values", code);
+
+    //Apparait dans liste représentant le devis
+
+    //if ($("#recap #" + id).attr("id") === id) {
+
+   // $("#recap").each(function (key, value) {
+     //   if ($(value).attr("id") === id) {
+        /*    $li = $(value).attr("id");
+            $("#"+$li+"")*/
+
+       // } else {
+    nomMod = nom;
+    console.log("nomMod", nomMod);
+    quantite = 1;
+    prix = 0;
+    html = "<tr id='" + nomMod + "'><td>" + nomMod + "</td><td>x" + quantite + "</td><td>" + prix + "</td></tr>";
+    $("#recap").append(html);
+        //}
+    //});
 }

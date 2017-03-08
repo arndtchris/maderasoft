@@ -37,13 +37,32 @@ namespace MaderaSoft
 
             bundles.Add(new StyleBundle("~/Content/admincss").Include(
                       "~/Content/Admin/AdminLTE.css",
-                      "~/Content/Admin/skin-blue.min.css"));
+                      "~/Content/Admin/skin-blue.min.css",
+                      "~/Content/Admin/simulateur.css"
+                     /* "~/Content/Admin/custom.css",
+                      "~/Content/Admin/demo.css",
+                      "~/Content/Admin/elastislide.css"*/));
 
             bundles.Add(new ScriptBundle("~/bundles/adminlayoutjs").Include(
                       "~/Scripts/Admin/appScript.js",
                       "~/Scripts/Admin/adminLte.min.js",
-                      "~/Scripts/Admin/SimulateurMaison.js"                      
+                      "~/Scripts/Admin/SimulateurMaison.js"
+                      /*"~/Scripts/Admin/jquerypp.custom.js",
+                      "~/Scripts/Admin/jquery.elastislide.js",
+                      "~/Scripts/Admin/modernizr.custom.17475.js"*/
                       ));
+
+           /* bundles.Add(new ScriptBundle("~/bundles/modulemenujs").Include(
+                      "~/Scripts/jquerypp.custom.js",
+                      "~/Scripts/jquery.elastislide.js",
+                      "~/Scripts/modernizr.custom.17475.js"
+                      ));
+
+            bundles.Add(new ScriptBundle("~/bundles/modulemenucss").Include(
+                      "~/Content/custom.css",
+                      "~/Content/demo.css",
+                      "~/Content/elastislide.css"
+                      ));*/
         }
     }
 }

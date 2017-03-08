@@ -32,6 +32,8 @@ namespace MaderaSoft.Areas.Simulateur.Controllers
             //BootstrapTableViewModel modelOut = new BootstrapTableViewModel();
             List<ModuleDTO> lesModules = Mapper.Map<List<Module>, List<ModuleDTO>>(_moduleService.DonneTous().ToList());
 
+
+
             int i = 0;
            /* modelOut.avecActionCrud = false;
             modelOut.messageSiVide = "L'application ne contient pas encore de modules.";
@@ -48,7 +50,7 @@ namespace MaderaSoft.Areas.Simulateur.Controllers
 
 
 
-            return View();
+            return View(lesModules);
         }
 
         // POST: Simulateur/Maison
