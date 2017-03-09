@@ -82,19 +82,19 @@ namespace MaderaSoft.Mapping
                .ForMember(g => g.password, map => map.MapFrom(vm => vm.password))
                .ForMember(g => g.isFirstConnexion, map => map.MapFrom(vm => vm.isFirstConnexion));
 
-            CreateMap<PlanDTO, Plan>().MaxDepth(1)
+            CreateMap<PlanDTO, Plan>()
                .ForMember(g => g.id, map => map.MapFrom(vm => vm.id))
                .ForMember(g => g.largeur, map => map.MapFrom(vm => vm.largeur))
                .ForMember(g => g.longueur, map => map.MapFrom(vm => vm.longueur))
                .ForMember(g => g.nom, map => map.MapFrom(vm => vm.nom))
                .ForMember(g => g.listEtages, map => map.MapFrom(vm => vm.lesEtages));
 
-            CreateMap<EtageDTO, Etage>().MaxDepth(1)
+            CreateMap<EtageDTO, Etage>()
                .ForMember(g => g.id, map => map.MapFrom(vm => vm.id))
                .ForMember(g => g.listPositionModule, map => map.MapFrom(vm => vm.lesModules))
                .ForMember(g => g.plan, map => map.MapFrom(vm => vm.plan));
 
-            CreateMap<PositionModuleDTO, PositionModule>().MaxDepth(1)
+            CreateMap<PositionModuleDTO, PositionModule>()
                .ForMember(g => g.id, map => map.MapFrom(vm => vm.id))
                .ForMember(g => g.x1, map => map.MapFrom(vm => vm.x1))
                .ForMember(g => g.x2, map => map.MapFrom(vm => vm.x2))
@@ -103,7 +103,7 @@ namespace MaderaSoft.Mapping
                .ForMember(g => g.module, map => map.MapFrom(vm => vm.module))
                .ForMember(g => g.etage, map => map.MapFrom(vm => vm.etage));
 
-            CreateMap<ModuleDTO, Module>().MaxDepth(1)
+            CreateMap<ModuleDTO, Module>()
                .ForMember(g => g.id, map => map.MapFrom(vm => vm.id))
                .ForMember(g => g.libe, map => map.MapFrom(vm => vm.libe))
                .ForMember(g => g.typeModule, map => map.MapFrom(vm => vm.typeModule))

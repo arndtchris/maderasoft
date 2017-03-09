@@ -1,12 +1,36 @@
 ﻿var color = "";
 var code = "";
 var nom = "";
+var longueur = "";
+var largeur = "";
 
 $(function () {
 
     /*$('#carousel').elastislide({
         minItems: 1
     });*/
+
+    $("#ChargePlan").change(function () {
+
+        alert("coucou");
+
+        var idPlan = $(this).val();
+
+        $.ajax({
+            method: "POST",
+            url: "/Simulateur/Maison/GetPlan",
+            contentType: "application/json",
+            dataType: "json",
+            data: "{'id': '"+idPlan+"'}"
+        })
+        .done(function (data) {
+            console.log('réussite');
+        })
+        .fail(function (data) {
+            console.log("fail");
+        });
+    });
+
 
     var x = 10;
     var y = 10;
@@ -19,7 +43,8 @@ $(function () {
         y = 10;
         var dessin = "<svg class='dessin_svg' id='etage"+etage+"' style='width:500px;height:500px;'>";
 
-        var taille = parseInt($("#larg").val()) + 1
+        var taille = parseInt($("#larg").val()) + 1;
+        largeur =  parseInt($("#larg").val());
         for (j = 0; j < taille ; j++) {
             for (i = 0; i < $("#long").val() ; i++) {
                 var xAfter = x + 40;
@@ -35,7 +60,8 @@ $(function () {
 
         x = 10;
         y = 10;
-        taille = parseInt($("#long").val()) + 1
+        taille = parseInt($("#long").val()) + 1;
+        longueur = parseInt($("#long").val());
 
         for (i = 0; i < taille ; i++) {
             for (j = 0; j < $("#larg").val() ; j++) {
@@ -176,7 +202,11 @@ $(function () {
         });
 
         //On ajoute notre liste d'étages au plan
-        planDTO = { "lesEtages": lesEtages }
+        planDTO = {
+            "largeur": largeur,
+            "longueur": longueur,
+            "lesEtages": lesEtages
+        }
 
         $.ajax({
             method: "POST",

@@ -29,28 +29,31 @@ namespace MaderaSoft.Areas.Simulateur.Controllers
         public ActionResult Index()
         {
 
-            //BootstrapTableViewModel modelOut = new BootstrapTableViewModel();
-            List<ModuleDTO> lesModules = Mapper.Map<List<Module>, List<ModuleDTO>>(_moduleService.DonneTous().ToList());
+            IndexViewModel view = new IndexViewModel();
+            view.lesPlans = _donnePlanBDD();
 
+            return View(view);
+        }
 
+        /// <summary>
+        /// Donne la liste des groupes utilisateur disponibles en base de données
+        /// </summary>
+        /// <returns></returns>
+        private List<SelectListItem> _donnePlanBDD()
+        {
+            List<SelectListItem> lesPlans = new List<SelectListItem>();
 
-            int i = 0;
-           /* modelOut.avecActionCrud = false;
-            modelOut.messageSiVide = "L'application ne contient pas encore de modules.";
-            modelOut.lesLignes.Add(new List<object> { "Utilisateur", "Date", "Action", "Description" });
+            //On récupère la liste des services disponibles dans l'application
+            lesPlans = _planService.DonneTous().Select(
+                x => new SelectListItem()
+                {
+                    Text = x.id.ToString(),
+                    Value = x.id.ToString()
+                }
+                ).ToList();
+            lesPlans.Insert(0, new SelectListItem() { Text = "--- Sélectionnez ---", Value = "" });
 
-
-            foreach (ApplicationTraceDTO appTraceDTO in lesTraces)
-            {
-                modelOut.lesLignes.Add(new List<object> { appTraceDTO.utilisateur, appTraceDTO.date.ToString(), appTraceDTO.action, appTraceDTO.description });
-            }
-
-
-            return View(modelOut);*/
-
-
-
-            return View(lesModules);
+            return lesPlans;
         }
 
         // POST: Simulateur/Maison
@@ -109,6 +112,24 @@ namespace MaderaSoft.Areas.Simulateur.Controllers
                 //return RedirectToAction("Index");
                 return Json("An Error Has occoured");
             }
+        }
+
+        [HttpPost]
+        public JsonResult GetPlan(int id)
+        {
+            try
+            {
+                List<ModuleDTO> lesModules = Mapper.Map<List<Module>, List<ModuleDTO>>(_moduleService.DonneTous().ToList());
+                PlanDTO plan = Mapper.Map<Plan, PlanDTO>(_planService.Get(id));
+
+                return Json(plan);
+            }
+            catch(Exception e)
+            {
+                return Json("An Error Has occoured");
+            }
+            
+            
         }
 
     }

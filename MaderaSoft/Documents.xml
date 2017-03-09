@@ -119,6 +119,12 @@
             <param name="id"></param>
             <returns></returns>
         </member>
+        <member name="M:MaderaSoft.Areas.Simulateur.Controllers.MaisonController._donnePlanBDD">
+            <summary>
+            Donne la liste des groupes utilisateur disponibles en base de données
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:MaderaSoft.Models.DTO.EmployeDTO">
             <summary>
             DTO simple de la table Employe
