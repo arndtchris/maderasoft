@@ -47,13 +47,13 @@ namespace MaderaSoft.Mapping
 
             CreateMap<Module,Areas.RechercheDeveloppement.Models.DTOs.ModuleDTO>();
 
-            CreateMap<Plan, PlanDTO>();
+            CreateMap<Plan, PlanDTO>().MaxDepth(3);
 
-            CreateMap<Etage, EtageDTO>();
+            CreateMap<Etage, EtageDTO>().MaxDepth(3);
 
-            CreateMap<PositionModule, PositionModuleDTO>();
+            CreateMap<PositionModule, PositionModuleDTO>().MaxDepth(3);
 
-            CreateMap<Module, ModuleDTO>();
+            CreateMap<Module, ModuleDTO>().MaxDepth(3);
 
         }
     }

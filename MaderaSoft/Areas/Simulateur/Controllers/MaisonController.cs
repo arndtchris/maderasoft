@@ -31,6 +31,7 @@ namespace MaderaSoft.Areas.Simulateur.Controllers
 
             IndexViewModel view = new IndexViewModel();
             view.lesPlans = _donnePlanBDD();
+            view.PlanViewModel.lesModules = Mapper.Map<List<Module>, List<ModuleDTO>>(_moduleService.DonneTous().ToList());
 
             return View(view);
         }
@@ -91,6 +92,7 @@ namespace MaderaSoft.Areas.Simulateur.Controllers
                 });*/
 
                 Plan planP = new Plan();
+                plan.nom = "test";
                 planP=Mapper.Map<PlanDTO, Plan>(plan);
                 try
                 {
@@ -101,7 +103,7 @@ namespace MaderaSoft.Areas.Simulateur.Controllers
                 }
                 catch(Exception e)
                 {
-
+                    throw (e);
                 }
                // return RedirectToAction("Index");
 
