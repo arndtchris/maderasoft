@@ -122,6 +122,7 @@ namespace MaderaSoft.Areas.Simulateur.Controllers
             try
             {
                 List<ModuleDTO> lesModules = Mapper.Map<List<Module>, List<ModuleDTO>>(_moduleService.DonneTous().ToList());
+                Plan p = _planService.Get(id);
                 PlanDTO plan = Mapper.Map<Plan, PlanDTO>(_planService.Get(id));
 
                 return Json(plan);
