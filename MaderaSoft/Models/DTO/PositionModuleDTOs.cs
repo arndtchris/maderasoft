@@ -17,12 +17,13 @@ namespace MaderaSoft.Models.DTO
 
         public string lineId { get; set; }
 
-        public ModuleDTO module { get; set; }
-        public EtageDTO etage { get; set; }
+        public virtual ModuleDTO module { get; set; }
+        public virtual EtageDTO etage { get; set; }
 
         public PositionModuleDTO()
         {
             module = new ModuleDTO();
+            etage = new EtageDTO();
         }
     }
 }

@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using Madera.Model;
 using Madera.Service;
-using MaderaSoft.Areas.RechercheDeveloppement.Models.DTOs;
 using MaderaSoft.Areas.RechercheDeveloppement.Models.ViewModels;
 using MaderaSoft.Models.ViewModel;
 using System;
@@ -10,6 +9,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Vereyon.Web;
+using MaderaSoft.Models.DTO;
 
 namespace MaderaSoft.Areas.RechercheDeveloppement.Controllers
 {

@@ -11,6 +11,12 @@ namespace Madera.Data.Repositories
     {
         public ModuleRepository(IDbFactory dbFactory)
             : base(dbFactory) { }
+
+        public override void Insert(Module entity)
+        {
+            if(entity.id == 0)
+                base.Insert(entity);
+        }
     }
 
     public interface IModuleRepository : IRepository<Module>

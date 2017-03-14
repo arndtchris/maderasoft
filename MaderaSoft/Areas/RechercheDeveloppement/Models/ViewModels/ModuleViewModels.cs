@@ -1,10 +1,10 @@
-﻿using MaderaSoft.Areas.RechercheDeveloppement.Models.DTOs;
-using MaderaSoft.Models.ViewModel;
+﻿using MaderaSoft.Models.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using MaderaSoft.Models.DTO;
 
 namespace MaderaSoft.Areas.RechercheDeveloppement.Models.ViewModels
 {

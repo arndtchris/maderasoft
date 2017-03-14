@@ -216,7 +216,6 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Areas\RechercheDeveloppement\Controllers\ModuleController.cs" />
     <Compile Include="Areas\RechercheDeveloppement\RechercheDeveloppementAreaRegistration.cs" />
-    <Compile Include="Areas\RechercheDeveloppement\Models\DTOs\ModuleDTOs.cs" />
     <Compile Include="Areas\RechercheDeveloppement\Models\ViewModels\ModuleViewModels.cs" />
     <Compile Include="Areas\GestionStock\Controllers\StockController.cs" />
     <Compile Include="Areas\GestionStock\GestionStockAreaRegistration.cs" />

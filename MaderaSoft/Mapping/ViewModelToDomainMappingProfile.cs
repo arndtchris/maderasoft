@@ -45,13 +45,6 @@ namespace MaderaSoft.Mapping
                 .ForMember(g => g.projet, map => map.MapFrom(vm => vm.projet)).MaxDepth(1)
                 .ForMember(g => g.referent, map => map.MapFrom(vm => vm.employe)).MaxDepth(1);
 
-            CreateMap<Areas.RechercheDeveloppement.Models.DTOs.ModuleDTO, Module>()
-               .ForMember(g => g.id, map => map.MapFrom(vm => vm.id))
-               .ForMember(g => g.libe, map => map.MapFrom(vm => vm.libe))
-               .ForMember(g => g.typeModule, map => map.MapFrom(vm => vm.typeModule))
-               .ForMember(g => g.prix, map => map.MapFrom(vm => vm.prix));
-
-
             CreateMap<ApplicationTraceDTO, ApplicationTrace>()
                .ForMember(g => g.utilisateur, map => map.MapFrom(vm => vm.utilisateur))
                .ForMember(g => g.date, map => map.MapFrom(vm => vm.date))
@@ -82,32 +75,38 @@ namespace MaderaSoft.Mapping
                .ForMember(g => g.password, map => map.MapFrom(vm => vm.password))
                .ForMember(g => g.isFirstConnexion, map => map.MapFrom(vm => vm.isFirstConnexion));
 
-            CreateMap<PlanDTO, Plan>().MaxDepth(1)
+            CreateMap<PlanDTO, Plan>()
                .ForMember(g => g.id, map => map.MapFrom(vm => vm.id))
                .ForMember(g => g.largeur, map => map.MapFrom(vm => vm.largeur))
                .ForMember(g => g.longueur, map => map.MapFrom(vm => vm.longueur))
                .ForMember(g => g.nom, map => map.MapFrom(vm => vm.nom))
-               .ForMember(g => g.listEtages, map => map.MapFrom(vm => vm.lesEtages));
+               .ForMember(g => g.listEtages, map => map.MapFrom(vm => vm.lesEtages)).MaxDepth(1);
 
-            CreateMap<EtageDTO, Etage>().MaxDepth(1)
+            CreateMap<EtageDTO, Etage>()
                .ForMember(g => g.id, map => map.MapFrom(vm => vm.id))
                .ForMember(g => g.listPositionModule, map => map.MapFrom(vm => vm.lesModules))
-               .ForMember(g => g.plan, map => map.MapFrom(vm => vm.plan));
+               .ForMember(g => g.plan, map => map.MapFrom(vm => vm.plan)).MaxDepth(1);
 
-            CreateMap<PositionModuleDTO, PositionModule>().MaxDepth(1)
+            CreateMap<PositionModuleDTO, PositionModule>()
                .ForMember(g => g.id, map => map.MapFrom(vm => vm.id))
                .ForMember(g => g.x1, map => map.MapFrom(vm => vm.x1))
                .ForMember(g => g.x2, map => map.MapFrom(vm => vm.x2))
                .ForMember(g => g.y1, map => map.MapFrom(vm => vm.y1))
                .ForMember(g => g.y2, map => map.MapFrom(vm => vm.y2))
-               .ForMember(g => g.module, map => map.MapFrom(vm => vm.module))
-               .ForMember(g => g.etage, map => map.MapFrom(vm => vm.etage));
+               .ForMember(g => g.module, map => map.MapFrom(vm => vm.module)).MaxDepth(1)
+               .ForMember(g => g.etage, map => map.MapFrom(vm => vm.etage)).MaxDepth(1);
 
             CreateMap<ModuleDTO, Module>().MaxDepth(1)
                .ForMember(g => g.id, map => map.MapFrom(vm => vm.id))
                .ForMember(g => g.libe, map => map.MapFrom(vm => vm.libe))
                .ForMember(g => g.typeModule, map => map.MapFrom(vm => vm.typeModule))
-               .ForMember(g => g.coupePrincipe, map => map.MapFrom(vm => vm.coupePrincipe));
+               .ForMember(g => g.coupePrincipe, map => map.MapFrom(vm => vm.coupePrincipe))
+               .ForMember(g => g.prix, map => map.MapFrom(vm => vm.prix));
+
+            CreateMap<TModuleDTO, TModule>()
+                .ForMember(g => g.id, map => map.MapFrom(vm => vm.id))
+                .ForMember(g => g.libe, map => map.MapFrom(vm => vm.libe));
+
 
             #region Personne
 

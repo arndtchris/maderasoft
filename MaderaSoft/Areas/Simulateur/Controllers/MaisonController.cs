@@ -68,44 +68,39 @@ namespace MaderaSoft.Areas.Simulateur.Controllers
         //public ActionResult SavePlan()
         public ActionResult SavePlan(PlanDTO plan)
         {
-           /* PlanDTO plan = new PlanDTO();
-            List<PositionModuleDTO> pModule = new List<PositionModuleDTO>();
-            ModuleDTO mod = new ModuleDTO();
-            mod.id = 1;
-            pModule.Add(new PositionModuleDTO
-            {
-                lineId = 1,
-                x1 = 1,
-                x2 = 2,
-                y1 = 1,
-                y2 = 2,
-                module = mod
-            });*/
-
+            int idModule = 0;
             if (plan != null)
             {
-               /* plan.largeur = 2;
-                plan.largeur = 2;
+
                 plan.nom = "test";
-                plan.lesEtages.Add(new EtageDTO{
-                    lesModules = pModule
-                });*/
+
+
+                foreach(EtageDTO e in plan.lesEtages)
+                {
+                    foreach(PositionModuleDTO p in e.lesModules)
+                    {
+                        idModule = p.module.id;
+
+                        p.module = new ModuleDTO();
+                        p.module = Mapper.Map<Module, ModuleDTO>(_moduleService.Get(idModule));
+                    }
+
+                    idModule = 0;
+                }
 
                 Plan planP = new Plan();
-                plan.nom = "test";
-                planP=Mapper.Map<PlanDTO, Plan>(plan);
+                planP = Mapper.Map<PlanDTO, Plan>(plan);
+
                 try
                 {
                     _planService.Create(planP);
                     _planService.Save();
 
-                    //int i = 0;
                 }
                 catch(Exception e)
                 {
                     throw (e);
                 }
-               // return RedirectToAction("Index");
 
                 return Json("Success");
             }
