@@ -40,7 +40,7 @@ namespace MaderaSoft.Areas.RechercheDeveloppement.Controllers
 
                 List<ModuleDTO> lesModules = Mapper.Map<List<Module>, List<ModuleDTO>>(_moduleService.DonneTous().ToList());
 
-                modelOut.tableauModules.lesLignes.Add(new List<object> { "", "Nom module", "Gamme", "" });
+                modelOut.tableauModules.lesLignes.Add(new List<object> { "", "Nom module", "Gamme", "Prix du module", "" });
 
                 foreach (ModuleDTO module in lesModules)
                 {
@@ -51,7 +51,7 @@ namespace MaderaSoft.Areas.RechercheDeveloppement.Controllers
                         libe = " ",
                         typeDeBouton = Parametres.TypeBouton.Detail
                     };
-                    modelOut.tableauModules.lesLignes.Add(new List<object> { button, module.libe, module.typeModule.libe , module.id });
+                    modelOut.tableauModules.lesLignes.Add(new List<object> { button, module.libe, module.typeModule.libe , module.prix.ToString(), module.id });
                 }
 
 
@@ -102,7 +102,11 @@ namespace MaderaSoft.Areas.RechercheDeveloppement.Controllers
             {
                 try
                 {
+                    
                     mdl = _moduleService.Get(module.id);
+                    mdl.libe = module.libe;
+                    mdl.prix = module.prix;
+                    mdl.typeModule.libe = module.typeModule.libe;
                     _moduleService.Update(mdl);
 
                     FlashMessage.Confirmation("Module mis à jour avec succès");
@@ -143,11 +147,12 @@ namespace MaderaSoft.Areas.RechercheDeveloppement.Controllers
             [HttpGet]
             public ActionResult DeleteModal(int id)
             {
+            string testid = id.ToString();
                 BootstrapModalViewModel modelOut = new BootstrapModalViewModel();
                 modelOut.typeObjet = "RechercheDeveloppement/Module";
                 modelOut.formulaireUrl = "~/Views/Shared/_BootstrapDeleteModalPartial.cshtml";
                 modelOut.titreModal = "Suppression d'un module";
-                modelOut.objet = new BootstrapDeleteModalViewModel { idToDelete = id, message = "Etes vous sûr de vouloir supprimer ce module ?" };
+                modelOut.objet = new BootstrapDeleteModalViewModel { idToDelete = id, message = "Etes vous sûr de vouloir supprimer ce module ?", method = "Delete", urlController = "Module" };
 
                 return PartialView("~/Views/Shared/_BootstrapModalPartial.cshtml", modelOut);
             }

@@ -15,6 +15,7 @@ namespace MaderaSoft.Models.DTO
         public String libe { get; set; }
         [DisplayName("Gamme")]
         public virtual TModuleDTO typeModule { get; set; }
+        [DisplayName("Prix")]
         public decimal prix { get; set; }
         public string coupePrincipe { get; set; }
 
@@ -33,6 +34,8 @@ namespace MaderaSoft.Models.DTO
         [Required(ErrorMessage = "Veuillez renseigner la gamme du module")]
         [DisplayName("Gamme")]
         public virtual TModuleDTO typeModule { get; set; }
+        [DisplayName("Prix")]
+        public decimal prix { get; set; }
         public CreateModuleDTO()
         {
             typeModule = new TModuleDTO();
@@ -46,6 +49,8 @@ namespace MaderaSoft.Models.DTO
         public String libe { get; set; }
         [DisplayName("Gamme")]
         public virtual TModuleDTO typeModule { get; set; }
+        [DisplayName("Prix")]
+        public decimal prix { get; set; }
         public EditModuleDTO()
         {
             typeModule = new TModuleDTO();

@@ -380,6 +380,7 @@
     <Content Include="Areas\RessourcesHumaines\Views\GestionDroit\Index.cshtml" />
     <Content Include="Areas\Simulateur\Views\Maison\_AffichePlan.cshtml" />
     <Content Include="Areas\RessourcesHumaines\Views\GestionDroit\_ParametreDroitPartial.cshtml" />
+    <Content Include="Areas\RechercheDeveloppement\Views\Module\Detail.cshtml" />
     <None Include="Properties\PublishProfiles\maderasoftcesi - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\maderasoftcesi - Web Deploy.pubxml">
       <SubType>Designer</SubType>
