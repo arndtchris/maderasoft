@@ -74,22 +74,21 @@ namespace MaderaSoft.Areas.Simulateur.Controllers
 
                 plan.nom = "test";
 
+                Plan planP = new Plan();
+                planP = Mapper.Map<PlanDTO, Plan>(plan);
 
-                foreach(EtageDTO e in plan.lesEtages)
+                foreach (Etage e in planP.listEtages)
                 {
-                    foreach(PositionModuleDTO p in e.lesModules)
+                    foreach (PositionModule p in e.listPositionModule)
                     {
                         idModule = p.module.id;
 
-                        p.module = new ModuleDTO();
-                        p.module = Mapper.Map<Module, ModuleDTO>(_moduleService.Get(idModule));
+                        p.module = new Module();
+                        p.module = _moduleService.Get(idModule);
                     }
 
                     idModule = 0;
                 }
-
-                Plan planP = new Plan();
-                planP = Mapper.Map<PlanDTO, Plan>(plan);
 
                 try
                 {
@@ -116,11 +115,12 @@ namespace MaderaSoft.Areas.Simulateur.Controllers
         {
             try
             {
-                List<ModuleDTO> lesModules = Mapper.Map<List<Module>, List<ModuleDTO>>(_moduleService.DonneTous().ToList());
-                Plan p = _planService.Get(id);
-                PlanDTO plan = Mapper.Map<Plan, PlanDTO>(_planService.Get(id));
+                //List<ModuleDTO> lesModules = Mapper.Map<List<Module>, List<ModuleDTO>>(_moduleService.DonneTous().ToList());
+                //PlanDTO plan = Mapper.Map<Plan, PlanDTO>(_planService.Get(id));
 
-                return Json(plan);
+                Plan p = _planService.Get(id);
+
+                return Json(p);
             }
             catch(Exception e)
             {
