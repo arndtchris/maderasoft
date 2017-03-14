@@ -16,7 +16,7 @@ namespace Madera.Data.Configuration
             HasOptional<TModule>(a => a.typeModule);
             Property(a => a.libe).HasColumnType("varchar").HasMaxLength(150);
             Property(a => a.coupePrincipe).HasColumnType("varchar");
-            //Property<decimal>(a => a.prix);
+            Property<decimal>(a => a.prix);
         }
     }
 }

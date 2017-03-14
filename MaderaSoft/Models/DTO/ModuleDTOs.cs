@@ -18,7 +18,7 @@ namespace MaderaSoft.Models.DTO
         [DisplayName("Prix")]
         public decimal prix { get; set; }
         public string coupePrincipe { get; set; }
-
+        
         public ModuleDTO()
         {
             typeModule = new TModuleDTO();

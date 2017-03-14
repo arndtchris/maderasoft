@@ -106,7 +106,10 @@ namespace MaderaSoft.Areas.RechercheDeveloppement.Controllers
                     mdl = _moduleService.Get(module.id);
                     mdl.libe = module.libe;
                     mdl.prix = module.prix;
-                    mdl.typeModule.libe = module.typeModule.libe;
+                    mdl.prix = Convert.ToDecimal(mdl.prix);
+                    mdl.coupePrincipe = "string";
+                    mdl.typeModule = _tmoduleService.Get(module.typeModule.id);
+                    //mdl = Mapper.Map<ModuleDTO, Module>(module);
                     _moduleService.Update(mdl);
 
                     FlashMessage.Confirmation("Module mis à jour avec succès");
