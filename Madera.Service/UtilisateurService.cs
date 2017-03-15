@@ -131,6 +131,12 @@ namespace Madera.Service
                 description = String.Format("Réinitialisation du mot de passe du compte utilisateur utilisateur_id = {0}", id),
             });
         }
+
+        public Utilisateur TrouveUtilisateur(string login, string pwd)
+        {
+            string cryptedPwd = Crypte(pwd);
+            return _utilisateurRepository.Get(x => x.login == login && x.password == cryptedPwd);
+        }
     }
 
     public interface IUtilisateurService : IService<Utilisateur>
@@ -142,5 +148,7 @@ namespace Madera.Service
         void ResetPwd(int id);
 
         string Crypte(string password);
+
+        Utilisateur TrouveUtilisateur(string login, string pwd);
     }
 }

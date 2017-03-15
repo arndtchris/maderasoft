@@ -63,4 +63,10 @@ namespace MaderaSoft.Models.DTO
             this.password = util.password;
         }
     }
+
+    public class UtilisateurLoginDTO
+    {
+        public string login { get; set; }
+        public string password { get; set; }
+    }
 }

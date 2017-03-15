@@ -468,6 +468,10 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
                 modelOut.lesDroits = _donneListeGroupeUtilisateur();
                 modelOut.lesServices = _donneListeService();
 
+                //On met à jour l'utilisateur en session, car lesa ffectations influes sur les éléments du menu de navigation
+                EmployeDTO util = Mapper.Map<Employe, EmployeDTO>(_employeService.Get(nouvelleAffectation.emplyeId));
+                Session["utilisateur"] = util;
+
 
             }
             catch (Exception e)

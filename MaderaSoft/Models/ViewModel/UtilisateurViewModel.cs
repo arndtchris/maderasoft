@@ -30,5 +30,14 @@ namespace MaderaSoft.Models.ViewModel
         }
     }
 
+    public class LoginViewModel : NotificationUtilisateur
+    {
+        public UtilisateurLoginDTO loginUtilisateur { get; set; }
+
+        public LoginViewModel()
+        {
+            loginUtilisateur = new UtilisateurLoginDTO();
+        }
+    }
 
 }

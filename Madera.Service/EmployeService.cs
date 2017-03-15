@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Web;
 using Madera.Data.Infrastructure;
 using Madera.Data.Repositories;
@@ -24,7 +25,7 @@ namespace Madera.Service
             this._affectationServiceService = affectationServiceService;
             this._adresseService = adresseService;
             this._utilisateurService = utilisateurService;
-            this._unitOfWork = unitOfWork;
+            this._unitOfWork = unitOfWork
         }
 
         public IEnumerable<Employe> DonneTous()
@@ -128,10 +129,29 @@ namespace Madera.Service
                 description = String.Format("Supression de l'employé employe_id = {0}", id),
             });
         }
+
+        public Employe TrouveUtilisateur(string login, string pwd)
+        {
+            string cryptedPwd = Crypte(pwd);
+            return _employeRepository.Get(x => x.utilisateur.login == login && x.utilisateur.password == cryptedPwd);
+        }
+
+        public string Crypte(string password)
+        {
+            var bytes = new UTF8Encoding().GetBytes(password);
+            byte[] hashBytes;
+            using (var algorithm = new System.Security.Cryptography.SHA512Managed())
+            {
+                hashBytes = algorithm.ComputeHash(bytes);
+            }
+            return Convert.ToBase64String(hashBytes);
+        }
     }
 
     public interface IEmployeService : IService<Employe>
     {
+        Employe TrouveUtilisateur(string login, string pwd);
 
+        string Crypte(string password);
     }
 }

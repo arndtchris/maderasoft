@@ -1,0 +1,24 @@
+﻿@using MaderaSoft.Models.DTO
+@using MaderaSoft.Models.ViewModel
+@model LoginViewModel
+
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+@{
+    EmployeDTO user = (EmployeDTO)HttpContext.Current.Session["utilisateur"];
+}
+
+@if (user == null)
+{
+    <div class="row">
+        <div class="col-md-offset-3 col-md-6">
+            @Html.Partial("~/Views/MaderaSoft/_login.cshtml", Model)
+        </div>
+    </div>
+
+}
+else
+{
+    <p>Bienvenu dans la solution Madera Soft</p>
+}

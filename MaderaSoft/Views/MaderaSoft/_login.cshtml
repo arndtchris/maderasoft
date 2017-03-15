@@ -1,0 +1,25 @@
+﻿@using MaderaSoft.Models.ViewModel;
+@using Madera.Service;
+
+@model LoginViewModel
+
+@using (Html.BeginForm("Login", "MaderaSoft", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-inline" }))
+{
+    @Html.AfficheNotificationUtilisateur(Model.notifications)
+    <div class="row">
+        <div class="col-md-6">
+            @Html.LabelFor(m => m.loginUtilisateur.login)
+            @Html.TextBoxFor(m => m.loginUtilisateur.login)
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            @Html.LabelFor(m => m.loginUtilisateur.password)
+            @Html.PasswordFor(m => m.loginUtilisateur.password)
+        </div>
+    </div>
+    <div class="row">
+        @Html.actionButton(" Se connecter", Parametres.TypeBouton.Submit)
+    </div>
+
+}

@@ -104,6 +104,14 @@ namespace Madera.Data
                 new Service
                 {
                     libe = "Service commercial"
+                },
+                new Service
+                {
+                    libe = "Ressources humaines"
+                },
+                new Service
+                {
+                    libe = "Recherche & développement"
                 }
             };
         }
