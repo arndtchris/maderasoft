@@ -36,3 +36,7 @@
     min-height: 75%;
     width: 100%;
 }
+
+#recap p{
+    display:inline-block;
+}

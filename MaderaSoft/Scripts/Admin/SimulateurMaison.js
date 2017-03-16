@@ -158,12 +158,6 @@ $(function () {
                 var y1 = $(value).children().attr("y1");
                 var y2 = $(value).children().attr("y2");
                 var lineId = $(value).children().attr("id");
-                /*console.log("currentData", currentData);
-                console.log("x1", x1);
-                console.log("x2", x2);
-                console.log("y1", y1);
-                console.log("y2", y2);
-                console.log("lineId", lineId);*/
                
                 if (typeof (currentData) != "undefined") {
 
@@ -233,21 +227,65 @@ function changeColor(id) {
     $(id).attr("data-values", code);
 
     //Apparait dans liste représentant le devis
+    console.log("Tbaleau parcours", $("#recap tbody"));
 
-    //if ($("#recap #" + id).attr("id") === id) {
 
-   // $("#recap").each(function (key, value) {
-     //   if ($(value).attr("id") === id) {
-        /*    $li = $(value).attr("id");
-            $("#"+$li+"")*/
 
-       // } else {
-    nomMod = nom;
-    console.log("nomMod", nomMod);
-    quantite = 1;
-    prix = 0;
-    html = "<tr id='" + nomMod + "'><td>" + nomMod + "</td><td>x" + quantite + "</td><td>" + prix + "</td></tr>";
-    $("#recap").append(html);
-        //}
-    //});
+    $("#recap tbody tr").each(function (key, value) {
+        console.log('TEST', value);
+
+
+        console.log('--------Nom---------', nom);
+        console.log("-----------------------------------------------------------------", typeof ($(value).attr("id")));
+        if (typeof ($(value).attr("id")) != "undefined") {
+            console.log('------------boucle----------', $(value).attr("id"));
+
+
+             if ($(value).attr("id") === nom) {
+                    
+                trId = $(value).attr("id");
+                console.log("trId", trId);
+                console.log("aaa", "#" + trId + " :nth-child(2)")
+                $td = $("#" + trId + " :nth-child(2)");
+
+                console.log("---------$td--------", $("#" + trId + " :nth-child(2)"));
+
+                $p = $($td).children();
+                
+                console.log("coucuouocuocuocuocuococ", $($td).attr("id"));
+
+                tdId = $($td).attr("id");
+                console.log("ppp", tdId);
+                var quantite = $("#" + tdId + " :nth-child(2)").text();
+                quantite = parseInt(quantite) + 1;
+                $("#" + tdId + " :nth-child(2)").text(quantite);
+
+             } else {
+
+                 console.log("---------------------FIND---------------------",typeof($("#devis").find("#" + nom + "_quantite")));
+                 var result = $("#devis").find("#" + nom + "_quantite");
+                 if (typeof(result[0]) === "undefined") {
+                     nomMod = nom;
+                     console.log("---------------------DANS LE ELSE---------------------", nomMod);
+                     quantite = 1;
+                     prix = 0;
+                     html = "<tr id='" + nomMod + "'><td>" + nomMod + "</td><td id='" + nomMod + "_quantite'><p>x</p><p class='quantite'>" + quantite + "</p></td><td>" + prix + "</td></tr>";
+                     $("#recap tbody").append(html);
+                 }
+            }
+
+        } 
+    });
+
+    console.log("-------SALOPE------", typeof ($("#recap tbody tr")))
+
+    if($("#recap tbody tr").length <=  0) {
+        nomMod = nom;
+        console.log("LE PREMIER", nomMod);
+        quantite = 1;
+        prix = 0;
+        html = "<tr id='" + nomMod + "'><td>" + nomMod + "</td><td id='"+nomMod+"_quantite'><p>x</p><p class='quantite'>" + quantite + "</p></td><td>" + prix + "</td></tr>";
+        $("#recap tbody").append(html);
+    }
+
 }
