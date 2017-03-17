@@ -7,6 +7,7 @@ using System.Web;
 using Madera.Data.Infrastructure;
 using Madera.Data.Repositories;
 using Madera.Model;
+using System.Collections;
 
 namespace Madera.Service
 {
@@ -35,9 +36,9 @@ namespace Madera.Service
             return _personneRepository.GetAll();
         }
 
-        public IEnumerable<Personne> DonneTous(Expression<Func<Personne, bool>> where)
+        public List<Personne> DonneTousFournisseurs()
         {
-            return _personneRepository.GetPersonnes(where);
+            return _personneRepository.GetPersonnes(x => x.isFournisseur == true).ToList();
         }
 
         public Personne Get(int id)
@@ -164,6 +165,7 @@ namespace Madera.Service
     public interface IPersonneService : IService<Personne>
     {
         Personne TrouveUtilisateur(string login, string pwd);
+        List<Personne> DonneTousFournisseurs();
 
         string Crypte(string password);
     }

@@ -75,8 +75,12 @@ namespace Madera.Service
         }
     }
 
-    public interface IGammeService : IService<Gamme>
+    public interface IGammeService
     {
-
+        IEnumerable<Gamme> DonneTous();
+        void Create(Gamme gamme);
+        void Update(Gamme gamme);
+        void Delete(int id);
+        Gamme Get(int id);
     }
 }

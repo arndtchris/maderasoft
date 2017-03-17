@@ -7,11 +7,11 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace MaderaSoft.Areas.GestionStock.Models.DTOs
+namespace MaderaSoft.Models.DTO
 {
 
         // GET: GestionStock/Stocks
-        public class StockDTO
+        public class ComposantDTO
         {
             public int id { get; set; }
             [DisplayName("Nom du composant")]
@@ -25,7 +25,7 @@ namespace MaderaSoft.Areas.GestionStock.Models.DTOs
             [DisplayName("Nom fournisseur")]
             public virtual Personne fournisseur { get; set; }
 
-            public StockDTO()
+            public ComposantDTO()
             {
             }
         }

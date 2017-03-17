@@ -59,6 +59,14 @@ namespace MaderaSoft.Mapping
                 .ForMember(g => g.update, map => map.MapFrom(vm => vm.update))
                 .ForMember(g => g.libe, map => map.MapFrom(vm => vm.libe));
 
+            CreateMap<ComposantDTO, Composant>().MaxDepth(1)
+               .ForMember(g => g.id, map => map.MapFrom(vm => vm.id))
+               .ForMember(g => g.libe, map => map.MapFrom(vm => vm.libe))
+               .ForMember(g => g.prixHT, map => map.MapFrom(vm => vm.prixHT))
+               .ForMember(g => g.qteStock, map => map.MapFrom(vm => vm.qteStock))
+               .ForMember(g => g.fournisseur, map => map.MapFrom(vm => vm.fournisseur))
+               .ForMember(g => g.gamme, map => map.MapFrom(vm => vm.gamme));
+
             CreateMap<ServiceDTO, Service>().MaxDepth(1)
                .ForMember(g => g.libe, map => map.MapFrom(vm => vm.libe));
 

@@ -20,7 +20,7 @@
                 </div>
                 <div class="col-md-4">
                     @Html.LabelFor(m => m.composant.gamme)
-                    @Html.DropDownListFor(m => m.composant.gamme, Model.lesGammes)
+                    @Html.DropDownListFor(m => m.composant.gamme.id, Model.lesGammes)
                 </div>
             </div>
             </fieldset>
@@ -37,7 +37,7 @@
                     </div>
                     <div class="col-md-4">
                         @Html.LabelFor(m => m.composant.fournisseur)
-                        @Html.TextBoxFor(m => m.composant.fournisseur.nom)
+                        @Html.DropDownListFor(m => m.composant.fournisseur.id, Model.lesFournisseurs)
                     </div>
                   </div>
 

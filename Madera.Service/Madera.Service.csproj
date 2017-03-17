@@ -154,7 +154,7 @@
     <Compile Include="PositionModuleService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServiceService.cs" />
-    <Compile Include="StockService.cs" />
+    <Compile Include="ComposantService.cs" />
     <Compile Include="TEmployeService.cs" />
     <Compile Include="TModuleService.cs" />
     <Compile Include="UtilisateurService.cs" />

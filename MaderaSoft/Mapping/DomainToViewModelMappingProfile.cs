@@ -53,6 +53,7 @@ namespace MaderaSoft.Mapping
 
             CreateMap<Module, ModuleDTO>().MaxDepth(1);
             CreateMap<TModule, TModuleDTO>();
+            CreateMap<Composant, ComposantDTO>().MaxDepth(1);
 
         }
     }

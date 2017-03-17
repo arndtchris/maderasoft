@@ -7,7 +7,6 @@ using System.Web.UI.WebControls;
 using AutoMapper;
 using Madera.Model;
 using Madera.Service;
-using MaderaSoft.Areas.GestionStock.Models.DTOs;
 using MaderaSoft.Areas.GestionStock.Models.ViewModels;
 using MaderaSoft.Models.DTO;
 using MaderaSoft.Models.ViewModel;
@@ -17,16 +16,18 @@ namespace MaderaSoft.Areas.GestionStock.Controllers
 {
     public class StockController : Controller
     {
-        private readonly IStockService _stockService;
+        private readonly IComposantService _composantService;
         private readonly IServiceService _serviceService;
         private readonly IGammeService _gammeService;
+        private readonly IPersonneService _personneService;
 
 
-        public StockController(IStockService stockService, IServiceService serviceService, IGammeService gammeService)
+        public StockController(IComposantService composantService, IServiceService serviceService, IGammeService gammeService, IPersonneService personneService)
         {
-            this._stockService = stockService;
+            this._composantService = composantService;
             this._serviceService = serviceService;
             this._gammeService = gammeService;
+            this._personneService = personneService;
         }
 
         // GET: GestionStock/Stocks
@@ -38,20 +39,20 @@ namespace MaderaSoft.Areas.GestionStock.Controllers
             modelOut.tableauComposants.avecActionCrud = true;
             modelOut.tableauComposants.messageSiVide = "Aucun composant n'a été ajouté à l'application.";
 
-            List<StockDTO> lesComposants = Mapper.Map<List<Composant>, List<StockDTO>>(_stockService.GetComposants().ToList());
+            List<ComposantDTO> lesComposants = Mapper.Map<List<Composant>, List<ComposantDTO>>(_composantService.DonneTous().ToList());
 
-            modelOut.tableauComposants.lesLignes.Add(new List<object> { "", "Nom Composant", "Quantité", "Gamme", "Prix fournisseur", "Nom fournisseur", "" });
+            modelOut.tableauComposants.lesLignes.Add(new List<object> {"Nom Composant", "Quantité", "Gamme", "Prix fournisseur", "Nom fournisseur", "" });
 
-            foreach (StockDTO composant in lesComposants)
+            foreach (ComposantDTO composant in lesComposants)
             {
-                button = new BootstrapButtonViewModel
-                {
-                    href = Url.Action("Detail", "Composant", new { area = "GestionStock", id = composant.id }).ToString(),
-                    cssClass = "",
-                    libe = " ",
-                    typeDeBouton = Parametres.TypeBouton.Detail
-                };
-                modelOut.tableauComposants.lesLignes.Add(new List<object> { button, composant.libe, composant.qteStock.ToString(), composant.gamme.libe.ToString(), composant.prixHT.ToString(), composant.fournisseur.nom, composant.id });
+                //button = new BootstrapButtonViewModel
+                //{
+                //    href = Url.Action("Detail", "Composant", new { area = "GestionStock", id = composant.id }).ToString(),
+                //    cssClass = "",
+                //    libe = " ",
+                //    typeDeBouton = Parametres.TypeBouton.Detail
+                //};
+                modelOut.tableauComposants.lesLignes.Add(new List<object> { composant.libe, composant.qteStock.ToString(), composant.gamme.libe.ToString(), composant.prixHT.ToString(), composant.fournisseur.nom, composant.id });
             }
 
 
@@ -59,7 +60,7 @@ namespace MaderaSoft.Areas.GestionStock.Controllers
         }
 
         [HttpGet]
-        public ActionResult EditModal()
+        public ActionResult EditModal(int? id)
         {
 
             BootstrapModalViewModel modelOut = new BootstrapModalViewModel();
@@ -68,7 +69,7 @@ namespace MaderaSoft.Areas.GestionStock.Controllers
 
             //if (id.HasValue)
             //{
-            //    editComposant.composant = Mapper.Map<Composant, StockDTO>(_stockService.GetUnComposant(id.Value));
+            //    editComposant.composant = Mapper.Map<Composant, StockDTO>(_composantService.GetUnComposant(id.Value));
             //    modelOut.titreModal = string.Format("Modification des informations d'un composant");
             //}
             //else
@@ -76,13 +77,37 @@ namespace MaderaSoft.Areas.GestionStock.Controllers
             //    modelOut.titreModal = "Edition d'un composant";
             //}
 
+            if (id.HasValue)
+            {
+                editComposant.composant = Mapper.Map<Composant, ComposantDTO>(_composantService.Get(id.Value));
+            }
             editComposant.lesGammes = _donneListeGammes();
+            //On prépare le fournisseur
+            List<Personne> listFrnsr = _personneService.DonneTousFournisseurs();
+            editComposant.lesFournisseurs = _donneListeFournisseurs() ;
             modelOut.formulaireUrl = "~/Areas/GestionStock/Views/Stock/_EditStockPartial.cshtml";
             modelOut.titreModal = string.Format("Modification des informations du composant");
             modelOut.objet = editComposant;
 
             return PartialView("~/Views/Shared/_BootstrapModalPartial.cshtml", modelOut);
 
+        }
+
+        private List<SelectListItem> _donneListeFournisseurs()
+        {
+            List<SelectListItem> lesFournisseurs = new List<SelectListItem>();
+
+            //On récupère la liste des services disponibles dans l'application
+            lesFournisseurs = _personneService.DonneTousFournisseurs().Select(
+                x => new SelectListItem()
+                {
+                    Text = x.nom,
+                    Value = x.id.ToString()
+                }
+                ).ToList();
+            lesFournisseurs.Insert(0, new SelectListItem() { Text = "--- Sélectionnez ---", Value = "" });
+
+            return lesFournisseurs;
         }
 
         private List<SelectListItem> _donneListeGammes()
@@ -100,67 +125,70 @@ namespace MaderaSoft.Areas.GestionStock.Controllers
         }
 
         [HttpPost]
-        public ActionResult Edit(StockDTO composant)
+        public ActionResult Edit(ComposantDTO composant)
         {
 
             Composant cpst = new Composant();
+            Personne frnsr = new Personne();
 
             if (composant.id != 0)//update
             {
                 try
                 {
 
-                    cpst = _stockService.GetUnComposant(composant.id);
+                    cpst = _composantService.Get(composant.id);
                     cpst.libe = composant.libe;
                     cpst.prixHT = composant.prixHT;
                     cpst.qteStock = composant.qteStock;
                     //cpst.fournisseur = 
                     //cpst.gamme = _tmoduleService.Get(composant.gamme.id);
                     //mdl = Mapper.Map<ModuleDTO, Module>(module);
-                    _stockService.UpdateComposant(cpst);
+                    _composantService.Update(cpst, _donneNomPrenomUtilisateur());
 
                     FlashMessage.Confirmation("Module mis à jour avec succès");
                 }
                 catch (Exception e)
                 {
-                    FlashMessage.Danger("Erreur lors de la mise à jour du module");
+                    FlashMessage.Danger("Erreur lors de la mise à jour du composant");
                 }
             }
             else
             {
                 try
                 {
-                    cpst = Mapper.Map<StockDTO, Composant>(composant);
+                    cpst = Mapper.Map<ComposantDTO, Composant>(composant);
 
 
-                    //On prépare la gamme
-                    cpst.gamme = _gammeService.Get(cpst.gamme.id);
                     //On prépare le fournisseur
-
-
-                    _stockService.CreateComposant(cpst);
+                    cpst.fournisseur = _personneService.Get(composant.fournisseur.id);
+                    //On prépare la gamme
+                    cpst.gamme = _gammeService.Get(composant.gamme.id);
+                    
+                    _composantService.Create(cpst, _donneNomPrenomUtilisateur());
 
                     FlashMessage.Confirmation("Module créé avec succès");
                 }
                 catch (Exception e)
                 {
-                    FlashMessage.Danger("Erreur lors de l'ajout du module");
+                    FlashMessage.Danger("Erreur lors de l'ajout du composant");
                 }
 
             }
-            _stockService.saveComposant();
+            _composantService.Save();
 
             return RedirectToAction("Index");
         }
+
+
 
         [HttpGet]
         public ActionResult DeleteModal(int id)
         {
             BootstrapModalViewModel modelOut = new BootstrapModalViewModel();
-            modelOut.typeObjet = "GestionStock/Stocks";
+            modelOut.typeObjet = "GestionStock/Stock";
             modelOut.formulaireUrl = "~/Views/Shared/_BootstrapDeleteModalPartial.cshtml";
             modelOut.titreModal = "Suppression d'un composant";
-            modelOut.objet = new BootstrapDeleteModalViewModel { idToDelete = id, message = "Etes vous sûr de vouloir supprimer ce composant ?" };
+            modelOut.objet = new BootstrapDeleteModalViewModel { idToDelete = id, message = "Etes vous sûr de vouloir supprimer ce composant ?", method = "Delete", urlController = "Stock" };
 
             return PartialView("~/Views/Shared/_BootstrapModalPartial.cshtml", modelOut);
         }
@@ -171,8 +199,8 @@ namespace MaderaSoft.Areas.GestionStock.Controllers
             try
             {
                 FlashMessage.Confirmation("Suppression du composant");
-                _stockService.deleteComposant(idToDelete);
-                _stockService.saveComposant();
+                _composantService.Delete(idToDelete, _donneNomPrenomUtilisateur());
+                _composantService.Save();
             }
             catch (Exception)
             {
@@ -181,6 +209,17 @@ namespace MaderaSoft.Areas.GestionStock.Controllers
             }
 
             return RedirectToAction("Index");
+        }
+
+        private string _donneNomPrenomUtilisateur()
+        {
+            EmployeDTO emp = (EmployeDTO)HttpContext.Session["utilisateur"];
+
+            if (emp != null)
+                return string.Format("{0} {1}", emp.nom.ToUpperFirst(), emp.prenom.ToUpperFirst());
+            else
+                return "";
+
         }
     }
 }

@@ -5,7 +5,7 @@
 @model CreateModuleViewModel
 
 
-@using (Html.BeginForm("Edit", "Module", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-inline", area = "GestionModule" }))
+@using (Html.BeginForm("Edit", "Module", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-inline", area = "RechercheDeveloppement" }))
 {
     <div class="modal-body">
         @Html.HiddenFor(m => m.module.id)
