@@ -24,20 +24,25 @@ namespace Madera.Service
 
         public void Create(Module module, string user = "")
         {
-            _applicationTraceService.create(new ApplicationTrace
-            {
-                action = Parametres.Action.Creation.ToString(),
-            });
 
             _moduleRepository.Insert(module);
+
+            _applicationTraceService.create(new ApplicationTrace
+            {
+                utilisateur = user,
+                action = Parametres.Action.Creation.ToString(),
+                description = String.Format("Ajout d'un nouveau module_id = {0}"),
+            });
+
         }
 
         public void Delete(int id, string user = "")
         {
             _applicationTraceService.create(new ApplicationTrace
             {
+                utilisateur = user,
                 action = Parametres.Action.Suppression.ToString(),
-                description = String.Format("Supression du composant_id = {0}", id),
+                description = String.Format("Supression du module_id = {0}", id),
             });
             _moduleRepository.Delete(x => x.id == id);
         }
@@ -62,7 +67,9 @@ namespace Madera.Service
         {
             _applicationTraceService.create(new ApplicationTrace
             {
-                action = Parametres.Action.Creation.ToString(),
+                utilisateur = user,
+                description = String.Format("Mise à jour du module_id = {0}", module.id),
+                action = Parametres.Action.Modification.ToString()
             });
 
             _moduleRepository.Update(module);

@@ -38,7 +38,7 @@ namespace Madera.Service
 
             _applicationTraceService.create(new ApplicationTrace
             {
-                utilisateur = "",
+                utilisateur = user,
                 action = Parametres.Action.Creation.ToString(),
                 description = "Création d'un utilisateur",
             });
@@ -51,7 +51,7 @@ namespace Madera.Service
             //ToDo : réaliser une suppression complète ou logique en fonction des droits de l'utilisateur en session
             _applicationTraceService.create(new ApplicationTrace
             {
-                utilisateur = "",
+                utilisateur = user,
                 action = Parametres.Action.Suppression.ToString(),
                 description = String.Format("Supression de l'utilisateur utilisateur_id = {0}", id),
             });
@@ -79,7 +79,7 @@ namespace Madera.Service
 
             _applicationTraceService.create(new ApplicationTrace
             {
-                utilisateur = "",
+                utilisateur = user,
                 action = Parametres.Action.Modification.ToString(),
                 description = String.Format("Mise à jour de l'utilisateur utilisateur_id = {0}", utilisateur.id),
             });
@@ -102,7 +102,7 @@ namespace Madera.Service
 
             _applicationTraceService.create(new ApplicationTrace
             {
-                utilisateur = "",
+                utilisateur = user,
                 action = Parametres.Action.Modification.ToString(),
                 description = String.Format("Activation du compte utilisateur utilisateur_id = {0}", id),
             });
@@ -114,7 +114,7 @@ namespace Madera.Service
 
             _applicationTraceService.create(new ApplicationTrace
             {
-                utilisateur = "",
+                utilisateur = user,
                 action = Parametres.Action.Modification.ToString(),
                 description = String.Format("Désactivation du compte utilisateur utilisateur_id = {0}", id),
             });
@@ -126,7 +126,7 @@ namespace Madera.Service
 
             _applicationTraceService.create(new ApplicationTrace
             {
-                utilisateur = "",
+                utilisateur = user,
                 action = Parametres.Action.Modification.ToString(),
                 description = String.Format("Réinitialisation du mot de passe du compte utilisateur utilisateur_id = {0}", id),
             });

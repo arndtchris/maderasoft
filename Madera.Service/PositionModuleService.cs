@@ -32,7 +32,7 @@ namespace Madera.Service
 
             applicationTraceService.create(new ApplicationTrace
             {
-                utilisateur = "",
+                utilisateur = user,
                 action = Parametres.Action.Creation.ToString(),
                 description = "Création d'un élément position module",
             });
@@ -44,6 +44,7 @@ namespace Madera.Service
 
             applicationTraceService.create(new ApplicationTrace
             {
+                utilisateur = user,
                 action = Parametres.Action.Modification.ToString(),
                 description = String.Format("Mise à jour d'un élément position module positionModule_id = {0}", item.id),
             });
@@ -56,7 +57,7 @@ namespace Madera.Service
             //ToDo : réaliser une suppression complète ou logique en fonction des droits de l'utilisateur en session
             applicationTraceService.create(new ApplicationTrace
             {
-                utilisateur = "",
+                utilisateur = user,
                 action = Parametres.Action.Suppression.ToString(),
                 description = String.Format("Supression d'un élément position module positionModule_id = {0}", id),
             });

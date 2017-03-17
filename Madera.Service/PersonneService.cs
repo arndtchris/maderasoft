@@ -51,7 +51,7 @@ namespace Madera.Service
 
             _applicationTraceService.create(new ApplicationTrace
             {
-                utilisateur = "",
+                utilisateur = user,
                 action = Parametres.Action.Creation.ToString(),
                 description = String.Format("Ajout de {0} {1} {2} en tant que {3} au sein de l'application", getCiv(personne.civ), personne.nom, personne.prenom, _typePersonne),
             });
@@ -73,7 +73,7 @@ namespace Madera.Service
 
             _applicationTraceService.create(new ApplicationTrace
             {
-                utilisateur = "",
+                utilisateur = user,
                 action = Parametres.Action.Modification.ToString(),
                 description = String.Format("Mise à jour de {0} {1} {2} en tant que {3}", getCiv(personne.civ), personne.nom, personne.prenom, _typePersonne),
             });
@@ -90,7 +90,7 @@ namespace Madera.Service
 
             _applicationTraceService.create(new ApplicationTrace
             {
-                utilisateur = "",
+                utilisateur = user,
                 action = Parametres.Action.Suppression.ToString(),
                 description = String.Format("Supression de la personne personne_id = {0}", id),
             });
