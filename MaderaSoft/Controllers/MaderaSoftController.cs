@@ -16,11 +16,13 @@ namespace MaderaSoft.Controllers
     {
         private readonly IUtilisateurService _utilisateurService;
         private readonly IEmployeService _employeService;
+        private readonly IApplicationTraceService _traceService;
 
-        public MaderaSoftController(IUtilisateurService utilisateurService, IEmployeService employeService)
+        public MaderaSoftController(IUtilisateurService utilisateurService, IEmployeService employeService, IApplicationTraceService traceService)
         {
             this._utilisateurService = utilisateurService;
             this._employeService = employeService;
+            this._traceService = traceService;
         }
 
         // GET: MaderaSoft
@@ -39,8 +41,15 @@ namespace MaderaSoft.Controllers
             if (util != null)
             {
                 Session["utilisateur"] = util;
-                return RedirectToAction("Index", "MaderaSoft");
 
+                _traceService.create(new ApplicationTrace
+                {
+                    utilisateur = "",
+                    action = Parametres.Action.Connection.ToString(),
+                    description = string.Format("Connexion de {0} {1}", util.nom.ToUpperFirst(), util.prenom.ToUpperFirst())
+                });
+
+                return RedirectToAction("Index", "MaderaSoft");
             }
 
             model.loginUtilisateur.login = loginUtilisateur.login;
@@ -58,8 +67,28 @@ namespace MaderaSoft.Controllers
 
         public ActionResult logout()
         {
+
+            _traceService.create(new ApplicationTrace
+            {
+                utilisateur = _donneNomPrenomUtilisateur(),
+                action = Parametres.Action.Deconnection.ToString(),
+                description = string.Format("Déconnexion de {0}", _donneNomPrenomUtilisateur())
+            });
+
             Session.Abandon();
+
             return RedirectToAction("Index", "MaderaSoft");
+        }
+
+        private string _donneNomPrenomUtilisateur()
+        {
+            EmployeDTO emp = (EmployeDTO)HttpContext.Session["utilisateur"];
+
+            if (emp != null)
+                return string.Format("{0} {1}", emp.nom.ToUpperFirst(), emp.prenom.ToUpperFirst());
+            else
+                return "";
+
         }
     }
 }
