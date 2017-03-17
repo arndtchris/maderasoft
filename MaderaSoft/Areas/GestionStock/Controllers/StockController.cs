@@ -19,12 +19,14 @@ namespace MaderaSoft.Areas.GestionStock.Controllers
     {
         private readonly IStockService _stockService;
         private readonly IServiceService _serviceService;
+        private readonly IGammeService _gammeService;
 
 
-        public StockController(IStockService stockService, IServiceService serviceService)
+        public StockController(IStockService stockService, IServiceService serviceService, IGammeService gammeService)
         {
             this._stockService = stockService;
             this._serviceService = serviceService;
+            this._gammeService = gammeService;
         }
 
         // GET: GestionStock/Stocks
@@ -49,7 +51,7 @@ namespace MaderaSoft.Areas.GestionStock.Controllers
                     libe = " ",
                     typeDeBouton = Parametres.TypeBouton.Detail
                 };
-                modelOut.tableauComposants.lesLignes.Add(new List<object> { button, composant.libe, composant.qteStock.ToString(), composant.gamme.libe.ToString(), composant.prixHT.ToString(), composant.fournisseur.login.ToString() });
+                modelOut.tableauComposants.lesLignes.Add(new List<object> { button, composant.libe, composant.qteStock.ToString(), composant.gamme.libe.ToString(), composant.prixHT.ToString(), composant.fournisseur.nom, composant.id });
             }
 
 
@@ -82,36 +84,70 @@ namespace MaderaSoft.Areas.GestionStock.Controllers
             return PartialView("~/Views/Shared/_BootstrapModalPartial.cshtml", modelOut);
 
         }
+
         private List<SelectListItem> _donneListeGammes()
         {
-            List<SelectListItem> lesGammes = new List<SelectListItem>();
-
+            List<SelectListItem> lesGammes = _gammeService.DonneTous().Select(
+                    x => new SelectListItem()
+                    {
+                        Text = x.libe,
+                        Value = x.id.ToString()
+                    }
+                ).ToList();
             lesGammes.Insert(0, new SelectListItem() { Text = "--- Sélectionnez ---", Value = "" });
-            lesGammes.Insert(1, new SelectListItem() { Text = "Basic", Value = "" });
-            lesGammes.Insert(2, new SelectListItem() { Text = "Timber", Value = "" });
-            lesGammes.Insert(3, new SelectListItem() { Text = "Prestige", Value = "" });
 
             return lesGammes;
         }
+
         [HttpPost]
         public ActionResult Edit(StockDTO composant)
         {
-            
+
             Composant cpst = new Composant();
 
+            if (composant.id != 0)//update
+            {
                 try
                 {
+
                     cpst = _stockService.GetUnComposant(composant.id);
+                    cpst.libe = composant.libe;
+                    cpst.prixHT = composant.prixHT;
+                    cpst.qteStock = composant.qteStock;
+                    //cpst.fournisseur = 
+                    //cpst.gamme = _tmoduleService.Get(composant.gamme.id);
+                    //mdl = Mapper.Map<ModuleDTO, Module>(module);
                     _stockService.UpdateComposant(cpst);
 
-                    FlashMessage.Confirmation("Composant mis à jour avec succès");
+                    FlashMessage.Confirmation("Module mis à jour avec succès");
                 }
                 catch (Exception e)
                 {
-                    FlashMessage.Danger("Erreur lors de mis à jour du composant");
+                    FlashMessage.Danger("Erreur lors de la mise à jour du module");
                 }
-            
+            }
+            else
+            {
+                try
+                {
+                    cpst = Mapper.Map<StockDTO, Composant>(composant);
 
+
+                    //On prépare la gamme
+                    cpst.gamme = _gammeService.Get(cpst.gamme.id);
+                    //On prépare le fournisseur
+
+
+                    _stockService.CreateComposant(cpst);
+
+                    FlashMessage.Confirmation("Module créé avec succès");
+                }
+                catch (Exception e)
+                {
+                    FlashMessage.Danger("Erreur lors de l'ajout du module");
+                }
+
+            }
             _stockService.saveComposant();
 
             return RedirectToAction("Index");

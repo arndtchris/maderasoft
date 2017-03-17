@@ -23,6 +23,7 @@ namespace MaderaSoft.Areas.GestionStock.Models.ViewModels
 
     public class CreateStockViewModel
     {
+
         public virtual StockDTO composant { get; set; }
         public List<SelectListItem> lesGammes { get; set; }
 
@@ -30,12 +31,7 @@ namespace MaderaSoft.Areas.GestionStock.Models.ViewModels
         public CreateStockViewModel()
         {
             composant = new StockDTO();
-            lesGammes = new List<SelectListItem> {
-                new SelectListItem {Value = "",Text = "--- Sélectionnez ---" },
-                new SelectListItem {Value = "1",Text = "Basique" },
-                new SelectListItem {Value = "2",Text = "Milieu de gamme" },
-                new SelectListItem {Value = "2",Text = "Haut de gamme" }
-            };
+            lesGammes = new List<SelectListItem>();
 
 
         }

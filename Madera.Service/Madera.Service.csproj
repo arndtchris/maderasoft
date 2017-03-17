@@ -145,6 +145,7 @@
     <Compile Include="DevisFactureService.cs" />
     <Compile Include="EmployeService.cs" />
     <Compile Include="EtageService.cs" />
+    <Compile Include="GammeService.cs" />
     <Compile Include="IService.cs" />
     <Compile Include="ModuleService.cs" />
     <Compile Include="Parametres.cs" />

@@ -7,11 +7,11 @@
 
 @using (Html.BeginForm("Edit", "Stock", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-inline", area = "GestionStock" }))
 {
+
     <div class="modal-body">
         @Html.HiddenFor(m => m.composant.id)
-        @Html.HiddenFor(m => m.composant.id)
         <fieldset>
-            <legend>Informations composant</legend>
+            <legend>Informations module</legend>
             <div class="form-group-lg">
                 <div class="col-md-4">
                     @Html.LabelFor(m => m.composant.libe)
@@ -19,38 +19,35 @@
                     <p class="bg-warning">@Html.ValidationMessageFor(m => m.composant.libe)</p>
                 </div>
                 <div class="col-md-4">
-                    @Html.LabelFor(m => m.composant.qteStock)
-                    @Html.TextBoxFor(m => m.composant.qteStock)
-                    <p class="bg-warning">@Html.ValidationMessageFor(m => m.composant.qteStock)</p>
-                </div>
-                <div class="col-md-4">
                     @Html.LabelFor(m => m.composant.gamme)
                     @Html.DropDownListFor(m => m.composant.gamme, Model.lesGammes)
-                    <p class="bg-warning">@Html.ValidationMessageFor(m => m.composant.gamme)</p>
                 </div>
             </div>
-        </fieldset>
-        <fieldset>
-            <legend>Informations fournisseur</legend>
-            <div class="form-group-lg">
-                <div class="col-md-4">
-                    @Html.LabelFor(m => m.composant.prixHT)
-                    @Html.TextBoxFor(m => m.composant.prixHT)
-                    <p class="bg-warning">@Html.ValidationMessageFor(m => m.composant.prixHT)</p>
-                </div>
-                <div class="col-md-4">
-                    @Html.LabelFor(m => m.composant.fournisseur)
-                    @Html.TextBoxFor(m => m.composant.fournisseur.nom)
-                    <p class="bg-warning">@Html.ValidationMessageFor(m => m.composant.fournisseur.nom)</p>
-                </div>
-            </div>
-        </fieldset>
-            </div>
-            <div class="modal-footer">
-                @Html.actionButton(" Annuler", Parametres.TypeBouton.DissmissModal)
-                @Html.actionButton(" Valider", Parametres.TypeBouton.Submit)
-            </div>
-            }
+            </fieldset>
+            <fieldset>
+                <legend>Caractéristiques module</legend>
+                 <div class="form-group-lg">
+                    <div class="col-md-4">
+                        @Html.LabelFor(m => m.composant.prixHT)
+                        @Html.TextBoxFor(m => m.composant.prixHT)
+                    </div>
+                    <div class="col-md-4">
+                        @Html.LabelFor(m => m.composant.qteStock)
+                        @Html.TextBoxFor(m => m.composant.qteStock)
+                    </div>
+                    <div class="col-md-4">
+                        @Html.LabelFor(m => m.composant.fournisseur)
+                        @Html.TextBoxFor(m => m.composant.fournisseur.nom)
+                    </div>
+                  </div>
+
+            </fieldset>
+</div>
+    <div class="modal-footer">
+        @Html.actionButton(" Annuler", Parametres.TypeBouton.DissmissModal)
+        @Html.actionButton(" Valider", Parametres.TypeBouton.Submit)
+    </div>
+}
 
 
 

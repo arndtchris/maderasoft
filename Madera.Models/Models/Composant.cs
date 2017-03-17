@@ -14,7 +14,7 @@ namespace Madera.Model
         public Boolean isDeleted { get; set; }
         public double prixHT { get; set; }
         public virtual Gamme gamme { get; set; }
-        public virtual Utilisateur fournisseur { get; set; }
+        public virtual Personne fournisseur { get; set; }
 
         public Composant()
         {

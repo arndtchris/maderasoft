@@ -1,4 +1,5 @@
 ﻿using Madera.Model;
+using MaderaSoft.Models.DTO;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -22,7 +23,7 @@ namespace MaderaSoft.Areas.GestionStock.Models.DTOs
             [DisplayName("Prix fournisseur")]
             public double prixHT { get; set; }
             [DisplayName("Nom fournisseur")]
-            public virtual Utilisateur fournisseur { get; set; }
+            public virtual Personne fournisseur { get; set; }
 
             public StockDTO()
             {
