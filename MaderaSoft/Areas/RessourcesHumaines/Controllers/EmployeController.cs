@@ -26,6 +26,7 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
         private readonly IDroitService _droitService;
         private readonly IAffectationServiceService _affectationService;
         private readonly IUtilisateurService _utilisateurService;
+        private readonly string _service;
 
         public EmployeController(IEmployeService employeService, IServiceService serviceService, IPersonneService personneService, IAdresseService adresseService, IDroitService droitService, ITEmployeService temployeService, IAffectationServiceService affectationService, IUtilisateurService utilisateurService)
         {
@@ -37,6 +38,8 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
             this._temployeService = temployeService;
             this._affectationService = affectationService;
             this._utilisateurService = utilisateurService;
+            this._service = "Ressources Humaines";
+
         }
 
         // GET: RessourcesHumaines/Employe
@@ -47,9 +50,11 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
         [HttpGet]
         public ActionResult Index()
         {
+            //On renseigne le service courant pour adapater l'IHM en fonction des droits de l'utilisateur connecté
+            Session["service"] = _service;
+
             EmployeIndexViewModel modelOut = new EmployeIndexViewModel();
             BootstrapButtonViewModel button = new BootstrapButtonViewModel();
-            //modelOut.tableauEmployes.typeObjet = "RessourcesHumaines/Employe";
             modelOut.tableauEmployes.avecActionCrud = true;
             modelOut.tableauEmployes.messageSiVide = "Aucun employé n'a été saisi dans l'application.";
 
@@ -84,6 +89,8 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
         [HttpGet]
         public ActionResult EditModal(int? id)
         {
+            //On renseigne le service courant pour adapater l'IHM en fonction des droits de l'utilisateur connecté
+            Session["service"] = _service;
 
             BootstrapModalViewModel modelOut = new BootstrapModalViewModel();
             EditEmployeViewModel editEmploye = new EditEmployeViewModel();
@@ -216,6 +223,9 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
         [HttpGet]
         public ActionResult DeleteModal(int id)
         {
+            //On renseigne le service courant pour adapater l'IHM en fonction des droits de l'utilisateur connecté
+            Session["service"] = _service;
+
             BootstrapModalViewModel modelOut = new BootstrapModalViewModel();
             //modelOut.typeObjet = "RessourcesHumaines/Employe";
             modelOut.formulaireUrl = "~/Views/Shared/_BootstrapDeleteModalPartial.cshtml";
@@ -258,6 +268,9 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
         [HttpGet]
         public ActionResult Detail(int id)
         {
+            //On renseigne le service courant pour adapater l'IHM en fonction des droits de l'utilisateur connecté
+            Session["service"] = _service;
+
             DetailEmployeViewModel modelOut = new DetailEmployeViewModel();
             EmployeDTO emp = Mapper.Map<Employe, EmployeDTO>(_employeService.Get(id));
 
