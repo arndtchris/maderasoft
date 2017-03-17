@@ -22,7 +22,7 @@ namespace Madera.Service
             this._unitOfWork = unitOfWork;
         }
 
-        public void Create(Module module)
+        public void Create(Module module, string user = "")
         {
             _applicationTraceService.create(new ApplicationTrace
             {
@@ -32,7 +32,7 @@ namespace Madera.Service
             _moduleRepository.Insert(module);
         }
 
-        public void Delete(int id)
+        public void Delete(int id, string user = "")
         {
             _applicationTraceService.create(new ApplicationTrace
             {
@@ -58,7 +58,7 @@ namespace Madera.Service
             _unitOfWork.Commit();
         }
 
-        public void Update(Module module)
+        public void Update(Module module, string user = "")
         {
             _applicationTraceService.create(new ApplicationTrace
             {

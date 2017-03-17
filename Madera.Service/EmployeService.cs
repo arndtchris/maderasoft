@@ -25,7 +25,7 @@ namespace Madera.Service
             this._affectationServiceService = affectationServiceService;
             this._adresseService = adresseService;
             this._utilisateurService = utilisateurService;
-            this._unitOfWork = unitOfWork
+            this._unitOfWork = unitOfWork;
         }
 
         public IEnumerable<Employe> DonneTous()
@@ -38,34 +38,34 @@ namespace Madera.Service
             return _employeRepository.GetById(id);
         }
 
-        public void Create(Employe employe)
+        public void Create(Employe employe, string user = "")
         {
             _employeRepository.Insert(employe);
 
             _applicationTraceService.create(new ApplicationTrace
             {
-                utilisateur = "",
+                utilisateur = user,
                 action = Parametres.Action.Creation.ToString(),
                 description = "Création d'un employé",
             });
         }
 
-        public void Update(Employe employe)
+        public void Update(Employe employe, string user = "")
         {
 
             //Si la personne possède une adresse, on doit également la mettre à jour
             //EntityFramework ne gère pas la mise à jour des enfants
             if(employe.adresse != null)
-                _adresseService.Update(employe.adresse);
+                _adresseService.Update(employe.adresse, user);
 
             //L'utilisateur existe, on le met à jour
             if(employe.utilisateur.id != 0)
             {
-                _utilisateurService.Update(employe.utilisateur);
+                _utilisateurService.Update(employe.utilisateur, user);
 
             }else if(employe.utilisateur.id == 0 && string.IsNullOrEmpty(employe.utilisateur.login))//l'utilisateur n'existe pas, on le créé
             {
-                _utilisateurService.Create(employe.utilisateur);
+                _utilisateurService.Create(employe.utilisateur, user);
             }
 
             if (employe.affectationServices != null && employe.affectationServices.Count > 0)
@@ -74,7 +74,7 @@ namespace Madera.Service
                 {
                     if(affec.id != 0)//on met à jour l'affection
                     {
-                        _affectationServiceService.Update(affec);
+                        _affectationServiceService.Update(affec, user);
                     }
                     else//il faut créer l'affectation
                     {
@@ -84,15 +84,15 @@ namespace Madera.Service
                             affec.employe = employe;
                         }
 
-                        _affectationServiceService.Create(affec);
+                        _affectationServiceService.Create(affec, user);
                     }
                 }
             }
-            _employeRepository.Update(employe);
+            //_employeRepository.Update(employe, user);
 
             _applicationTraceService.create(new ApplicationTrace
             {
-                utilisateur = "",
+                utilisateur = user,
                 action = Parametres.Action.Modification.ToString(),
                 description = String.Format("Mise à jour de l'employé employe_id = {0}", employe.id),
             });
@@ -103,7 +103,7 @@ namespace Madera.Service
             _unitOfWork.Commit();
         }
 
-        public void Delete(int id)
+        public void Delete(int id, string user = "")
         {
             Employe emp = this.Get(id);
             List<int> ids = new List<int>();
@@ -124,7 +124,7 @@ namespace Madera.Service
 
             _applicationTraceService.create(new ApplicationTrace
             {
-                utilisateur = "",
+                utilisateur = user,
                 action = Parametres.Action.Suppression.ToString(),
                 description = String.Format("Supression de l'employé employe_id = {0}", id),
             });

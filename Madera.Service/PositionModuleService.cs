@@ -26,7 +26,7 @@ namespace Madera.Service
             return positionModuleRepository.GetById(id);
         }
 
-        public void Create(PositionModule item)
+        public void Create(PositionModule item, string user = "")
         {
             positionModuleRepository.Insert(item);
 
@@ -38,7 +38,7 @@ namespace Madera.Service
             });
         }
 
-        public void Update(PositionModule item)
+        public void Update(PositionModule item, string user = "")
         {
             positionModuleRepository.Update(item);
 
@@ -49,7 +49,7 @@ namespace Madera.Service
             });
         }
 
-        public void Delete(int id)
+        public void Delete(int id, string user = "")
         {
             positionModuleRepository.Delete(x => x.id == id);
 

@@ -266,6 +266,7 @@
     <Compile Include="Models\DTO\TEmployeDTOs.cs" />
     <Compile Include="Models\DTO\TModuleDTO.cs" />
     <Compile Include="Models\DTO\UtilisateurDTOs.cs" />
+    <Compile Include="Models\ITrace.cs" />
     <Compile Include="Models\NotificationUtilisateur.cs" />
     <Compile Include="Models\ViewModel\AdresseViewModels.cs" />
     <Compile Include="Models\DTO\AdresseDTOs.cs" />

@@ -23,7 +23,7 @@ namespace Madera.Service
         }
 
         
-        public void Create(Model.Service service)
+        public void Create(Model.Service service, string user = "")
         {
             _serviceRepository.Insert(service);
 
@@ -35,7 +35,7 @@ namespace Madera.Service
             });
         }
 
-        public void Delete(int id)
+        public void Delete(int id, string user = "")
         {
             _serviceRepository.Delete(x => x.id == id);
             //ToDo : réaliser une suppression complète ou logique en fonction des droits de l'utilisateur en session
@@ -62,7 +62,7 @@ namespace Madera.Service
             _unitOfWork.Commit();
         }
 
-        public void Update(Model.Service service)
+        public void Update(Model.Service service, string user = "")
         {
             _serviceRepository.Update(service);
 

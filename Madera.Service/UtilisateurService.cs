@@ -23,7 +23,7 @@ namespace Madera.Service
             this._unitOfWork = unitOfWork;
         }
 
-        public void Create(Utilisateur utilisateur)
+        public void Create(Utilisateur utilisateur, string user = "")
         {
             if (string.IsNullOrEmpty(utilisateur.password))
             {
@@ -44,7 +44,7 @@ namespace Madera.Service
             });
         }
 
-        public void Delete(int id)
+        public void Delete(int id, string user = "")
         {
             _utilisateurRepository.Delete(x => x.id == id);
 
@@ -72,7 +72,7 @@ namespace Madera.Service
             _unitOfWork.Commit();
         }
 
-        public void Update(Utilisateur utilisateur)
+        public void Update(Utilisateur utilisateur, string user = "")
         {
 
             _utilisateurRepository.Update(utilisateur);
@@ -96,7 +96,7 @@ namespace Madera.Service
             return Convert.ToBase64String(hashBytes);
         }
 
-        public void ActiveUtilisateur(int id)
+        public void ActiveUtilisateur(int id, string user = "")
         {
             _utilisateurRepository.activeUtilisateur(id);
 
@@ -108,7 +108,7 @@ namespace Madera.Service
             });
         }
 
-        public void DesactiveUtilisateur(int id)
+        public void DesactiveUtilisateur(int id, string user = "")
         {
             _utilisateurRepository.desactiveUtilisateur(id);
 
@@ -120,7 +120,7 @@ namespace Madera.Service
             });
         }
 
-        public void ResetPwd(int id)
+        public void ResetPwd(int id, string user = "")
         {
             _utilisateurRepository.resetPwd(id, Crypte(Parametres.defaultPassword));
 
@@ -141,11 +141,11 @@ namespace Madera.Service
 
     public interface IUtilisateurService : IService<Utilisateur>
     {
-        void ActiveUtilisateur(int id);
+        void ActiveUtilisateur(int id, string user = "");
 
-        void DesactiveUtilisateur(int id);
+        void DesactiveUtilisateur(int id, string user = "");
 
-        void ResetPwd(int id);
+        void ResetPwd(int id, string user = "");
 
         string Crypte(string password);
 

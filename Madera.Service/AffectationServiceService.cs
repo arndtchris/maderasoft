@@ -21,27 +21,26 @@ namespace Madera.Service
             this._unitOfWork = unitOfWork;
         }
 
-        public void Create(AffectationService affectationService)
+        public void Create(AffectationService affectationService, string user = "")
         {
 
             _affectationServiceRepository.Insert(affectationService);
 
             _applicationTraceService.create(new ApplicationTrace
             {
-                utilisateur = "",
+                utilisateur = user,
                 action = Parametres.Action.Creation.ToString(),
                 description = String.Format("Ajout d'une nouvelle affectation au service {0} en tant que {1}", affectationService.service.libe, affectationService.groupe.libe),
             });
         }
 
-        public void Delete(int id)
+        public void Delete(int id, string user = "")
         {
             _affectationServiceRepository.Delete(x => x.id == id);
 
-            //ToDo : réaliser une suppression complète ou logique en fonction des droits de l'utilisateur en session
             _applicationTraceService.create(new ApplicationTrace
             {
-                utilisateur = "",
+                utilisateur = user,
                 action = Parametres.Action.Suppression.ToString(),
                 description = String.Format("Supression d'une affectation à un service affec_id = {0}", id)
             });
@@ -63,14 +62,14 @@ namespace Madera.Service
             _unitOfWork.Commit();
         }
 
-        public void Update(AffectationService affectationService)
+        public void Update(AffectationService affectationService, string user = "")
         {
 
             _affectationServiceRepository.Update(affectationService);
 
             _applicationTraceService.create(new ApplicationTrace
             {
-                utilisateur = "",
+                utilisateur = user,
                 action = Parametres.Action.Modification.ToString(),
                 description = String.Format("Mise à jour de l'affectation affec_id = {0} au service {1} en tant que {2}", affectationService.id, affectationService.service.libe, affectationService.groupe.libe)
             });

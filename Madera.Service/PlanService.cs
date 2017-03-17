@@ -23,7 +23,7 @@ namespace Madera.Service
             this.unitOfWork = _unitOfWork;
         }
 
-        public void Create(Plan item)
+        public void Create(Plan item, string user = "")
         {
             planRepository.Insert(item);
 
@@ -35,7 +35,7 @@ namespace Madera.Service
             });
         }
 
-        public void Delete(int id)
+        public void Delete(int id, string user = "")
         {
             planRepository.Delete(x => x.id == id);
 
@@ -64,7 +64,7 @@ namespace Madera.Service
             unitOfWork.Commit();
         }
 
-        public void Update(Plan item)
+        public void Update(Plan item, string user = "")
         {
             planRepository.Update(item);
 

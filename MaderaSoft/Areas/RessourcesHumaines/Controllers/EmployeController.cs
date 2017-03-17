@@ -154,7 +154,6 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
         {
             AffectationService nouvelleAffectation = new AffectationService();
             Employe employeOrigine = new Employe();
-
             //On prépare la nouvelle affectation
             if (personne.serviceIdPourAffectation != 0 && personne.groupeIdPourAffectation != 0)
             {
@@ -171,7 +170,7 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
 
                     _insertOrUpdateAffectation(ref employeOrigine, nouvelleAffectation);
 
-                    _employeService.Update(employeOrigine);
+                    _employeService.Update(employeOrigine, _donneNomPrenomUtilisateur());
                     _employeService.Save();
 
                     FlashMessage.Confirmation("Employé mis à jour avec succès");
@@ -194,7 +193,7 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
 
                     //On prépare le type d'employé
                     employeOrigine.typeEmploye = _temployeService.Get(personne.typeEmploye.id);
-                    _employeService.Create(employeOrigine);
+                    _employeService.Create(employeOrigine, _donneNomPrenomUtilisateur());
 
                     FlashMessage.Confirmation("Employé créé avec succès");
                 }
@@ -237,7 +236,7 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
             try
             {
 
-                _employeService.Delete(idToDelete);
+                _employeService.Delete(idToDelete, _donneNomPrenomUtilisateur());
                 _employeService.Save();
                 FlashMessage.Confirmation("Suppression de l'employé");
             }
@@ -367,7 +366,7 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
 
             try
             {
-            _personneService.Update(Mapper.Map<PersonneSimpleDTO, Personne>(employe));
+            _personneService.Update(Mapper.Map<PersonneSimpleDTO, Personne>(employe), _donneNomPrenomUtilisateur());
             _personneService.Save();
 
             FlashMessage.Confirmation("Employé mis à jour avec succès");
@@ -398,7 +397,7 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
             AdresseDTO modelOut = new AdresseDTO();
             try
             {
-                _adresseService.Update(Mapper.Map<AdresseDTO, Adresse>(adresse));
+                _adresseService.Update(Mapper.Map<AdresseDTO, Adresse>(adresse), _donneNomPrenomUtilisateur());
                 _adresseService.Save();
                 FlashMessage.Confirmation("Adresse mise à jour avec succès");
             }
@@ -438,7 +437,7 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
 
                 _insertOrUpdateAffectation(ref emp, newAffectation);
 
-                _employeService.Update(emp);
+                _employeService.Update(emp, _donneNomPrenomUtilisateur());
                 _employeService.Save();
 
 
@@ -563,7 +562,7 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
                 }
 
                 //On supprimer l'affectation
-                _affectationService.Delete(idToDelete);
+                _affectationService.Delete(idToDelete, _donneNomPrenomUtilisateur());
                 _affectationService.Save();
                 FlashMessage.Confirmation("Suppression de l'affectation avec succès");
 
@@ -626,6 +625,17 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
             }
 
             return PartialView("~/Areas/RessourcesHumaines/Views/Employe/_CardAffectationPartial.cshtml", modelOut);
+        }
+
+        private string _donneNomPrenomUtilisateur()
+        {
+            EmployeDTO emp =  (EmployeDTO)HttpContext.Session["utilisateur"];
+
+            if (emp != null)
+                return string.Format("{0} {1}", emp.nom.ToUpperFirst(), emp.prenom.ToUpperFirst());
+            else
+                return "";
+
         }
 
         /// <summary>

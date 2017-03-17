@@ -27,7 +27,7 @@ namespace Madera.Service
             return etageRepository.GetById(id);
         }
 
-        public void Create(Etage item)
+        public void Create(Etage item, string user = "")
         {
             etageRepository.Insert(item);
 
@@ -39,7 +39,7 @@ namespace Madera.Service
             });
         }
 
-        public void Update(Etage item)
+        public void Update(Etage item, string user = "")
         {
             etageRepository.Update(item);
 
@@ -51,7 +51,7 @@ namespace Madera.Service
             });
         }
 
-        public void Delete(int id)
+        public void Delete(int id, string user = "")
         {
             etageRepository.Delete(x => x.id == id);
 

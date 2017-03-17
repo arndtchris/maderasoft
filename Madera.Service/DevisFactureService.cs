@@ -33,13 +33,13 @@ namespace Madera.Service
             return _devisRepository.GetById(id);
         }
 
-        public void Update(DevisFacture devis)
+        public void Update(DevisFacture devis, string user = "")
         {
             _devisRepository.Update(devis);
 
             _applicationTraceService.create(new ApplicationTrace
             {
-                utilisateur = "",
+                utilisateur = user,
                 action = Parametres.Action.Modification.ToString(),
                 description = String.Format("Mise à jour du devis devis_id = {0}", devis.id),
             });
@@ -50,26 +50,26 @@ namespace Madera.Service
             _unitOfWork.Commit();
         }
 
-        public void Delete(int id)
+        public void Delete(int id, string user = "")
         {
             _devisRepository.Delete(x => x.id == id);
-            //ToDo : réaliser une suppression complète ou logique en fonction des droits de l'utilisateur en session
+
             _applicationTraceService.create(new ApplicationTrace
             {
-                utilisateur = "",
+                utilisateur = user,
                 action = Parametres.Action.Suppression.ToString(),
                 description = String.Format("Supression de le devis devis_id = {0}", id),
             });
         }
 
-        public void Create(DevisFacture item)
+        public void Create(DevisFacture item, string user = "")
         {
 
             _devisRepository.Insert(item);
 
             _applicationTraceService.create(new ApplicationTrace
             {
-                utilisateur = "",
+                utilisateur = user,
                 action = Parametres.Action.Creation.ToString(),
                 description = String.Format("Ajout d'un élément devis facture devisFacture_id={0}", item.id),
             });

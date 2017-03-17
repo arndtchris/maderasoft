@@ -22,7 +22,7 @@ namespace Madera.Service
             this._unitOfWork = _unitOfWork;
         }
 
-        public void Create(TEmploye TEmploye)
+        public void Create(TEmploye TEmploye, string user = "")
         {
             _temployeRepository.Insert(TEmploye);
 
@@ -34,7 +34,7 @@ namespace Madera.Service
             });
         }
 
-        public void Delete(int id)
+        public void Delete(int id, string user = "")
         {
             _temployeRepository.Delete(x => x.id == id);
             //ToDo : réaliser une suppression complète ou logique en fonction des droits de l'utilisateur en session
@@ -61,7 +61,7 @@ namespace Madera.Service
             _unitOfWork.Commit();
         }
 
-        public void Update(TEmploye TEmploye)
+        public void Update(TEmploye TEmploye, string user = "")
         {
 
             _temployeRepository.Update(TEmploye);

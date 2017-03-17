@@ -39,7 +39,7 @@ namespace Madera.Service
             return _personneRepository.GetById(id);
         }
 
-        public void Create(Personne personne)
+        public void Create(Personne personne, string user = "")
         {
             donneTypeDePersonne(ref this._typePersonne, personne);
 
@@ -53,7 +53,7 @@ namespace Madera.Service
             _personneRepository.Insert(personne);
         }
 
-        public void Update(Personne personne)
+        public void Update(Personne personne, string user = "")
         {
             donneTypeDePersonne(ref this._typePersonne, personne);
 
@@ -78,7 +78,7 @@ namespace Madera.Service
             _unitOfWork.Commit();
         }
 
-        public void Delete(int id)
+        public void Delete(int id, string user = "")
         {
             _personneRepository.Delete(x => x.id == id);
 

@@ -19,19 +19,19 @@ namespace Madera.Service
         /// Ajoute un élément en base de données
         /// </summary>
         /// <param name="item"></param>
-        void Create(T item);
+        void Create(T item, string user = "");
 
         /// <summary>
         /// Met à jour un élément en base de données
         /// </summary>
         /// <param name="item"></param>
-        void Update(T item);
+        void Update(T item, string user = "");
 
         /// <summary>
         /// Supprime un élément selon son identifiant
         /// </summary>
         /// <param name="id"></param>
-        void Delete(int id);
+        void Delete(int id, string user = "");
 
         /// <summary>
         /// Donne la liste de tous les éléments en base de données

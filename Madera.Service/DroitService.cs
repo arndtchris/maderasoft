@@ -21,25 +21,25 @@ namespace Madera.Service
             this._unitOfWork = unitOfWork;
         }
 
-        public void Create(Droit droit)
+        public void Create(Droit droit, string user = "")
         {
             _droitRepository.Insert(droit);
 
             _applicationTraceService.create(new ApplicationTrace
             {
-                utilisateur = "",
+                utilisateur = user,
                 action = Parametres.Action.Creation.ToString(),
                 description = "Création d'un nouveau droit utilisateur",
             });
         }
 
-        public void Delete(int id)
+        public void Delete(int id, string user = "")
         {
             _droitRepository.Delete(x => x.id == id);
             //ToDo : réaliser une suppression complète ou logique en fonction des droits de l'utilisateur en session
             _applicationTraceService.create(new ApplicationTrace
             {
-                utilisateur = "",
+                utilisateur = user,
                 action = Parametres.Action.Suppression.ToString(),
                 description = String.Format("Supression d'un type de droit utilisateur droit_id = {0}", id),
             });
@@ -60,13 +60,13 @@ namespace Madera.Service
             _unitOfWork.Commit();
         }
 
-        public void Update(Droit droit)
+        public void Update(Droit droit, string user = "")
         {
             _droitRepository.Update(droit);
 
             _applicationTraceService.create(new ApplicationTrace
             {
-                utilisateur = "",
+                utilisateur = user,
                 action = Parametres.Action.Modification.ToString(),
                 description = String.Format("Mise à jour d'un type de droit utilisateur droit_id = {0}", droit.id),
             });
