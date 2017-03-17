@@ -32,7 +32,7 @@
             <div class="form-group-lg">
                 <div class="col-md-4">
                     @Html.LabelFor(m => m.module.composition)
-                    @Html.DropDownListFor(m => m.module.composition.composant.id, Model.LesComposants)
+                    @Html.DropDownListFor(m => m.idComposant, Model.lesComposants)
                 </div>
             </div>
         </fieldset>

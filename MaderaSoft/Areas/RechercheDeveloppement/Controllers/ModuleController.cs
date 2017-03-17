@@ -67,6 +67,7 @@ namespace MaderaSoft.Areas.RechercheDeveloppement.Controllers
                 BootstrapModalViewModel modelOut = new BootstrapModalViewModel();
                 CreateModuleViewModel editModule = new CreateModuleViewModel();
                 BootstrapButtonViewModel button = new BootstrapButtonViewModel();
+
             if (id.HasValue)
             {
                 editModule.module = Mapper.Map<Module, ModuleDTO>(_moduleService.Get(id.Value));
