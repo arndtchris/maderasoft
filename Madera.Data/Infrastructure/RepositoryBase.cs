@@ -72,6 +72,11 @@ namespace Madera.Data.Infrastructure
         {
             return dbSet.Where(where).FirstOrDefault<T>();
         }
-       
+
+        public IEnumerable<T> GetAll(Expression<Func<T, bool>> where)
+        {
+            return dbSet.Where(where);
+        }
+
     }
 }

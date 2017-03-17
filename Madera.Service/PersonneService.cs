@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Web;
 using Madera.Data.Infrastructure;
@@ -32,6 +33,11 @@ namespace Madera.Service
         public IEnumerable<Personne> DonneTous()
         {
             return _personneRepository.GetAll();
+        }
+
+        public IEnumerable<Personne> DonneTous(Expression<Func<Personne, bool>> where)
+        {
+            return _personneRepository.GetPersonnes(where);
         }
 
         public Personne Get(int id)
