@@ -205,7 +205,7 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
             }
             _employeService.Save();
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "Employe", new { area = "RessourcesHumaines" });
         }
 
         /// <summary>

@@ -24,14 +24,14 @@ namespace Madera.Service
 
         public void Create(Module module, string user = "")
         {
-
+            module.coupePrincipe = "string";
             _moduleRepository.Insert(module);
 
             _applicationTraceService.create(new ApplicationTrace
             {
                 utilisateur = user,
                 action = Parametres.Action.Creation.ToString(),
-                description = String.Format("Ajout d'un nouveau module_id = {0}"),
+                description = String.Format("Ajout d'un nouveau module"),
             });
 
         }

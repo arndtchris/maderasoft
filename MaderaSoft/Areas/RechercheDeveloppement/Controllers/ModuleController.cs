@@ -110,7 +110,7 @@ namespace MaderaSoft.Areas.RechercheDeveloppement.Controllers
                     mdl.coupePrincipe = "string";
                     mdl.typeModule = _tmoduleService.Get(module.typeModule.id);
                     //mdl = Mapper.Map<ModuleDTO, Module>(module);
-                    _moduleService.Update(mdl);
+                    _moduleService.Update(mdl, _donneNomPrenomUtilisateur());
 
                     FlashMessage.Confirmation("Module mis à jour avec succès");
                 }
@@ -131,7 +131,7 @@ namespace MaderaSoft.Areas.RechercheDeveloppement.Controllers
 
                     //On prépare le type de module
                     mdl.typeModule = _tmoduleService.Get(mdl.typeModule.id);
-                    _moduleService.Create(mdl);
+                    _moduleService.Create(mdl, _donneNomPrenomUtilisateur());
 
                         FlashMessage.Confirmation("Module créé avec succès");
                     }
@@ -166,7 +166,7 @@ namespace MaderaSoft.Areas.RechercheDeveloppement.Controllers
                 try
                 {
                     FlashMessage.Confirmation("Suppression du module");
-                    _moduleService.Delete(idToDelete);
+                    _moduleService.Delete(idToDelete, _donneNomPrenomUtilisateur());
                     _moduleService.Save();
                 }
                 catch (Exception)
@@ -177,6 +177,17 @@ namespace MaderaSoft.Areas.RechercheDeveloppement.Controllers
 
                 return RedirectToAction("Index");
             }
+
+        private string _donneNomPrenomUtilisateur()
+        {
+            EmployeDTO emp = (EmployeDTO)HttpContext.Session["utilisateur"];
+
+            if (emp != null)
+                return string.Format("{0} {1}", emp.nom.ToUpperFirst(), emp.prenom.ToUpperFirst());
+            else
+                return "";
+
         }
     }
+}
 
