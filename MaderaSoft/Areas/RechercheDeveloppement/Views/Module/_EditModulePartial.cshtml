@@ -27,6 +27,15 @@
                 </div>
             </div>
         </fieldset>
+        <fieldset>
+            <legend>Composants du module</legend>
+            <div class="form-group-lg">
+                <div class="col-md-4">
+                    @Html.LabelFor(m => m.module.composition)
+                    @Html.DropDownListFor(m => m.module.composition.composant.id, Model.LesComposants)
+                </div>
+            </div>
+        </fieldset>
     </div>
             <div class="modal-footer">
                 @Html.actionButton(" Annuler", Parametres.TypeBouton.DissmissModal)

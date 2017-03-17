@@ -23,10 +23,11 @@ namespace MaderaSoft.Models.DTO
             [DisplayName("Prix fournisseur")]
             public double prixHT { get; set; }
             [DisplayName("Nom fournisseur")]
-            public virtual Personne fournisseur { get; set; }
+            public virtual PersonneDTO fournisseur { get; set; }
 
             public ComposantDTO()
             {
+            fournisseur = new PersonneDTO();
             }
         }
     }

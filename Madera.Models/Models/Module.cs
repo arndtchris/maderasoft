@@ -11,6 +11,7 @@ namespace Madera.Model
         public string libe { get; set; }
         public string coupePrincipe { get; set; }
         public virtual TModule typeModule { get; set; }
+        public virtual List<Composition> compositions { get; set; }
 
         public decimal prix { get; set; }
 

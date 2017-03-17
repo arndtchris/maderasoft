@@ -18,10 +18,13 @@ namespace MaderaSoft.Models.DTO
         [DisplayName("Prix")]
         public decimal prix { get; set; }
         public string coupePrincipe { get; set; }
-        
+        [DisplayName("Composants")]
+        public virtual CompositionDTO composition { get; set; }
+
         public ModuleDTO()
         {
             typeModule = new TModuleDTO();
+            composition = new CompositionDTO();
         }
     }
 

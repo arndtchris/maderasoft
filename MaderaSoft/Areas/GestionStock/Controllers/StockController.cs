@@ -162,6 +162,7 @@ namespace MaderaSoft.Areas.GestionStock.Controllers
                     //On prépare le fournisseur
                     cpst.fournisseur = _personneService.Get(composant.fournisseur.id);
                     //On prépare la gamme
+
                     cpst.gamme = _gammeService.Get(composant.gamme.id);
                     
                     _composantService.Create(cpst, _donneNomPrenomUtilisateur());

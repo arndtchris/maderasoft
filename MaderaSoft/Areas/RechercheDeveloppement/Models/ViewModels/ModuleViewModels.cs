@@ -24,12 +24,14 @@ namespace MaderaSoft.Areas.RechercheDeveloppement.Models.ViewModels
 
         public virtual ModuleDTO module { get; set; }
         public List<SelectListItem> lesGammes { get; set; }
+        public List<SelectListItem> lesComposants { get; set; }
 
 
         public CreateModuleViewModel()
         {
             module = new ModuleDTO();
             lesGammes = new List<SelectListItem>();
+            lesComposants = new List<SelectListItem>();
 
 
         }

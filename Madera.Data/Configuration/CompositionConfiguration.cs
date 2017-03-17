@@ -14,7 +14,8 @@ namespace Madera.Data.Configuration
             ToTable("Composition");
             HasKey<int>(a => a.id);
             HasOptional<Composant>(a => a.composant);
-            HasOptional<Module>(a => a.module);
+            HasOptional<Module>(a => a.module).WithMany(x => x.compositions);
+
         }
 
 

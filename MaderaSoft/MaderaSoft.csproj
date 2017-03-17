@@ -254,6 +254,7 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DTO\AffectationServiceDTOs.cs" />
     <Compile Include="Models\DTO\ApplicationTraceDTOs.cs" />
+    <Compile Include="Models\DTO\CompositionDTOs.cs" />
     <Compile Include="Models\DTO\DevisFactureDTOs.cs" />
     <Compile Include="Models\DTO\DroitDTOs.cs" />
     <Compile Include="Models\DTO\EmployeDTOs.cs" />
@@ -455,9 +456,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\GestionStock\Views\StockDTOs\" />
-    <Folder Include="Areas\GestionStock\Views\StocksDTOs\" />
-    <Folder Include="Areas\GestionStock\Views\Stocks\" />
     <Folder Include="Areas\RessourcesHumaines\Views\Utilisateur\" />
     <Folder Include="bin\roslyn\" />
     <Folder Include="Views\Connexion\" />

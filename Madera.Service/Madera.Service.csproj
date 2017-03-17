@@ -141,6 +141,7 @@
     <Compile Include="AdresseService.cs" />
     <Compile Include="AffectationServiceService.cs" />
     <Compile Include="ApplicationTraceService.cs" />
+    <Compile Include="CompositionService.cs" />
     <Compile Include="DroitService.cs" />
     <Compile Include="DevisFactureService.cs" />
     <Compile Include="EmployeService.cs" />

@@ -38,13 +38,14 @@ namespace Madera.Service
 
         public void Delete(int id, string user = "")
         {
+            _moduleRepository.Delete(x => x.id == id);
             _applicationTraceService.create(new ApplicationTrace
             {
                 utilisateur = user,
                 action = Parametres.Action.Suppression.ToString(),
                 description = String.Format("Supression du module_id = {0}", id),
             });
-            _moduleRepository.Delete(x => x.id == id);
+            
         }
     
 

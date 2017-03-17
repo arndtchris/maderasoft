@@ -20,13 +20,15 @@ namespace MaderaSoft.Areas.RechercheDeveloppement.Controllers
             private readonly IModuleService _moduleService;
             private readonly IServiceService _serviceService;
             private readonly ITModuleService _tmoduleService;
+            private readonly IComposantService _composantService;
 
 
-            public ModuleController(IModuleService moduleService, IServiceService serviceService, ITModuleService tmoduleService)
+        public ModuleController(IModuleService moduleService, IServiceService serviceService, ITModuleService tmoduleService, IComposantService composantService)
             {
                 this._moduleService = moduleService;
                 this._serviceService = serviceService;
                 this._tmoduleService = tmoduleService;
+                this._composantService = composantService;
             }
 
             // GET: GestionStock/Stocks
@@ -70,8 +72,8 @@ namespace MaderaSoft.Areas.RechercheDeveloppement.Controllers
                 editModule.module = Mapper.Map<Module, ModuleDTO>(_moduleService.Get(id.Value));
             }
 
-
-            editModule.lesGammes = _donneListeGammes();
+                editModule.lesComposants = _donneListeComposants();
+                editModule.lesGammes = _donneListeGammes();
                 modelOut.formulaireUrl = "~/Areas/RechercheDeveloppement/Views/Module/_EditModulePartial.cshtml";
                 modelOut.titreModal = string.Format("Modification des informations du module");
                 modelOut.objet = editModule;
@@ -79,6 +81,20 @@ namespace MaderaSoft.Areas.RechercheDeveloppement.Controllers
                 return PartialView("~/Views/Shared/_BootstrapModalPartial.cshtml", modelOut);
 
             }
+
+        private List<SelectListItem> _donneListeComposants()
+        {
+            List<SelectListItem> lesComposants = _composantService.DonneTous().Select(
+                    x => new SelectListItem()
+                    {
+                        Text = x.libe,
+                        Value = x.id.ToString()
+                    }
+                ).ToList();
+            lesComposants.Insert(0, new SelectListItem() { Text = "--- Sélectionnez ---", Value = "" });
+
+            return lesComposants;
+        }
         private List<SelectListItem> _donneListeGammes()
         {
             List<SelectListItem> lesGammes = _tmoduleService.DonneTous().Select(

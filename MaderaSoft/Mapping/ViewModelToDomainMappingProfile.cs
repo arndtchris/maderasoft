@@ -64,8 +64,8 @@ namespace MaderaSoft.Mapping
                .ForMember(g => g.libe, map => map.MapFrom(vm => vm.libe))
                .ForMember(g => g.prixHT, map => map.MapFrom(vm => vm.prixHT))
                .ForMember(g => g.qteStock, map => map.MapFrom(vm => vm.qteStock))
-               .ForMember(g => g.fournisseur, map => map.MapFrom(vm => vm.fournisseur))
-               .ForMember(g => g.gamme, map => map.MapFrom(vm => vm.gamme));
+               .ForMember(g => g.fournisseur, map => map.MapFrom(vm => vm.fournisseur)).MaxDepth(1)
+               .ForMember(g => g.gamme, map => map.MapFrom(vm => vm.gamme)).MaxDepth(1);
 
             CreateMap<ServiceDTO, Service>().MaxDepth(1)
                .ForMember(g => g.libe, map => map.MapFrom(vm => vm.libe));
@@ -107,11 +107,17 @@ namespace MaderaSoft.Mapping
             CreateMap<ModuleDTO, Module>().MaxDepth(1)
                .ForMember(g => g.id, map => map.MapFrom(vm => vm.id))
                .ForMember(g => g.libe, map => map.MapFrom(vm => vm.libe))
-               .ForMember(g => g.typeModule, map => map.MapFrom(vm => vm.typeModule))
+               .ForMember(g => g.typeModule, map => map.MapFrom(vm => vm.typeModule)).MaxDepth(1)
                .ForMember(g => g.coupePrincipe, map => map.MapFrom(vm => vm.coupePrincipe))
-               .ForMember(g => g.prix, map => map.MapFrom(vm => vm.prix));
+               .ForMember(g => g.prix, map => map.MapFrom(vm => vm.prix))
+               .ForMember(g => g.compositions, map => map.MapFrom(vm => vm.composition)).MaxDepth(1);
 
-            CreateMap<TModuleDTO, TModule>()
+            CreateMap<CompositionDTO, Composition>().MaxDepth(1)
+                .ForMember(g => g.id, map => map.MapFrom(vm => vm.id))
+                .ForMember(g => g.module, map => map.MapFrom(vm => vm.module)).MaxDepth(1)
+                .ForMember(g => g.composant, map => map.MapFrom(vm => vm.composant)).MaxDepth(1);
+
+            CreateMap<TModuleDTO, TModule>().MaxDepth(1)
                 .ForMember(g => g.id, map => map.MapFrom(vm => vm.id))
                 .ForMember(g => g.libe, map => map.MapFrom(vm => vm.libe));
 
