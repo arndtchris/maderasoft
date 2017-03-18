@@ -66,8 +66,18 @@ else
                                 if (Model.avecActionCrud)
                                 {
                                     @Html.Raw("<td class=\"table-text\">");
-                                    @Html.actionButton(" Modifier", Parametres.TypeBouton.Modification, Url.Action("EditModal", Model.typeObjet, new { id = Model.lesLignes[j][nbColonne], area = string.Empty},null).ToString(), "editModal")
-                                    @Html.actionButton(" Supprimer", Parametres.TypeBouton.Suppression, Url.Action("DeleteModal", Model.typeObjet, new { id = Model.lesLignes[j][nbColonne], area = string.Empty},null).ToString(), "editModal")
+
+                                    if (DroitHelper.Droit.utilisateurPeutModifierSurCeService())
+                                    {
+                                        @Html.actionButton(" Modifier", Parametres.TypeBouton.Modification, Url.Action("EditModal", Model.typeObjet, new { id = Model.lesLignes[j][nbColonne], area = string.Empty }, null).ToString(), "editModal")
+                                    }
+
+                                    if (DroitHelper.Droit.utilisateurPeutSupprimerSurCeService())
+                                    {
+                                        @Html.actionButton(" Supprimer", Parametres.TypeBouton.Suppression, Url.Action("DeleteModal", Model.typeObjet, new { id = Model.lesLignes[j][nbColonne], area = string.Empty }, null).ToString(), "editModal")
+                                    }
+
+
 
                                     @Html.Raw("</td>");
                                 }

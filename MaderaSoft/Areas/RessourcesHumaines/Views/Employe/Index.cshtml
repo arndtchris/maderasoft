@@ -1,5 +1,6 @@
 ﻿@using MaderaSoft.Areas.RessourcesHumaines.Models.ViewModels;
 @using Madera.Service;
+@using MaderaSoft.Models.DTO;
 @model EmployeIndexViewModel
 @{
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
@@ -19,8 +20,11 @@
 
 <!-- Main content -->
 <section class="content">
+    @if (DroitHelper.Droit.utilisateurPeutCreerSurCeService())
+    {
+        @Html.actionButton("Ajouter un nouvel employé", Parametres.TypeBouton.Creation, Url.Action("EditModal", "Employe", new { area = "RessourcesHumaines" }).ToString(), "editModal")
+    }
 
-    @Html.actionButton("Ajouter un nouvel employé", Parametres.TypeBouton.Creation, Url.Action("EditModal", "Employe", new { area = "RessourcesHumaines" }).ToString(), "editModal")
 
     @{
         Html.bootstrapTable(Model.tableauEmployes);

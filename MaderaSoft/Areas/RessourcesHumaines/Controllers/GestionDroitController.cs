@@ -15,10 +15,12 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
     public class GestionDroitController : Controller
     {
         private readonly IDroitService _droitService;
+        private readonly IEmployeService _employeService;
 
-        public GestionDroitController(IDroitService droitService)
+        public GestionDroitController(IDroitService droitService, IEmployeService employeService)
         {
             this._droitService = droitService;
+            this._employeService = employeService;
         }
 
         // GET: RessourcesHumaines/GestionDroit
@@ -39,8 +41,9 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
 
             try
             {
-                _droitService.Update(Mapper.Map<DroitDTO, Droit>(modelin));
+                _droitService.Update(Mapper.Map<DroitDTO, Droit>(modelin), _donneNomPrenomUtilisateur());
                 _droitService.Save();
+                _updateSession();
 
                 FlashMessage.Confirmation("Mise à jour du groupe utilisateur avec succès");
             }
@@ -54,6 +57,24 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
             modelout = Mapper.Map<Droit, DroitDTO>(_droitService.Get(modelin.id));
 
             return PartialView("~/Areas/RessourcesHumaines/Views/GestionDroit/_ParametreDroitPartial.cshtml", modelout);
+
+        }
+
+        private string _donneNomPrenomUtilisateur()
+        {
+            EmployeDTO emp = (EmployeDTO)HttpContext.Session["utilisateur"];
+
+            if (emp != null)
+                return string.Format("{0} {1}", emp.nom.ToUpperFirst(), emp.prenom.ToUpperFirst());
+            else
+                return "";
+
+        }
+
+        private void _updateSession()
+        {
+            EmployeDTO emp = (EmployeDTO)HttpContext.Session["utilisateur"];
+            Session["utilisateur"] = Mapper.Map<Employe, EmployeDTO>(_employeService.Get(emp.id));
 
         }
     }
