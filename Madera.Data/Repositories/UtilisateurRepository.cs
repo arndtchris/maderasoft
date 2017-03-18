@@ -35,15 +35,8 @@ namespace Madera.Data.Repositories
         {
             Utilisateur util = this.dbSet.Find(id);
             base.DbContext.Entry(util).Property("password").CurrentValue = pwd;
+            base.DbContext.Entry(util).Property("isFirstConnexion").CurrentValue = true;
         }
-
-        /*public override void Update(Utilisateur entity)
-        {
-
-            base.Update(entity);
-        }*/
-
-
     }
 
     public interface IUtilisateurRepository : IRepository<Utilisateur>

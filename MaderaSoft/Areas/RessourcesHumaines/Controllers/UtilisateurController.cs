@@ -40,9 +40,27 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
             try
             {
 
-                _utilisateurService.ResetPwd(id);
+                _utilisateurService.ResetPwd(id, _donneNomPrenomUtilisateur());
                 _utilisateurService.Save();
                 utilisateur = Mapper.Map<Utilisateur, UtilisateurDTO>(_utilisateurService.Get(id));
+
+                if(utilisateur.isActive)
+                {
+                    modelOut.notifications.Add(new MaderaSoft.Models.Notification
+                    {
+                        dureeNotification = Parametres.DureeNotification.Always,
+                        message = "Le compte utilisateur est actif",
+                        typeNotification = Parametres.TypeNotification.Information
+                    });
+                }else
+                {
+                    modelOut.notifications.Add(new MaderaSoft.Models.Notification
+                    {
+                        dureeNotification = Parametres.DureeNotification.Always,
+                        message = "Le compte utilisateur est désactivé",
+                        typeNotification = Parametres.TypeNotification.Warning
+                    });
+                }
 
                 modelOut.notifications.Add(new MaderaSoft.Models.Notification {
                     dureeNotification = Parametres.DureeNotification.Always,
@@ -78,7 +96,7 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
 
             try
             {
-                _utilisateurService.DesactiveUtilisateur(id);
+                _utilisateurService.DesactiveUtilisateur(id, _donneNomPrenomUtilisateur());
                 _utilisateurService.Save();
                 utilisateur = Mapper.Map<Utilisateur, UtilisateurDTO>(_utilisateurService.Get(id));
                 FlashMessage.Confirmation("Compte utilisateur désactivé");
@@ -116,7 +134,7 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
 
             try
             {
-                _utilisateurService.ActiveUtilisateur(id);
+                _utilisateurService.ActiveUtilisateur(id, _donneNomPrenomUtilisateur());
                 _utilisateurService.Save();
                 utilisateur = Mapper.Map<Utilisateur, UtilisateurDTO>(_utilisateurService.Get(id));
                 FlashMessage.Confirmation("Compte utilisateur activé");
@@ -127,6 +145,16 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
                     message = "Le compte utilisateur est actif",
                     typeNotification = Parametres.TypeNotification.Information
                 });
+
+                if(utilisateur.isFirstConnexion)
+                {
+                    modelOut.notifications.Add(new MaderaSoft.Models.Notification
+                    {
+                        dureeNotification = Parametres.DureeNotification.Always,
+                        message = "L'utilisateur doit changer le mot de passe par défaut",
+                        typeNotification = Parametres.TypeNotification.Warning
+                    });
+                }
 
                 modelOut.utilisateur = utilisateur;
             }
