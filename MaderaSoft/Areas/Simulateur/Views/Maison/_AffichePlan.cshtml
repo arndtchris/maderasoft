@@ -1,9 +1,10 @@
 ﻿@using Madera.Service;
+@using Madera.Model;
 @using MaderaSoft.Models.DTO;
 @using MaderaSoft.Areas.Simulateur.Models.ViewModels;
 @model PlanViewModel
 
-<section id="test" class="content">
+<section id="AffichePlan" class="content">
     <div class="row">
         <div class="col-lg-12">
             <h2>Plan maison modulaire</h2>
@@ -19,6 +20,96 @@
                     @Html.Raw(String.Format("<button class='module' id='{0}_svg' data-code='{1}' data-nom='{0}' data-color='#0000ff'>{0}</button>", module.libe, module.id));
                 }
                 <!-- </ul>-->
+                @if (Model.plan.id != 0)
+                {
+
+                    int largeur = Model.plan.largeur;
+                    int longueur = Model.plan.longueur;
+
+                    // intialisation valeur de départ
+                    int xGrille = 10;
+                    int yGrille = 10;
+
+                    int numEtage = 1;
+
+                    // boucle sur les étages du plan
+                    foreach (Etage etage in Model.plan.listEtages)
+                    {
+                        @Html.Raw(String.Format("<svg class='dessin_svg' id='etage{0}' style='width:500px;height:500px;'>", numEtage));
+
+                        int taille = largeur + 1;
+
+                        for (int i = 0; i < taille; i++)
+                        {
+                            for (int j = 0; j < longueur; j++)
+                            {
+                                PositionModule pm = new PositionModule();
+
+                                int xAfter = xGrille + 40;
+                                xGrille = xGrille + 1;
+
+                                pm = etage.listPositionModule.FirstOrDefault(x => x.x1 == xGrille && x.x2 == xAfter && x.y1 == yGrille && x.y2 == yGrille);
+
+                                if (pm.module != null)
+                                {
+                                    @Html.Raw(String.Format("<a onclick='changeColor(lineLong{0}{1}{2})' href='#'><line id='lineLong{0}{1}{2}' x1='{3}'x2='{4}' y1='{5}' y2='{5}' stroke='black' stroke-width='5' data-values='{6}' style='stroke: rgb(0, 0, 255);'/></a>", i, j, numEtage, xGrille, xAfter, yGrille, pm.module.id));
+
+                                }
+                                else
+                                {
+                                    @Html.Raw(String.Format("<a onclick='changeColor(lineLong{0}{1}{2})' href='#'><line id='lineLong{0}{1}{2}' x1='{3}'x2='{4}' y1='{5}' y2='{5}' stroke='black' stroke-width='5' /></a>", i, j, numEtage, xGrille, xAfter, yGrille));
+
+                                }
+
+
+                                xGrille = xAfter;
+                            }
+                            yGrille = yGrille + 40;
+                            xGrille = 10;
+                        }
+
+                        xGrille = 10;
+                        yGrille = 10;
+                        taille = longueur + 1;
+                        for (int i = 0; i < taille; i++)
+                        {
+                            for (int j = 0; j < largeur; j++)
+                            {
+
+                                //Création de l'objet PositionModule
+                                PositionModule pm = new PositionModule();
+
+                                int yAfter = yGrille + 40;
+                                yGrille = yGrille + 1;
+
+                                pm = etage.listPositionModule.FirstOrDefault(x => x.x1 == xGrille && x.x2 == xGrille && x.y1 == yGrille && x.y2 == yAfter);
+
+                                if (pm.module != null)
+                                {
+                                    @Html.Raw(String.Format("<a onclick='changeColor(lineLarg{1}{0}{2})' href='#'><line id='lineLong{1}{0}{2}' x1='{3}'x2='{3}' y1='{4}' y2='{5}' stroke='black' stroke-width='5' data-values='{6}' style='stroke: rgb(0, 0, 255);' /></a>", i, j, numEtage, xGrille, yGrille, yAfter, pm.module.id));
+
+                                }
+                                else
+                                {
+                                    @Html.Raw(String.Format("<a onclick='changeColor(lineLarg{1}{0}{2})' href='#'><line id='lineLong{1}{0}{2}' x1='{3}'x2='{3}' y1='{4}' y2='{5}' stroke='black' stroke-width='5' /></a>", i, j, numEtage, xGrille, yGrille, yAfter));
+
+                                }
+                                yGrille = yAfter;
+                            }
+                            xGrille = xGrille + 40;
+                            yGrille = 10;
+                        }
+
+                        numEtage++;
+
+                        xGrille = 10;
+                        yGrille = 10;
+
+                        
+                        @Html.Raw(String.Format("</svg>"));
+
+                    }
+                }
                 <div id="dessin"></div>
             </div>
             <div id="droite">

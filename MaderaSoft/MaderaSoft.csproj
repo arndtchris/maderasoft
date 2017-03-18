@@ -388,7 +388,6 @@
     <Content Include="Areas\Simulateur\Views\Maison\_AffichePlan.cshtml" />
     <Content Include="Areas\RessourcesHumaines\Views\GestionDroit\_ParametreDroitPartial.cshtml" />
     <Content Include="Areas\RechercheDeveloppement\Views\Module\Detail.cshtml" />
-    <Content Include="App_code\DroitHelper.cshtml" />
     <Content Include="Areas\RessourcesHumaines\Views\GestionDroit\_PersoPwdPartial.cshtml" />
     <Content Include="Areas\RechercheDeveloppement\Views\Module\_CardModulePartial.cshtml" />
     <Content Include="Areas\RechercheDeveloppement\Views\Module\_CardComposantPartial.cshtml" />
@@ -396,7 +395,9 @@
     <None Include="Properties\PublishProfiles\maderasoftcesi - Web Deploy.pubxml">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <None Include="Scripts\jquery-1.10.2.intellisense.js" /><Content Include="App_code\DroitHelper.cshtml" />
+    <Content Include="Areas\RessourcesHumaines\Views\GestionDroit\_PersoPwdPartial.cshtml" />
+    <Content Include="App_code\DroitHelper.cshtml" />
     <Content Include="Scripts\grayscale.min.js" />
     <None Include="Scripts\jquery-2.2.3.intellisense.js" />
     <Content Include="Scripts\jquery-2.2.3.js" />

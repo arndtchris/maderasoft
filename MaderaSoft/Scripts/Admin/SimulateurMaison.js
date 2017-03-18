@@ -21,13 +21,14 @@ $(function () {
             url: "/Simulateur/Maison/GetPlan",
             contentType: "application/json",
             dataType: "json",
-            data: "{'id': '"+idPlan+"'}"
+            data: "{'id': '" + idPlan + "'}"
         })
         .done(function (data) {
-            console.log('réussite');
-        })
-        .fail(function (data) {
-            console.log("fail");
+            console.log('réussite', data);
+
+            $('#AffichePlan').children().css("display", "none");
+            $("#AffichePlan").append(data);
+
         });
     });
 
@@ -48,7 +49,9 @@ $(function () {
         for (j = 0; j < taille ; j++) {
             for (i = 0; i < $("#long").val() ; i++) {
                 var xAfter = x + 40;
+                console.log('xAfter', xAfter);
                 x = x + 1;
+                console.log('x', x);
                 dessin += "<a onclick='changeColor(lineLong" + i + j + etage +")' href='#'><line id='lineLong" + i + j + etage +"' x1='" + x + "'x2='" + xAfter + "' y1='" + y + "' y2='" + y + "' stroke='black' stroke-width='5' /></a>";
                 //dessin += "<line x1='" + xBefore + "'x2='" + x + "' y1='" + yBefore + "' y2='" + yBefore + "' stroke='white' stroke-width='5' />";
                 x = xAfter;

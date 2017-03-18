@@ -111,10 +111,13 @@ namespace MaderaSoft.Areas.Simulateur.Controllers
         }
 
         [HttpPost]
-        public JsonResult GetPlan(int id)
+        public ActionResult GetPlan(int id)
         {
             try
             {
+
+                PlanViewModel view = new PlanViewModel();
+
                 Plan p = _planService.Get(id);
 
                 //Création du nouveau plan
@@ -126,8 +129,11 @@ namespace MaderaSoft.Areas.Simulateur.Controllers
                 planReturn.nom = p.nom;
                 planReturn.id = p.id;
 
+                int largeur = p.largeur;
+                int longueur = p.longueur;
+
                 //Création des listes de modules et étages pour le nouveau objet Plan
-                List<PositionModule> listPositionModuleReturn = new List<PositionModule>();
+               
                 List<Etage> listEtagesReturn = new List<Etage>();
 
 
@@ -143,68 +149,91 @@ namespace MaderaSoft.Areas.Simulateur.Controllers
                 int xGrille = 10;
                 int yGrille = 10;
 
+                int numEtage = 1;
+                
                 // boucle sur les étages du plan
                 foreach (Etage etage in p.listEtages)
                 {
                     //Création de l'objet Étage
                     Etage etageTemp = new Etage();
                     etageTemp.id = etage.id;
-
-                    for (int i = 0; i < totalHorizontal; i++)
+                    List<PositionModule> listPositionModuleReturn = new List<PositionModule>();
+                    int taille = largeur + 1;
+                    for (int i = 0; i < taille; i++)
                     {
-                        //Création de l'objet PositionModule
-                        PositionModule pm = new PositionModule();
-
-                        int xAfter = xGrille + 40;
-                        xGrille = xGrille + 1;
-
-                        pm = etage.listPositionModule.FirstOrDefault(x => x.x1 == xGrille && x.x2 == xAfter && x.y1 == yGrille && x.y2 == yGrille);
-
-                        if (pm == null)
+                        for (int j = 0; j < longueur; j++)
                         {
-                            pm = new PositionModule();
-                            listPositionModuleReturn.Add(pm);
-                        }
-                        else
-                        {
-                            listPositionModuleReturn.Add(pm);
-                        }
+                            PositionModule pm = new PositionModule();
 
-                        xGrille = xAfter;
+                            int xAfter = xGrille + 40;
+                            xGrille = xGrille + 1;
 
+                            pm = etage.listPositionModule.FirstOrDefault(x => x.x1 == xGrille && x.x2 == xAfter && x.y1 == yGrille && x.y2 == yGrille);
+
+                            if (pm == null)
+                            {
+                                pm = new PositionModule();
+                                pm.x1 = xGrille;
+                                pm.x2 = xAfter;
+                                pm.y1 = yGrille;
+                                pm.y2 = yGrille;
+                                pm.lineId = "lineLong" + i + j + numEtage;
+                                pm.module = null;
+                                listPositionModuleReturn.Add(pm);
+                            }
+                            else
+                            {
+                                listPositionModuleReturn.Add(pm);
+                            }
+
+                            xGrille = xAfter;
+                        }
                         yGrille = yGrille + 40;
                         xGrille = 10;
                     }
-                    for (int i = 0; i < totalVerticale; i++)
+
+                    xGrille = 10;
+                    yGrille = 10;
+                    taille = longueur + 1;
+                    for (int i = 0; i < taille; i++)
                     {
-                        //Création de l'objet PositionModule
-                        PositionModule pm = new PositionModule();
-
-                        //-----------------------------------------------------------------------------------------------------------------------------
-
-                        xGrille = 10;
-                        yGrille = 10;
-
-                        int yAfter = yGrille + 40;
-                        yGrille = yGrille + 1;
-
-                        pm = etage.listPositionModule.FirstOrDefault(x => x.x1 == xGrille && x.x2 == xGrille && x.y1 == yGrille && x.y2 == yAfter);
-
-                        if (pm == null)
+                        for (int j = 0; j < largeur; j++)
                         {
-                            pm = new PositionModule();
-                            listPositionModuleReturn.Add(pm);
-                        }
-                        else
-                        {
-                            //Ajout dans l'objet PositionModule dans la listPositionModule
-                            listPositionModuleReturn.Add(pm);
-                        }
 
+                            //Création de l'objet PositionModule
+                            PositionModule pm = new PositionModule();
+
+                            int yAfter = yGrille + 40;
+                            yGrille = yGrille + 1;
+
+                            pm = etage.listPositionModule.FirstOrDefault(x => x.x1 == xGrille && x.x2 == xGrille && x.y1 == yGrille && x.y2 == yAfter);
+
+                            if (pm == null)
+                            {
+                                pm = new PositionModule();
+                                pm.x1 = xGrille;
+                                pm.x2 = xGrille;
+                                pm.y1 = yGrille;
+                                pm.y2 = yAfter;
+                                pm.lineId = "lineLarg" +j+i+numEtage;
+                                pm.module = null;
+                                listPositionModuleReturn.Add(pm);
+                            }
+                            else
+                            {
+                                //Ajout dans l'objet PositionModule dans la listPositionModule
+                                listPositionModuleReturn.Add(pm);
+                            }
+                            yGrille = yAfter;
+                        }
                         xGrille = xGrille + 40;
                         yGrille = 10;
-
                     }
+
+                    numEtage++;
+
+                    xGrille = 10;
+                    yGrille = 10;
 
                     //Ajout de la liste des modules dans l'objet Étage
                     etageTemp.listPositionModule = listPositionModuleReturn;
@@ -215,7 +244,12 @@ namespace MaderaSoft.Areas.Simulateur.Controllers
                 //Ajout des étages dans le plan
                 planReturn.listEtages = listEtagesReturn;
 
-                return Json(planReturn);
+                
+                view.plan = planReturn;
+                view.lesModules = Mapper.Map<List<Module>, List<ModuleDTO>>(_moduleService.DonneTous().ToList());
+
+                return View("~/Areas/Simulateur/Views/Maison/_AffichePlan.cshtml",view);
+                //return Json(planReturn);
             }
             catch(Exception e)
             {
