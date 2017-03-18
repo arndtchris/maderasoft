@@ -67,7 +67,12 @@ namespace MaderaSoft.Models.DTO
 
     public class UtilisateurLoginDTO
     {
+        [DisplayName("Identifiant")]
+        [Required(ErrorMessage = "Veuillez saisir votre identifiant")]
         public string login { get; set; }
+
+        [DisplayName("Mot de passe")]
+        [Required(ErrorMessage = "Veuillez saisir votre mot de passe")]
         public string password { get; set; }
     }
 

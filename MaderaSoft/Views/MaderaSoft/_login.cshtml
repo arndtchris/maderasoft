@@ -3,23 +3,34 @@
 
 @model LoginViewModel
 
-@using (Html.BeginForm("Login", "MaderaSoft", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-inline" }))
-{
-    @Html.AfficheNotificationUtilisateur(Model.notifications)
-    <div class="row">
-        <div class="col-md-6">
-            @Html.LabelFor(m => m.loginUtilisateur.login)
-            @Html.TextBoxFor(m => m.loginUtilisateur.login)
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-6">
-            @Html.LabelFor(m => m.loginUtilisateur.password)
-            @Html.PasswordFor(m => m.loginUtilisateur.password)
-        </div>
-    </div>
-    <div class="row">
-        @Html.actionButton(" Se connecter", Parametres.TypeBouton.Submit)
+<div class="box box-primary principal-card">
+    <div class="box-header with-border">
+        <h3 class="box-title">Accès à MaderaSoft</h3>
     </div>
 
-}
+
+    @using (Html.BeginForm("Login", "MaderaSoft", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal" }))
+    {
+        <div class="box-body">
+            @Html.AfficheNotificationUtilisateur(Model.notifications)
+            <div class="form-group">
+                <div class="col-md-6">
+                    @Html.LabelFor(m => m.loginUtilisateur.login)
+                    @Html.TextBoxFor(m => m.loginUtilisateur.login)
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-6">
+                    @Html.LabelFor(m => m.loginUtilisateur.password)
+                    @Html.PasswordFor(m => m.loginUtilisateur.password)
+                </div>
+            </div>
+            <div class="box-footer">
+                <button type="submit" class="btn btn-primary fa fa-sign-in pull-right"> Se connecter</button>
+            </div>
+        </div>
+
+
+    }
+
+</div>

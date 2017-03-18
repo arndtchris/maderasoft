@@ -8,17 +8,30 @@
 @{
     EmployeDTO user = (EmployeDTO)HttpContext.Current.Session["utilisateur"];
 }
-
-@if (user == null)
-{
-    <div class="row">
-        <div class="col-md-offset-3 col-md-6">
-            @Html.Partial("~/Views/MaderaSoft/_login.cshtml", Model)
+<section class="content">
+    @if (user == null)
+    {
+        <div class="row">
+            <div class="col-md-offset-3 col-md-6">
+                @Html.Partial("~/Views/MaderaSoft/_login.cshtml", Model)
+            </div>
         </div>
-    </div>
 
-}
-else
-{
-    <p>Bienvenu dans la solution Madera Soft</p>
-}
+    }
+    else
+    {
+        <div class="row">
+            <div class="col-md-offset-3 col-md-6">
+                <div class="box box-primary principal-card">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">MaderaSoft</h3>
+                    </div>
+
+                    <div class="box-body">
+                        <h2>Bienvenue dans la solution Madera Soft ! </h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</section>
