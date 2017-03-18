@@ -27,10 +27,11 @@
         {
             EmployeDTO user = (EmployeDTO)HttpContext.Current.Session["utilisateur"];
             string service = (string)HttpContext.Current.Session["service"];
-            AffectationServiceDTO surCeService = user.affectationServices.FirstOrDefault(x => x.service.libe.ToUpper() == service.ToUpper());
 
             if (user != null && !string.IsNullOrEmpty(service))
             {
+                AffectationServiceDTO surCeService = user.affectationServices.FirstOrDefault(x => x.service.libe.ToUpper() == service.ToUpper());
+
                 if (surCeService != null)
                     return surCeService.groupe.update;
                 else
@@ -44,12 +45,13 @@
         {
             EmployeDTO user = (EmployeDTO)HttpContext.Current.Session["utilisateur"];
             string service = (string)HttpContext.Current.Session["service"];
-            AffectationServiceDTO surCeService = user.affectationServices.FirstOrDefault(x => x.service.libe.ToUpper() == service.ToUpper());
 
             if (user != null && !string.IsNullOrEmpty(service))
             {
+                AffectationServiceDTO surCeService = user.affectationServices.FirstOrDefault(x => x.service.libe.ToUpper() == service.ToUpper());
+
                 if (surCeService != null)
-                    return surCeService.groupe.delete;
+                    return surCeService.groupe.delete || surCeService.groupe.softDelete;
                 else
                     return false;
             }
