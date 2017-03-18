@@ -242,7 +242,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\BootstrapHelper.cs" />
-    <Compile Include="Helpers\DroitHelper.cs" />
     <Compile Include="Helpers\NotificationHelper.cs" />
     <Compile Include="Mapping\AutoMapperConfiguration.cs" />
     <Compile Include="Mapping\DomainToViewModelMappingProfile.cs" />
@@ -389,6 +388,7 @@
     <Content Include="Areas\Simulateur\Views\Maison\_AffichePlan.cshtml" />
     <Content Include="Areas\RessourcesHumaines\Views\GestionDroit\_ParametreDroitPartial.cshtml" />
     <Content Include="Areas\RechercheDeveloppement\Views\Module\Detail.cshtml" />
+    <Content Include="App_code\DroitHelper.cshtml" />
     <None Include="Properties\PublishProfiles\maderasoftcesi - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\maderasoftcesi - Web Deploy.pubxml">
       <SubType>Designer</SubType>
@@ -462,7 +462,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\RessourcesHumaines\Views\Utilisateur\" />
     <Folder Include="bin\roslyn\" />
-    <Folder Include="Views\Connexion\" />
     <Folder Include="Views\Employe\" />
   </ItemGroup>
   <ItemGroup>

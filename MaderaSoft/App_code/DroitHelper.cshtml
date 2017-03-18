@@ -1,0 +1,60 @@
+﻿@using MaderaSoft.Models.DTO;
+
+
+@functions
+{
+    public class Droit
+    {
+        public static bool utilisateurPeutCreerSurCeService()
+        {
+            EmployeDTO user = (EmployeDTO)HttpContext.Current.Session["utilisateur"];
+            string service = (string)HttpContext.Current.Session["service"];
+            if (user != null && !string.IsNullOrEmpty(service))
+            {
+                AffectationServiceDTO surCeService = user.affectationServices.FirstOrDefault(x => x.service.libe.ToUpper() == service.ToUpper());
+
+                if (surCeService != null)
+                    return surCeService.groupe.create;
+                else
+                    return false;
+            }
+            else
+                return false;
+
+        }
+
+        public static bool utilisateurPeutModifierSurCeService()
+        {
+            EmployeDTO user = (EmployeDTO)HttpContext.Current.Session["utilisateur"];
+            string service = (string)HttpContext.Current.Session["service"];
+            AffectationServiceDTO surCeService = user.affectationServices.FirstOrDefault(x => x.service.libe.ToUpper() == service.ToUpper());
+
+            if (user != null && !string.IsNullOrEmpty(service))
+            {
+                if (surCeService != null)
+                    return surCeService.groupe.update;
+                else
+                    return false;
+            }
+            else
+                return false;
+        }
+
+        public static bool utilisateurPeutSupprimerSurCeService()
+        {
+            EmployeDTO user = (EmployeDTO)HttpContext.Current.Session["utilisateur"];
+            string service = (string)HttpContext.Current.Session["service"];
+            AffectationServiceDTO surCeService = user.affectationServices.FirstOrDefault(x => x.service.libe.ToUpper() == service.ToUpper());
+
+            if (user != null && !string.IsNullOrEmpty(service))
+            {
+                if (surCeService != null)
+                    return surCeService.groupe.delete;
+                else
+                    return false;
+            }
+            else
+                return false;
+        }
+    }
+}
