@@ -1,5 +1,6 @@
 ﻿@using Vereyon.Web
 @using MaderaSoft.Models.DTO;
+@using Madera.Service;
 <!DOCTYPE html>
 <html>
 <head>
@@ -99,7 +100,7 @@
             </ul>
         </li> -->
                             <!-- Tasks Menu -->
-                            <!-- <li class="dropdown tasks-menu">
+                            <!--<li class="dropdown tasks-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 <i class="fa fa-flag-o"></i>
                 <span class="label label-danger">9</span>
@@ -128,8 +129,8 @@
                 </li>
             </ul>
         </li>-->
-                            <!-- User Account Menu -->
-                            <!-- <li class="dropdown user user-menu">
+        <!-- User Account Menu -->
+        <!-- <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 <span class="hidden-xs">Alexander Pierce</span>
             </a>
@@ -163,11 +164,21 @@
                     </div>
                 </li>
             </ul>
-        </li>
-        <li>
-            <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
         </li>-->
-</ul>
+                    @if (user != null)
+                    {
+                        <li>
+                            <a href="#" data-toggle="control-sidebar">
+                                <i class="fa fa-gears"></i>
+                                @if (user != null && user.utilisateur.isFirstConnexion)
+                                    {
+                                    <span class="label label-warning">1</span>
+                                }
+                            </a>
+                        </li>
+                    }
+
+                    </ul>
                 </div>
             </nav>
         </header>
@@ -271,53 +282,48 @@
         <!-- Control Sidebar -->
         <aside class="control-sidebar control-sidebar-dark">
             <!-- Create the tabs -->
-            <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
+            @*<ul class="nav nav-tabs nav-justified control-sidebar-tabs">
                 <li class="active"><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a></li>
                 <li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a></li>
-            </ul>
+            </ul>*@
             <!-- Tab panes -->
             <div class="tab-content">
                 <!-- Home tab content -->
                 <div class="tab-pane active" id="control-sidebar-home-tab">
-                    <h3 class="control-sidebar-heading">Recent Activity</h3>
-                    <ul class="control-sidebar-menu">
-                        <li>
-                            <a href="javascript::;">
-                                <i class="menu-icon fa fa-birthday-cake bg-red"></i>
-
-                                <div class="menu-info">
-                                    <h4 class="control-sidebar-subheading">Langdon's Birthday</h4>
-
-                                    <p>Will be 23 on April 24th</p>
-                                </div>
-                            </a>
-                        </li>
-                    </ul>
                     <!-- /.control-sidebar-menu -->
+                    <div id="persoPwd">
+                        @if (user != null && user.utilisateur.isFirstConnexion)
+                        {
+                            <h3 class="control-sidebar-heading"><i class="fa fa-warning fa-warning-orange"></i> Veuillez personnalisez votre mot de passe</h3>
+                        }
+                        else if (user != null && !user.utilisateur.isFirstConnexion)
+                        {
+                            <h3 class="control-sidebar-heading">Changer votre mot de passe</h3>
+                        }
+                        @if (user != null)
+                        { 
+                            <ul class="control-sidebar-menu">
+                                <li>
+                                    <div class="row">
+                                        <div class="col-md-offset-2 col-md-8">
+                                            @{
+                                                PersoPwdDTO model = new PersoPwdDTO();
+                                                model.id = user.utilisateur.id;
+                                            }
 
-                    <h3 class="control-sidebar-heading">Tasks Progress</h3>
-                    <ul class="control-sidebar-menu">
-                        <li>
-                            <a href="javascript::;">
-                                <h4 class="control-sidebar-subheading">
-                                    Custom Template Design
-                                    <span class="pull-right-container">
-                                        <span class="label label-danger pull-right">70%</span>
-                                    </span>
-                                </h4>
-
-                                <div class="progress progress-xxs">
-                                    <div class="progress-bar progress-bar-danger" style="width: 70%"></div>
-                                </div>
-                            </a>
-                        </li>
-                    </ul>
+                                            @Html.Partial("~/Areas/RessourcesHumaines/Views/GestionDroit/_PersoPwdPartial.cshtml", model)
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        }
+                    </div>
                     <!-- /.control-sidebar-menu -->
 
                 </div>
                 <!-- /.tab-pane -->
                 <!-- Stats tab content -->
-                <div class="tab-pane" id="control-sidebar-stats-tab">Stats Tab Content</div>
+                @*<div class="tab-pane" id="control-sidebar-stats-tab">Stats Tab Content</div>
                 <!-- /.tab-pane -->
                 <!-- Settings tab content -->
                 <div class="tab-pane" id="control-sidebar-settings-tab">
@@ -336,7 +342,7 @@
                         </div>
                         <!-- /.form-group -->
                     </form>
-                </div>
+                </div>*@
                 <!-- /.tab-pane -->
             </div>
         </aside>

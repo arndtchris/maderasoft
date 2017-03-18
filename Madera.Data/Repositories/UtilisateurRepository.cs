@@ -37,11 +37,11 @@ namespace Madera.Data.Repositories
             base.DbContext.Entry(util).Property("password").CurrentValue = pwd;
         }
 
-        public override void Update(Utilisateur entity)
+        /*public override void Update(Utilisateur entity)
         {
 
             base.Update(entity);
-        }
+        }*/
 
 
     }

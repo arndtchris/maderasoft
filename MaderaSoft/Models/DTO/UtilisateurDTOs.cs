@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -68,5 +69,17 @@ namespace MaderaSoft.Models.DTO
     {
         public string login { get; set; }
         public string password { get; set; }
+    }
+
+    public class PersoPwdDTO
+    {
+        public int id { get; set; }
+        [Required(ErrorMessage ="Veuillez saisir un nouveau mot de passe")]
+        public string pwd1 { get; set; }
+
+        [Required(ErrorMessage = "Veuillez ressaisir votre nouveau mot de passe")]
+        [Compare("pwd1", ErrorMessage ="Les mots de passe saisies sont différents")]
+        public string pwd2 { get; set; }
+
     }
 }

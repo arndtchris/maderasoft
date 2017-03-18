@@ -62,7 +62,7 @@ namespace MaderaSoft.Controllers
                 typeNotification = Parametres.TypeNotification.Danger
             });
 
-            return RedirectToAction("Login");
+            return RedirectToAction("Index", "MaderaSoft");
         }
 
         public ActionResult logout()

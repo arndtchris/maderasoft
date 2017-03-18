@@ -137,6 +137,23 @@ namespace Madera.Service
             string cryptedPwd = Crypte(pwd);
             return _utilisateurRepository.Get(x => x.login == login && x.password == cryptedPwd);
         }
+
+        public void ChangePwd(int id, string pwd, string user = "")
+        {
+            Utilisateur util = _utilisateurRepository.GetById(id);
+            util.isFirstConnexion = false;
+            util.password = Crypte(pwd);
+
+            _utilisateurRepository.Update(util);
+
+            _applicationTraceService.create(new ApplicationTrace
+            {
+                utilisateur = user,
+                action = Parametres.Action.Modification.ToString(),
+                description = String.Format("Modification du mot de passe du compte utilisateur utilisateur_id = {0}", id),
+            });
+
+        }
     }
 
     public interface IUtilisateurService : IService<Utilisateur>
@@ -148,6 +165,8 @@ namespace Madera.Service
         void ResetPwd(int id, string user = "");
 
         string Crypte(string password);
+
+        void ChangePwd(int id, string pwd, string user = "");
 
         Utilisateur TrouveUtilisateur(string login, string pwd);
     }

@@ -26,51 +26,6 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
             this._personneService = personneService;
         }
 
-
-
-        // GET: RessourcesHumaines/Utilisateur
-        /*public ActionResult Index()
-        {
-            return View();
-        }*/
-
-        /// <summary>
-        /// Méthode utilisée depuis un appel ajax pour créer un compte utilisateur depuis la ficeh détaillée d'un employé
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        /*public ActionResult CreateUtilisateurDetail(int id)
-        {
-            EmployeDTO employe = new EmployeDTO();
-            CardEmployeUtilisateurViewModel modelOut = new CardEmployeUtilisateurViewModel();
-            employe = Mapper.Map<Employe, EmployeDTO>(_employeService.Get(idEmploye));
-
-            try
-            {
-                employe.utilisateur.login = employe.nom.ToUpperFirst() + '.' + employe.prenom.ToUpper().First();
-                employe.utilisateur.password = Parametres.defaultPassword;
-
-                _employeService.Update(Mapper.Map<EmployeDTO, Employe>(employe));
-                _employeService.Save();
-                FlashMessage.Confirmation("Actualisation du compte utilisateur avec succès");
-
-                modelOut.utilisateur = employe.utilisateur;
-
-
-            }catch(Exception e)
-            {
-
-                modelOut.utilisateur = employe.utilisateur;
-
-                FlashMessage.Danger("Erreur lors de la création du compte utilisateur");
-
-                return PartialView("~/Areas/RessourcesHumaines/Views/Employe/_CardUtilisateurPartial.cshtml", modelOut);
-            }
-
-            return PartialView("~/Areas/RessourcesHumaines/Views/Employe/_CardUtilisateurPartial.cshtml", modelOut);
-        }*/
-
-
         /// <summary>
         /// Méthode utilisée depuis un appel ajax pour réinitialiser le mot de passe d'un employé depuis sa fiche détaillée
         /// </summary>
@@ -184,6 +139,40 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
             }
 
             return PartialView("~/Areas/RessourcesHumaines/Views/Employe/_CardUtilisateurPartial.cshtml", modelOut);
+        }
+
+        public HtmlString PersoPwd(PersoPwdDTO newpwd)
+        {
+            try
+            {
+                _utilisateurService.ChangePwd(newpwd.id, newpwd.pwd1, _donneNomPrenomUtilisateur());
+                _utilisateurService.Save();
+                _updateSession();
+            }
+            catch(Exception e)
+            {
+                return (new HtmlString("<p>Erreur lors de l'actualisation du mot de passe</p>"));
+            }
+
+            return (new HtmlString("<p>Actualisation du mot de passe avec succès</p>"));
+        }
+
+        private string _donneNomPrenomUtilisateur()
+        {
+            EmployeDTO emp = (EmployeDTO)HttpContext.Session["utilisateur"];
+
+            if (emp != null)
+                return string.Format("{0} {1}", emp.nom.ToUpperFirst(), emp.prenom.ToUpperFirst());
+            else
+                return "";
+
+        }
+
+        private void _updateSession()
+        {
+            EmployeDTO emp = (EmployeDTO)HttpContext.Session["utilisateur"];
+            Session["utilisateur"] = Mapper.Map<Employe, EmployeDTO>(_employeService.Get(emp.id));
+
         }
 
 

@@ -1,0 +1,25 @@
+﻿@using MaderaSoft.Models.DTO;
+@using Madera.Service;
+
+@model PersoPwdDTO
+
+
+@using (Ajax.BeginForm("PersoPwd", "Utilisateur", new { area = "RessourcesHumaines" }, new AjaxOptions
+{
+    InsertionMode = InsertionMode.Replace,
+    HttpMethod = "POST",
+    UpdateTargetId = "persoPwd",
+    Url = Url.Action("PersoPwd", "Utilisateur", new { area = "RessourcesHumaines" }, null)
+}))
+{
+@Html.HiddenFor(x => x.id)
+<div class="from-group">
+    @Html.PasswordFor(x => x.pwd1)
+    @Html.ValidationMessageFor(x => x.pwd1)
+</div>
+<div class="from-group">
+    @Html.PasswordFor(x => x.pwd2)
+    @Html.ValidationMessageFor(x => x.pwd2)
+</div>
+@Html.actionButton(" Valider", Parametres.TypeBouton.Submit)
+}
