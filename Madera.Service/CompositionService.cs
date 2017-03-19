@@ -57,6 +57,10 @@ namespace Madera.Service
         {
             return _compositionRepository.GetAll();
         }
+        public List<Composition> DonneTousComposants(int id)
+        {
+            return _compositionRepository.GetCompositions(x => x.module.id == id).ToList();
+        }
 
         public void Save()
         {
@@ -78,7 +82,7 @@ namespace Madera.Service
 
     public interface ICompositionService : IService<Composition>
     {
-
+        List<Composition> DonneTousComposants(int id);
 
     }
 }

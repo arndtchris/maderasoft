@@ -76,11 +76,11 @@ namespace Madera.Service
 
     public interface IComposantService : IService<Composant>
     {
-    //    IEnumerable<Composant> GetComposants();
-    //    Composant GetUnComposant(int id);
-    //    void CreateComposant(Composant composant);
-    //    void UpdateComposant(Composant composant);
-    //    void saveComposant();
-    //    void deleteComposant(int id);
+        //    IEnumerable<Composant> GetComposants();
+        //    Composant GetUnComposant(int id);
+        //    void CreateComposant(Composant composant);
+        //    void UpdateComposant(Composant composant);
+        //    void saveComposant();
+        //    void deleteComposant(int id);
     }
 }

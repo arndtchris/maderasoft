@@ -1,6 +1,32 @@
 ﻿@using MaderaSoft.Areas.RechercheDeveloppement.Models.ViewModels;
 @using Madera.Service;
-@model ModuleIndexViewModel
+@model DetailIndexViewModel
 @{
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        Fiche module
+        <small>recherche et développement</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><i class="fa fa-dashboard"></i> @Html.ActionLink("Recherche et Développement", "Index", "Module", new { area = "RechercheDeveloppement" }, false)</li>
+        <li class="active">Module</li>
+        <li class="active">Détail</li>
+    </ol>
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <div class="col-md-6" id="cardModule">
+            @Html.Partial("~/Areas/RechercheDeveloppement/Views/Module/_CardModulePartial.cshtml", Model.cardModule)
+        </div>
+        <div class="col-md-6" id="cardComposant">
+            @Html.Partial("~/Areas/RechercheDeveloppement/Views/Module/_CardComposantPartial.cshtml", Model.cardComposant)
+        </div>
+    </div>
+    <!-- /.content -->
+</section>

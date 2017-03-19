@@ -80,6 +80,11 @@ namespace MaderaSoft.Areas.GestionStock.Controllers
             if (id.HasValue)
             {
                 editComposant.composant = Mapper.Map<Composant, ComposantDTO>(_composantService.Get(id.Value));
+                modelOut.titreModal = string.Format("Modification des informations du composant");
+            }
+            else
+            {
+                modelOut.titreModal = string.Format("Ajout d'un composant");
             }
             editComposant.lesGammes = _donneListeGammes();
             //On prépare le fournisseur
@@ -145,7 +150,7 @@ namespace MaderaSoft.Areas.GestionStock.Controllers
                     //mdl = Mapper.Map<ModuleDTO, Module>(module);
                     _composantService.Update(cpst, _donneNomPrenomUtilisateur());
 
-                    FlashMessage.Confirmation("Module mis à jour avec succès");
+                    FlashMessage.Confirmation("Composant mis à jour avec succès");
                 }
                 catch (Exception e)
                 {
@@ -167,7 +172,7 @@ namespace MaderaSoft.Areas.GestionStock.Controllers
                     
                     _composantService.Create(cpst, _donneNomPrenomUtilisateur());
 
-                    FlashMessage.Confirmation("Module créé avec succès");
+                    FlashMessage.Confirmation("Composant créé avec succès.");
                 }
                 catch (Exception e)
                 {

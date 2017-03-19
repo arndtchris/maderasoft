@@ -21,21 +21,20 @@
                     @Html.LabelFor(m => m.module.typeModule)
                     @Html.DropDownListFor(m => m.module.typeModule.id, Model.lesGammes)
                 </div>
-                <div class="col-md-4">
-                    @Html.LabelFor(m => m.module.prix)
-                    @Html.TextBoxFor(m => m.module.prix)
-                </div>
             </div>
         </fieldset>
-        <fieldset>
+        @*<fieldset>
             <legend>Composants du module</legend>
             <div class="form-group-lg">
                 <div class="col-md-4">
                     @Html.LabelFor(m => m.module.composition)
                     @Html.DropDownListFor(m => m.idComposant, Model.lesComposants)
                 </div>
+                <div>
+                    @Html.actionButton(" Valider", Parametres.TypeBouton.Submit)
+                </div>
             </div>
-        </fieldset>
+        </fieldset>*@
     </div>
             <div class="modal-footer">
                 @Html.actionButton(" Annuler", Parametres.TypeBouton.DissmissModal)

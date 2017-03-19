@@ -21,14 +21,18 @@ namespace MaderaSoft.Areas.RechercheDeveloppement.Controllers
             private readonly IServiceService _serviceService;
             private readonly ITModuleService _tmoduleService;
             private readonly IComposantService _composantService;
+            private readonly ICompositionService _compositionService;
+            private readonly string _service;
 
 
-        public ModuleController(IModuleService moduleService, IServiceService serviceService, ITModuleService tmoduleService, IComposantService composantService)
+        public ModuleController(IModuleService moduleService, IServiceService serviceService, ITModuleService tmoduleService, IComposantService composantService, ICompositionService compositionService)
             {
                 this._moduleService = moduleService;
                 this._serviceService = serviceService;
                 this._tmoduleService = tmoduleService;
                 this._composantService = composantService;
+                this._compositionService = compositionService;
+                this._service = "Recherche et Développement";
             }
 
             // GET: GestionStock/Stocks
@@ -71,12 +75,17 @@ namespace MaderaSoft.Areas.RechercheDeveloppement.Controllers
             if (id.HasValue)
             {
                 editModule.module = Mapper.Map<Module, ModuleDTO>(_moduleService.Get(id.Value));
+                modelOut.titreModal = string.Format("Modification des informations du module");
+            }
+            else
+            {
+                modelOut.titreModal = string.Format("Ajout d'un module");
             }
 
-                editModule.lesComposants = _donneListeComposants();
+            editModule.lesComposants = _donneListeComposants();
                 editModule.lesGammes = _donneListeGammes();
                 modelOut.formulaireUrl = "~/Areas/RechercheDeveloppement/Views/Module/_EditModulePartial.cshtml";
-                modelOut.titreModal = string.Format("Modification des informations du module");
+                
                 modelOut.objet = editModule;
 
                 return PartialView("~/Views/Shared/_BootstrapModalPartial.cshtml", modelOut);
@@ -129,7 +138,7 @@ namespace MaderaSoft.Areas.RechercheDeveloppement.Controllers
                     //mdl = Mapper.Map<ModuleDTO, Module>(module);
                     _moduleService.Update(mdl, _donneNomPrenomUtilisateur());
 
-                    FlashMessage.Confirmation("Module mis à jour avec succès");
+                    FlashMessage.Confirmation("Module mis à jour avec succès.");
                 }
                 catch (Exception e)
                 {
@@ -150,7 +159,7 @@ namespace MaderaSoft.Areas.RechercheDeveloppement.Controllers
                     mdl.typeModule = _tmoduleService.Get(mdl.typeModule.id);
                     _moduleService.Create(mdl, _donneNomPrenomUtilisateur());
 
-                        FlashMessage.Confirmation("Module créé avec succès");
+                        FlashMessage.Confirmation("Module créé avec succès. Pour ajouter des composants au module, cliquez sur Détail.");
                     }
                     catch (Exception e)
                     {
@@ -194,6 +203,180 @@ namespace MaderaSoft.Areas.RechercheDeveloppement.Controllers
 
                 return RedirectToAction("Index");
             }
+
+        [HttpGet]
+        public ActionResult Detail(int id)
+        {
+            //On renseigne le service courant pour adapater l'IHM en fonction des droits de l'utilisateur connecté
+            Session["service"] = _service;
+
+            DetailIndexViewModel modelOut = new DetailIndexViewModel();
+            ModuleDTO mod = Mapper.Map<Module, ModuleDTO>(_moduleService.Get(id));
+
+            #region préparation de la card module
+
+            modelOut.cardModule.module = new ModuleDTO
+            {
+                id = mod.id,
+                libe = mod.libe,
+                typeModule = mod.typeModule
+            };
+
+            modelOut.cardModule.lesGammes = _donneListeGammes();
+
+            #endregion
+
+            #region préparation des infos composants
+
+            //On prépare le tableau récapitulant les affectations de l'employé
+            modelOut.cardComposant.tableauComposant.avecActionCrud = false;
+            modelOut.cardComposant.tableauComposant.lesLignes.Add(new List<object> { "Composant", "Prix fournisseur", "Prix de vente", "Gamme", "" });
+            List<Composition> composition = new List<Composition>();
+            composition = _compositionService.DonneTousComposants(id);
+
+
+            if (composition.Count != 0)
+            {
+                foreach (Composition cpst in composition)
+                {
+
+                    modelOut.cardComposant.tableauComposant.lesLignes.Add(new List<object> { cpst.composant.libe, cpst.composant.prixHT.ToString(), (cpst.composant.prixHT * (1 + (cpst.composant.gamme.pourcentageGamme/100))).ToString(), cpst.composant.gamme.libe, cpst.id });
+             
+                }
+            }
+
+            modelOut.cardComposant.lesComposants = _donneListeComposants();
+
+            #endregion
+
+
+            return View(modelOut);
+        }
+
+        [HttpPost]
+        public ActionResult DetailComposant(int id, int idComposant)
+        {
+            CardComposantViewModel modelOut = new CardComposantViewModel();
+
+            try
+            {
+                Module mdl = new Module();
+                mdl = _moduleService.Get(id);
+                Composant cpst = new Composant();
+                cpst = _composantService.Get(idComposant);
+                Composition cpstion = new Composition();
+                cpstion.composant = cpst;
+                cpstion.module = mdl;
+
+                mdl.compositions.Add(cpstion);
+
+                decimal prixAvecTaux = Convert.ToDecimal(cpst.prixHT * (1 + (cpst.gamme.pourcentageGamme / 100)));
+                decimal prixtotal = Decimal.Add(mdl.prix , prixAvecTaux);
+                mdl.prix = prixtotal;
+
+                _moduleService.Update(mdl, _donneNomPrenomUtilisateur());
+                _moduleService.Save();
+
+
+                //On reconstruit le tableau récapitulant les composants de l'employé
+                modelOut.tableauComposant.avecActionCrud = false;
+                modelOut.tableauComposant.lesLignes.Add(new List<object> { "Composant", "Prix fournisseur", "Prix de vente", "Gamme", "" });
+                List<Composition> composition1 = new List<Composition>();
+                composition1 = _compositionService.DonneTousComposants(id);
+
+
+                if (composition1.Count != 0)
+                {
+                    foreach (Composition cpst1 in composition1)
+                    {
+
+                        modelOut.tableauComposant.lesLignes.Add(new List<object> { cpst1.composant.libe, cpst1.composant.prixHT.ToString(), (cpst1.composant.prixHT * (1 + (cpst1.composant.gamme.pourcentageGamme / 100))).ToString(), cpst1.composant.gamme.libe, cpst1.id });
+
+                    }
+                }
+
+                modelOut.lesComposants = _donneListeComposants();
+
+                FlashMessage.Confirmation("Composant mis à jour avec succès");
+            }
+            catch (Exception e)
+            {
+
+                FlashMessage.Danger("Erreur lors de la mise à jour du composant");
+
+                return PartialView("~/Areas/RechercheDeveloppement/Views/Module/_CardComposantPartial.cshtml", modelOut);
+            }
+
+
+            //List<Composition> composition = new List<Composition>();
+            //composition = _compositionService.DonneTousComposants(id);
+            //modelOut.lesTypesEmployes = _donneListeTypeEmploye();
+            
+
+            //modelOut.tableauComposant.lesLignes.Add(new List<object> { , module.typeModule.libe, module.prix.ToString(), module.id });
+
+
+            return PartialView("~/Areas/RechercheDeveloppement/Views/Module/_CardComposantPartial.cshtml", modelOut);
+        }
+
+        [HttpPost]
+        public ActionResult DeleteComposantDetail(int idToDelete)
+        {
+            CardComposantViewModel modelOut = new CardComposantViewModel();
+            CompositionDTO cpstion = new CompositionDTO();
+            ModuleDTO mdl = new ModuleDTO();
+            int idModule;
+            decimal prixComposant;
+
+            try
+            {
+                
+                cpstion = Mapper.Map<Composition, CompositionDTO>(_compositionService.Get(idToDelete));
+                prixComposant = Convert.ToDecimal(cpstion.composant.prixHT * (1 + (cpstion.composant.gamme.pourcentageGamme / 100)));
+                _compositionService.Delete(idToDelete, _donneNomPrenomUtilisateur());
+                _compositionService.Save();
+
+                //On récupère les caractéristiques du module
+                idModule = _compositionService.Get(idToDelete).module.id;
+                mdl = Mapper.Map<Module, ModuleDTO>(_moduleService.Get(idModule));
+                mdl.prix = Decimal.Subtract(mdl.prix, prixComposant);
+                _moduleService.Update(Mapper.Map<ModuleDTO, Module>(mdl), _donneNomPrenomUtilisateur());
+                _moduleService.Save();
+
+                //On reconstruit le tableau récapitulant les composants de l'employé
+                modelOut.tableauComposant.avecActionCrud = false;
+                modelOut.tableauComposant.lesLignes.Add(new List<object> { "Composant", "Prix fournisseur", "Prix de vente", "Gamme", "" });
+                List<Composition> composition1 = new List<Composition>();
+                composition1 = _compositionService.DonneTousComposants(idModule);
+
+
+                if (composition1.Count != 0)
+                {
+                    foreach (Composition cpst1 in composition1)
+                    {
+
+                        modelOut.tableauComposant.lesLignes.Add(new List<object> { cpst1.composant.libe, cpst1.composant.prixHT.ToString(), (cpst1.composant.prixHT * (1 + (cpst1.composant.gamme.pourcentageGamme / 100))).ToString(), cpst1.composant.gamme.libe, cpst1.id });
+
+                    }
+                }
+
+                modelOut.lesComposants = _donneListeComposants();
+
+                FlashMessage.Confirmation("Composant mis à jour avec succès");
+
+
+            }
+            catch (Exception e)
+            {
+                FlashMessage.Danger("Erreur lors de la mise à jour du composant");
+
+                return PartialView("~/Areas/RechercheDeveloppement/Views/Module/_CardComposantPartial.cshtml", modelOut);
+
+
+            }
+
+            return PartialView("~/Areas/RechercheDeveloppement/Views/Module/_CardComposantPartial.cshtml", modelOut);
+        }
 
         private string _donneNomPrenomUtilisateur()
         {

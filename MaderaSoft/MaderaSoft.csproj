@@ -390,6 +390,8 @@
     <Content Include="Areas\RechercheDeveloppement\Views\Module\Detail.cshtml" />
     <Content Include="App_code\DroitHelper.cshtml" />
     <Content Include="Areas\RessourcesHumaines\Views\GestionDroit\_PersoPwdPartial.cshtml" />
+    Content Include="Areas\RechercheDeveloppement\Views\Module\_CardModulePartial.cshtml" />
+    <Content Include="Areas\RechercheDeveloppement\Views\Module\_CardComposantPartial.cshtml" />
     <None Include="Properties\PublishProfiles\maderasoftcesi - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\maderasoftcesi - Web Deploy.pubxml">
       <SubType>Designer</SubType>

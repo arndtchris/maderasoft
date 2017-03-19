@@ -1,0 +1,110 @@
+﻿@using MaderaSoft.Areas.RechercheDeveloppement.Models.ViewModels;
+@using MaderaSoft.Models.ViewModel;
+@using Madera.Service;
+@using Vereyon.Web;
+
+
+@model CardComposantViewModel
+
+<style>
+    .alert {
+        position: absolute;
+        z-index: 900;
+        right: 15px;
+    }
+</style>
+
+<script>
+    function fadeOutAlert()
+    {
+        $('.alert').fadeOut(6000);
+        $('[data-toggle="tooltip"]').tooltip();
+    }
+
+</script>
+
+@Html.RenderFlashMessages()
+<div class="content box box-primary">
+    <div class="box-header with-border"><h3 class="box-title">Les composants du module</h3></div>
+    @Html.AfficheNotificationUtilisateur(Model.notifications)
+    @using (Ajax.BeginForm("DetailComposant", "Module", new { area = "RechercheDeveloppement" }, new AjaxOptions
+    {
+        InsertionMode = InsertionMode.Replace,
+        HttpMethod = "POST",
+        UpdateTargetId = "cardComposant",
+        Url = Url.Action("DetailComposant", "Module", new { area = "RechercheDeveloppement" }, null),
+        OnComplete = "fadeOutAlert()"
+    }))
+    {
+        @Html.Hidden("id", Model.module.id)
+        <div class="row">
+            <div class="col-sm-4 col-md-4">
+                @Html.LabelFor(m => m.lesComposants)
+                @Html.DropDownListFor(m => m.idComposant, Model.lesComposants)
+                <p class="bg-warning">@Html.ValidationMessageFor(m => m.lesComposants)</p>
+                @Html.Hidden("idComposant", Model.idComposant)
+            </div>
+            <div class="col-sm-offset-9 col-sm-2 col-md-offset-9 col-md-2">
+                @Html.actionButton(" Valider", Parametres.TypeBouton.Submit, "", "", "")
+            </div>
+        </div>
+    }
+
+
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box">
+                    <div class="box-body table-responsive no-padding">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    @for (int i = 0; i < Model.tableauComposant.lesLignes[0].Count; i++)
+                                    {
+                                        @Html.Raw(String.Format("<th>" + Model.tableauComposant.lesLignes[0][i] + "</th>"));
+                                    }
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                @{
+                                    int nbColonne = Model.tableauComposant.lesLignes[0].Count - 1;
+                                }
+                                @for (int j = 1; j < Model.tableauComposant.lesLignes.Count; j++)
+                                {
+                                    @Html.Raw("<tr>");
+                                    for (int k = 0; k < nbColonne; k++)
+                                    {
+
+                                        @Html.Raw(String.Format("<td class=\"table-text\">" + Model.tableauComposant.lesLignes[j][k]) + "</td>");
+
+                                    }
+
+                                    @Html.Raw("<td class=\"table-text\">");
+
+                                    using (Ajax.BeginForm("DeleteComposant", "Stock", new { area = "RechercheDeveloppement" }, new AjaxOptions
+                                    {
+                                        InsertionMode = InsertionMode.Replace,
+                                        HttpMethod = "POST",
+                                        UpdateTargetId = "cardComposant",
+                                        Url = Url.Action("DeleteComposantDetail", "Module", new { area = "RechercheDeveloppement" }, null),
+                                        Confirm = "Êtes vous sûr de vouloir supprimer ce composant ?",
+                                        OnComplete = "fadeOutAlert()"
+                                    }))
+                                    {
+                                        @Html.Raw("<input name=\"idToDelete\" type=\"hidden\" value=\"" + Model.tableauComposant.lesLignes[j][nbColonne] + "\">")
+                                        @Html.Raw("<button type=\"submit\" class=\"btn btn-danger fa fa-trash\" data-toggle=\"tooltip\" data-placement=\"top\" title=\"Supprimer ce composant\"></button>");
+
+                                    }
+
+                                    @Html.Raw("</td>");
+                                    @Html.Raw("</tr>");
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+
+
