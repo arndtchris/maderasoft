@@ -68,31 +68,32 @@ namespace MaderaSoft.Areas.ServiceCommercial.Controllers
 
         [HttpPost]
         //public ActionResult SavePlan()
-        public ActionResult SavePlan(PlanDTO plan)
+        public ActionResult SavePlan(Plan plan)
         {
             int idModule = 0;
-            List<Etage> etages = new List<Etage>();
+           // List<Etage> etages = new List<Etage>();
 
             if(plan.id != 0)
-            {   
+            {
+                 Plan planOrigine = _planService.Get(plan.id);
 
-                foreach(EtageDTO et in plan.lesEtages)
-                {
-                    foreach(PositionModuleDTO pos in et.lesModules)
-                    {
-                        etages.Add(_etageService.Get(pos.etage.id));
-                    }
-                }
+                 foreach(EtageDTO et in plan.lesEtages)
+                 {
+                     foreach(PositionModuleDTO pos in et.lesModules)
+                     {
+                         _addOrUpdatePositionModule(ref planOrigine, pos);
+                     }
+                 }
 
-                Plan planP = new Plan();
-                planP = Mapper.Map<PlanDTO, Plan>(plan);
+                 Plan planP = new Plan();
+                 planP = Mapper.Map<PlanDTO, Plan>(plan);
                 for(int i = 0; i < planP.listEtages.Count(); i++)
-                {
-                    for(int j =0; j < planP.listEtages.ElementAt(i).listPositionModule.Count(); j++)
-                    {
-                        planP.listEtages.ElementAt(i).listPositionModule.ElementAt(j).etage = etages.ElementAt(i);
-                    }
-                }
+                 {
+                     for(int j =0; j < planP.listEtages.ElementAt(i).listPositionModule.Count(); j++)
+                     {
+                         planP.listEtages.ElementAt(i).listPositionModule.ElementAt(j).etage = etages.ElementAt(i);
+                     }
+                 }
 
                 _planService.Update(planP, _donneNomPrenomUtilisateur());
                 _planService.Save();
@@ -104,11 +105,11 @@ namespace MaderaSoft.Areas.ServiceCommercial.Controllers
 
                     plan.nom = "test";
 
-                    Plan planP = new Plan();
-                    planP = Mapper.Map<PlanDTO, Plan>(plan);
+                    /*Plan planP = new Plan();
+                    planP = Mapper.Map<PlanDTO, Plan>(plan);*/
                     //plan = new Plan();
 
-                    foreach (Etage e in planP.listEtages)
+                    foreach (Etage e in plan.listEtages)
                     {
                         foreach (PositionModule p in e.listPositionModule)
                         {
@@ -123,7 +124,7 @@ namespace MaderaSoft.Areas.ServiceCommercial.Controllers
 
                     try
                     {
-                        _planService.Create(planP, _donneNomPrenomUtilisateur());
+                        _planService.Create(plan, _donneNomPrenomUtilisateur());
                         _planService.Save();
 
                     }
@@ -291,6 +292,37 @@ namespace MaderaSoft.Areas.ServiceCommercial.Controllers
                 return Json("An Error Has occoured");
             }
             
+        }
+
+        private void _addOrUpdatePositionModule(ref Plan planOrigine, PositionModuleDTO position)
+        {
+            if(position.id != 0)//mise à jour
+            {
+                foreach(Etage et in planOrigine.listEtages)
+                {
+                    if(et.listPositionModule.FirstOrDefault(x => x.id == position.id && x.etage.id == position.etage.id) != null)
+                    {
+                        et.listPositionModule.First(x => x.id == position.id && x.etage.id == position.etage.id).module = _moduleService.Get(position.module.id);
+                        et.listPositionModule.First(x => x.id == position.id && x.etage.id == position.etage.id).etage = _etageService.Get(position.etage.id);
+                    }
+                }
+            }
+            else//ajout
+            {
+                PositionModule newPos = new PositionModule();
+                newPos.etage = _etageService.Get(position.etage.id);
+                newPos.module = _moduleService.Get(position.module.id);
+                newPos.x1 = position.x1;
+                newPos.x2 = position.x2;
+                newPos.y2 = position.y2;
+                newPos.y1 = position.y1;
+                newPos.lineId = position.lineId;
+
+                if(planOrigine.listEtages.FirstOrDefault(x => x.id == newPos.etage.id) != null)
+                    planOrigine.listEtages.First(x => x.id == newPos.etage.id).listPositionModule.Add(newPos);
+
+
+            }
         }
 
         private string _donneNomPrenomUtilisateur()

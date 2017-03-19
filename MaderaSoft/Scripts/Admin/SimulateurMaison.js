@@ -85,6 +85,17 @@ $(function () {
 
     });
 
+    $("#effacer").click(function () {
+
+        color = $("#effacer").data("color");
+
+        $("#effacer").removeAttr("data-values");
+
+        console.log('COLOR1', color);
+        makeCursor(color);
+
+    });
+
     $(".module").click(function () {
 
         var mod = $(this).attr("id");
@@ -130,7 +141,7 @@ $(function () {
         event.preventDefault();
 
         var $plan = $(".dessin_svg");
-        
+
         //console.log("PLAN COMPLET", $plan);
 
         //un étage contient une liste de PositionModule, contenus dans lesModules
@@ -150,7 +161,7 @@ $(function () {
 
             //On construit un étage
             $(v).children().each(function (key, value) {
-                
+
                 //console.log("Value", value);
                 var currentData = $(value).children().data("values");
                 var idPosition = $(value).children().data("idposition");
@@ -160,12 +171,13 @@ $(function () {
                 var y1 = $(value).children().attr("y1");
                 var y2 = $(value).children().attr("y2");
                 var lineId = $(value).children().attr("id");
-               
+
                 if (typeof (currentData) != "undefined") {
 
                     if (idPosition === undefined) {
                         var positionModule = {
                             "module": { "id": currentData },
+                            "etage": { "id": parseInt(idEtage[1]) },
                             "x1": x1,
                             "y1": y1,
                             "x2": x2,
@@ -187,12 +199,9 @@ $(function () {
 
                     //On a trouvé un nouveau module, on l'ajoute à ceux de cet étage
                     lesModules.push(positionModule);
-  
+
                 }
             });
-
-
-
 
             //On ajoute les modules à l'étage correspondant
             etage = {
@@ -211,7 +220,7 @@ $(function () {
 
             //On incrémente pour passer à l'étage suivant
             i++;
-            
+
         });
 
         //On ajoute notre liste d'étages au plan
@@ -232,12 +241,13 @@ $(function () {
             }
         }
 
+        console.log("PLLAN", planDTO)
 
         $.ajax({
             method: "POST",
             url: $(event.currentTarget).attr('href'),
             contentType: "application/json",
-            dataType:"json",
+            dataType: "json",
             data: JSON.stringify(planDTO)
         })
         .done(function (data) {
@@ -254,13 +264,20 @@ $(function () {
 
 function changeColor(id) {
     console.log("clique color", id);
+
+    var bool = false;
+
+    if (color === "#000000") {
+        bool = true;
+    } else {
+        $(id).attr("data-values", code);
+    }
+
     $(id).css({ "stroke": color });
-    $(id).attr("data-values", code);
+    
 
     //Apparait dans liste représentant le devis
     console.log("Tbaleau parcours", $("#recap tbody"));
-
-
 
     $("#recap tbody tr").each(function (key, value) {
         console.log('TEST', value);
@@ -288,7 +305,16 @@ function changeColor(id) {
                 tdId = $($td).attr("id");
                 console.log("ppp", tdId);
                 var quantite = $("#" + tdId + " :nth-child(2)").text();
-                quantite = parseInt(quantite) + 1;
+                
+                if (bool === false) {
+                    quantite = parseInt(quantite) + 1;
+                } else {
+                    if (parseInt(quantite) === 0) { $("#" + trId).remove() }
+                    if (parseInt(quantite) > 0) { quantite = parseInt(quantite) - 1; }
+                    
+                }
+
+               
                 $("#" + tdId + " :nth-child(2)").text(quantite);
 
              } else {

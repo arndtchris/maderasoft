@@ -78,11 +78,11 @@ namespace Madera.Service
                 foreach (PositionModule p in e.listPositionModule)
                 {
                     if(p.id != 0){
-                        p.module = moduleRepository.GetById(p.module.id);
+                        //p.module = moduleRepository.GetById(p.module.id);
                         positionModuleRepository.Update(p);
                     }else
                     {
-                        p.module = moduleRepository.GetById(p.module.id);
+                        //p.module = moduleRepository.GetById(p.module.id);
                         positionModuleRepository.Insert(p);
                     }
                 }
