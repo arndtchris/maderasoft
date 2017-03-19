@@ -94,7 +94,7 @@
                                         OnComplete = "fadeOutAlert()"
                                     }))
                                     {
-                                        @if (DroitHelper.Droit.utilisateurPeutSupprimerSurCeService())
+                                        if (DroitHelper.Droit.utilisateurPeutSupprimerSurCeService())
                                         {
                                         @Html.Raw("<input name=\"idToDelete\" type=\"hidden\" value=\"" + Model.tableauComposant.lesLignes[j][nbColonne] + "\">")
                                         @Html.Raw("<button type=\"submit\" class=\"btn btn-danger fa fa-trash\" data-toggle=\"tooltip\" data-placement=\"top\" title=\"Supprimer ce composant\"></button>");

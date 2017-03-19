@@ -32,7 +32,7 @@
                 <span>@Model.utilisateur.login</span>
             </div>        
         </div>
-        <div class="row">
+        @*<div class="row">
             <div class="col-md-6">
                 @Html.LabelFor(m => m.utilisateur.dCreation)
                 <span>@Model.utilisateur.dCreation</span>
@@ -48,7 +48,7 @@
                     <span>L'utilisateur ne s'est pas encore connecté</span>
                 }
             </div>
-        </div>
+        </div>*@
         <div class="row">
             <div class="col-md-offset-9 col-md-1">
                 @using (Ajax.BeginForm("ResetPwdEmployeDetail", "Utilisateur", new { area = "RessourcesHumaines" }, new AjaxOptions

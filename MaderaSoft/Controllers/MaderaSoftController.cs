@@ -45,7 +45,7 @@ namespace MaderaSoft.Controllers
                 _traceService.create(new ApplicationTrace
                 {
                     utilisateur = _donneNomPrenomUtilisateur(),
-                    action = Parametres.Action.Connection.ToString(),
+                    action = Parametres.Action.Connexion.ToString(),
                     description = string.Format("Connexion de {0} {1}", util.nom.ToUpperFirst(), util.prenom.ToUpperFirst())
                 });
 
@@ -73,7 +73,7 @@ namespace MaderaSoft.Controllers
             _traceService.create(new ApplicationTrace
             {
                 utilisateur = _donneNomPrenomUtilisateur(),
-                action = Parametres.Action.Deconnection.ToString(),
+                action = Parametres.Action.Deconnexion.ToString(),
                 description = string.Format("Déconnexion de {0}", _donneNomPrenomUtilisateur())
             });
 

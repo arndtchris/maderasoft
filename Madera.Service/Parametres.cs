@@ -9,8 +9,8 @@ namespace Madera.Service
     {
         public enum Action
         {
-            Connection,
-            Deconnection,
+            Connexion,
+            Deconnexion,
             Creation,
             Modification,
             SuppressionLogique,
