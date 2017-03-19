@@ -32,12 +32,14 @@ namespace MaderaSoft.Areas.RechercheDeveloppement.Controllers
                 this._tmoduleService = tmoduleService;
                 this._composantService = composantService;
                 this._compositionService = compositionService;
-                this._service = "Recherche et Développement";
+                this._service = "Recherche & développement";
             }
 
             // GET: GestionStock/Stocks
             public ActionResult Index()
             {
+                Session["service"] = _service;
+
                 ModuleIndexViewModel modelOut = new ModuleIndexViewModel();
                 BootstrapButtonViewModel button = new BootstrapButtonViewModel();
                 modelOut.tableauModules.typeObjet = "RechercheDeveloppement/Module";
@@ -67,6 +69,7 @@ namespace MaderaSoft.Areas.RechercheDeveloppement.Controllers
             [HttpGet]
             public ActionResult EditModal(int? id)
             {
+                Session["service"] = _service;
 
                 BootstrapModalViewModel modelOut = new BootstrapModalViewModel();
                 CreateModuleViewModel editModule = new CreateModuleViewModel();
@@ -176,7 +179,9 @@ namespace MaderaSoft.Areas.RechercheDeveloppement.Controllers
             [HttpGet]
             public ActionResult DeleteModal(int id)
             {
-            string testid = id.ToString();
+                Session["service"] = _service;
+
+                string testid = id.ToString();
                 BootstrapModalViewModel modelOut = new BootstrapModalViewModel();
                 modelOut.typeObjet = "RechercheDeveloppement/Module";
                 modelOut.formulaireUrl = "~/Views/Shared/_BootstrapDeleteModalPartial.cshtml";
