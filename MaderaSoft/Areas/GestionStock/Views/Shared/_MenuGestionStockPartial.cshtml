@@ -1,0 +1,13 @@
+﻿<li class="treeview">
+    <a href="#">
+        <i class="fa fa-link"></i> <span>Gestion des stocks</span>
+        <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+        </span>
+    </a>
+    <ul class="treeview-menu">
+        <li>@Html.ActionLink("Gestion des fournisseurs", "Index", "Fournisseur", new { area = "GestionStock" }, null)</li>
+        <li>@Html.ActionLink("Gestion des composants", "Index", "Stock", new { area = "GestionStock" }, null)</li>
+    </ul>
+</li>
+

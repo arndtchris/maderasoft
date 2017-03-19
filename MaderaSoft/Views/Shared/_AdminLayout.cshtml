@@ -236,24 +236,21 @@
                             <li><a href="#">Link in level 2</a></li>
                         </ul>
                     </li>-->
-                    @if (user != null && user.affectationServices.FirstOrDefault(x => x.service.libe == "Comptabilité") != null)
+                    @if (user != null && user.affectationServices.FirstOrDefault(x => x.service.libe == "Ressources humaines") != null)
                     {
-
+                        @Html.Partial("~/Areas/RessourcesHumaines/Views/Shared/_MenuRessourcesHumainesPartial.cshtml")
+                    }
+                    @if (user != null && user.affectationServices.FirstOrDefault(x => x.service.libe == "Gestion des stocks") != null)
+                    {
+                        @Html.Partial("~/Areas/GestionStock/Views/Shared/_MenuGestionStockPartial.cshtml")
                     }
                     @if (user != null && user.affectationServices.FirstOrDefault(x => x.service.libe == "Recherche & développement") != null)
                     {
                         @Html.Partial("~/Areas/RechercheDeveloppement/Views/Shared/_MenuRechercheDeveloppementPartial.cshtml")
                     }
-                    @if(user != null && user.affectationServices.FirstOrDefault(x => x.service.libe == "Gestion des stocks") != null)
-                    {
-
-                    }
-                    @if(user != null && user.affectationServices.FirstOrDefault(x => x.service.libe == "Ressources humaines") != null)
-                    {
-                        @Html.Partial("~/Areas/RessourcesHumaines/Views/Shared/_MenuRessourcesHumainesPartial.cshtml")
-                    }
                     @if (user != null && user.affectationServices.FirstOrDefault(x => x.service.libe == "Service commercial") != null)
                     {
+                        @Html.Partial("~/Areas/ServiceCommercial/Views/Shared/_MenuServiceCommercialPartial.cshtml")
 
                     }
 

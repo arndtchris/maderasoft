@@ -395,6 +395,8 @@
     <Content Include="Areas\RechercheDeveloppement\Views\Module\_CardComposantPartial.cshtml" />
     <Content Include="Areas\GestionStock\Views\Fournisseur\Index.cshtml" />
     <Content Include="Areas\GestionStock\Views\Fournisseur\_EditFournisseurPartial.cshtml" />
+    <Content Include="Areas\GestionStock\Views\Shared\_MenuGestionStockPartial.cshtml" />
+    <Content Include="Areas\ServiceCommercial\Views\Shared\_MenuServiceCommercialPartial.cshtml" />
     <None Include="Properties\PublishProfiles\maderasoftcesi - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\maderasoftcesi - Web Deploy.pubxml">
       <SubType>Designer</SubType>
