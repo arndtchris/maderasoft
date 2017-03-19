@@ -8,7 +8,7 @@ using Madera.Model;
 using MaderaSoft.Models.DTO;
 using MaderaSoft.Models.ViewModel;
 
-namespace MaderaSoft.Areas.Simulateur.Models.ViewModels
+namespace MaderaSoft.Areas.ServiceCommercial.Models.ViewModels
 {
     public class IndexViewModel
     {

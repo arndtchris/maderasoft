@@ -15,7 +15,7 @@ $(function () {
 
         $.ajax({
             method: "POST",
-            url: "/Simulateur/Maison/GetPlan",
+            url: "/ServiceCommercial/Maison/GetPlan",
             contentType: "application/json",
             dataType: "html",
             data: "{'id': '" + idPlan + "'}"

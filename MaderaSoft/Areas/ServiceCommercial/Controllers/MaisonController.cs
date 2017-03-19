@@ -4,14 +4,14 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 //using MaderaSoft.Areas.Simulateur.Models.DTOs;
-using MaderaSoft.Areas.Simulateur.Models.ViewModels;
+using MaderaSoft.Areas.ServiceCommercial.Models.ViewModels;
 using MaderaSoft.Models.DTO;
 using MaderaSoft.Models.ViewModel;
 using Madera.Service;
 using Madera.Model;
 using AutoMapper;
 
-namespace MaderaSoft.Areas.Simulateur.Controllers
+namespace MaderaSoft.Areas.ServiceCommercial.Controllers
 {
     public class MaisonController : Controller
     {
@@ -258,7 +258,7 @@ namespace MaderaSoft.Areas.Simulateur.Controllers
                 view.plan = planReturn;
                 view.lesModules = Mapper.Map<List<Module>, List<ModuleDTO>>(_moduleService.DonneTous().ToList());
 
-                return PartialView("~/Areas/Simulateur/Views/Maison/_AffichePlan.cshtml",view);
+                return PartialView("~/Areas/ServiceCommercial/Views/Maison/_AffichePlan.cshtml", view);
                 //return Json(planReturn);
             }
             catch(Exception e)

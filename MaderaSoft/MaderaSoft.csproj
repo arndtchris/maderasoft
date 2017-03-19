@@ -227,9 +227,9 @@
     <Compile Include="Areas\RessourcesHumaines\Models\ViewModels\EmployeViewModels.cs" />
     <Compile Include="Areas\RessourcesHumaines\Models\ViewModels\GestionDroitViewModels.cs" />
     <Compile Include="Areas\RessourcesHumaines\RessourcesHumainesAreaRegistration.cs" />
-    <Compile Include="Areas\Simulateur\Controllers\MaisonController.cs" />
-    <Compile Include="Areas\Simulateur\SimulateurAreaRegistration.cs" />
-    <Compile Include="Areas\Simulateur\Models\ViewModels\MaisonViewModels.cs" />
+    <Compile Include="Areas\ServiceCommercial\Controllers\MaisonController.cs" />
+    <Compile Include="Areas\ServiceCommercial\ServiceCommercialAreaRegistration.cs" />
+    <Compile Include="Areas\ServiceCommercial\Models\ViewModels\MaisonViewModels.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdresseController.cs" />
     <Compile Include="Controllers\DevisFactureController.cs" />
@@ -364,10 +364,10 @@
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Areas\RessourcesHumaines\Views\Employe\Detail.cshtml" />
-    <Content Include="Areas\Simulateur\Views\Maison\Index.cshtml" />
-    <Content Include="Areas\Simulateur\Views\Shared\_Layout.cshtml" />
-    <Content Include="Areas\Simulateur\Views\web.config" />
-    <Content Include="Areas\Simulateur\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\ServiceCommercial\Views\Maison\Index.cshtml" />
+    <Content Include="Areas\ServiceCommercial\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\ServiceCommercial\Views\web.config" />
+    <Content Include="Areas\ServiceCommercial\Views\_ViewStart.cshtml" />
     <Content Include="Areas\RessourcesHumaines\Views\Employe\_CardEmployePartial.cshtml" />
     <Content Include="Areas\RessourcesHumaines\Views\Employe\_CardAdressePartial.cshtml" />
     <Content Include="Areas\RessourcesHumaines\Views\Employe\_CardAffectationPartial.cshtml" />
@@ -385,7 +385,7 @@
     <Content Include="Areas\RessourcesHumaines\Views\Shared\_MenuRessourcesHumainesPartial.cshtml" />
     <Content Include="Areas\RechercheDeveloppement\Views\Shared\_MenuRechercheDeveloppementPartial.cshtml" />
     <Content Include="Areas\RessourcesHumaines\Views\GestionDroit\Index.cshtml" />
-    <Content Include="Areas\Simulateur\Views\Maison\_AffichePlan.cshtml" />
+    <Content Include="Areas\ServiceCommercial\Views\Maison\_AffichePlan.cshtml" />
     <Content Include="Areas\RessourcesHumaines\Views\GestionDroit\_ParametreDroitPartial.cshtml" />
     <Content Include="Areas\RechercheDeveloppement\Views\Module\Detail.cshtml" />
     <Content Include="Areas\RessourcesHumaines\Views\GestionDroit\_PersoPwdPartial.cshtml" />
@@ -395,7 +395,8 @@
     <None Include="Properties\PublishProfiles\maderasoftcesi - Web Deploy.pubxml">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Scripts\jquery-1.10.2.intellisense.js" /><Content Include="App_code\DroitHelper.cshtml" />
+    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="App_code\DroitHelper.cshtml" />
     <Content Include="Areas\RessourcesHumaines\Views\GestionDroit\_PersoPwdPartial.cshtml" />
     <Content Include="App_code\DroitHelper.cshtml" />
     <Content Include="Scripts\grayscale.min.js" />

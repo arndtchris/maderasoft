@@ -119,7 +119,7 @@
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="M:MaderaSoft.Areas.Simulateur.Controllers.MaisonController._donnePlanBDD">
+        <member name="M:MaderaSoft.Areas.ServiceCommercial.Controllers.MaisonController._donnePlanBDD">
             <summary>
             Donne la liste des groupes utilisateur disponibles en base de données
             </summary>

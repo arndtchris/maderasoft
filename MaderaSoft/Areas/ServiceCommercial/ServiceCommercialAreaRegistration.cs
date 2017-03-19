@@ -1,22 +1,22 @@
 ﻿using System.Web.Mvc;
 
-namespace MaderaSoft.Areas.Simulateur
+namespace MaderaSoft.Areas.ServiceCommercial
 {
-    public class SimulateurAreaRegistration : AreaRegistration 
+    public class ServiceCommercialAreaRegistration : AreaRegistration 
     {
         public override string AreaName 
         {
             get 
             {
-                return "Simulateur";
+                return "ServiceCommercial";
             }
         }
 
         public override void RegisterArea(AreaRegistrationContext context) 
         {
             context.MapRoute(
-                "Simulateur_default",
-                "Simulateur/{controller}/{action}/{id}",
+                "ServiceCommercial_default",
+                "ServiceCommercial/{controller}/{action}/{id}",
                 new { action = "Index", id = UrlParameter.Optional }
             );
         }

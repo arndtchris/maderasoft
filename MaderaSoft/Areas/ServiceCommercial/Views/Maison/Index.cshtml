@@ -2,7 +2,7 @@
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 @using Madera.Service;
-@using MaderaSoft.Areas.Simulateur.Models.ViewModels;
+@using MaderaSoft.Areas.ServiceCommercial.Models.ViewModels;
 @model IndexViewModel
 
 <section>
@@ -10,5 +10,5 @@
 </section>
 
 <section>
-    @Html.Partial("~/Areas/Simulateur/Views/Maison/_AffichePlan.cshtml", Model.PlanViewModel)
+    @Html.Partial("~/Areas/ServiceCommercial/Views/Maison/_AffichePlan.cshtml", Model.PlanViewModel)
 </section>

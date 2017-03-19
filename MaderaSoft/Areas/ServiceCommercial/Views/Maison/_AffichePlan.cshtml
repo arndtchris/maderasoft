@@ -1,7 +1,7 @@
 ﻿@using Madera.Service;
 @using Madera.Model;
 @using MaderaSoft.Models.DTO;
-@using MaderaSoft.Areas.Simulateur.Models.ViewModels;
+@using MaderaSoft.Areas.ServiceCommercial.Models.ViewModels;
 @model PlanViewModel
 
 <script src="~/Scripts/Admin/SimulateurMaison.js"></script>
@@ -17,12 +17,12 @@
 
                 @if (Model.plan.id != 0)
                 {
-                    @Html.actionButton("Modifier votre plan", Parametres.TypeBouton.Modification, Url.Action("SavePlan", "Maison", new { area = "Simulateur" }).ToString(), "save_svg")
+                    @Html.actionButton("Modifier votre plan", Parametres.TypeBouton.Modification, Url.Action("SavePlan", "Maison", new { area = "ServiceCommercial" }).ToString(), "save_svg")
             
                 }
                 else
                 {
-                    @Html.actionButton("Sauvegarder votre plan", Parametres.TypeBouton.Creation, Url.Action("SavePlan", "Maison", new { area = "Simulateur" }).ToString(), "save_svg")
+                    @Html.actionButton("Sauvegarder votre plan", Parametres.TypeBouton.Creation, Url.Action("SavePlan", "Maison", new { area = "ServiceCommercial" }).ToString(), "save_svg")
 
                 }
 
