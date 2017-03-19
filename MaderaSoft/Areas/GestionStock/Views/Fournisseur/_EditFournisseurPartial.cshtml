@@ -1,0 +1,61 @@
+﻿@using Madera.Service;
+@using MaderaSoft.Models.DTO;
+@using MaderaSoft.Areas.GestionStock.Models.ViewModels;
+
+@model CreateFournisseurViewModel
+
+
+@using (Html.BeginForm("Edit", "Fournisseur", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-inline", area = "GestionStock" }))
+{
+
+    <div class="modal-body">
+        @Html.HiddenFor(m => m.fournisseur.id)
+        <fieldset>
+            <legend>Informations générales</legend>
+            <div class="form-group-lg">
+                <div class="col-md-4">
+                    @Html.LabelFor(m => m.fournisseur.nom)
+                    @Html.TextBoxFor(m => m.fournisseur.nom)
+                </div>
+                <div class="col-md-4">
+                    @Html.LabelFor(m => m.fournisseur.email)
+                    @Html.TextBoxFor(m => m.fournisseur.email)
+                </div>
+            </div>
+        </fieldset>
+        <fieldset>
+            <legend>Adresse du fournisseur</legend>
+            <div class="form-group-lg">
+                <div class="col-md-4">
+                    @Html.LabelFor(m => m.fournisseur.adresse.numRue)
+                    @Html.TextBoxFor(m => m.fournisseur.adresse.numRue)
+                </div>
+                <div class="col-md-4">
+                    @Html.LabelFor(m => m.fournisseur.adresse.nomRue)
+                    @Html.TextBoxFor(m => m.fournisseur.adresse.nomRue)
+                </div>
+                <div class="col-md-4">
+                    @Html.LabelFor(m => m.fournisseur.adresse.codePostal)
+                    @Html.TextBoxFor(m => m.fournisseur.adresse.codePostal)
+                </div>
+                <div class="col-md-4">
+                    @Html.LabelFor(m => m.fournisseur.adresse.ville)
+                    @Html.TextBoxFor(m => m.fournisseur.adresse.ville)
+                </div>
+                <div class="col-md-4">
+                    @Html.LabelFor(m => m.fournisseur.adresse.pays)
+                    @Html.TextBoxFor(m => m.fournisseur.adresse.pays)
+                </div>
+            </div>
+
+</fieldset>
+    </div>
+    <div class="modal-footer">
+        @Html.actionButton(" Annuler", Parametres.TypeBouton.DissmissModal)
+        @Html.actionButton(" Valider", Parametres.TypeBouton.Submit)
+    </div>
+}
+
+
+
+

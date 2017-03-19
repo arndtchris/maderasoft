@@ -214,6 +214,8 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Areas\GestionStock\Controllers\FournisseurController.cs" />
+    <Compile Include="Areas\GestionStock\Models\ViewModels\FournisseurViewModels.cs" />
     <Compile Include="Areas\RechercheDeveloppement\Controllers\ModuleController.cs" />
     <Compile Include="Areas\RechercheDeveloppement\RechercheDeveloppementAreaRegistration.cs" />
     <Compile Include="Areas\RechercheDeveloppement\Models\ViewModels\ModuleViewModels.cs" />
@@ -391,6 +393,8 @@
     <Content Include="Areas\RessourcesHumaines\Views\GestionDroit\_PersoPwdPartial.cshtml" />
     <Content Include="Areas\RechercheDeveloppement\Views\Module\_CardModulePartial.cshtml" />
     <Content Include="Areas\RechercheDeveloppement\Views\Module\_CardComposantPartial.cshtml" />
+    <Content Include="Areas\GestionStock\Views\Fournisseur\Index.cshtml" />
+    <Content Include="Areas\GestionStock\Views\Fournisseur\_EditFournisseurPartial.cshtml" />
     <None Include="Properties\PublishProfiles\maderasoftcesi - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\maderasoftcesi - Web Deploy.pubxml">
       <SubType>Designer</SubType>

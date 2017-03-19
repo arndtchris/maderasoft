@@ -11,7 +11,7 @@ namespace MaderaSoft.Models.DTO
     {
 
         public int id { get; set; }
-        [DisplayName("Numéro du logement")]
+        [DisplayName("Numéro de rue")]
         [Required(ErrorMessage = "Le numéro du logement est obligatoire.")]
         public string numRue { get; set; }
         [DisplayName("Nom de la rue")]

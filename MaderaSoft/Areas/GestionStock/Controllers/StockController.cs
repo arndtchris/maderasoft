@@ -94,7 +94,6 @@ namespace MaderaSoft.Areas.GestionStock.Controllers
             //On prépare le fournisseur
             List<Personne> listFrnsr = _personneService.DonneTousFournisseurs();
             editComposant.lesFournisseurs = _donneListeFournisseurs() ;
-            modelOut.formulaireUrl = "~/Areas/GestionStock/Views/Stock/_EditStockPartial.cshtml";
             modelOut.titreModal = string.Format("Modification des informations du composant");
             modelOut.objet = editComposant;
 
