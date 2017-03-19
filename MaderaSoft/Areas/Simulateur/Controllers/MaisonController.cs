@@ -58,56 +58,66 @@ namespace MaderaSoft.Areas.Simulateur.Controllers
         }
 
         // POST: Simulateur/Maison
-        public ActionResult Edit()
+        /*public ActionResult Edit()
         {
             return View();
 
-        }
+        }*/
 
         [HttpPost]
         //public ActionResult SavePlan()
-        public ActionResult SavePlan(PlanDTO plan)
+        public ActionResult SavePlan(int id, PlanDTO plan)
         {
             int idModule = 0;
-            if (plan != null)
+
+            if(id != 0)
             {
 
-                plan.nom = "test";
-
-                Plan planP = new Plan();
-                planP = Mapper.Map<PlanDTO, Plan>(plan);
-
-                foreach (Etage e in planP.listEtages)
+            }else
+            {
+                if (plan != null)
                 {
-                    foreach (PositionModule p in e.listPositionModule)
-                    {
-                        idModule = p.module.id;
 
-                        p.module = new Module();
-                        p.module = _moduleService.Get(idModule);
+                    plan.nom = "test";
+
+                    Plan planP = new Plan();
+                    planP = Mapper.Map<PlanDTO, Plan>(plan);
+
+                    foreach (Etage e in planP.listEtages)
+                    {
+                        foreach (PositionModule p in e.listPositionModule)
+                        {
+                            idModule = p.module.id;
+
+                            p.module = new Module();
+                            p.module = _moduleService.Get(idModule);
+                        }
+
+                        idModule = 0;
                     }
 
-                    idModule = 0;
-                }
+                    try
+                    {
+                        _planService.Create(planP);
+                        _planService.Save();
 
-                try
+                    }
+                    catch (Exception e)
+                    {
+                        throw (e);
+                    }
+
+                    return Json("Success");
+                }
+                else
                 {
-                    _planService.Create(planP);
-                    _planService.Save();
-
+                    //return RedirectToAction("Index");
+                    return Json("An Error Has occoured");
                 }
-                catch(Exception e)
-                {
-                    throw (e);
-                }
+            }
 
-                return Json("Success");
-            }
-            else
-            {
-                //return RedirectToAction("Index");
-                return Json("An Error Has occoured");
-            }
+            return Json("Success");
+            
         }
 
         [HttpPost]
@@ -248,7 +258,7 @@ namespace MaderaSoft.Areas.Simulateur.Controllers
                 view.plan = planReturn;
                 view.lesModules = Mapper.Map<List<Module>, List<ModuleDTO>>(_moduleService.DonneTous().ToList());
 
-                return View("~/Areas/Simulateur/Views/Maison/_AffichePlan.cshtml",view);
+                return PartialView("~/Areas/Simulateur/Views/Maison/_AffichePlan.cshtml",view);
                 //return Json(planReturn);
             }
             catch(Exception e)

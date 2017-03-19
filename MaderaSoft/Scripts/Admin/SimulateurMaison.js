@@ -11,24 +11,24 @@ $(function () {
     });*/
 
     $("#ChargePlan").change(function () {
-
-        alert("coucou");
-
         var idPlan = $(this).val();
 
         $.ajax({
             method: "POST",
             url: "/Simulateur/Maison/GetPlan",
             contentType: "application/json",
-            dataType: "json",
+            dataType: "html",
             data: "{'id': '" + idPlan + "'}"
         })
         .done(function (data) {
-            console.log('réussite', data);
 
             $('#AffichePlan').children().css("display", "none");
             $("#AffichePlan").append(data);
 
+        }).error(function (xhr,status, error) {
+            console.log("FAIL", xhr);
+            console.log("FAIL", status);
+            console.log("FAIL", error);
         });
     });
 
@@ -85,9 +85,6 @@ $(function () {
 
     });
 
-
-    // Par la suite, une fonction pour tout les composants récupérer dynamiquement
-
     $(".module").click(function () {
 
         var mod = $(this).attr("id");
@@ -106,7 +103,7 @@ $(function () {
 
     function makeCursor(color) {
 
-        var test = $("#test");
+        var test = $("#AffichePlan");
         var cursor = document.createElement('canvas'),
             ctx = cursor.getContext('2d');
 
@@ -131,6 +128,10 @@ $(function () {
 
     $(".save_svg").click(function (event) {
         event.preventDefault();
+
+        if ($('.p_id').text() !== null) {
+            var idPlan = parseInt($('.p_id').text());
+        }
 
         var $plan = $(".dessin_svg");
         
@@ -210,7 +211,7 @@ $(function () {
             url: $(event.currentTarget).attr('href'),
             contentType: "application/json",
             dataType:"json",
-            data: JSON.stringify(planDTO)
+            data: "{'id': '" + idPlan + "', 'PlanDTO': '" + JSON.stringify(planDTO) + "'}"
         })
         .done(function (data) {
             console.log('réussite');

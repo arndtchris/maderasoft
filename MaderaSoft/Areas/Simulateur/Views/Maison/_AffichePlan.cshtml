@@ -4,6 +4,8 @@
 @using MaderaSoft.Areas.Simulateur.Models.ViewModels;
 @model PlanViewModel
 
+<script src="~/Scripts/Admin/SimulateurMaison.js"></script>
+
 <section id="AffichePlan" class="content">
     <div class="row">
         <div class="col-lg-12">
@@ -12,7 +14,19 @@
                 <label>Largueur</label><input id="larg" type="text" />
                 <label>Longueur</label><input id="long" type="text" />
                 <button id="button_svg">Générer</button>
-                @Html.actionButton("Sauvegarder votre plan", Parametres.TypeBouton.Creation, Url.Action("SavePlan", "Maison", new { area = "Simulateur" }).ToString(), "save_svg")
+
+                @if (Model.plan.id != 0)
+                {
+                    @Html.actionButton("Modifier votre plan", Parametres.TypeBouton.Modification, Url.Action("SavePlan", "Maison", new { area = "Simulateur" }).ToString(), "save_svg")
+            
+                }
+                else
+                {
+                    @Html.actionButton("Sauvegarder votre plan", Parametres.TypeBouton.Creation, Url.Action("SavePlan", "Maison", new { area = "Simulateur" }).ToString(), "save_svg")
+
+                }
+
+
                 <!-- <ul id="carousel" class="elastislide-list">-->
                 @foreach (ModuleDTO module in Model.lesModules)
                 {
@@ -22,7 +36,6 @@
                 <!-- </ul>-->
                 @if (Model.plan.id != 0)
                 {
-
                     int largeur = Model.plan.largeur;
                     int longueur = Model.plan.longueur;
 
@@ -86,12 +99,12 @@
 
                                 if (pm.module != null)
                                 {
-                                    @Html.Raw(String.Format("<a onclick='changeColor(lineLarg{1}{0}{2})' href='#'><line id='lineLong{1}{0}{2}' x1='{3}'x2='{3}' y1='{4}' y2='{5}' stroke='black' stroke-width='5' data-values='{6}' style='stroke: rgb(0, 0, 255);' /></a>", i, j, numEtage, xGrille, yGrille, yAfter, pm.module.id));
+                                    @Html.Raw(String.Format("<a onclick='changeColor(lineLarg{1}{0}{2})' href='#'><line id='lineLarg{1}{0}{2}' x1='{3}'x2='{3}' y1='{4}' y2='{5}' stroke='black' stroke-width='5' data-values='{6}' style='stroke: rgb(0, 0, 255);' /></a>", i, j, numEtage, xGrille, yGrille, yAfter, pm.module.id));
 
                                 }
                                 else
                                 {
-                                    @Html.Raw(String.Format("<a onclick='changeColor(lineLarg{1}{0}{2})' href='#'><line id='lineLong{1}{0}{2}' x1='{3}'x2='{3}' y1='{4}' y2='{5}' stroke='black' stroke-width='5' /></a>", i, j, numEtage, xGrille, yGrille, yAfter));
+                                    @Html.Raw(String.Format("<a onclick='changeColor(lineLarg{1}{0}{2})' href='#'><line id='lineLarg{1}{0}{2}' x1='{3}'x2='{3}' y1='{4}' y2='{5}' stroke='black' stroke-width='5' /></a>", i, j, numEtage, xGrille, yGrille, yAfter));
 
                                 }
                                 yGrille = yAfter;
@@ -121,6 +134,9 @@
                     <h4>Prix total</h4><p id="prixTot"></p>
                 </div>
             </div>
+
+            @Html.Raw(String.Format("<p style='display: none;' class='p_id'>{0}</p>", Model.plan.id))
+            
         </div>
     </div>
 </section>
