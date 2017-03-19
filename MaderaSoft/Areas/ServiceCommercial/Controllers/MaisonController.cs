@@ -17,11 +17,13 @@ namespace MaderaSoft.Areas.ServiceCommercial.Controllers
     {
         private readonly IPlanService _planService;
         private readonly IModuleService _moduleService;
+        private readonly IEtageService _etageService;
 
-        public MaisonController(IPlanService planService, IModuleService moduleService) {
+        public MaisonController(IPlanService planService, IModuleService moduleService, IEtageService etageService) {
 
             _planService = planService;
             _moduleService = moduleService;
+            _etageService = etageService;
 
         }
 
@@ -66,14 +68,36 @@ namespace MaderaSoft.Areas.ServiceCommercial.Controllers
 
         [HttpPost]
         //public ActionResult SavePlan()
-        public ActionResult SavePlan(int id, PlanDTO plan)
+        public ActionResult SavePlan(PlanDTO plan)
         {
             int idModule = 0;
+            List<Etage> etages = new List<Etage>();
 
-            if(id != 0)
-            {
+            if(plan.id != 0)
+            {   
 
-            }else
+                foreach(EtageDTO et in plan.lesEtages)
+                {
+                    foreach(PositionModuleDTO pos in et.lesModules)
+                    {
+                        etages.Add(_etageService.Get(pos.etage.id));
+                    }
+                }
+
+                Plan planP = new Plan();
+                planP = Mapper.Map<PlanDTO, Plan>(plan);
+                for(int i = 0; i < planP.listEtages.Count(); i++)
+                {
+                    for(int j =0; j < planP.listEtages.ElementAt(i).listPositionModule.Count(); j++)
+                    {
+                        planP.listEtages.ElementAt(i).listPositionModule.ElementAt(j).etage = etages.ElementAt(i);
+                    }
+                }
+
+                _planService.Update(planP, _donneNomPrenomUtilisateur());
+                _planService.Save();
+            }
+            else
             {
                 if (plan != null)
                 {
@@ -82,6 +106,7 @@ namespace MaderaSoft.Areas.ServiceCommercial.Controllers
 
                     Plan planP = new Plan();
                     planP = Mapper.Map<PlanDTO, Plan>(plan);
+                    //plan = new Plan();
 
                     foreach (Etage e in planP.listEtages)
                     {
@@ -98,7 +123,7 @@ namespace MaderaSoft.Areas.ServiceCommercial.Controllers
 
                     try
                     {
-                        _planService.Create(planP);
+                        _planService.Create(planP, _donneNomPrenomUtilisateur());
                         _planService.Save();
 
                     }
@@ -266,8 +291,17 @@ namespace MaderaSoft.Areas.ServiceCommercial.Controllers
                 return Json("An Error Has occoured");
             }
             
-            
         }
 
+        private string _donneNomPrenomUtilisateur()
+        {
+            EmployeDTO emp = (EmployeDTO)HttpContext.Session["utilisateur"];
+
+            if (emp != null)
+                return string.Format("{0} {1}", emp.nom.ToUpperFirst(), emp.prenom.ToUpperFirst());
+            else
+                return "";
+
+        }
     }
 }

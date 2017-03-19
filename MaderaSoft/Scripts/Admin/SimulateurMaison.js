@@ -42,7 +42,7 @@ $(function () {
         //Pour le cas ou plus d'un étage, rénitialisation de x et y, et ajout incrémetation du numéro étage indispensable
         x = 10;
         y = 10;
-        var dessin = "<svg class='dessin_svg' id='etage"+etage+"' style='width:500px;height:500px;'>";
+        var dessin = "<svg class='dessin_svg' id='etage_"+etage+"' style='width:500px;height:500px;'>";
 
         var taille = parseInt($("#larg").val()) + 1;
         largeur =  parseInt($("#larg").val());
@@ -129,10 +129,6 @@ $(function () {
     $(".save_svg").click(function (event) {
         event.preventDefault();
 
-        if ($('.p_id').text() !== null) {
-            var idPlan = parseInt($('.p_id').text());
-        }
-
         var $plan = $(".dessin_svg");
         
         //console.log("PLAN COMPLET", $plan);
@@ -149,14 +145,16 @@ $(function () {
         var i = 0;
         //parcours chaque plan d'etage
         $plan.each(function (k, v) {
+            var idEtage = $(v).attr("id");
+            idEtage = idEtage.split("_");
 
-            //console.log("V", v);
-            
             //On construit un étage
             $(v).children().each(function (key, value) {
                 
                 //console.log("Value", value);
                 var currentData = $(value).children().data("values");
+                var idPosition = $(value).children().data("idposition");
+
                 var x1 = $(value).children().attr("x1");
                 var x2 = $(value).children().attr("x2");
                 var y1 = $(value).children().attr("y1");
@@ -165,16 +163,27 @@ $(function () {
                
                 if (typeof (currentData) != "undefined") {
 
-                    var positionModule = {
-                        "module": { "id": currentData },
-                        "x1": x1,
-                        "y1": y1,
-                        "x2": x2,
-                        "y2": y2,
-                        "lineId" : lineId
+                    if (idPosition === undefined) {
+                        var positionModule = {
+                            "module": { "id": currentData },
+                            "x1": x1,
+                            "y1": y1,
+                            "x2": x2,
+                            "y2": y2,
+                            "lineId": lineId
+                        }
+                    } else {
+                        var positionModule = {
+                            "id": idPosition,
+                            "module": { "id": currentData },
+                            "etage": { "id": parseInt(idEtage[1]) },
+                            "x1": x1,
+                            "y1": y1,
+                            "x2": x2,
+                            "y2": y2,
+                            "lineId": lineId
+                        }
                     }
-
-                    //console.log("---------i-------", i);
 
                     //On a trouvé un nouveau module, on l'ajoute à ceux de cet étage
                     lesModules.push(positionModule);
@@ -182,10 +191,16 @@ $(function () {
                 }
             });
 
-            //On ajoute les modules à l'étage correspondant
-            etage = { "lesModules" : lesModules }
 
-            //console.log("-------------ETAGE--------------", lesModules);
+
+
+            //On ajoute les modules à l'étage correspondant
+            etage = {
+                "id": parseInt(idEtage[1]),
+                "lesModules": lesModules
+            }
+
+            console.log("-------------ETAGE--------------", etage);
 
             //On ajoute l'étage que l'on vient de finir
             lesEtages.push(JSON.parse(JSON.stringify(etage)));
@@ -200,18 +215,30 @@ $(function () {
         });
 
         //On ajoute notre liste d'étages au plan
-        planDTO = {
-            "largeur": largeur,
-            "longueur": longueur,
-            "lesEtages": lesEtages
+
+        if ($('.p_id').text() !== null) {
+            var idPlan = parseInt($('.p_id').text());
+            planDTO = {
+                "id": idPlan,
+                "largeur": $('.largeur_edit').text(),
+                "longueur": $('.longueur_edit').text(),
+                "lesEtages": lesEtages
+            }
+        } else {
+            planDTO = {
+                "largeur": largeur,
+                "longueur": longueur,
+                "lesEtages": lesEtages
+            }
         }
+
 
         $.ajax({
             method: "POST",
             url: $(event.currentTarget).attr('href'),
             contentType: "application/json",
             dataType:"json",
-            data: "{'id': '" + idPlan + "', 'PlanDTO': '" + JSON.stringify(planDTO) + "'}"
+            data: JSON.stringify(planDTO)
         })
         .done(function (data) {
             console.log('réussite');

@@ -14,13 +14,19 @@ namespace Madera.Service
         private readonly IPlanRepository planRepository;
         private readonly IApplicationTraceService applicationTraceService;
         private readonly IUnitOfWork unitOfWork;
+        private readonly IPositionModuleRepository positionModuleRepository;
+        private readonly IEtageRepository etageRepository;
+        private readonly IModuleRepository moduleRepository;
 
 
-        public PlanService(IPlanRepository _planRepository, IUnitOfWork _unitOfWork, IApplicationTraceService _applicationTraceService)
+        public PlanService(IPlanRepository _planRepository, IUnitOfWork _unitOfWork, IApplicationTraceService _applicationTraceService, IPositionModuleRepository _positionModuleRepository, IEtageRepository _etageRepository, IModuleRepository _moduleRepository)
         {
             this.planRepository = _planRepository;
             this.applicationTraceService = _applicationTraceService;
             this.unitOfWork = _unitOfWork;
+            this.positionModuleRepository = _positionModuleRepository;
+            this.etageRepository = _etageRepository;
+            this.moduleRepository = _moduleRepository;
         }
 
         public void Create(Plan item, string user = "")
@@ -66,7 +72,23 @@ namespace Madera.Service
 
         public void Update(Plan item, string user = "")
         {
-            planRepository.Update(item);
+
+            foreach (Etage e in item.listEtages)
+            {
+                foreach (PositionModule p in e.listPositionModule)
+                {
+                    if(p.id != 0){
+                        p.module = moduleRepository.GetById(p.module.id);
+                        positionModuleRepository.Update(p);
+                    }else
+                    {
+                        p.module = moduleRepository.GetById(p.module.id);
+                        positionModuleRepository.Insert(p);
+                    }
+                }
+            }
+
+                planRepository.Update(item);
 
             applicationTraceService.create(new ApplicationTrace
             {

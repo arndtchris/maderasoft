@@ -48,7 +48,7 @@
                     // boucle sur les étages du plan
                     foreach (Etage etage in Model.plan.listEtages)
                     {
-                        @Html.Raw(String.Format("<svg class='dessin_svg' id='etage{0}' style='width:500px;height:500px;'>", numEtage));
+                        @Html.Raw(String.Format("<svg class='dessin_svg' id='etage_{0}' style='width:500px;height:500px;'>", numEtage));
 
                         int taille = largeur + 1;
 
@@ -65,7 +65,7 @@
 
                                 if (pm.module != null)
                                 {
-                                    @Html.Raw(String.Format("<a onclick='changeColor(lineLong{0}{1}{2})' href='#'><line id='lineLong{0}{1}{2}' x1='{3}'x2='{4}' y1='{5}' y2='{5}' stroke='black' stroke-width='5' data-values='{6}' style='stroke: rgb(0, 0, 255);'/></a>", i, j, numEtage, xGrille, xAfter, yGrille, pm.module.id));
+                                    @Html.Raw(String.Format("<a onclick='changeColor(lineLong{0}{1}{2})' href='#'><line id='lineLong{0}{1}{2}' x1='{3}'x2='{4}' y1='{5}' y2='{5}' stroke='black' stroke-width='5' data-idPosition='{7}' data-values='{6}' style='stroke: rgb(0, 0, 255);'/></a>", i, j, numEtage, xGrille, xAfter, yGrille, pm.module.id, pm.id));
 
                                 }
                                 else
@@ -99,7 +99,7 @@
 
                                 if (pm.module != null)
                                 {
-                                    @Html.Raw(String.Format("<a onclick='changeColor(lineLarg{1}{0}{2})' href='#'><line id='lineLarg{1}{0}{2}' x1='{3}'x2='{3}' y1='{4}' y2='{5}' stroke='black' stroke-width='5' data-values='{6}' style='stroke: rgb(0, 0, 255);' /></a>", i, j, numEtage, xGrille, yGrille, yAfter, pm.module.id));
+                                    @Html.Raw(String.Format("<a onclick='changeColor(lineLarg{1}{0}{2})' href='#'><line id='lineLarg{1}{0}{2}' x1='{3}'x2='{3}' y1='{4}' y2='{5}' stroke='black' stroke-width='5' data-idPosition='{7}' data-values='{6}' style='stroke: rgb(0, 0, 255);' /></a>", i, j, numEtage, xGrille, yGrille, yAfter, pm.module.id, pm.id));
 
                                 }
                                 else
@@ -136,6 +136,8 @@
             </div>
 
             @Html.Raw(String.Format("<p style='display: none;' class='p_id'>{0}</p>", Model.plan.id))
+            @Html.Raw(String.Format("<p style='display: none;' class='largeur_edit'>{0}</p>", Model.plan.largeur))
+            @Html.Raw(String.Format("<p style='display: none;' class='longueur_edit'>{0}</p>", Model.plan.longueur))
             
         </div>
     </div>
