@@ -98,10 +98,6 @@ namespace Madera.Data
             {
                 new Service
                 {
-                    libe = "Comptabilité"
-                },
-                new Service
-                {
                     libe = "Gestion des stocks"
                 },
                 new Service

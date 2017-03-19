@@ -18,18 +18,23 @@ namespace MaderaSoft.Areas.ServiceCommercial.Controllers
         private readonly IPlanService _planService;
         private readonly IModuleService _moduleService;
         private readonly IEtageService _etageService;
+        private readonly string _service;
+
 
         public MaisonController(IPlanService planService, IModuleService moduleService, IEtageService etageService) {
 
             _planService = planService;
             _moduleService = moduleService;
             _etageService = etageService;
+            _service = "Service commercial";
+
 
         }
 
         // GET: Simulateur/Maison
         public ActionResult Index()
         {
+            Session["service"] = _service;
 
             IndexViewModel view = new IndexViewModel();
             view.lesPlans = _donnePlanBDD();
