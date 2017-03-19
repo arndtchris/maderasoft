@@ -20,6 +20,7 @@ namespace MaderaSoft.Areas.GestionStock.Controllers
         private readonly IServiceService _serviceService;
         private readonly IGammeService _gammeService;
         private readonly IPersonneService _personneService;
+        private readonly string _service;
 
 
         public StockController(IComposantService composantService, IServiceService serviceService, IGammeService gammeService, IPersonneService personneService)
@@ -28,11 +29,14 @@ namespace MaderaSoft.Areas.GestionStock.Controllers
             this._serviceService = serviceService;
             this._gammeService = gammeService;
             this._personneService = personneService;
+            this._service = "Gestion des stocks";
         }
 
         // GET: GestionStock/Stocks
         public ActionResult Index()
         {
+
+            Session["service"] = _service;
             StockIndexViewModel modelOut = new StockIndexViewModel();
             BootstrapButtonViewModel button = new BootstrapButtonViewModel();
             modelOut.tableauComposants.typeObjet = "GestionStock/Stock";
@@ -62,7 +66,7 @@ namespace MaderaSoft.Areas.GestionStock.Controllers
         [HttpGet]
         public ActionResult EditModal(int? id)
         {
-
+            Session["service"] = _service;
             BootstrapModalViewModel modelOut = new BootstrapModalViewModel();
             CreateStockViewModel editComposant = new CreateStockViewModel();
             BootstrapButtonViewModel button = new BootstrapButtonViewModel();
@@ -190,6 +194,7 @@ namespace MaderaSoft.Areas.GestionStock.Controllers
         [HttpGet]
         public ActionResult DeleteModal(int id)
         {
+            Session["service"] = _service;
             BootstrapModalViewModel modelOut = new BootstrapModalViewModel();
             modelOut.typeObjet = "GestionStock/Stock";
             modelOut.formulaireUrl = "~/Views/Shared/_BootstrapDeleteModalPartial.cshtml";

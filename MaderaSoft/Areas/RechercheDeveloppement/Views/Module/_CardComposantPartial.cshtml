@@ -45,7 +45,10 @@
                 @Html.Hidden("idComposant", Model.idComposant)
             </div>
             <div class="col-sm-offset-9 col-sm-2 col-md-offset-9 col-md-2">
+@if (DroitHelper.Droit.utilisateurPeutCreerSurCeService() || DroitHelper.Droit.utilisateurPeutModifierSurCeService())
+{
                 @Html.actionButton(" Valider", Parametres.TypeBouton.Submit, "", "", "")
+}
             </div>
         </div>
     }
@@ -91,9 +94,11 @@
                                         OnComplete = "fadeOutAlert()"
                                     }))
                                     {
+                                        @if (DroitHelper.Droit.utilisateurPeutSupprimerSurCeService())
+                                        {
                                         @Html.Raw("<input name=\"idToDelete\" type=\"hidden\" value=\"" + Model.tableauComposant.lesLignes[j][nbColonne] + "\">")
                                         @Html.Raw("<button type=\"submit\" class=\"btn btn-danger fa fa-trash\" data-toggle=\"tooltip\" data-placement=\"top\" title=\"Supprimer ce composant\"></button>");
-
+                                        }
                                     }
 
                                     @Html.Raw("</td>");

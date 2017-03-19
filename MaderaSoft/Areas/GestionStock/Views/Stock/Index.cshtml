@@ -21,9 +21,10 @@
 
 <!-- Main content -->
 <section class="content">
-
+@if (DroitHelper.Droit.utilisateurPeutCreerSurCeService())
+{
     @Html.actionButton("Ajouter un nouveau composant", Parametres.TypeBouton.Creation, Url.Action("EditModal", "Stock", new { area = "GestionStock" }).ToString(), "editModal")
-
+}
     @{
         Html.bootstrapTable(Model.tableauComposants);
     }

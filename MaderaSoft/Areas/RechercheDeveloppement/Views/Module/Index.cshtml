@@ -22,8 +22,10 @@
 <!-- Main content -->
 <section class="content">
 
+    @if (DroitHelper.Droit.utilisateurPeutCreerSurCeService())
+    {
     @Html.actionButton("Ajouter un nouveau module", Parametres.TypeBouton.Creation, Url.Action("EditModal", "Module", new { area = "RechercheDeveloppement" }).ToString(), "editModal")
-
+    }
     @{
         Html.bootstrapTable(Model.tableauModules);
     }
