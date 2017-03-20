@@ -69,7 +69,7 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
                 });
 
                 FlashMessage.Confirmation("Mot de passe réinitialisé");
-
+                _updateSession();
                 modelOut.utilisateur = utilisateur;
             }
             catch(Exception e)

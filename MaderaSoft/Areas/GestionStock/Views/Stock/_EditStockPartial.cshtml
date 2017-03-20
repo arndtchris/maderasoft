@@ -13,12 +13,12 @@
         <fieldset>
             <legend>Informations module</legend>
             <div class="form-group-lg">
-                <div class="col-md-4">
+                <div class="col-md-5">
                     @Html.LabelFor(m => m.composant.libe)
                     @Html.TextBoxFor(m => m.composant.libe)
                     <p class="bg-warning">@Html.ValidationMessageFor(m => m.composant.libe)</p>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-5">
                     @Html.LabelFor(m => m.composant.gamme)
                     @Html.DropDownListFor(m => m.composant.gamme.id, Model.lesGammes)
                 </div>

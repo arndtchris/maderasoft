@@ -634,6 +634,8 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
 
                 #endregion
 
+                _donneNomPrenomUtilisateur();
+
                 return PartialView("~/Areas/RessourcesHumaines/Views/Employe/_CardAffectationPartial.cshtml", modelOut);
             }
 
@@ -642,7 +644,7 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
 
         private string _donneNomPrenomUtilisateur()
         {
-            EmployeDTO emp =  (EmployeDTO)HttpContext.Session["utilisateur"];
+            EmployeDTO emp = (EmployeDTO)HttpContext.Session["utilisateur"];
 
             if (emp != null)
                 return string.Format("{0} {1}", emp.nom.ToUpperFirst(), emp.prenom.ToUpperFirst());

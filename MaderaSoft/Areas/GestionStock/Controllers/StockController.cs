@@ -81,7 +81,7 @@ namespace MaderaSoft.Areas.GestionStock.Controllers
             //    modelOut.titreModal = "Edition d'un composant";
             //}
 
-            if (id.HasValue)
+            if (id != null)
             {
                 editComposant.composant = Mapper.Map<Composant, ComposantDTO>(_composantService.Get(id.Value));
                 modelOut.titreModal = string.Format("Modification des informations du composant");
@@ -93,9 +93,9 @@ namespace MaderaSoft.Areas.GestionStock.Controllers
             editComposant.lesGammes = _donneListeGammes();
             //On prépare le fournisseur
             List<Personne> listFrnsr = _personneService.DonneTousFournisseurs();
-            editComposant.lesFournisseurs = _donneListeFournisseurs() ;
-            modelOut.titreModal = string.Format("Modification des informations du composant");
+            editComposant.lesFournisseurs = _donneListeFournisseurs();
             modelOut.objet = editComposant;
+            modelOut.formulaireUrl = "~/Areas/GestionStock/Views/Stock/_EditStockPartial.cshtml";
 
             return PartialView("~/Views/Shared/_BootstrapModalPartial.cshtml", modelOut);
 

@@ -61,49 +61,56 @@
                         <table class="table table-hover">
                             <thead>
                                 <tr>
-                                    @for (int i = 0; i < Model.tableauComposant.lesLignes[0].Count; i++)
+                                    @if (Model.tableauComposant.lesLignes.Count > 0)
                                     {
-                                        @Html.Raw(String.Format("<th>" + Model.tableauComposant.lesLignes[0][i] + "</th>"));
-                                    }
-                                </tr>
-                            </thead>
-                            <tbody>
-
-                                @{
-                                    int nbColonne = Model.tableauComposant.lesLignes[0].Count - 1;
-                                }
-                                @for (int j = 1; j < Model.tableauComposant.lesLignes.Count; j++)
-                                {
-                                    @Html.Raw("<tr>");
-                                    for (int k = 0; k < nbColonne; k++)
-                                    {
-
-                                        @Html.Raw(String.Format("<td class=\"table-text\">" + Model.tableauComposant.lesLignes[j][k]) + "</td>");
-
-                                    }
-
-                                    @Html.Raw("<td class=\"table-text\">");
-
-                                    using (Ajax.BeginForm("DeleteComposant", "Stock", new { area = "RechercheDeveloppement" }, new AjaxOptions
-                                    {
-                                        InsertionMode = InsertionMode.Replace,
-                                        HttpMethod = "POST",
-                                        UpdateTargetId = "cardComposant",
-                                        Url = Url.Action("DeleteComposantDetail", "Module", new { area = "RechercheDeveloppement" }, null),
-                                        Confirm = "Êtes vous sûr de vouloir supprimer ce composant ?",
-                                        OnComplete = "fadeOutAlert()"
-                                    }))
-                                    {
-                                        if (DroitHelper.Droit.utilisateurPeutSupprimerSurCeService())
+                                        for (int i = 0; i < Model.tableauComposant.lesLignes[0].Count; i++)
                                         {
-                                        @Html.Raw("<input name=\"idToDelete\" type=\"hidden\" value=\"" + Model.tableauComposant.lesLignes[j][nbColonne] + "\">")
-                                        @Html.Raw("<button type=\"submit\" class=\"btn btn-danger fa fa-trash\" data-toggle=\"tooltip\" data-placement=\"top\" title=\"Supprimer ce composant\"></button>");
+                                            @Html.Raw(String.Format("<th>" + Model.tableauComposant.lesLignes[0][i] + "</th>"));
                                         }
                                     }
 
-                                    @Html.Raw("</td>");
-                                    @Html.Raw("</tr>");
-                                }
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model.tableauComposant.lesLignes.Count > 0)
+                                {
+
+                                        int nbColonne = Model.tableauComposant.lesLignes[0].Count - 1;
+
+                                        for (int j = 1; j < Model.tableauComposant.lesLignes.Count; j++)
+                                        {
+                                            @Html.Raw("<tr>");
+                                            for (int k = 0; k < nbColonne; k++)
+                                            {
+
+                                                @Html.Raw(String.Format("<td class=\"table-text\">" + Model.tableauComposant.lesLignes[j][k]) + "</td>");
+
+                                            }
+
+                                            @Html.Raw("<td class=\"table-text\">");
+
+                                            using (Ajax.BeginForm("DeleteComposant", "Module", new { area = "RechercheDeveloppement" }, new AjaxOptions
+                                            {
+                                                InsertionMode = InsertionMode.Replace,
+                                                HttpMethod = "POST",
+                                                UpdateTargetId = "cardComposant",
+                                                Url = Url.Action("DeleteComposantDetail", "Module", new { area = "RechercheDeveloppement" }, null),
+                                                Confirm = "Êtes vous sûr de vouloir supprimer ce composant ?",
+                                                OnComplete = "fadeOutAlert()"
+                                            }))
+                                            {
+                                                if (DroitHelper.Droit.utilisateurPeutSupprimerSurCeService())
+                                                {
+                                                    @Html.Raw("<input name=\"idToDelete\" type=\"hidden\" value=\"" + Model.tableauComposant.lesLignes[j][nbColonne] + "\">")
+                                                    @Html.Raw("<button type=\"submit\" class=\"btn btn-danger fa fa-trash\" data-toggle=\"tooltip\" data-placement=\"top\" title=\"Supprimer ce composant\"></button>");
+                                                }
+                                            }
+
+                                            @Html.Raw("</td>");
+                                            @Html.Raw("</tr>");
+                                        }
+
+                                        }
                             </tbody>
                         </table>
                     </div>
