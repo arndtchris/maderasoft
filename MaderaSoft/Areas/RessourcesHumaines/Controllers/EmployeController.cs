@@ -481,8 +481,7 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
                 modelOut.lesServices = _donneListeService();
 
                 //On met à jour l'utilisateur en session, car lesa ffectations influes sur les éléments du menu de navigation
-                EmployeDTO util = Mapper.Map<Employe, EmployeDTO>(_employeService.Get(nouvelleAffectation.emplyeId));
-                Session["utilisateur"] = util;
+                _updateSession();
 
 
             }
@@ -634,11 +633,11 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
 
                 #endregion
 
-                _donneNomPrenomUtilisateur();
+                
 
                 return PartialView("~/Areas/RessourcesHumaines/Views/Employe/_CardAffectationPartial.cshtml", modelOut);
             }
-
+            _updateSession();
             return PartialView("~/Areas/RessourcesHumaines/Views/Employe/_CardAffectationPartial.cshtml", modelOut);
         }
 
@@ -690,6 +689,13 @@ namespace MaderaSoft.Areas.RessourcesHumaines.Controllers
             lesServices.Insert(0, new SelectListItem() { Text = "--- Sélectionnez ---", Value = "" });
 
             return lesServices;
+        }
+
+        private void _updateSession()
+        {
+            EmployeDTO emp = (EmployeDTO)HttpContext.Session["utilisateur"];
+            Session["utilisateur"] = Mapper.Map<Employe, EmployeDTO>(_employeService.Get(emp.id));
+
         }
 
         /// <summary>
