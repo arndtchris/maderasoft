@@ -1,5 +1,6 @@
 ﻿var color = "";
 var code = "";
+var prix = "";
 var nom = "";
 var longueur = "";
 var largeur = "";
@@ -106,6 +107,7 @@ $(function () {
         color = $("#" + mod).data("color");
         code = $("#" + mod).data("code");
         nom = $("#" + mod).data("nom");
+        prix = $("#" + mod).data("prix");
 
         console.log('COLOR1', color);
         makeCursor(color);
@@ -269,10 +271,12 @@ function changeColor(id) {
 
     if (color === "#000000") {
         bool = true;
+        var idTrait = $(id).attr("id");
     } else {
         $(id).attr("data-values", code);
     }
-
+    console.log("prix", prix)
+    $(id).attr("data-prix", prix);
     $(id).css({ "stroke": color });
     
 
@@ -296,6 +300,18 @@ function changeColor(id) {
                 console.log("aaa", "#" + trId + " :nth-child(2)")
                 $td = $("#" + trId + " :nth-child(2)");
 
+                console.log("PRIIIIIIIIIIIIIIX", prix);
+
+                var prix_devis = $("#" + trId + " :nth-child(3)").text();
+                console.log("prix_devis", $("#" + trId + " :nth-child(3)"));
+                if (bool === false) {
+                    prix_devis = parseInt(prix_devis) + prix;
+                } else {
+                    if (parseInt(prix_devis) > 0) { prix_devis = parseInt(prix_devis) - prix; }
+
+                }
+               
+
                 console.log("---------$td--------", $("#" + trId + " :nth-child(2)"));
 
                 $p = $($td).children();
@@ -316,6 +332,7 @@ function changeColor(id) {
 
                
                 $("#" + tdId + " :nth-child(2)").text(quantite);
+                //$("#" + tdId + " :nth-child(2)").data("prix", prix);
 
              } else {
 

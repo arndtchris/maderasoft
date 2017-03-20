@@ -32,7 +32,7 @@
                 @foreach (ModuleDTO module in Model.lesModules)
                 {
                     // @Html.Raw(String.Format("<li><img class='module' id='{0}_svg' data-code='{1}' data-nom='{0}' data-color='#0000ff' src='' alt='{0}' /><button class='module' id='{0}_svg' data-code='{1}' data-nom='{0}' data-color='#0000ff'>{0}</button></li>", module.libe, module.id));
-                    @Html.Raw(String.Format("<button class='module' id='{0}_svg' data-code='{1}' data-nom='{0}' data-color='#0000ff'>{0}</button>", module.libe, module.id));
+                    @Html.Raw(String.Format("<button class='module' id='{0}_svg' data-code='{1}' data-nom='{0}' data-prix='{2}' data-color='#0000ff'>{0}</button>", module.libe, module.id, module.prix));
                 }
                 <!-- </ul>-->
                 @if (Model.plan.id != 0)
