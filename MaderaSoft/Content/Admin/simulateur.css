@@ -40,3 +40,17 @@
 #recap p{
     display:inline-block;
 }
+
+#Prix_div{
+    text-align: center;
+}
+
+#prixTot{
+    display: inline-block;
+    width: 50%;
+}
+
+#euros{
+    display: inline-block;
+    width: 49%;
+}

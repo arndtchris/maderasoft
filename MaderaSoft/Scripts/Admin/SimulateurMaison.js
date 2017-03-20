@@ -271,17 +271,18 @@ function changeColor(id) {
     console.log("clique color", id);
 
     var bool = false;
-
+    var idTrait = $(id).attr("id");
     if (color === "#000000") {
         bool = true;
-        var idTrait = $(id).attr("id");
+        
     } else {
         $(id).attr("data-values", code);
     }
     console.log("prix", prix)
-    $(id).attr("data-prix", prix);
+    $(id).attr("data-prix", parseInt(prix));
     $(id).css({ "stroke": color });
     
+    console.log("idTrait", idTrait);
 
     //Apparait dans liste représentant le devis
     console.log("Tbaleau parcours", $("#recap tbody"));
@@ -306,14 +307,16 @@ function changeColor(id) {
                 console.log("PRIIIIIIIIIIIIIIX", prix);
 
                 var prix_devis = $("#" + trId + " :nth-child(3)").text();
-                console.log("prix_devis", $("#" + trId + " :nth-child(3)"));
-                if (bool === false) {
-                    prix_devis = parseInt(prix_devis) + prix;
-                } else {
-                    if (parseInt(prix_devis) > 0) { prix_devis = parseInt(prix_devis) - prix; }
+                console.log("prix_devis", $("#" + trId + " :nth-child(3)").text());
 
+                if (bool === false) {
+                    //prix_devis = parseInt(prix_devis) + parseInt(prix);
+                    calculTotal(prix,"+");
+                } else {
+                    if (parseInt(prix_devis) > 0) { calculTotal(prix, "-"); }//prix_devis = parseInt(prix_devis) - parseInt(prix); }
                 }
-               
+                
+                console.log("PRIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIX", prix);
 
                 console.log("---------$td--------", $("#" + trId + " :nth-child(2)"));
 
@@ -345,7 +348,8 @@ function changeColor(id) {
                      nomMod = nom;
                      console.log("---------------------DANS LE ELSE---------------------", nomMod);
                      quantite = 1;
-                     prix = 0;
+                     calculTotal(prix,"+");
+                     //prix = 0;
                      html = "<tr id='" + nomMod + "'><td>" + nomMod + "</td><td id='" + nomMod + "_quantite'><p>x</p><p class='quantite'>" + quantite + "</p></td><td>" + prix + "</td></tr>";
                      $("#recap tbody").append(html);
                  }
@@ -360,7 +364,8 @@ function changeColor(id) {
         nomMod = nom;
         console.log("LE PREMIER", nomMod);
         quantite = 1;
-        prix = 0;
+        calculTotal(prix,"+");
+        //prix = 0;
         html = "<tr id='" + nomMod + "'><td>" + nomMod + "</td><td id='"+nomMod+"_quantite'><p>x</p><p class='quantite'>" + quantite + "</p></td><td>" + prix + "</td></tr>";
         $("#recap tbody").append(html);
     }
@@ -369,4 +374,43 @@ function changeColor(id) {
 
 function fadeOutAlert() {
     $(".alert").fadeOut(6000);
+}
+
+function calculTotal(prix_devis, type) {
+
+    console.log("ppppppppppppp", $("#prixTot").text())
+
+    if(type === "+"){
+        if ($("#prixTot").text() === "") {
+            $("#prixTot").text(prix_devis);
+        } else {
+            var prixTotal = parseInt($("#prixTot").text());
+
+            console.log("prix_total", prixTotal);
+            console.log("prix_devis", prix_devis);
+
+            prixTotal = parseInt(prixTotal) + parseInt(prix_devis);
+
+            console.log("prix_total", prixTotal);
+
+            $("#euros").text("€");
+            $("#prixTot").text(prixTotal);
+        }
+    }else{
+        if ($("#prixTot").text() === "") {
+            $("#prixTot").text(prix_devis);
+        } else {
+            var prixTotal = parseInt($("#prixTot").text());
+
+            console.log("prix_total", prixTotal);
+            console.log("prix_devis", prix_devis);
+
+            prixTotal = parseInt(prixTotal) - parseInt(prix_devis);
+
+            console.log("prix_total", prixTotal);
+
+            $("#euros").text("€");
+            $("#prixTot").text(prixTotal);
+        }
+    }
 }
