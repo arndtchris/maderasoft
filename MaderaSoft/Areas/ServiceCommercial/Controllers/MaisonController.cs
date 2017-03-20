@@ -73,14 +73,14 @@ namespace MaderaSoft.Areas.ServiceCommercial.Controllers
 
         [HttpPost]
         //public ActionResult SavePlan()
-        public ActionResult SavePlan(Plan plan)
+        public ActionResult SavePlan(PlanDTO plan)
         {
             int idModule = 0;
            // List<Etage> etages = new List<Etage>();
 
             if(plan.id != 0)
             {
-                 Plan planOrigine = _planService.Get(plan.id);
+                 /*Plan planOrigine = _planService.Get(plan.id);
 
                  foreach(EtageDTO et in plan.lesEtages)
                  {
@@ -101,7 +101,7 @@ namespace MaderaSoft.Areas.ServiceCommercial.Controllers
                  }
 
                 _planService.Update(planP, _donneNomPrenomUtilisateur());
-                _planService.Save();
+                _planService.Save();*/
             }
             else
             {
@@ -110,11 +110,11 @@ namespace MaderaSoft.Areas.ServiceCommercial.Controllers
 
                     plan.nom = "test";
 
-                    /*Plan planP = new Plan();
-                    planP = Mapper.Map<PlanDTO, Plan>(plan);*/
+                    Plan planP = new Plan();
+                    planP = Mapper.Map<PlanDTO, Plan>(plan);
                     //plan = new Plan();
 
-                    foreach (Etage e in plan.listEtages)
+                    foreach (Etage e in planP.listEtages)
                     {
                         foreach (PositionModule p in e.listPositionModule)
                         {
@@ -129,7 +129,7 @@ namespace MaderaSoft.Areas.ServiceCommercial.Controllers
 
                     try
                     {
-                        _planService.Create(plan, _donneNomPrenomUtilisateur());
+                        _planService.Create(planP, _donneNomPrenomUtilisateur());
                         _planService.Save();
 
                     }

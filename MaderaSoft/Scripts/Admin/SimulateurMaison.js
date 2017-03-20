@@ -226,13 +226,13 @@ $(function () {
         });
 
         //On ajoute notre liste d'étages au plan
-
-        if ($('.p_id').text() !== null) {
+        console.log("p_id", $('.p_id').text());
+        if ($('.p_id').text() !== "0") {
             var idPlan = parseInt($('.p_id').text());
             planDTO = {
                 "id": idPlan,
-                "largeur": $('.largeur_edit').text(),
-                "longueur": $('.longueur_edit').text(),
+                "largeur": parseInt($('.largeur_edit').text()),
+                "longueur": parseInt($('.longueur_edit').text()),
                 "lesEtages": lesEtages
             }
         } else {
