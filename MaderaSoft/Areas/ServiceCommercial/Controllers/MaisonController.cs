@@ -10,6 +10,7 @@ using MaderaSoft.Models.ViewModel;
 using Madera.Service;
 using Madera.Model;
 using AutoMapper;
+using Vereyon.Web;
 
 namespace MaderaSoft.Areas.ServiceCommercial.Controllers
 {
@@ -19,14 +20,16 @@ namespace MaderaSoft.Areas.ServiceCommercial.Controllers
         private readonly IModuleService _moduleService;
         private readonly IEtageService _etageService;
         private readonly string _service;
+        private readonly IApplicationTraceService _traceService;
 
 
-        public MaisonController(IPlanService planService, IModuleService moduleService, IEtageService etageService) {
+        public MaisonController(IPlanService planService, IModuleService moduleService, IEtageService etageService, IApplicationTraceService traceService) {
 
             _planService = planService;
             _moduleService = moduleService;
             _etageService = etageService;
             _service = "Service commercial";
+            _traceService = traceService;
 
 
         }
@@ -212,6 +215,15 @@ namespace MaderaSoft.Areas.ServiceCommercial.Controllers
                 view.plan = planReturn;
                 view.lesModules = Mapper.Map<List<Module>, List<ModuleDTO>>(_moduleService.DonneTous().ToList());
 
+                FlashMessage.Confirmation("Mise à jour réussie");
+
+                _traceService.create(new ApplicationTrace
+                {
+                    action = Parametres.Action.Modification.ToString(),
+                    description = String.Format("Mise à jour du plan_id={0}", view.plan.id),
+                    utilisateur = _donneNomPrenomUtilisateur()
+                });
+
                 return PartialView("~/Areas/ServiceCommercial/Views/Maison/_AffichePlan.cshtml", view);
 
             }
@@ -375,6 +387,13 @@ namespace MaderaSoft.Areas.ServiceCommercial.Controllers
                         view.plan = planReturn;
                         view.lesModules = Mapper.Map<List<Module>, List<ModuleDTO>>(_moduleService.DonneTous().ToList());
 
+                        FlashMessage.Confirmation("Sauvegarde réussie");
+                        _traceService.create(new ApplicationTrace
+                        {
+                            action = Parametres.Action.Creation.ToString(),
+                            description = String.Format("Création du plan_id={0}", view.plan.id),
+                            utilisateur = _donneNomPrenomUtilisateur()
+                        });
                         return PartialView("~/Areas/ServiceCommercial/Views/Maison/_AffichePlan.cshtml", view);
                     }
                     catch (Exception e)

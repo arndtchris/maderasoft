@@ -256,6 +256,7 @@ $(function () {
             console.log('réussite');
             $('#AffichePlan').children().css("display", "none");
             $("#AffichePlan").append(data);
+            fadeOutAlert();
         })
         .fail(function (data) {
             console.log("fail");
@@ -364,4 +365,8 @@ function changeColor(id) {
         $("#recap tbody").append(html);
     }
 
+}
+
+function fadeOutAlert() {
+    $(".alert").fadeOut(6000);
 }

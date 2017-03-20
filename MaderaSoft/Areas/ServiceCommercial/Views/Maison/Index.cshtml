@@ -3,12 +3,16 @@
 }
 @using Madera.Service;
 @using MaderaSoft.Areas.ServiceCommercial.Models.ViewModels;
+@using Vereyon.Web;
 @model IndexViewModel
 
 <section>
     @Html.DropDownList("Choissiez votre plan: ", @Model.lesPlans, new {id = "ChargePlan" })
 </section>
 
+@Html.RenderFlashMessages()
+
 <section>
     @Html.Partial("~/Areas/ServiceCommercial/Views/Maison/_AffichePlan.cshtml", Model.PlanViewModel)
 </section>
+

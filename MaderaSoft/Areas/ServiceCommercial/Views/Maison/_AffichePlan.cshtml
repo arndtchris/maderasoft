@@ -2,11 +2,15 @@
 @using Madera.Model;
 @using MaderaSoft.Models.DTO;
 @using MaderaSoft.Areas.ServiceCommercial.Models.ViewModels;
+@using Vereyon.Web;
 @model PlanViewModel
 
 <script src="~/Scripts/Admin/SimulateurMaison.js"></script>
 
 <section id="AffichePlan" class="content">
+
+    @Html.RenderFlashMessages()
+
     <div class="row">
         <div class="col-lg-12">
             <h2>Plan maison modulaire</h2>
