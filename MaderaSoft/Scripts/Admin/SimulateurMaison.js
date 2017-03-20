@@ -249,11 +249,13 @@ $(function () {
             method: "POST",
             url: $(event.currentTarget).attr('href'),
             contentType: "application/json",
-            dataType: "json",
+            dataType: "html",
             data: JSON.stringify(planDTO)
         })
         .done(function (data) {
             console.log('réussite');
+            $('#AffichePlan').children().css("display", "none");
+            $("#AffichePlan").append(data);
         })
         .fail(function (data) {
             console.log("fail");
